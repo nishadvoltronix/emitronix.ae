@@ -370,6 +370,21 @@ test("SalesIQ loader removes a failed script so the launcher can retry", async (
   );
 });
 
+test("CSP permits the SalesIQ tracking socket without allowing arbitrary WebSockets", async () => {
+  const config = await readFile(new URL("../next.config.ts", import.meta.url), "utf8");
+  const connectDirective = config.match(/`connect-src ([^`]+)`/)?.[1];
+
+  assert.ok(connectDirective, "the enforced connect-src directive must exist");
+  assert.equal(
+    connectDirective,
+    "'self' https: wss://vts.zohopublic.com${isDevelopment ? \" ws:\" : \"\"}",
+  );
+  assert.doesNotMatch(connectDirective, /(?:^|\s)wss:(?:\s|$)|wss:\/\/\*/);
+  assert.match(config, /key: "Content-Security-Policy"/);
+  assert.match(config, /"object-src 'none'"/);
+  assert.match(config, /"frame-ancestors 'self'"/);
+});
+
 test("floating action opens Zoho chat instead of the call button", async () => {
   const [floatingActions, consentManager] = await Promise.all([
     readFile(new URL("../components/FloatingActions.tsx", import.meta.url), "utf8"),

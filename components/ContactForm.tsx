@@ -2,7 +2,9 @@
 
 import { Loader2, Send } from "lucide-react";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { FormEvent, Suspense, useEffect, useRef, useState, type RefObject } from "react";
+import { prefillContactService } from "@/lib/contactFormIntent";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -30,6 +32,30 @@ const arabicScopeOptions = [
   "موافقات الجهات",
   "إدارة المشاريع",
 ];
+
+function ContactIntentPrefill({
+  serviceRef,
+  serviceEdited,
+  siteVisitLabel,
+}: {
+  serviceRef: RefObject<HTMLSelectElement | null>;
+  serviceEdited: RefObject<boolean>;
+  siteVisitLabel: string;
+}) {
+  const searchParams = useSearchParams();
+  const query = searchParams.toString();
+
+  useEffect(() => {
+    prefillContactService(
+      serviceRef.current,
+      new URLSearchParams(query).getAll("intent"),
+      siteVisitLabel,
+      serviceEdited.current,
+    );
+  }, [query, siteVisitLabel, serviceRef, serviceEdited]);
+
+  return null;
+}
 
 export function ContactForm({
   scopeOptions,
@@ -93,6 +119,8 @@ export function ContactForm({
       };
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
+  const serviceRef = useRef<HTMLSelectElement>(null);
+  const serviceEdited = useRef(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -141,6 +169,10 @@ export function ContactForm({
 
   return (
     <form dir={isArabic ? "rtl" : "ltr"} onSubmit={handleSubmit} className="luxury-surface rounded-[2rem] p-5 sm:p-7">
+      {/* Keep the form server-rendered; only the URL hint needs client query state. */}
+      <Suspense fallback={null}>
+        <ContactIntentPrefill serviceRef={serviceRef} serviceEdited={serviceEdited} siteVisitLabel={text.siteVisit} />
+      </Suspense>
       <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-black text-charcoal">
@@ -165,7 +197,14 @@ export function ContactForm({
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal sm:col-span-2">
           {text.service}
-          <select name="service" className={inputClass} defaultValue="" required>
+          <select
+            ref={serviceRef}
+            name="service"
+            className={inputClass}
+            defaultValue=""
+            onChange={() => { serviceEdited.current = true; }}
+            required
+          >
             <option value="" disabled>
               {text.selectService}
             </option>

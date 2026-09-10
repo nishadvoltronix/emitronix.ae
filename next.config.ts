@@ -84,7 +84,9 @@ const securityHeaders = [
       "font-src 'self' data: https:",
       "style-src 'self' 'unsafe-inline' https:",
       `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https:`,
-      `connect-src 'self' https:${isDevelopment ? " ws:" : ""}`,
+      // SalesIQ Live View uses this secure WebSocket after Analytics consent.
+      // HTTPS sources do not authorize WSS; keep the allowance host-specific.
+      `connect-src 'self' https: wss://vts.zohopublic.com${isDevelopment ? " ws:" : ""}`,
       "frame-src 'self' https://www.googletagmanager.com",
       "worker-src 'self' blob:",
       "upgrade-insecure-requests",

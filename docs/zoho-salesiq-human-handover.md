@@ -16,6 +16,14 @@ In SalesIQ, open **Settings > Brands > Emitronix > Website**.
    - Operator busy: `Our team could not accept the chat in time. Please leave your name, mobile number and enquiry, and we will contact you shortly.`
    - Operator offline: `Our team is currently offline. Please leave your name, mobile number and enquiry, and we will contact you shortly.`
 
+## Website-managed consent and tracking transport
+
+This site uses its own cookie banner. In **Settings > Brands > Emitronix > Manage > General configurations > Privacy > Cookie management**, select **Manage cookies on my own** and save. Do not select **Use the SalesIQ banner for cookie consent**: that mode does not apply the website's `privacy.updateCookieConsent(...)` calls. Keep Analytics consent as the gate for visitor tracking; do not turn off consent requirements to make Live View populate.
+
+The website's production **Content-Security-Policy** must include `wss://vts.zohopublic.com` in `connect-src`. The deployed SalesIQ tracking runtime uses that host's `/watchws` connection, and an `https:` source alone does not permit it. Keep the allowance specific to this host; other data centers must be verified against their own public widget configuration rather than enabling every WebSocket origin.
+
+After any deployment or consent-setting change, verify both acceptance and denial: an Analytics-consented test visit should appear in Live View, while denied or untouched Analytics must not activate optional visitor tracking. A working chat launcher alone does not establish that tracking works. Name and email are only available if the visitor identifies themselves through an authorized interaction.
+
 ## Department and operator readiness
 
 In **Settings > Brands > Emitronix**, confirm the bot's department is enabled and responsible for website chats. Then verify:

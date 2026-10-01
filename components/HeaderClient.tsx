@@ -105,7 +105,10 @@ export function HeaderClient({
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const transparent = pathname === "/" && !scrolled && !open && !megaOpen;
   const closeTimer = useRef<number | null>(null);
+  const megaOpenedByHover = useRef(false);
+  const megaMenuRef = useRef<HTMLDivElement>(null);
   const megaButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const serviceDetailPaths = services.flatMap((item) => {
@@ -126,7 +129,11 @@ export function HeaderClient({
     setOpen(false);
     setMobileServicesOpen(false);
     setMegaOpen(false);
+    megaOpenedByHover.current = false;
+    clearCloseTimer();
   }, [pathname]);
+
+  useEffect(() => () => clearCloseTimer(), []);
 
   useEffect(() => {
     if (!megaOpen) return;
@@ -135,11 +142,24 @@ export function HeaderClient({
       if (event.key !== "Escape") return;
       clearCloseTimer();
       setMegaOpen(false);
+      megaOpenedByHover.current = false;
       megaButtonRef.current?.focus();
     };
 
+    const onPointerDown = (event: PointerEvent) => {
+      if (!megaMenuRef.current?.contains(event.target as Node)) {
+        clearCloseTimer();
+        megaOpenedByHover.current = false;
+        setMegaOpen(false);
+      }
+    };
+
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
   }, [megaOpen]);
 
   useEffect(() => {
@@ -175,32 +195,51 @@ export function HeaderClient({
 
   function openMegaMenu() {
     clearCloseTimer();
-    setMegaOpen(true);
+    if (!megaOpen) {
+      megaOpenedByHover.current = true;
+      setMegaOpen(true);
+    }
+  }
+
+  function closeMegaMenu() {
+    clearCloseTimer();
+    megaOpenedByHover.current = false;
+    setMegaOpen(false);
   }
 
   function scheduleMegaClose() {
     clearCloseTimer();
-    closeTimer.current = window.setTimeout(() => setMegaOpen(false), 420);
+    closeTimer.current = window.setTimeout(() => {
+      if (!megaMenuRef.current?.contains(document.activeElement)) {
+        megaOpenedByHover.current = false;
+        setMegaOpen(false);
+      }
+      closeTimer.current = null;
+    }, 250);
   }
 
   return (
     <header
       dir={isArabic ? "rtl" : "ltr"}
+      data-header-transparent={transparent}
       className={`sticky top-0 z-50 border-b transition-all duration-500 ${
-        scrolled
+        transparent
+          ? "border-white/20 bg-transparent shadow-none"
+          : scrolled || (pathname === "/" && (open || megaOpen))
           ? "border-brand/[0.15] bg-white/[0.92] shadow-[0_18px_70px_rgba(25,73,145,0.10)] backdrop-blur-2xl"
           : "border-brand/[0.08] bg-white/[0.82] shadow-none backdrop-blur-xl"
       }`}
     >
       <div className="container-pad">
-        <div className="flex h-20 items-center justify-between gap-4 transition-[height] duration-500">
+        <div className="relative flex h-20 items-center justify-between gap-4">
           <Link
             href={localizedPath("/", locale)}
-            className="flex min-w-0 items-center rounded-xl focus-ring"
+            className="flex shrink-0 items-center rounded-xl focus-ring"
             aria-label={copy.homeLabel}
             aria-current={isCurrentPage("/") ? "page" : undefined}
           >
             <BrandLogo
+              variant={transparent ? "reversed" : "primary"}
               className="block shrink-0"
               imageClassName="h-12 w-auto object-contain sm:h-14 lg:h-16 min-[1440px]:h-12 2xl:h-14"
               sizes="(min-width: 1536px) 240px, (min-width: 1440px) 206px, (min-width: 1024px) 274px, (min-width: 640px) 240px, 206px"
@@ -208,21 +247,28 @@ export function HeaderClient({
             />
           </Link>
 
-          <nav className="hidden items-center gap-1 min-[1440px]:flex" aria-label="Primary navigation">
+          <nav className="hidden flex-1 items-center justify-center gap-1 min-[1440px]:flex" aria-label="Primary navigation">
             {currentNavItems.map((item) => {
               const active = isActive(item.href);
-              const baseClass = `inline-flex items-center gap-1 rounded-full px-4 py-2.5 text-xs font-black uppercase tracking-wide transition focus-ring ${
-                active ? "bg-brand text-white shadow-blue" : "text-charcoal/[0.78] hover:bg-brand-soft hover:text-brand"
+              const baseClass = `inline-flex h-11 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 text-xs font-bold uppercase tracking-[0.02em] transition focus-ring ${
+                transparent
+                  ? active
+                    ? "bg-white/15 text-white"
+                    : "text-white hover:bg-white/15"
+                  : active
+                    ? "bg-brand text-white shadow-blue"
+                    : "text-charcoal/[0.78] hover:bg-brand-soft hover:text-brand"
               }`;
 
               if (item.href === "/services") {
                 return (
                   <div
                     key={item.href}
-                    className="relative -my-4 py-4"
+                    ref={megaMenuRef}
+                    className="-my-4 shrink-0 py-4"
                     onMouseEnter={openMegaMenu}
                     onMouseLeave={scheduleMegaClose}
-                    onFocus={openMegaMenu}
+                    onFocus={clearCloseTimer}
                     onBlur={(event) => {
                       const nextTarget = event.relatedTarget as Node | null;
                       if (!nextTarget || !event.currentTarget.contains(nextTarget)) scheduleMegaClose();
@@ -232,26 +278,30 @@ export function HeaderClient({
                       ref={megaButtonRef}
                       type="button"
                       className={baseClass}
-                      aria-haspopup="true"
                       aria-expanded={megaOpen}
                       aria-controls="desktop-services-menu"
                       aria-current={isCurrentPage("/services") ? "page" : undefined}
                       onClick={() => {
                         clearCloseTimer();
-                        setMegaOpen(true);
+                        setMegaOpen(megaOpenedByHover.current || !megaOpen);
+                        megaOpenedByHover.current = false;
                       }}
                     >
                       {item.label}
-                      <ChevronDown size={14} strokeWidth={2.4} className={`transition duration-300 ${megaOpen ? "rotate-180" : ""}`} />
+                      <ChevronDown size={14} strokeWidth={2.4} aria-hidden="true" className={`shrink-0 transition duration-300 ${megaOpen ? "rotate-180" : ""}`} />
                     </button>
                     <div
                       id="desktop-services-menu"
-                      className={`absolute left-1/2 top-full z-50 w-[min(94vw,980px)] -translate-x-1/2 pt-5 transition duration-300 ${
+                      className={`absolute left-1/2 top-full z-50 w-[min(100%,980px)] -translate-x-1/2 pt-3 transition duration-300 ${
                         megaOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-3 opacity-0"
                       }`}
                       aria-hidden={!megaOpen}
+                      inert={!megaOpen}
+                      onClick={(event) => {
+                        if ((event.target as Element).closest("a")) closeMegaMenu();
+                      }}
                     >
-                      <div className="premium-menu-panel">
+                      <div className="premium-menu-panel max-h-[calc(100dvh-104px)] overflow-y-auto overscroll-contain">
                         <div className="grid gap-4 lg:grid-cols-[1fr_1fr_0.82fr]">
                           <div className="rounded-[1.6rem] border border-brand/10 bg-pearl p-4">
                             <div className="flex items-center gap-3">
@@ -320,7 +370,7 @@ export function HeaderClient({
                               <Sparkles className="h-5 w-5" />
                             </span>
                             <p className="mt-5 text-xs font-black uppercase tracking-[0.24em] text-steel">{copy.sectorFocus}</p>
-                            <h3 className="mt-2 text-2xl font-black tracking-tight text-charcoal">{copy.sectorTitle}</h3>
+                            <p className="mt-2 text-2xl font-black tracking-tight text-charcoal">{copy.sectorTitle}</p>
                             <div className="mt-5 grid gap-2">
                               {copy.industryLinks.map((link) => (
                                 <Link key={link.label} href={localizedPath(link.href, locale)} className="premium-menu-link">
@@ -350,10 +400,14 @@ export function HeaderClient({
             })}
           </nav>
 
-          <div className="hidden items-center gap-3 min-[1440px]:flex">
+          <div className="hidden shrink-0 items-center gap-3 min-[1440px]:flex">
             <Link
               href="/search"
-              className="grid h-11 w-11 place-items-center rounded-full border border-brand/[0.15] bg-white text-brand transition hover:bg-brand-soft focus-ring"
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border transition focus-ring ${
+                transparent
+                  ? "border-white/45 bg-transparent text-white hover:bg-white/15"
+                  : "border-brand/[0.15] bg-white text-brand hover:bg-brand-soft"
+              }`}
               aria-label={isArabic ? "البحث في الموقع" : "Search the website"}
               aria-current={isCurrentPage("/search") ? "page" : undefined}
             >
@@ -361,18 +415,22 @@ export function HeaderClient({
             </Link>
             <Link
               href={localizedPath("/contact", locale)}
-              className="premium-button"
+              className="premium-button h-11 shrink-0 whitespace-nowrap px-5 py-0 text-xs"
               aria-current={isCurrentPage("/contact") ? "page" : undefined}
             >
-              {copy.quote} <ArrowRight className="h-4 w-4" />
+              {copy.quote} <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
             </Link>
             <Link
               href={languageHref}
               prefetch={false}
-              className="premium-button-light"
+              className={`h-11 shrink-0 whitespace-nowrap px-4 py-0 text-xs ${
+                transparent
+                  ? "inline-flex items-center justify-center gap-2 rounded-full border border-white/45 bg-transparent font-black uppercase tracking-wide text-white transition duration-300 hover:bg-white/15 focus-ring"
+                  : "premium-button-light"
+              }`}
               aria-label={copy.languageLabel}
             >
-              <Languages className="h-4 w-4" />
+              <Languages className="h-4 w-4 shrink-0" aria-hidden="true" />
               {copy.language}
             </Link>
           </div>
@@ -380,7 +438,11 @@ export function HeaderClient({
           <button
             ref={mobileMenuButtonRef}
             type="button"
-            className="grid h-12 w-12 place-items-center rounded-full border border-brand/[0.15] bg-white/[0.9] text-charcoal shadow-sm backdrop-blur-xl transition hover:border-brand/[0.35] hover:bg-brand-soft hover:text-brand focus-ring min-[1440px]:hidden"
+            className={`grid h-12 w-12 shrink-0 place-items-center rounded-full border transition focus-ring min-[1440px]:hidden ${
+              transparent
+                ? "border-white/45 bg-transparent text-white hover:bg-white/15"
+                : "border-brand/[0.15] bg-white/[0.9] text-charcoal shadow-sm backdrop-blur-xl hover:border-brand/[0.35] hover:bg-brand-soft hover:text-brand"
+            }`}
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-navigation-menu"
@@ -392,7 +454,7 @@ export function HeaderClient({
       </div>
 
       {open ? (
-        <div className="border-t border-brand/[0.15] bg-white/[0.96] shadow-luxe backdrop-blur-2xl min-[1440px]:hidden">
+        <div className="max-h-[calc(100dvh-80px)] overflow-y-auto overscroll-contain border-t border-brand/[0.15] bg-white/[0.96] shadow-luxe backdrop-blur-2xl min-[1440px]:hidden">
           <nav id="mobile-navigation-menu" className="container-pad grid gap-2 py-5" aria-label="Mobile navigation">
             {currentNavItems.map((item) => {
               const active = isActive(item.href);

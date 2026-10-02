@@ -1,16 +1,16 @@
-import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, ClipboardCheck, FileCheck2, MessageCircle, PhoneCall } from "lucide-react";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
+import { ArrowRight, CalendarCheck, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { approvalServices, type ApprovalService } from "@/data/approvals";
-import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
+import { SectionPhotograph } from "@/components/SectionPhotograph";
 import { buildApprovalExpandedFaqs, getApprovalDeepContent } from "@/data/serviceDeepContent";
-import { getGeneratedImage } from "@/data/generatedImages";
+import { getInternalServiceImage, getSectionPhotographs, getUniquePhotoAttribution } from "@/data/pagePhotography";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
 import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
-import { CTA } from "./CTA";
 import { ContactForm } from "./ContactForm";
-import { FAQSection, InsightGrid, TrustBar } from "./ContentBlocks";
-import { PageHero, PremiumSectionHeading } from "./Premium";
+import { FAQSection } from "./ContentBlocks";
+import { PremiumSectionHeading } from "./Premium";
 
 type ApprovalServicePageProps = {
   service: ApprovalService;
@@ -60,26 +60,12 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
   };
   const pageUrl = absoluteUrl(service.href);
-  const approvalImage = getGeneratedImage(service.generatedImage);
-  const imageUrl = absoluteUrl(approvalImage.desktop.src);
+  const approvalImage = getInternalServiceImage(service.href);
+  const sectionPhotographs = getSectionPhotographs(service.href, 4, [approvalImage.src]);
+  const imageUrl = absoluteUrl(approvalImage.src);
   const relatedPages = service.related
     .map((slug) => approvalServices.find((item) => item.slug === slug))
     .filter((item): item is ApprovalService => Boolean(item));
-  const readinessItems = [
-    {
-      title: "Scope and jurisdiction review",
-      description: `The ${service.menuLabel} route starts by confirming the authority path, project category, location and stakeholders involved.`,
-    },
-    {
-      title: "Document gap visibility",
-      description: "Drawings, NOCs, authorization documents, previous approvals and consultant inputs are reviewed before avoidable submission cycles begin.",
-    },
-    {
-      title: "Comment and inspection control",
-      description: "Authority comments, revisions, inspection preparation and close-out records stay connected to the construction-side workflow.",
-    },
-  ];
-
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -132,6 +118,8 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     name: `${service.menuLabel} coordination image`,
     caption: approvalImage.alt,
     description: approvalImage.alt,
+    width: approvalImage.width,
+    height: approvalImage.height,
   };
   const webPageJsonLd = {
     "@context": "https://schema.org",
@@ -174,428 +162,144 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     })),
   };
 
+  const documentChecklist = Array.from(new Set([...service.documents, ...deepContent.documents]));
+  const resourceLinks = Array.from(new Map([
+    ...deepContent.internalLinkBlocks,
+    ...relatedPages.map((item) => ({ href: item.href, title: item.menuLabel, description: item.metaDescription })),
+  ].map((item) => [item.href, item])).values());
+
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Approval", href: "/approval" },
-          { label: service.menuLabel },
-        ]}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Approval", href: "/approval" }, { label: service.menuLabel }]}
         eyebrow={service.eyebrow}
         title={service.h1}
         description={service.heroText}
-        imageAsset={approvalImage}
+        image={approvalImage.src}
+        imageAlt={approvalImage.alt}
+        imageCaption={approvalImage.caption}
+        imageAttribution={getUniquePhotoAttribution(approvalImage)}
+        imagePosition={approvalImage.objectPosition}
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}
         secondaryCta={{ label: "All Approvals", href: "/approval" }}
-        metrics={[
-          { value: "Dubai", label: "Authority jurisdiction focus" },
-          { value: "Docs", label: "Submission package control" },
-          { value: "Comments", label: "Response coordination" },
-          { value: "Close-out", label: "Inspection readiness" },
-        ]}
+        showPlanningSummary={false}
       />
 
-      <AnswerEngineSummary
-        question={`How does ${service.menuLabel} work in Dubai?`}
-        answer={`Begin by confirming the authority jurisdiction, appointed submitter and latest accepted project baseline. The next action should then respond to a named document gap, authority comment, NOC, inspection hold point or close-out requirement.`}
-        facts={[
-          `Common project types: ${deepContent.projectTypes.slice(0, 4).join(", ")}`,
-          `Useful documents: ${deepContent.documents.slice(0, 4).join(", ")}`,
-          "The relevant authority and appointed-party responsibilities must be confirmed for each project",
-          "Authority review times and outcomes cannot be guaranteed",
-        ]}
-        cta={{ label: `Request ${service.menuLabel} support`, href: "/contact" }}
-      />
-
-      <section className="bg-white py-8">
-        <div className="container-pad">
-          <div className="rounded-[1.75rem] border border-amber-300 bg-amber-50 p-6 text-charcoal shadow-panel">
-            <p className="premium-kicker">Authority disclaimer</p>
-            <h2 className="mt-3 text-2xl font-black tracking-tight">Coordination support is not authority approval.</h2>
-            <p className="mt-3 max-w-5xl text-sm leading-7 text-charcoal/80">
-              Emitronix is not the approving authority and does not guarantee an approval, NOC, review period or inspection outcome. The relevant authority and appointed consultant determine formal requirements and technical submission responsibilities for each project. Confirm the current route before design, procurement or site commitments are made.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <nav className="mb-10 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-brand">Home</Link>
-            <ChevronRight size={16} />
-            <Link href="/approval" className="hover:text-brand">Approval</Link>
-            <ChevronRight size={16} />
-            <span className="text-charcoal">{service.menuLabel}</span>
-          </nav>
-          <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
-            <PremiumSectionHeading
-              eyebrow="Service overview"
-              title={service.overviewTitle}
-              description="Authority coordination is treated as a construction control system: scope, documentation, comments, site readiness and completion evidence remain visible."
-            />
-            <div className="grid gap-5 text-lg leading-9 text-steel">
-              {service.overview.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-              <p>
-                Before requesting support, assemble the exact property or plot reference, current approved drawings, proposed change, appointed consultant, known NOCs, authority correspondence and photographs of any work already completed. These records allow the first review to identify jurisdiction, missing decisions and site-to-drawing conflicts instead of starting with an unreliable generic checklist.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="approval-answers" className="section-pad soft-section">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Direct answers"
-            title={`${service.menuLabel} answers for Dubai project teams.`}
-            description="These answers help owners, tenants and consultants understand the coordination route without oversimplifying authority requirements."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {deepContent.answerBlocks.map((item) => (
-              <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Approval context"
-            title={`${service.menuLabel} documents, decisions and Dubai project context.`}
-            description="A useful approval route connects jurisdiction, project type, documents, authority comments, inspection readiness and construction-side consequences."
-            align="center"
-          />
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            <div className="grid gap-4">
-              {deepContent.topicalAuthorityBlocks.map((item) => (
-                <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
-                  <h2 className="text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
-                </article>
-              ))}
-            </div>
-            <div className="grid gap-4">
-              {deepContent.commercialIntentBlocks.map((item) => (
-                <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-platinum p-6">
-                  <p className="premium-kicker">Decision factor</p>
-                  <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-8">
-        <div className="container-pad">
-          <div className="grid gap-4 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-5 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
-            <div>
-              <p className="premium-kicker">Approval enquiry</p>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">
-                Need {service.menuLabel} support in Dubai?
-              </h2>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link href="/contact" className="premium-button">
-                Request Support <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/contact?intent=site-visit" className="premium-button-light">
-                Request a Site Visit <CalendarCheck className="h-4 w-4" />
-              </Link>
-              <a href={phoneHref} className="premium-button-light">
-                Call Now <PhoneCall className="h-4 w-4" />
-              </a>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-                WhatsApp Us <MessageCircle className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="soft-section py-16 lg:py-24">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Approval process"
-            title="A precise path from scope review to authority response."
-            description="Each stage is structured so project owners, consultants and site teams understand what is required next."
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-            {service.process.map((step, index) => (
-              <article key={step} className="luxury-card rounded-[1.5rem] p-6">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-sm font-black text-white">
-                  {String(index + 1).padStart(2, "0")}
-                </div>
-                <p className="mt-5 text-sm font-bold leading-7 text-charcoal">{step}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="container-pad grid gap-10 lg:grid-cols-2">
+      <section id="approval-answers" className="section-pad bg-white">
+        <div className="container-pad grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <PremiumSectionHeading
-              eyebrow="Approval risks"
-              title={`What usually delays ${service.menuLabel}.`}
-              description="Authority work moves faster when common blockers are made visible before the submission or inspection stage."
-            />
-            <div className="mt-8 grid gap-4">
-              {deepContent.authorityRisks.map((item) => (
-                <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-platinum p-6">
-                  <h2 className="text-xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
-                </article>
-              ))}
-            </div>
+            <PremiumSectionHeading eyebrow="Service overview" title={service.overviewTitle} />
+            <div className="mt-5 space-y-4 leading-7 text-steel">{service.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+            <p className="mt-5 text-sm leading-7 text-steel">Project environments: {deepContent.projectTypes.join(", ")}. The correct route depends on the location, asset use, master developer, landlord and inspection stage.</p>
           </div>
-          <div>
-            <PremiumSectionHeading
-              eyebrow="Control method"
-              title="How Emitronix keeps approval work connected to construction."
-              description="Approval coordination should not sit outside the project. Drawings, authority comments, site works and close-out evidence must stay aligned."
-            />
-            <div className="mt-8 grid gap-4">
-              {deepContent.processDetails.map((item) => (
-                <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-brand-soft p-6">
-                  <CheckCircle2 className="h-6 w-6 text-brand" />
-                  <h2 className="mt-4 text-xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-charcoal/80">{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white pb-16">
-        <div className="container-pad">
-          <div className="rounded-[1.75rem] border border-brand/[0.14] bg-brand-soft p-6 shadow-panel lg:p-8">
-            <p className="premium-kicker">Source and review status</p>
-            <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">Confirm the live authority route before acting.</h2>
-            <p className="mt-3 max-w-5xl text-sm leading-7 text-steel">
-              This general planning guide was reviewed on {trustContentLastReviewedLabel}. Authority portals, eligibility rules, documents, fees and service times can change. Check the official source below and obtain project-specific confirmation from the relevant authority and properly appointed consultant or contractor.
-            </p>
-            <a
-              href={authoritySource.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex text-sm font-black text-brand underline decoration-brand/30 underline-offset-4 hover:decoration-brand"
-            >
-              {authoritySource.label}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="container-pad grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-          <div>
-            <ClipboardCheck className="h-14 w-14 text-brand" />
-            <PremiumSectionHeading
-              eyebrow="Document readiness"
-              title="Documents commonly requested for this approval."
-              description="Final requirements depend on project type, location, authority comments and consultant scope."
-            />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {service.documents.map((document) => (
-              <article key={document} className="flex gap-4 rounded-[1.25rem] border border-brand/[0.12] bg-platinum p-5">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
-                <p className="text-sm font-bold leading-7 text-charcoal">{document}</p>
-              </article>
-            ))}
+          <div className="space-y-6">
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+            <aside className="rounded-lg border border-amber-300 bg-amber-50 p-6" aria-labelledby="authority-boundary-heading">
+              <h2 id="authority-boundary-heading" className="text-xl font-semibold text-charcoal">Coordination support is not authority approval</h2>
+              <p className="mt-3 text-sm leading-7 text-charcoal">Emitronix is not the approving authority and does not guarantee an approval, NOC, review period or inspection outcome. The relevant authority and appointed consultant determine formal requirements and technical submission responsibilities for each project.</p>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-charcoal">
+                <li>Confirm the current authority route and project jurisdiction.</li>
+                <li>Identify the properly appointed and eligible formal submitter.</li>
+                <li>Define Emitronix&apos;s document, stakeholder and site-readiness tasks.</li>
+                <li>Record exclusions, dependencies and authority-controlled outcomes.</li>
+              </ul>
+            </aside>
           </div>
         </div>
       </section>
 
       <section className="section-pad soft-section">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Technical knowledge"
-            title={`${service.menuLabel} technical notes for project teams.`}
-            description="These notes help owners and consultants understand why submissions, site readiness and close-out evidence must be coordinated together."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
-            {deepContent.technicalTopics.map((topic) => (
-              <article key={topic.title} className="luxury-card rounded-[1.5rem] p-6">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{topic.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel">{topic.summary}</p>
-                <div className="mt-5 grid gap-2">
-                  {topic.points.map((point) => (
-                    <div key={point} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-3">
-                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-brand" />
-                      <p className="text-sm font-bold leading-6 text-charcoal">{point}</p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            ))}
+        <div className="container-pad grid gap-8 lg:grid-cols-[0.65fr_1.35fr]">
+          <div className="space-y-6">
+            <PremiumSectionHeading eyebrow="Document readiness" title="Prepare the submission records" description="Final requirements depend on project type, location, authority comments and consultant scope. Include the property or plot reference and records of any work already completed." />
+            <SectionPhotograph photo={sectionPhotographs[1]} compact />
           </div>
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="container-pad grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
-          <PremiumSectionHeading
-            eyebrow="Project and location fit"
-            title={`${service.menuLabel} for Dubai project environments.`}
-            description="Authority requirements can change by location, asset use, master developer, landlord and inspection stage."
-          />
-          <div className="grid gap-4 md:grid-cols-2">
-            {["Dubai", ...deepContent.projectTypes].map((item) => (
-              <Link key={item} href="/contact" className="luxury-card rounded-[1.5rem] p-5">
-                <h2 className="text-xl font-black tracking-tight text-charcoal">{item}</h2>
-                <p className="mt-3 text-sm leading-7 text-steel">
-                  Planning questions for {service.menuLabel.toLowerCase()} related to {item}, subject to jurisdiction, documents, appointment scope and authority comments.
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="blue-grid section-pad text-charcoal">
-        <div className="container-pad grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-          <div>
-            <FileCheck2 className="h-14 w-14 text-brand" />
-            <PremiumSectionHeading
-              eyebrow="Before appointment"
-              title="Questions that should be resolved before approval coordination begins."
-              description="A project-specific proposal should define the authority route, formal submitter, coordination scope, exclusions and authority-controlled outcomes."
-              light
-            />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              "Confirm the current authority route and project jurisdiction.",
-              "Identify the properly appointed and eligible formal submitter.",
-              "Define Emitronix's document, stakeholder and site-readiness tasks.",
-              "Record exclusions, dependencies and authority-controlled outcomes.",
-            ].map((item) => (
-              <article key={item} className="rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-6 backdrop-blur-xl">
-                <CheckCircle2 className="h-6 w-6 text-brand" />
-                <p className="mt-4 text-sm font-bold leading-7 text-charcoal">{item}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <InsightGrid
-        eyebrow="Approval readiness"
-        title={`${service.menuLabel} planning before submission pressure builds.`}
-        description="Reliable coordination begins when jurisdiction, document ownership, drawing revisions, site conditions and inspection evidence are visible to every responsible party."
-        items={readinessItems}
-        tone="soft"
-      />
-
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Next resources"
-            title={`${service.menuLabel} connected to Dubai construction and authority workflows.`}
-            description="Continue to related authority routes, construction coordination and the right enquiry step."
-            align="center"
-          />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {deepContent.internalLinkBlocks.map((item) => (
-              <Link key={`${item.href}-${item.title}`} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
-                <h3 className="text-xl font-black tracking-tight text-charcoal">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
-                  {item.label} <ArrowRight size={17} />
-                </span>
-              </Link>
-            ))}
-          </div>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {documentChecklist.map((document) => <li key={document} className="rounded-lg border border-brand/[0.15] bg-white p-4 text-sm leading-7 text-charcoal">{document}</li>)}
+          </ul>
         </div>
       </section>
 
       <section className="section-pad bg-white">
         <div className="container-pad">
-          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <PremiumSectionHeading eyebrow="Related approvals" title="Connected Dubai authority workflows." />
-            <Link href="/approval" className="premium-button-light">
-              All Approval Services <ArrowRight size={17} />
-            </Link>
-          </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {relatedPages.map((item) => (
-              <Link key={item.slug} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
-                <p className="premium-kicker">Approval Service</p>
-                <h3 className="mt-4 text-2xl font-black tracking-tight text-charcoal">{item.menuLabel}</h3>
-                <p className="mt-3 text-sm leading-7 text-steel">{item.metaDescription}</p>
-              </Link>
-            ))}
-          </div>
+          <PremiumSectionHeading eyebrow="Approval process" title="From scope review to authority response" />
+          <ol className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            {service.process.map((step, index) => <li key={step} className="luxury-card rounded-lg p-5"><span className="text-xl font-semibold text-brand" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p className="mt-3 text-sm leading-7 text-charcoal">{step}</p></li>)}
+          </ol>
+          <details className="mt-6 rounded-lg border border-brand/[0.15] p-5">
+            <summary className="cursor-pointer font-semibold text-brand">Document, comment and site coordination</summary>
+            <div className="mt-5 grid gap-5 md:grid-cols-3">
+              {deepContent.processDetails.map((item) => <article key={item.title}><h3 className="font-semibold text-charcoal">{item.title}</h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></article>)}
+            </div>
+          </details>
         </div>
       </section>
 
-      <TrustBar
-        eyebrow="Authority trust"
-        title="An approval route with visible owners, documents and hold points."
-        points={[
-          "Clear authority and appointment boundaries",
-          "Document and comment tracking",
-          "Connected approval guidance",
-          "Construction-side close-out awareness",
-        ]}
-      />
-
-      <section className="section-pad bg-white">
-        <div className="container-pad grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-          <div>
-            <PremiumSectionHeading
-              eyebrow="Quick quote"
-              title={`Request ${service.menuLabel} support.`}
-              description="Share the project location, drawings, current comments, consultant details and required timeline so the next approval action can be identified."
-            />
-            <div className="mt-6 grid gap-3">
-              {["Authority comments and drawings", "Consultant or landlord requirements", "Site condition and inspection timeline"].map((item) => (
-                <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-platinum p-4">
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                  <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                </div>
+      <section className="section-pad soft-section">
+        <div className="container-pad">
+          <PremiumSectionHeading eyebrow="Submission risks" title={`What can delay ${service.menuLabel}`} />
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            {deepContent.authorityRisks.map((item) => <article key={item.title} className="luxury-card rounded-lg p-6"><h3 className="text-xl font-semibold text-charcoal">{item.title}</h3><p className="mt-3 text-sm leading-7 text-steel">{item.description}</p></article>)}
+          </div>
+          <div className="mt-6 grid items-start gap-6 xl:grid-cols-[0.7fr_1.3fr]">
+            <SectionPhotograph photo={sectionPhotographs[2]} />
+            <div className="grid gap-5 md:grid-cols-2">
+              {deepContent.technicalTopics.map((topic) => (
+                <article key={topic.title} className="rounded-lg border border-brand/[0.15] bg-white p-6">
+                  <h3 className="text-xl font-semibold text-charcoal">{topic.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-steel">{topic.summary}</p>
+                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{topic.points.map((point) => <li key={point}>{point}</li>)}</ul>
+                </article>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad bg-white">
+        <div className="container-pad rounded-lg border border-brand/[0.15] bg-brand-soft p-6">
+          <PremiumSectionHeading eyebrow="Official source" title="Confirm the current authority requirements" />
+          <p className="mt-4 text-sm leading-7 text-steel">This general planning guide was reviewed on <time dateTime={trustContentLastReviewedIso}>{trustContentLastReviewedLabel}</time>. Authority portals, eligibility rules, documents, fees and service times can change. Check the official source and obtain project-specific confirmation from the relevant authority and properly appointed consultant or contractor before acting.</p>
+          <a href={authoritySource.href} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex text-sm font-semibold text-brand underline underline-offset-4">{authoritySource.label}</a>
+        </div>
+      </section>
+
+      <section className="section-pad soft-section">
+        <div className="container-pad">
+          <PremiumSectionHeading eyebrow="Related resources" title="Connected authority and construction workflows" />
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {resourceLinks.map((item) => <Link key={item.href} href={item.href} className="luxury-card rounded-lg p-5"><h3 className="flex items-center justify-between gap-3 text-lg font-semibold text-charcoal">{item.title}<ArrowRight className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" /></h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></Link>)}
+          </div>
+        </div>
+      </section>
+
+      <div id="faq"><FAQSection accordion title={`${service.menuLabel} FAQ.`} description="Useful answers for Dubai project teams preparing authority submissions, comments and inspections." faqs={approvalFaqs} schema /></div>
+
+      <section className="section-pad soft-section">
+        <div className="container-pad grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div>
+            <PremiumSectionHeading eyebrow="Project enquiry" title={`Request ${service.menuLabel} support.`} description="Share the project location, drawings, site photographs, existing approvals, NOC status, current authority comments, consultant details and required timeline so the next approval action can be identified." />
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/contact" className="premium-button">Request Support <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+              <Link href="/contact?intent=site-visit" className="premium-button-light">Request a Site Visit <CalendarCheck className="h-4 w-4" aria-hidden="true" /></Link>
+              <a href={phoneHref} className="premium-button-light">Call Now <PhoneCall className="h-4 w-4" aria-hidden="true" /></a>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">WhatsApp Us <MessageCircle className="h-4 w-4" aria-hidden="true" /></a>
+            </div>
+            <SectionPhotograph photo={sectionPhotographs[3]} className="mt-6" compact />
           </div>
           <ContactForm />
         </div>
       </section>
 
-      <ContentReviewRecord
-        title={`${service.menuLabel} content record`}
-        reviewScope={`General editorial review of the ${service.menuLabel} planning workflow, source boundary, document-readiness guidance and non-guarantee language. The relevant authority and appointed professionals remain responsible for current project requirements and formal decisions.`}
-      />
-
-      <div id="faq">
-        <FAQSection
-          title={`${service.menuLabel} FAQ.`}
-          description="Useful answers for Dubai project teams preparing authority submissions, comments and inspections."
-          faqs={approvalFaqs}
-          schema
-        />
-      </div>
-
-      <CTA />
+      <details className="container-pad py-6">
+        <summary className="cursor-pointer text-sm font-semibold text-brand">Content ownership and review boundaries</summary>
+        <ContentReviewRecord title={`${service.menuLabel} content record`} reviewScope={`General editorial review of the ${service.menuLabel} planning workflow, source boundary, document-readiness guidance and non-guarantee language. The relevant authority and appointed professionals remain responsible for current project requirements and formal decisions.`} />
+      </details>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

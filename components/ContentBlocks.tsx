@@ -143,12 +143,14 @@ export function FAQSection({
   description,
   faqs,
   schema = false,
+  accordion = false,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   faqs: FaqItem[];
   schema?: boolean;
+  accordion?: boolean;
 }) {
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -167,9 +169,14 @@ export function FAQSection({
     <section className="section-pad soft-section">
       <div className="container-pad">
         <PremiumSectionHeading eyebrow={eyebrow} title={title} description={description} align="center" />
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className={accordion ? "mt-8 grid items-start gap-4 md:grid-cols-2" : "mt-12 grid gap-5 md:grid-cols-2"}>
           {faqs.map((faq) => (
-            <article key={faq.question} className="luxury-card rounded-[1.5rem] p-6">
+            accordion ? <details key={faq.question} className="luxury-card rounded-lg p-5">
+              <summary className="cursor-pointer text-brand">
+                <h3 className="inline text-lg font-semibold leading-7 text-charcoal">{faq.question}</h3>
+              </summary>
+              <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
+            </details> : <article key={faq.question} className="luxury-card rounded-[1.5rem] p-6">
               <h3 className="text-xl font-black tracking-tight text-charcoal">{faq.question}</h3>
               <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
             </article>

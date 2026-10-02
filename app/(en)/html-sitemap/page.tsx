@@ -1,6 +1,9 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
-import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
@@ -79,8 +82,9 @@ const breadcrumbJsonLd = {
 };
 
 export default function HtmlSitemapPage() {
+  const sectionPhotographs = getSectionPhotographs("/html-sitemap", 5);
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "HTML Sitemap" }]}
         eyebrow="Sitemap"
@@ -101,12 +105,13 @@ export default function HtmlSitemapPage() {
             align="center"
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            {pageGroups.map((group) => (
-              <article key={group.title} className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{group.title}</h2>
+            {pageGroups.map((group, index) => (
+              <article key={group.title} className="luxury-card rounded-lg p-6 lg:p-8">
+                <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{group.title}</h2>
+                <div className="mt-6"><SectionPhotograph photo={sectionPhotographs[index]} compact /></div>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {group.links.map((link) => (
-                    <Link key={`${group.title}-${link.href}`} href={link.href} className="rounded-2xl border border-brand/[0.12] bg-white px-4 py-3 text-sm font-black text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand">
+                    <Link key={`${group.title}-${link.href}`} href={link.href} className="rounded-lg border border-brand/[0.12] bg-white px-4 py-3 text-sm font-semibold text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand">
                       {link.label}
                     </Link>
                   ))}
@@ -119,6 +124,6 @@ export default function HtmlSitemapPage() {
 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

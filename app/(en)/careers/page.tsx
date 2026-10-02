@@ -1,3 +1,6 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import {
   ArrowRight,
   BadgeCheck,
@@ -128,10 +131,11 @@ const breadcrumbJsonLd = {
 };
 
 export default function CareersPage() {
+  const sectionPhotographs = getSectionPhotographs("/careers", 4);
   return (
-    <>
+    <InternalPageFrame>
       <div className="bg-white text-charcoal">
-        <section className="premium-grid relative overflow-hidden pb-16 pt-10 lg:pb-24 lg:pt-14">
+        <section className="internal-page-intro premium-grid relative overflow-hidden pb-16 pt-10 lg:pb-24 lg:pt-14">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute left-0 top-32 h-px w-2/3 bg-gradient-to-r from-transparent via-brand/[0.28] to-transparent" />
             <div className="absolute bottom-20 right-0 h-px w-1/2 bg-gradient-to-r from-transparent via-brand/[0.14] to-transparent" />
@@ -147,7 +151,7 @@ export default function CareersPage() {
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div className="max-w-4xl">
                 <p className="premium-kicker">Construction Careers Dubai</p>
-                <h1 className="mt-5 text-balance text-5xl font-black leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
+                <h1 className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
                   Build Your Career With Emitronix
                 </h1>
                 <p className="mt-7 max-w-3xl text-lg leading-8 text-steel sm:text-xl sm:leading-9">
@@ -163,7 +167,7 @@ export default function CareersPage() {
                 </div>
               </div>
 
-              <div className="relative min-h-[420px] overflow-hidden rounded-[2.25rem] border border-brand/[0.15] bg-pearl shadow-luxe lg:min-h-[560px]">
+              <div className="relative min-h-[420px] overflow-hidden rounded-lg border border-brand/[0.15] bg-pearl shadow-none lg:min-h-[560px]">
                 <ResponsiveIllustrativeImage
                   asset={getGeneratedImage("team.construction-team-dubai")}
                   priority
@@ -173,9 +177,9 @@ export default function CareersPage() {
                   imageStyle={{ height: "100%", objectFit: "cover" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/88 via-white/32 to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 rounded-[1.5rem] border border-white/70 bg-white/[0.82] p-5 shadow-panel backdrop-blur-2xl">
+                <div className="absolute bottom-5 left-5 right-5 rounded-lg border border-white/70 bg-white/[0.82] p-5 shadow-none backdrop-blur-2xl">
                   <p className="premium-kicker">Dubai, UAE</p>
-                  <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal">Construction roles built around discipline, trust and site clarity.</h2>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-charcoal">Construction roles built around discipline, trust and site clarity.</h2>
                 </div>
               </div>
             </div>
@@ -186,7 +190,7 @@ export default function CareersPage() {
           <div className="container-pad">
             <div className="mx-auto max-w-5xl text-center">
               <p className="premium-kicker">Why Work With Us</p>
-              <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
+              <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
                 A premium construction environment for people who value clarity.
               </h2>
               <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-steel sm:text-lg">
@@ -195,14 +199,15 @@ export default function CareersPage() {
             </div>
 
             <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {whyWorkWithUs.map((item) => {
+              {whyWorkWithUs.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
-                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-soft text-brand">
+                  <article key={item.title} className="luxury-card rounded-lg p-6">
+                    {index === 0 || index === 2 ? <div className="mb-5"><SectionPhotograph photo={sectionPhotographs[index === 0 ? 0 : 1]} compact /></div> : null}
+                    <span className="grid h-12 w-12 place-items-center rounded-lg bg-brand-soft text-brand">
                       <Icon className="h-6 w-6" />
                     </span>
-                    <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">{item.title}</h3>
+                    <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{item.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
                   </article>
                 );
@@ -216,7 +221,7 @@ export default function CareersPage() {
             <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
               <div>
                 <p className="premium-kicker">Talent Areas</p>
-                <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
+                <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
                   Register interest in role areas that match your experience.
                 </h2>
               </div>
@@ -225,26 +230,28 @@ export default function CareersPage() {
               </p>
             </div>
 
+            <div className="mt-6 max-w-3xl"><SectionPhotograph photo={sectionPhotographs[2]} compact /></div>
+
             <div className="mt-10 grid gap-5 lg:grid-cols-2">
               {openings.map((opening) => {
                 const Icon = opening.icon;
                 return (
-                  <article key={opening.title} className="rounded-[1.75rem] border border-brand/[0.12] bg-white p-6 shadow-panel transition duration-300 hover:-translate-y-1 hover:border-brand/[0.25] hover:shadow-luxe">
+                  <article key={opening.title} className="rounded-lg border border-brand/[0.12] bg-white p-6 shadow-none transition duration-300 hover:-translate-y-1 hover:border-brand/[0.25] hover:shadow-none">
                     <div className="flex flex-col gap-5 sm:flex-row">
-                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand">
+                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand">
                         <Icon className="h-7 w-7" />
                       </span>
                       <div>
                         <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="text-2xl font-black tracking-tight text-charcoal">{opening.title}</h3>
-                          <span className="rounded-full border border-brand/[0.15] bg-pearl px-3 py-1 text-[11px] font-black uppercase tracking-wide text-brand">
+                          <h3 className="text-2xl font-semibold tracking-tight text-charcoal">{opening.title}</h3>
+                          <span className="rounded-full border border-brand/[0.15] bg-pearl px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">
                             Dubai, UAE
                           </span>
                         </div>
                         <p className="mt-3 text-sm leading-7 text-steel">{opening.description}</p>
                         <div className="mt-5 flex flex-wrap gap-2">
                           {opening.tags.map((tag) => (
-                            <span key={tag} className="rounded-full bg-brand-soft px-3 py-1.5 text-xs font-black uppercase tracking-wide text-brand">
+                            <span key={tag} className="rounded-full bg-brand-soft px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-brand">
                               {tag}
                             </span>
                           ))}
@@ -262,7 +269,7 @@ export default function CareersPage() {
           <div className="container-pad grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
               <p className="premium-kicker">Application Form</p>
-              <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
+              <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
                 Submit your profile for Dubai construction opportunities.
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-steel">
@@ -271,31 +278,34 @@ export default function CareersPage() {
 
               <div className="mt-8 grid gap-3">
                 {applicationHighlights.map((item) => (
-                  <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 shadow-sm backdrop-blur-xl">
+                  <div key={item} className="flex gap-3 rounded-lg border border-brand/[0.12] bg-white/[0.82] p-4 shadow-sm backdrop-blur-xl">
                     <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
                     <p className="text-sm font-bold leading-6 text-charcoal">{item}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-8 rounded-[1.5rem] border border-brand/[0.15] bg-white/[0.82] p-5 shadow-panel backdrop-blur-xl">
+              <div className="mt-8 rounded-lg border border-brand/[0.15] bg-white/[0.82] p-5 shadow-none backdrop-blur-xl">
                 <div className="flex gap-3">
                   <MapPin className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <div>
-                    <h3 className="text-sm font-black uppercase tracking-wide text-charcoal">Company Location</h3>
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-charcoal">Company Location</h3>
                     <p className="mt-1 text-sm leading-6 text-steel">{site.location}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <CareerApplicationForm email={site.email} />
+            <div className="space-y-6">
+              <CareerApplicationForm email={site.email} />
+              <SectionPhotograph photo={sectionPhotographs[3]} compact />
+            </div>
           </div>
         </section>
       </div>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(careersJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

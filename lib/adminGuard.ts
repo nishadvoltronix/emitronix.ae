@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { type AdminRole, type AdminSession, ADMIN_SESSION_COOKIE, verifySessionValue } from "@/lib/adminAuth";
+import { clientIp } from "@/lib/requestSecurity";
 
 export function requestIp(request: NextRequest) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+  return clientIp(request);
 }
 
 /**

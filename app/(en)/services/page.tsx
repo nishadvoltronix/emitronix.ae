@@ -1,10 +1,13 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
 import { ArrowRight, CalendarCheck, CheckCircle2, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { approvalServices } from "@/data/approvals";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { CTA } from "@/components/CTA";
-import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
-import { CommandCenter, PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { FAQSection, ProcessRail } from "@/components/ContentBlocks";
+import { PremiumSectionHeading } from "@/components/Premium";
 import { ServiceCard } from "@/components/ServiceCard";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, authorities, localSeoBlocks, services, site, stats, whatsappUrl } from "@/data/site";
@@ -19,24 +22,6 @@ export const generateMetadata = createMetadataResolver({
   image: getGeneratedImage("services.construction-services-dubai-hero").og!.src,
   imageAlt: getGeneratedImage("services.construction-services-dubai-hero").alt,
 });
-
-const serviceCommandItems = [
-  {
-    label: "Input",
-    value: "Scope intelligence",
-    description: "Project use, drawings, location, authority exposure and stakeholder responsibilities are clarified before execution planning.",
-  },
-  {
-    label: "System",
-    value: "Delivery orchestration",
-    description: "Civil works, fit-out, approvals, MEP interfaces and handover evidence are structured into one visible workflow.",
-  },
-  {
-    label: "Output",
-    value: "Decision-ready path",
-    description: "Owners and consultants get a defined route for budget, programme, approvals, site readiness and close-out.",
-  },
-];
 
 const serviceSelectionProcess = [
   "Identify the project category: villa, warehouse, commercial space, industrial facility, fit-out or authority-facing modification.",
@@ -91,10 +76,11 @@ const breadcrumbJsonLd = {
 };
 
 export default function ServicesPage() {
+  const sectionPhotographs = getSectionPhotographs("/services", 4);
   const phoneHref = site.phoneHref;
 
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
         eyebrow="Services"
@@ -120,12 +106,14 @@ export default function ServicesPage() {
 
       <section className="section-pad bg-white">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Core services"
-            title="Civil, main contracting, warehouse, villa and fit-out scopes with visible responsibilities."
-            description="Each service guide identifies the decisions, drawings, authority interfaces, site controls and handover evidence that should be defined before work advances."
-            align="center"
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <PremiumSectionHeading
+              eyebrow="Core services"
+              title="Civil, main contracting, warehouse, villa and fit-out scopes with visible responsibilities."
+              description="Each service guide identifies the decisions, drawings, authority interfaces, site controls and handover evidence that should be defined before work advances."
+            />
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+          </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
@@ -136,10 +124,10 @@ export default function ServicesPage() {
 
       <section className="bg-white py-8">
         <div className="container-pad">
-          <div className="grid gap-4 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-5 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
+          <div className="grid gap-4 rounded-lg border border-brand/[0.15] bg-brand-soft p-5 shadow-none lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
             <div>
               <p className="premium-kicker">Service enquiry</p>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-charcoal sm:text-3xl">
                 Compare scopes, then request a quote or site visit.
               </h2>
             </div>
@@ -163,30 +151,26 @@ export default function ServicesPage() {
 
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
-          <PremiumSectionHeading
-            eyebrow="Dubai approval menu"
-            title="Authority approval services built into project planning."
-            description="Approval support covers Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA workflows."
-            light
-          />
+          <div className="space-y-6">
+            <PremiumSectionHeading
+              eyebrow="Dubai approval menu"
+              title="Authority approval services built into project planning."
+              description="Approval support covers Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA workflows."
+              light
+            />
+            <SectionPhotograph photo={sectionPhotographs[1]} compact />
+          </div>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {approvalServices.map((service) => (
-              <Link key={service.slug} href={service.href} className="rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-brand/25 hover:bg-white hover:text-brand">
-                <p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">Approval</p>
-                <h2 className="mt-4 text-xl font-black tracking-tight">{service.menuLabel}</h2>
-                <p className="mt-3 text-sm leading-7 opacity-70">{service.metaDescription}</p>
+              <Link key={service.slug} href={service.href} className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-brand/25 hover:bg-white hover:text-brand">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-80">Approval</p>
+                <h2 className="mt-4 text-xl font-semibold tracking-tight">{service.menuLabel}</h2>
+                <p className="mt-3 text-sm leading-7 opacity-80">{service.metaDescription}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
-
-      <CommandCenter
-        eyebrow="Service delivery model"
-        title="Every service is treated as a coordinated project system."
-        description="The value lies in connecting scope, drawings, authority requirements, procurement, site sequence and close-out records before an unresolved interface becomes rework."
-        items={serviceCommandItems}
-      />
 
       <ProcessRail
         eyebrow="Service selection"
@@ -194,6 +178,9 @@ export default function ServicesPage() {
         description="A clear service path helps owners and consultants avoid treating civil works, fit-out, authority approvals and handover as disconnected tasks."
         steps={serviceSelectionProcess}
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[2]} compact />
+      </div>
 
       <section className="section-pad soft-section">
         <div className="container-pad">
@@ -205,11 +192,11 @@ export default function ServicesPage() {
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {localSeoBlocks.map((block) => (
-              <Link key={block.title} href={block.href} className="luxury-card rounded-[1.5rem] p-6">
+              <Link key={block.title} href={block.href} className="luxury-card rounded-lg p-6">
                 <CheckCircle2 className="h-7 w-7 text-brand" />
-                <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{block.title}</h2>
+                <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{block.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">{block.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
                   {block.linkLabel} <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
@@ -220,19 +207,21 @@ export default function ServicesPage() {
 
       <section className="section-pad bg-white">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Authority bodies"
-            title="Dubai agencies and authority interfaces we coordinate with."
-            description="The applicable route depends on location, use, proposed work and consultant responsibility. Confirm those facts before assigning submission dates or starting authority-dependent work."
-            align="center"
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <PremiumSectionHeading
+              eyebrow="Authority bodies"
+              title="Dubai agencies and authority interfaces we coordinate with."
+              description="The applicable route depends on location, use, proposed work and consultant responsibility. Confirm those facts before assigning submission dates or starting authority-dependent work."
+            />
+            <SectionPhotograph photo={sectionPhotographs[3]} compact />
+          </div>
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {authorities.map((authority) => {
               const Icon = authority.icon;
               return (
-                <article key={authority.name} className="luxury-card rounded-[1.5rem] p-6">
+                <article key={authority.name} className="luxury-card rounded-lg p-6">
                   <Icon className="h-8 w-8 text-brand" />
-                  <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{authority.name}</h2>
+                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{authority.name}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{authority.description}</p>
                 </article>
               );
@@ -241,18 +230,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <TrustBar
-        eyebrow="Service trust"
-        title="A connected workflow for construction, approvals and handover."
-        points={[
-          "Civil contracting and G+4 scope",
-          "Interior fit-out and renovation support",
-          "DM, DCD, DEWA, Trakhees and DDA coordination",
-          "Connected service and approval guidance",
-        ]}
-      />
-
-      <FAQSection
+      <FAQSection accordion
         title="Construction services Dubai FAQ."
         description="Answers for users comparing civil contractors, approval coordinators and fit-out partners in Dubai."
         faqs={servicesFaqs}
@@ -262,6 +240,6 @@ export default function ServicesPage() {
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesItemListJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

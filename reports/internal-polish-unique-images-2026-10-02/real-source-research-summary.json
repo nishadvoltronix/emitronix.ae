@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-02",
+  "task": "Real licensed source research and curated new image supply",
+  "companyPhotography": {
+    "verifiedCompanyPhotoCount": 0,
+    "finding": "No genuine company-owned project photograph provenance found in inspected data/internalServiceImages.ts, data/sectionPhotography.ts, data/generatedImages.ts, docs/image-sources.md or public asset source records. Existing documented photographs are representative stock. This does not prove company photographs do not exist outside the inspected workspace."
+  },
+  "existingCatalogue": {
+    "internalServiceHeroCount": 20,
+    "sectionPhotographKeys": 40,
+    "distinctSectionIdentities": 40,
+    "rasterFileCount": 204,
+    "generatedRasterFiles": 127,
+    "note": "The40 source identities feed20 service heroes and section topic rotations. The same source is reused across routes and English/Arabic. Derivatives or generated images are not a source of genuinely distinct real photography."
+  },
+  "licensedSources": [
+    {
+      "provider": "Pexels",
+      "licenseUrl": "https://www.pexels.com/license/",
+      "verified": "2026-10-02",
+      "usage": "Commercial website use and image modification permitted. Attribution optional. Do not imply endorsement or represent stock as Emitronix projects or employees."
+    },
+    {
+      "provider": "Unsplash",
+      "licenseUrl": "https://unsplash.com/license",
+      "verified": "2026-10-02",
+      "usage": "Free commercial image use; retain original source identity across all derivatives."
+    },
+    {
+      "provider": "Wikimedia Commons",
+      "guidanceUrl": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia",
+      "apiUrl": "https://commons.wikimedia.org/w/api.php",
+      "verified": "2026-10-02",
+      "usage": "Per-file license governs reuse. CC BY and CC BY-SA require author attribution and license identification; CC BY-SA adaptations retain the relevant license. API returned file hash, author, license and downloadable thumbnails.",
+      "candidateCount": 745,
+      "approvedForWebsite": 0,
+      "downloadTest": "12/12 sample1600px JPEGs downloaded successfully",
+      "limitations": "API rate limiting encountered and respected. Broad-topic results included historic images, galleries and unrelated stores; no bulk approval or unreviewed final assets."
+    }
+  ],
+  "curatedNewSupply": {
+    "candidateCount": 65,
+    "approvedCount": 58,
+    "rejectedCount": 7,
+    "totalBytes": 8771824,
+    "topics": {
+      "documentation": 12,
+      "management": 2,
+      "warehouse": 12,
+      "civil": 11,
+      "interiors": 7,
+      "villa": 8,
+      "electrical": 4,
+      "fire": 2
+    },
+    "manifest": "data/uniquePhotoAssets.json",
+    "directory": "public/images/unique",
+    "provenanceReport": "reports/internal-polish-unique-images-2026-10-02/reviewed-new-photo-provenance.json",
+    "optimisation": "Longest edge1600px maximum; WebP quality79; preserved aspect ratio and natural colors. No crops, retouching, generated or AI-edited photos.",
+    "identityReview": "Distinct original Pexels IDs plus visual review of every candidate; pixel-level SHA256 and DCT perceptual screening across existing images. No alternate file formats, resolutions or crops counted as new identities."
+  },
+  "claimsConcerns": [
+    "Do not describe stock workers as Emitronix staff or buildings as Emitronix projects.",
+    "Existing generatedImages.ts descriptions assert Dubai despite being generated concept illustrations; they cannot satisfy the real-photograph rule.",
+    "Neutral alt text in new catalogue avoids unsupported occupations, locations, company ownership, project completion, certificates and approval claims.",
+    "Existing warehouse photo1649587345666 is from Cheshire, UK according to retained source notes. It must not be described as a Dubai or Emitronix project.",
+    "Homepage image reuse and any generated active assets remain locked; no homepage source, bytes or markup changed in this work."
+  ],
+  "unmetSupply": "58 approved new photographs do not cover the roughly1200 additional source identities implied by the initial sitewide placement audit. Missing assignments must be reported explicitly. Do not cycle or randomly distribute images, remove meaningful imagery, use irrelevant photos, or claim global uniqueness while unresolved slots remain."
+}

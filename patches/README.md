@@ -1,0 +1,11 @@
+# Next.js image response cancellation backport
+
+The JSON patch backports the response-socket correction from [Next.js PR #98168](https://github.com/vercel/next.js/pull/98168) to **Next 15.5.27**. It replaces the shared request/response factory with separate constructors in the CommonJS and ESM image optimizer. The internal request retains the requester's socket, URL, method and empty headers; the internal response retains `maximumResponseBody` with its socket detached (`null`, the MockedResponse default). No application image component or optimization setting changes.
+
+The installer checks the pinned version and full SHA256 of both official npm modules before changing either. It accepts only the exact original pair or exact patched pair. Unknown versions, changed vendor bytes and mixed installations fail without mutation. The patch adds no dependencies and is idempotent. Source maps remain the upstream package maps; the backport changes only the two runtime modules, so debugging line positions around the changed function may differ.
+
+`npm install` and `npm ci` apply it through `postinstall`. `predev`, `prebuild` and `prestart` verify it, including after an install using `--ignore-scripts`. Run `npm run patch:framework` to apply explicitly and `npm run validate:framework-patch` to verify. The default Next CLI invoked directly bypasses npm lifecycle guards; use the documented npm commands.
+
+To reverse locally, stop owned test servers, run `node scripts/apply-next-image-response-patch.cjs --revert`, then verify the two original hashes in the manifest. Build/start guards intentionally reject the reverted installation. Reapply with `npm run patch:framework`. To permanently remove the backport, remove its lifecycle hooks, test/validation scripts, installer and manifest only after validating an official stable release containing the correction and rerunning the cancellation regression. Do not relax the version/hash guards to permit an unreviewed release.
+
+The patch is the durable repair, rather than a temporary debug edit. The authorized local regression evidence and remaining production verification are documented in `reports/final-website-audit-2026-10-01/final-fix-report.md`.

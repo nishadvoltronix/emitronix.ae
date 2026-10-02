@@ -1,9 +1,12 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
 import { BadgeCheck, Building2, ClipboardCheck, FileCheck2, ShieldCheck, Users } from "lucide-react";
 import Link from "next/link";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
-import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { FeatureGrid, ImagePanel, PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site, stats, whyChoose } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
@@ -97,8 +100,9 @@ const aboutPageJsonLd = {
 };
 
 export default function AboutPage() {
+  const sectionPhotographs = getSectionPhotographs("/about", 3);
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
         eyebrow="About Emitronix"
@@ -122,9 +126,9 @@ export default function AboutPage() {
               {whyChoose.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <article key={item.title} className="luxury-card rounded-[1.5rem] p-5">
+                  <article key={item.title} className="luxury-card rounded-lg p-5">
                     <Icon className="h-7 w-7 text-brand" />
-                    <h2 className="mt-4 text-lg font-black tracking-tight text-charcoal">{item.title}</h2>
+                    <h2 className="mt-4 text-lg font-semibold tracking-tight text-charcoal">{item.title}</h2>
                   </article>
                 );
               })}
@@ -140,13 +144,15 @@ export default function AboutPage() {
 
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Operating principles"
-            title="A delivery system that keeps complex Dubai scopes visible."
-            description="The design of the company experience is simple: make the right information visible early, then keep the project moving with discipline."
-            align="center"
-            light
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <PremiumSectionHeading
+              eyebrow="Operating principles"
+              title="A delivery system that keeps complex Dubai scopes visible."
+              description="The design of the company experience is simple: make the right information visible early, then keep the project moving with discipline."
+              light
+            />
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+          </div>
           <div className="mt-12">
             <FeatureGrid features={operatingPrinciples} />
           </div>
@@ -159,6 +165,9 @@ export default function AboutPage() {
         description="The company experience is built around early visibility: scope, authority requirements, site interfaces and close-out obligations are treated as one connected system."
         steps={aboutProcess}
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[1]} compact />
+      </div>
 
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-8 md:grid-cols-3">
@@ -166,14 +175,15 @@ export default function AboutPage() {
             { title: "Founder profile", body: "Meet Marieswaran Sadaiappan and review the published professional focus areas and verification boundaries.", href: "/founder", icon: BadgeCheck },
             { title: "Leadership functions", body: "Understand the role-based operational, engineering, QA/QC, HSE, procurement and site-delivery functions.", href: "/leadership", icon: ShieldCheck },
             { title: "Company information", body: `Review the published legal name, contact details, location, hours and service areas for ${site.name}.`, href: "/company-information", icon: Building2 },
-          ].map((item) => {
+          ].map((item, index) => {
             const Icon = item.icon;
             return (
-              <Link key={item.title} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
+              <Link key={item.title} href={item.href} className="luxury-card rounded-lg p-6">
                 <Icon className="h-8 w-8 text-brand" />
-                <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
+                {index === 1 ? <SectionPhotograph photo={sectionPhotographs[2]} compact className="mt-5" /> : null}
+                <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{item.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">{item.body}</p>
-                <span className="mt-5 inline-flex text-sm font-black uppercase tracking-wide text-brand">Read profile →</span>
+                <span className="mt-5 inline-flex text-sm font-semibold uppercase tracking-wide text-brand">Read profile →</span>
               </Link>
             );
           })}
@@ -196,7 +206,7 @@ export default function AboutPage() {
         reviewScope="General editorial review of the published company identity, operating principles, service descriptions and verification boundaries. Company history dates and milestones remain unpublished until management evidence is available."
       />
 
-      <FAQSection
+      <FAQSection accordion
         title="About Emitronix FAQ."
         description="Helpful answers for owners and consultants researching a Dubai construction company."
         faqs={aboutFaqs}
@@ -206,6 +216,6 @@ export default function AboutPage() {
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

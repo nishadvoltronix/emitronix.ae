@@ -182,7 +182,7 @@ workers remain visible on narrow screens. The existing page heading, text,
 buttons, overlay, automatic image animation, and navbar behavior are unchanged.
 The alt text identifies the warehouse image as AI-generated.
 
-## Current Home hero — construction cranes and workers
+## Previous Home hero — construction cranes and workers
 
 On 2026-10-01, slides 3 and 4 were replaced with real construction photographs
 to follow the user's crane/building-site and sunset-worker references. Slides 1
@@ -207,3 +207,26 @@ Only normal resizing and compression were applied to the new asset; no AI
 generation, generative editing or color changes were used. Focal positions keep
 the cranes and crew visible within the existing hero layout. The superseded
 tower/hotel files and their source records remain available for other uses.
+
+## Current Home hero — real construction photographs
+
+On 2026-10-02, the generated warehouse concept and completed villa were removed
+from the active homepage slideshow at the user's request. The first two slides
+now reuse existing licensed construction photographs without changing their
+asset bytes. Slides 3 and 4 retain the Dubai Hills and sunset-worker photographs
+documented above, with their original order, alt text and focal positions.
+
+| Slide | Local asset | Source | Dimensions | Focal position |
+| --- | --- | --- | --- | --- |
+| 1 / Concrete building construction | `home/jumeirah-village-circle-construction.webp` | Ben Koorengevel, [Construction of high-rise buildings](https://unsplash.com/photos/construction-of-several-high-rise-buildings-is-underway-gROCANC38BU), [Unsplash License](https://unsplash.com/license) | 1920 x 1080 | `55% center` |
+| 2 / Warehouse steel-frame erection | `internal/warehouse-steel-frame.webp` | david Griffiths, [Construction equipment and steel frame](https://unsplash.com/photos/a-construction-site-with-a-large-amount-of-construction-equipment-UtgKZUlRV78), [Unsplash License](https://unsplash.com/license); also documented in `data/internalServiceImages.ts` | 1920 x 1280 | `62% 42%` |
+
+Both replacement files were visually inspected. No image generation, generative
+editing, download, or asset replacement was needed. The first source identifies
+Jumeirah Village Circle, Dubai; the warehouse source identifies Cheshire, UK,
+so no Dubai location is claimed for that photograph. Both official source pages
+and the Unsplash commercial-use license were rechecked on 2026-10-02. The
+visible caption identifies the slideshow as representative
+construction photography, not evidence of Emitronix project or staff ownership.
+Superseded image files are retained for any other references. Homepage headings,
+body copy, links, slideshow behavior and image-loading priorities are unchanged.

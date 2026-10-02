@@ -259,9 +259,9 @@ async function getZohoAccessToken() {
   return cachedAccessToken;
 }
 
-export function leadFingerprint(lead: Pick<WebsiteLead, "email" | "phone" | "message">) {
+export function leadFingerprint(lead: Pick<WebsiteLead, "email" | "phone" | "message" | "service" | "projectLocation">) {
   return createHash("sha256")
-    .update([lead.email.toLowerCase(), lead.phone || "", lead.message.slice(0, 500)].join("|"))
+    .update(JSON.stringify([lead.email.toLowerCase(), lead.phone || "", lead.message.slice(0, 3000), lead.service || "", lead.projectLocation || ""]))
     .digest("hex");
 }
 

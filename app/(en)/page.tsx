@@ -116,7 +116,7 @@ export default function HomePage() {
               eyebrow="What we build"
               id="home-services"
               title="Our Construction Services"
-              description="Civil contracting, building construction and fit-out, connected through clear planning, practical coordination and handover readiness."
+              description="We deliver end-to-end construction solutions for diverse project requirements across Dubai and the UAE. From civil and warehouse construction to turnkey projects, building approvals, renovation and fit-out, and main contracting, our services cover every stage of your construction project."
             />
             <TextLink href="/services">Explore all services</TextLink>
           </div>
@@ -237,7 +237,7 @@ export default function HomePage() {
               eyebrow="Spaces that work"
               id="home-industries"
               title="Industries We Serve"
-              description="Different buildings. Different demands. Construction planned around how each space will be used."
+              description="We provide comprehensive construction solutions across Dubai and the UAE, supporting residential, commercial, industrial, and infrastructure projects. From planning and construction to approvals and final handover, our coordinated approach helps meet the specific requirements of each industry and project."
             />
             <TextLink href="/industries">Explore our sectors</TextLink>
           </div>
@@ -281,8 +281,8 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Construction in focus"
               id="home-showcase"
-              title="The details behind a well-built space."
-              description="Structural works, building services and considered finishes — each plays a part in the completed environment."
+              title="The Details Behind Well-Built Spaces"
+              description="From planning to execution, we focus on quality, precision, and practical construction solutions. Our experienced team manages civil works, building construction, warehouse projects, and commercial spaces with attention to every detail, ensuring reliable execution from start to completion."
             />
             <TextLink href="/projects">Explore project scopes</TextLink>
           </div>
@@ -348,7 +348,7 @@ export default function HomePage() {
               <SectionHeading
                 eyebrow="Your questions, answered"
                 id="home-faq"
-                title="Construction in Dubai. What you need to know."
+                title="Frequently Asked Questions About Construction Services in Dubai"
                 description="Helpful answers when choosing a building contractor, planning a warehouse or preparing for an approval."
               />
               <div className={styles.actions}><TextLink href="/faqs">Browse all construction FAQs</TextLink></div>

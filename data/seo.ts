@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getSeoOverride } from "@/lib/adminStore";
 import { absoluteUrl, brandAssets, site } from "@/data/site";
+import { getAssignedPageHero } from "@/data/pagePhotography";
 import {
   buildCanonicalUrl,
   buildLanguageAlternates,
@@ -49,6 +50,21 @@ function normalizeMetaKeywords(keywords: string[] | undefined) {
   return normalized.length > 0 ? normalized : undefined;
 }
 
+/** Keep social images aligned with an explicitly assigned, visible internal hero. */
+function withAssignedHeroImage(metadata: Metadata, pagePath: string): Metadata {
+  const photo = getAssignedPageHero(pagePath);
+  if (!photo) return metadata;
+  const imageUrl = absoluteUrl(photo.src);
+  return {
+    ...metadata,
+    openGraph: {
+      ...metadata.openGraph,
+      images: [{ url: imageUrl, width: photo.width, height: photo.height, alt: pagePath.startsWith("/ar/") ? photo.altAr : photo.alt }],
+    },
+    twitter: { ...metadata.twitter, images: [imageUrl] },
+  };
+}
+
 export function createPageMetadata({
   title,
   description,
@@ -77,7 +93,7 @@ export function createPageMetadata({
       ? { width: 1200, height: 630 }
       : { width: 1672, height: 941 };
 
-  return {
+  return withAssignedHeroImage({
     title: {
       absolute: resolvedTitle,
     },
@@ -113,7 +129,7 @@ export function createPageMetadata({
       description,
       images: [imageUrl],
     },
-  };
+  }, path);
 }
 
 /**
@@ -121,6 +137,7 @@ export function createPageMetadata({
  * storage/seo-overrides.json) into a page's base metadata.
  */
 export async function applySeoOverrides(base: Metadata, pagePath: string): Promise<Metadata> {
+  base = withAssignedHeroImage(base, pagePath);
   const override = await getSeoOverride(pagePath).catch(() => null);
   if (!override) return base;
 

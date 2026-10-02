@@ -242,6 +242,19 @@
   color: var(--brand-blue-sky);
 }
 
+.heroImageNote {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+  border-radius: 4px;
+  padding: 4px 8px;
+  background: rgba(11, 31, 58, .85);
+  color: white;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
 .heroMotionControl {
   position: absolute;
   width: 1px;
@@ -780,6 +793,7 @@
 @media (max-width: 767px) {
   .sectionHead { align-items: flex-start; flex-direction: column; gap: 20px; margin-bottom: 28px; }
   .heroStage { min-height: 0; }
+  .heroImageNote { top: 92px; right: 16px; bottom: auto; }
   .heroCopy { padding-block: 56px 34px; }
   .heroTitle { font-size: clamp(42px, 8vw, 60px); max-width: 570px; }
   .heroText { margin-top: 20px; font-size: 15px; }

@@ -1,5 +1,7 @@
 import type { BlogPost } from "@/data/blog";
 import type { GeneratedImageKey } from "@/data/generatedImages";
+import { warehouseBlogIndexingContent } from "@/data/warehouseBlogIndexingContent";
+import { getWarehouseIndexingContent } from "@/data/warehouseIndexingContent";
 import {
   warehouseBlogResourceSlugs,
   warehouseBlogTopics,
@@ -32,6 +34,7 @@ export type WarehouseAuthorityPage = {
   related: Array<{ label: string; href: string }>;
   faqs: Array<{ question: string; answer: string }>;
   references: Array<{ title: string; href: string }>;
+  modifiedDate?: string;
 };
 
 const reviewedDate = "2026-08-02";
@@ -97,6 +100,19 @@ const blogImageAlts = {
 function clipped(value: string, max = 158) {
   if (value.length <= max) return value;
   return `${value.slice(0, max - 1).replace(/\s+\S*$/, "")}.`;
+}
+
+// Repair only the malformed endings confirmed in the full website QA.
+// Complete descriptions retain the original subject and source wording.
+function clippedMetaDescription(value: string) {
+  const result = clipped(value);
+  return /(?:and|evidence in)\.$/.test(result) ? value : result;
+}
+
+function clippedMetaTitle(value: string) {
+  return clipped(value, 68)
+    .replace(/\s*\|\.$/, "")
+    .replace(/Emitronix\.$/, "Emitronix");
 }
 
 function topicIndex(topic: WarehouseSiloTopic) {
@@ -273,6 +289,7 @@ function warehouseTechnicalBrief(topic: WarehouseSiloTopic) {
 
 function makePage(topic: WarehouseSiloTopic, index: number): WarehouseAuthorityPage {
   const authorityText = authoritySentence(topic.authorityFocus);
+  const indexingContent = getWarehouseIndexingContent(topic.slug);
   const related = relatedPages(topic).slice(0, 7);
   const technicalBrief = warehouseTechnicalBrief(topic);
   const serviceArea = index % 3 === 0
@@ -288,7 +305,7 @@ function makePage(topic: WarehouseSiloTopic, index: number): WarehouseAuthorityP
     keyword: topic.keyword,
     category: topic.category,
     seoTitle: `${topic.title} | Warehouse Contractor Dubai`,
-    metaDescription: clipped(
+    metaDescription: indexingContent?.metaDescription ?? clippedMetaDescription(
       `${topic.title}: review operations, civil and structural interfaces, utilities, authority dependencies, site controls and handover evidence in Dubai.`,
     ),
     h1: `${topic.title} for Dubai and UAE industrial projects`,
@@ -372,6 +389,7 @@ function makePage(topic: WarehouseSiloTopic, index: number): WarehouseAuthorityP
       },
     ],
     references,
+    ...(indexingContent ? { modifiedDate: "2026-10-01" } : {}),
   };
 }
 
@@ -717,6 +735,7 @@ function warehouseEditorialFrame(
 }
 
 function makeBlogPost(topic: (typeof warehouseBlogTopics)[number], index: number): BlogPost {
+  const indexingContent = warehouseBlogIndexingContent[topic.slug];
   const imageKey = blogImageKeys[index % blogImageKeys.length];
   const relatedPage = matchingWarehousePage(topic.keyword);
   const nextSlug = warehouseBlogTopics[index + 1]?.slug;
@@ -733,8 +752,8 @@ function makeBlogPost(topic: (typeof warehouseBlogTopics)[number], index: number
   return {
     slug: topic.slug,
     title: topic.title,
-    seoTitle: clipped(`${topic.title} | Emitronix Dubai`, 68),
-    metaDescription: clipped(editorial.metaDescription),
+    seoTitle: indexingContent?.seoTitle ?? clippedMetaTitle(`${topic.title} | Emitronix Dubai`),
+    metaDescription: indexingContent?.metaDescription ?? clippedMetaDescription(editorial.metaDescription),
     excerpt: editorial.excerpt,
     category,
     categories: [
@@ -756,7 +775,7 @@ function makeBlogPost(topic: (typeof warehouseBlogTopics)[number], index: number
     imageAlt,
     imageTitle: topic.title,
     publishedDate: "2026-08-02",
-    modifiedDate: reviewedDate,
+    modifiedDate: indexingContent ? "2026-10-01" : reviewedDate,
     readTime: "10 min read",
     author: companyName,
     referenceCheckedDate: reviewedDate,
@@ -764,7 +783,10 @@ function makeBlogPost(topic: (typeof warehouseBlogTopics)[number], index: number
     popular: index < 8,
     featured: index < 4,
     intro: editorial.intro,
-    sections: makeWarehouseBlogSections(topic, relatedPage),
+    sections: [
+      ...makeWarehouseBlogSections(topic, relatedPage),
+      ...(indexingContent?.sections ?? []),
+    ],
     faqs: makeWarehouseBlogFaqs(topic, relatedPage),
     internalLinks: [
       { label: relatedPage.title, href: relatedPage.href },

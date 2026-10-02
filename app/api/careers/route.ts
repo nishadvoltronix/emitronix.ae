@@ -1,8 +1,12 @@
-import { randomUUID } from "crypto";
-import { chmod, mkdir, writeFile } from "fs/promises";
+import { createHash } from "crypto";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { createZohoLead, type WebsiteLead } from "@/lib/zoho";
+import { isValidPhone } from "@/lib/phoneValidation";
+import { readBoundedRequestBody } from "@/lib/requestBody";
+import { CareerStorageError, storeCareerApplication } from "@/lib/careerApplicationStore";
+import { clientIp, createLocalRateLimiter } from "@/lib/requestSecurity";
+import { isCvMimeCompatible } from "@/lib/cvUploadValidation";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,9 +16,11 @@ const RATE_LIMIT_MAX = 5;
 const MAX_CV_BYTES = 8 * 1024 * 1024;
 const MAX_REQUEST_BYTES = 9 * 1024 * 1024;
 const ALLOWED_EXTENSIONS = [".pdf", ".doc", ".docx"];
-const STORAGE_DIR = process.env.CAREERS_STORE_DIR || path.join(process.cwd(), "storage", "careers");
 
-const rateLimits = new Map<string, { count: number; resetAt: number }>();
+const isRateLimited = createLocalRateLimiter({ limit: RATE_LIMIT_MAX, windowMs: RATE_LIMIT_WINDOW_MS });
+const recentApplications = new Map<string, number>();
+const pendingApplications = new Map<string, Promise<NextResponse>>();
+const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
 
 function text(value: FormDataEntryValue | null, maxLength: number) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
@@ -22,23 +28,6 @@ function text(value: FormDataEntryValue | null, maxLength: number) {
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function clientIp(request: NextRequest) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
-}
-
-function isRateLimited(key: string) {
-  const now = Date.now();
-  const current = rateLimits.get(key);
-
-  if (!current || current.resetAt <= now) {
-    rateLimits.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-
-  current.count += 1;
-  return current.count > RATE_LIMIT_MAX;
 }
 
 function badRequest(message: string) {
@@ -92,7 +81,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "Cross-site submissions are not accepted." }, { status: 403 });
   }
 
-  if (!request.headers.get("content-type")?.toLowerCase().startsWith("multipart/form-data")) {
+  if (request.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase() !== "multipart/form-data") {
     return badRequest("Invalid application format.");
   }
 
@@ -108,7 +97,11 @@ export async function POST(request: NextRequest) {
   let formData: FormData;
 
   try {
-    formData = await request.formData();
+    const { body, tooLarge } = await readBoundedRequestBody(request, MAX_REQUEST_BYTES);
+    if (tooLarge) {
+      return NextResponse.json({ ok: false, message: "The application is too large. Please upload a smaller CV." }, { status: 413 });
+    }
+    formData = await new Request(request.url, { method: "POST", headers: request.headers, body: new Uint8Array(body) }).formData();
   } catch {
     return badRequest("Invalid application format.");
   }
@@ -136,7 +129,12 @@ export async function POST(request: NextRequest) {
   if (!application.fullName) return badRequest("Please enter your full name.");
   if (!application.email || !isValidEmail(application.email)) return badRequest("Please enter a valid email address.");
   if (!application.mobile) return badRequest("Please enter your mobile number.");
+  if (!isValidPhone(application.mobile)) return badRequest("Please enter a valid mobile number.");
   if (!application.position) return badRequest("Please select a position.");
+  if (!application.experience) return badRequest("Please enter your experience.");
+  if (!application.location) return badRequest("Please enter your current location.");
+  if (!application.expectedSalary) return badRequest("Please enter your expected salary.");
+  if (!application.noticePeriod) return badRequest("Please enter your notice period.");
   if (!application.message) return badRequest("Please add a short message or cover letter.");
   if (!application.consent) return badRequest("Please confirm consent before submitting your application.");
 
@@ -152,6 +150,10 @@ export async function POST(request: NextRequest) {
     return badRequest("Please upload your CV in PDF, DOC, or DOCX format.");
   }
 
+  if (!isCvMimeCompatible(extension, resume.type)) {
+    return badRequest("The CV file type does not match the selected PDF, DOC, or DOCX format.");
+  }
+
   if (resume.size > MAX_CV_BYTES) {
     return badRequest("Please upload a CV smaller than 8 MB.");
   }
@@ -161,69 +163,82 @@ export async function POST(request: NextRequest) {
     return badRequest("The CV file content does not match the selected PDF, DOC, or DOCX format.");
   }
 
-  const id = `${new Date().toISOString().replace(/[:.]/g, "-")}-${randomUUID().slice(0, 8)}`;
-  const cvFileName = `${id}${extension}`;
+  for (const [key, expiresAt] of recentApplications) {
+    if (expiresAt <= Date.now()) recentApplications.delete(key);
+  }
+  const fingerprint = createHash("sha256").update(JSON.stringify(application)).update(cvBuffer).digest("hex");
+  if (recentApplications.has(fingerprint)) return NextResponse.json({ ok: true });
+  const pending = pendingApplications.get(fingerprint);
+  if (pending) return (await pending).clone();
 
-  try {
-    await mkdir(STORAGE_DIR, { recursive: true, mode: 0o700 });
-    await chmod(STORAGE_DIR, 0o700);
-    await writeFile(path.join(STORAGE_DIR, cvFileName), cvBuffer, { mode: 0o600 });
-    await writeFile(
-      path.join(STORAGE_DIR, `${id}.json`),
-      JSON.stringify(
-        {
+  const submission = (async () => {
+
+    let stored: Awaited<ReturnType<typeof storeCareerApplication>>;
+    try {
+      stored = await storeCareerApplication({
+        fingerprint, extension, cvBuffer,
+        record: {
           ...application,
-          cvFile: cvFileName,
           cvOriginalName: resume.name,
-          submittedAt: new Date().toISOString(),
           ip,
           userAgent: request.headers.get("user-agent")?.slice(0, 300) || "",
         },
-        null,
-        2,
-      ),
-      { encoding: "utf8", mode: 0o600 },
-    );
-  } catch (error) {
-    console.error("Career application storage failed", { id, error: error instanceof Error ? error.message : "unknown" });
-    return NextResponse.json(
-      { ok: false, message: "We could not submit the application right now. Please try again or email Emitronix directly." },
-      { status: 500 },
-    );
-  }
+      });
+    } catch (error) {
+      console.error("Career application storage failed", error instanceof CareerStorageError
+        ? { id: error.id, transactionRef: error.transactionRef, code: error.code, stage: error.stage, reason: error.reason, cleanup: error.cleanup, reconciliationRequired: error.reconciliationRequired }
+        : { code: "CAREER_STORAGE_FAILED" });
+      return NextResponse.json(
+        { ok: false, message: "We could not submit the application right now. Please try again or email Emitronix directly." },
+        { status: 500 },
+      );
+    }
+    if (!stored.created) {
+      recentApplications.set(fingerprint, Date.now() + DUPLICATE_WINDOW_MS);
+      return NextResponse.json({ ok: true });
+    }
+    const { id, cvFile: cvFileName } = stored;
 
-  // Push a CRM notification lead so the team is alerted through the existing
-  // Zoho channel. Storage above is the source of truth; CRM failure is logged
-  // but does not fail the request.
-  const lead: WebsiteLead = {
-    name: application.fullName,
-    company: "",
-    email: application.email,
-    phone: application.mobile,
-    service: `Career Application: ${application.position}`,
-    projectLocation: application.location,
-    message: [
-      `Career application (${application.position})`,
-      `Experience: ${application.experience}`,
-      `Expected salary: ${application.expectedSalary}`,
-      `Notice period: ${application.noticePeriod}`,
-      `CV stored as: ${cvFileName}`,
-      "",
-      application.message,
-    ].join("\n"),
-    pageUrl: application.pageUrl,
-    userAgent: request.headers.get("user-agent")?.slice(0, 300) || "",
-    consent: true,
-  };
+    // Push a CRM notification lead so the team is alerted through the existing
+    // Zoho channel. Storage above is the source of truth; CRM failure is logged
+    // but does not fail the request.
+    const lead: WebsiteLead = {
+      name: application.fullName,
+      company: "",
+      email: application.email,
+      phone: application.mobile,
+      service: `Career Application: ${application.position}`,
+      projectLocation: application.location,
+      message: [
+        `Career application (${application.position})`,
+        `Experience: ${application.experience}`,
+        `Expected salary: ${application.expectedSalary}`,
+        `Notice period: ${application.noticePeriod}`,
+        `CV stored as: ${cvFileName}`,
+        "",
+        application.message,
+      ].join("\n"),
+      pageUrl: application.pageUrl,
+      userAgent: request.headers.get("user-agent")?.slice(0, 300) || "",
+      consent: true,
+    };
 
+    try {
+      await createZohoLead(lead);
+    } catch {
+      console.error("Career application CRM sync failed", {
+        id,
+        code: "CRM_NOTIFICATION_FAILED",
+      });
+    }
+
+    recentApplications.set(fingerprint, Date.now() + DUPLICATE_WINDOW_MS);
+    return NextResponse.json({ ok: true });
+  })();
+  pendingApplications.set(fingerprint, submission);
   try {
-    await createZohoLead(lead);
-  } catch (error) {
-    console.error("Career application CRM sync failed", {
-      id,
-      error: error instanceof Error ? error.message : "unknown",
-    });
+    return await submission;
+  } finally {
+    if (pendingApplications.get(fingerprint) === submission) pendingApplications.delete(fingerprint);
   }
-
-  return NextResponse.json({ ok: true });
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useEffect, useRef, useState, type RefObject } from "react";
 import { prefillContactService } from "@/lib/contactFormIntent";
+import { isValidPhone } from "@/lib/phoneValidation";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -128,6 +129,11 @@ export function ContactForm({
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    if (!isValidPhone(formData.get("phone"))) {
+      setStatus("error");
+      setMessage(isArabic ? "يرجى إدخال رقم هاتف صالح." : "Please enter a valid mobile number.");
+      return;
+    }
 
     setStatus("submitting");
     setMessage("");

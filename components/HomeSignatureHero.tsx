@@ -22,9 +22,11 @@ export function HomeSignatureHero() {
               Construction Company <span>in Dubai</span>
             </h1>
             <p className={styles.heroText}>
-              From the first drawing to the final handover. Civil construction,
-              building contracting, warehouse and villa construction, commercial
-              fit-out and Dubai authority approval support — coordinated around your project.
+              Emitronix Contracting LLC is a construction company in Dubai delivering
+              residential, commercial, industrial, and civil construction solutions
+              across the UAE. As a reliable building contractor in Dubai, we handle
+              project planning, construction, coordination, and handover based on
+              each client&apos;s requirements.
             </p>
             <div className={styles.actions}>
               <Link href="/contact" className={styles.button}>

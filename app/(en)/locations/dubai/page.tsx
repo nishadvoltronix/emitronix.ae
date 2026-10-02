@@ -1,3 +1,6 @@
+import { SectionPhotoPlacement } from "@/components/SectionPhotoPlacement";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import {
   ArrowRight,
   Building2,
@@ -136,9 +139,11 @@ const relatedLinks = [
   },
 ];
 
+const sectionPhotos = getSectionPhotographs("/locations/dubai", 5);
+
 export default function DubaiLocationPage() {
   return (
-    <>
+    <InternalPageFrame>
       <div>
         <TrustPageHero
           eyebrow="Dubai service area"
@@ -164,27 +169,28 @@ export default function DubaiLocationPage() {
 
         <section className="border-b border-brand/[0.10] bg-white py-8" aria-label="Verified Dubai business information">
           <div className="container-pad grid gap-4 md:grid-cols-3">
-            <div className="flex items-start gap-3 rounded-2xl bg-brand-soft p-4">
+            <div className="flex items-start gap-3 rounded-lg bg-brand-soft p-4">
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
               <div>
-                <p className="text-xs font-black uppercase tracking-wide text-steel">Published location</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-steel">Published location</p>
                 <p className="mt-1 text-sm font-bold leading-6 text-charcoal">{site.location}</p>
               </div>
             </div>
-            <div className="flex items-start gap-3 rounded-2xl bg-brand-soft p-4">
+            <div className="flex items-start gap-3 rounded-lg bg-brand-soft p-4">
               <Clock className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
               <div>
-                <p className="text-xs font-black uppercase tracking-wide text-steel">Business hours</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-steel">Business hours</p>
                 <p className="mt-1 text-sm font-bold leading-6 text-charcoal">{site.hours}</p>
               </div>
             </div>
-            <div className="flex items-start gap-3 rounded-2xl bg-brand-soft p-4">
+            <div className="flex items-start gap-3 rounded-lg bg-brand-soft p-4">
               <ClipboardCheck className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
               <div>
-                <p className="text-xs font-black uppercase tracking-wide text-steel">Service-area status</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-steel">Service-area status</p>
                 <p className="mt-1 text-sm font-bold leading-6 text-charcoal">Dubai is listed in the verified service-area source.</p>
               </div>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={0} sections={5} /></div>
           </div>
         </section>
 
@@ -192,7 +198,7 @@ export default function DubaiLocationPage() {
           <div className="container-pad">
             <div className="max-w-4xl">
               <p className="premium-kicker">Start with the project</p>
-              <h2 id="dubai-planning-heading" className="mt-4 text-4xl font-black tracking-tight text-charcoal sm:text-5xl">
+              <h2 id="dubai-planning-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
                 The correct Dubai route depends on more than a city name.
               </h2>
               <p className="mt-5 text-lg leading-8 text-steel">
@@ -203,14 +209,15 @@ export default function DubaiLocationPage() {
               {planningFactors.map((factor) => {
                 const Icon = factor.icon;
                 return (
-                  <article key={factor.title} className="luxury-card rounded-[1.5rem] p-6">
+                  <article key={factor.title} className="luxury-card rounded-lg p-6">
                     <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                    <h3 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{factor.title}</h3>
+                    <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{factor.title}</h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{factor.description}</p>
                   </article>
                 );
               })}
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={1} sections={5} /></div>
           </div>
         </section>
 
@@ -218,7 +225,7 @@ export default function DubaiLocationPage() {
           <div className="container-pad">
             <div className="max-w-4xl">
               <p className="premium-kicker">Service pathways</p>
-              <h2 id="dubai-services-heading" className="mt-4 text-4xl font-black tracking-tight text-charcoal sm:text-5xl">
+              <h2 id="dubai-services-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
                 Choose a service by scope, then confirm the interfaces.
               </h2>
               <p className="mt-5 text-lg leading-8 text-steel">
@@ -227,28 +234,29 @@ export default function DubaiLocationPage() {
             </div>
             <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {dubaiServiceLinks.map((service) => (
-                <Link key={service.href} href={service.href} className="luxury-card group rounded-[1.5rem] p-6">
+                <Link key={service.href} href={service.href} className="luxury-card group rounded-lg p-6">
                   <CheckCircle2 className="h-7 w-7 text-brand" aria-hidden="true" />
-                  <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">{service.label}</h3>
+                  <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{service.label}</h3>
                   <p className="mt-3 line-clamp-4 text-sm leading-7 text-steel">{service.description}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-brand">
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand">
                     Review service
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </span>
                 </Link>
               ))}
-              <Link href="/approval" className="luxury-card group rounded-[1.5rem] p-6">
+              <Link href="/approval" className="luxury-card group rounded-lg p-6">
                 <FileCheck2 className="h-7 w-7 text-brand" aria-hidden="true" />
-                <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">Authority approval support</h3>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">Authority approval support</h3>
                 <p className="mt-3 text-sm leading-7 text-steel">
                   Review the verified approval-support service without assuming the applicable authority, submission path or outcome.
                 </p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-brand">
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand">
                   Review approval support
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={2} sections={5} /></div>
           </div>
         </section>
 
@@ -256,7 +264,7 @@ export default function DubaiLocationPage() {
           <div className="container-pad grid gap-10 lg:grid-cols-[0.42fr_1fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
               <p className="premium-kicker">Enquiry workflow</p>
-              <h2 id="dubai-process-heading" className="mt-4 text-4xl font-black tracking-tight text-charcoal">
+              <h2 id="dubai-process-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal">
                 From location to a defined next step.
               </h2>
               <p className="mt-5 text-base leading-8 text-steel">
@@ -265,19 +273,20 @@ export default function DubaiLocationPage() {
             </div>
             <ol className="space-y-5">
               {enquirySteps.map((step, index) => (
-                <li key={step.title} className="rounded-[1.5rem] border border-brand/[0.10] bg-brand-soft p-6">
+                <li key={step.title} className="rounded-lg border border-brand/[0.10] bg-brand-soft p-6">
                   <div className="flex items-start gap-5">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-black text-white">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
                       {index + 1}
                     </span>
                     <div>
-                      <h3 className="text-xl font-black tracking-tight text-charcoal">{step.title}</h3>
+                      <h3 className="text-xl font-semibold tracking-tight text-charcoal">{step.title}</h3>
                       <p className="mt-3 text-sm leading-7 text-steel">{step.description}</p>
                     </div>
                   </div>
                 </li>
               ))}
             </ol>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={3} sections={5} /></div>
           </div>
         </section>
 
@@ -285,18 +294,19 @@ export default function DubaiLocationPage() {
           <div className="container-pad">
             <div className="mx-auto max-w-4xl text-center">
               <p className="premium-kicker">Dubai questions</p>
-              <h2 id="dubai-faq-heading" className="mt-4 text-4xl font-black tracking-tight text-charcoal sm:text-5xl">
+              <h2 id="dubai-faq-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
                 Clear location answers without unsupported claims.
               </h2>
             </div>
             <div className="mx-auto mt-10 grid max-w-5xl gap-5 md:grid-cols-2">
               {dubaiFaqs.map((faq) => (
-                <article key={faq.question} className="rounded-[1.5rem] border border-brand/[0.10] bg-white p-6 shadow-panel">
-                  <h3 className="text-xl font-black tracking-tight text-charcoal">{faq.question}</h3>
+                <article key={faq.question} className="rounded-lg border border-brand/[0.10] bg-white p-6 shadow-none">
+                  <h3 className="text-xl font-semibold tracking-tight text-charcoal">{faq.question}</h3>
                   <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
                 </article>
               ))}
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={4} sections={5} /></div>
           </div>
         </section>
 
@@ -305,6 +315,6 @@ export default function DubaiLocationPage() {
         <RelatedTrustLinks title="Continue planning" links={relatedLinks} />
       </div>
       <JsonLd data={dubaiJsonLd} />
-    </>
+    </InternalPageFrame>
   );
 }

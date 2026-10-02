@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { normalizeCookieConsentConfig, type CookieConsentConfig } from "@/data/cookieConsentDefaults";
 import { COOKIE_ADMIN_SESSION_NAME, hasCookieAdminAccess, isCookieAdminConfigured } from "@/lib/cookieConsentAdmin";
-import { getCookieConsentData, updateCookieConsentConfig } from "@/lib/cookieConsentStore";
+import { getCookieConsentData, updateCookieConsentConfig, cookieConsentErrorReason } from "@/lib/cookieConsentStore";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,7 +34,8 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ ok: true, ...data });
   } catch (error) {
     console.error("Cookie consent settings update failed", {
-      code: error instanceof Error ? error.message : "UNKNOWN_ERROR",
+      code: "CONSENT_SETTINGS_FAILED",
+      reason: cookieConsentErrorReason(error),
     });
     return NextResponse.json({ ok: false }, { status: 500 });
   }

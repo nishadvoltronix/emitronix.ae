@@ -1,0 +1,994 @@
+{
+  "method": "64-bit DCT perceptual hash of full normalized image and center 16:9 composition; only a candidate-screening aid, not proof of visual uniqueness for arbitrary crops.",
+  "newImages": 58,
+  "comparedImages": 262,
+  "flagged": [],
+  "results": [
+    {
+      "file": "/images/unique/pexels-10346959.webp",
+      "closest": [
+        {
+          "file": "/images/dewa-lv-inspection-testing-dubai.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/approvals/dda-approval-coordination-dubai-mobile.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/team/construction-team-dubai-mobile.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-10610731.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/civil-contracting-dubai-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/blog/dubai-authority-approvals-guide-mobile.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-12951624.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-11666903.webp",
+      "closest": [
+        {
+          "file": "/images/home-construction-og.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/blog/warehouse-construction-planning-guide-og.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/projects/villa-renovation-planning-dubai-desktop.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-12171800.webp",
+      "closest": [
+        {
+          "file": "/images/project-building-maintenance-dubai.avif",
+          "distance": 18
+        },
+        {
+          "file": "/images/project-building-maintenance-dubai.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/unique/pexels-17395035.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-12233662.webp",
+      "closest": [
+        {
+          "file": "/images/home/dubai-landscaped-villas.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/unique/pexels-236705.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/home-construction-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-12951624.webp",
+      "closest": [
+        {
+          "file": "/images/generated/projects/building-maintenance-inspection-planning-dubai-desktop.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/home/construction-workers-sunset.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-8272123.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-13752348.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-17842832.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-36003978.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/approvals/dewa-cable-works-dubai-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-14688876.webp",
+      "closest": [
+        {
+          "file": "/images/building-contractor-dubai-construction-site.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/building-contractor-dubai-construction-site.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/approvals/dubai-municipality-approval-planning-desktop.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-15225447.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-18162495.webp",
+          "distance": 24
+        },
+        {
+          "file": "/images/unique/pexels-6615237.webp",
+          "distance": 24
+        },
+        {
+          "file": "/images/unique/pexels-7031594.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-15768192.webp",
+      "closest": [
+        {
+          "file": "/images/generated/blog/dubai-authority-approvals-guide-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/company/dubai-construction-industries-hero-desktop.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/company/dubai-construction-industries-hero-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-17077378.webp",
+      "closest": [
+        {
+          "file": "/images/generated/approvals/rta-approval-noc-dubai-og.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/generated/approvals/rta-approval-noc-dubai-desktop.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/services/testing-commissioning-dubai-desktop.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-17395035.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-12171800.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/approvals/dewa-cable-works-dubai-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/project-commercial-renovation-dubai.avif",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-17842832.webp",
+      "closest": [
+        {
+          "file": "/images/generated/team/construction-team-dubai-desktop.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/unique/pexels-6615239.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/home/construction-workers-sunset.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-17843269.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-5511130.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/approvals/trakhees-approval-warehouse-dubai-og.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/blog/dubai-authority-approvals-guide-mobile.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-18162495.webp",
+      "closest": [
+        {
+          "file": "/images/generated/approvals/concordia-dmcc-approval-dubai-desktop.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/approvals/concordia-dmcc-approval-dubai-og.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/home/construction-workers-sunset.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-19344317.webp",
+      "closest": [
+        {
+          "file": "/images/civil-contractor-dubai-construction-site.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/civil-contractor-dubai-construction-site.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/internal/commercial-office-corridor.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-21812146.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/commercial-construction-dubai-desktop.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/dewa-lv-inspection-testing-dubai.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/approvals/dubai-municipality-approval-planning-mobile.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-236705.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-12233662.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/internal/fire-sprinkler-pipework.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-19344317.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-236709.webp",
+      "closest": [
+        {
+          "file": "/images/dubai-civil-works-construction-site.avif",
+          "distance": 18
+        },
+        {
+          "file": "/images/internal/structural-reinforcement.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/dubai-civil-works-construction-site.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-26173880.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-7031594.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/approvals/dubai-authority-approvals-coordination-desktop.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/company/construction-technical-resources-dubai-hero-desktop.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-29298450.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-6615239.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/generated/approvals/concordia-dmcc-approval-dubai-desktop.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/approvals/concordia-dmcc-approval-dubai-og.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-30832161.webp",
+      "closest": [
+        {
+          "file": "/images/generated/approvals/difc-fit-out-approval-dubai-mobile.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/unique/pexels-7031594.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-mep-coordination-dubai.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-31771226.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-12171800.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/emitronix-social-card.png",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-building-maintenance-dubai.avif",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-34054464.webp",
+      "closest": [
+        {
+          "file": "/images/internal/industrial-steel-roof.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/mep-civil-contracting-dubai.avif",
+          "distance": 20
+        },
+        {
+          "file": "/images/mep-civil-contracting-dubai.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-36003978.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-13752348.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-3771045.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/projects/portfolio-planning-dubai-hero-desktop.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-36003983.webp",
+      "closest": [
+        {
+          "file": "/images/project-authority-approvals-dubai.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-authority-approvals-dubai.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/home/jumeirah-village-circle-construction.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-36394726.webp",
+      "closest": [
+        {
+          "file": "/images/dewa-approval-dubai-electrical-engineers.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/dewa-approval-dubai-electrical-engineers.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/company/civil-site-review-dubai-desktop.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-36397989.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-8962803.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/services/industrial-construction-dubai-desktop.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/services/mep-works-dubai-og.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-36398150.webp",
+      "closest": [
+        {
+          "file": "/images/commercial-fit-out-contractor-dubai.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/commercial-fit-out-contractor-dubai.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/dubai-authority-approval-contractor.avif",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-36676879.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/design-build-contractor-dubai-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/project-building-maintenance-dubai.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-building-maintenance-dubai.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-3771045.webp",
+      "closest": [
+        {
+          "file": "/images/internal/architectural-drawing-review.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/project-authority-approvals-dubai.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-authority-approvals-dubai.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-37912780.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/commercial-construction-dubai-mobile.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/dewa-hv-lv-cable-works-dubai.avif",
+          "distance": 24
+        },
+        {
+          "file": "/images/dewa-hv-lv-cable-works-dubai.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-4483558.webp",
+      "closest": [
+        {
+          "file": "/images/sections/document-binders.webp",
+          "distance": 24
+        },
+        {
+          "file": "/images/unique/pexels-12171800.webp",
+          "distance": 24
+        },
+        {
+          "file": "/images/unique/pexels-17395035.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-4487364.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/design-build-contractor-dubai-og.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/emitronix-logo.png",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/services/design-build-contractor-dubai-desktop.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-544971.webp",
+      "closest": [
+        {
+          "file": "/images/generated/company/engineering-coordination-dubai-hero-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/home/dubai-marina-residences.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/services/mep-works-dubai-mobile.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-5505119.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-9617889.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/approvals/trakhees-approval-warehouse-dubai-og.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/blog/choosing-building-contractor-dubai-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-5511130.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-17843269.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/dubai-authority-approval-contractor.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/dubai-authority-approval-contractor.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-6281012.webp",
+      "closest": [
+        {
+          "file": "/images/generated/company/engineering-coordination-dubai-hero-og.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/approvals/dda-approval-coordination-dubai-desktop.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/services/warehouse-construction-dubai-desktop.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-6614757.webp",
+      "closest": [
+        {
+          "file": "/images/emitronix-logo.png",
+          "distance": 16
+        },
+        {
+          "file": "/images/project-office-fit-out-dubai.avif",
+          "distance": 20
+        },
+        {
+          "file": "/images/project-office-fit-out-dubai.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-6614837.webp",
+      "closest": [
+        {
+          "file": "/images/project-commercial-renovation-dubai.avif",
+          "distance": 20
+        },
+        {
+          "file": "/images/project-commercial-renovation-dubai.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/blog/dubai-authority-approvals-guide-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-6615237.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-8272123.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/generated/approvals/dewa-cable-works-dubai-desktop.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/generated/approvals/dcd-fire-safety-approval-dubai-mobile.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-6615239.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-29298450.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/unique/pexels-17842832.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/approvals/dewa-cable-works-dubai-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-6794926.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-9370034.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/blog/dubai-authority-approvals-guide-desktop.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/services/warehouse-construction-dubai-mobile.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-6794929.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/interior-fit-out-dubai-mobile.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/commercial-fit-out-contractor-dubai.avif",
+          "distance": 24
+        },
+        {
+          "file": "/images/commercial-fit-out-contractor-dubai.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-7031594.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-8272123.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/home/dubai-contemporary-villa.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-26173880.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-7108779.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/design-build-contractor-dubai-og.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/unique/pexels-19344317.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-8272123.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-7534179.webp",
+      "closest": [
+        {
+          "file": "/images/generated/company/dubai-construction-industries-hero-og.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/home/dubai-construction-company-hero-mobile.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/home/project-control-coordination-mobile.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-7688084.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/commercial-construction-dubai-desktop.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/projects/portfolio-planning-dubai-hero-mobile.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/services/commercial-construction-dubai-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-8134821.webp",
+      "closest": [
+        {
+          "file": "/images/home/dubai-marina-residences.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-6614757.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/approvals/dubai-municipality-approval-planning-mobile.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-8272123.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-6615237.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/generated/projects/building-maintenance-inspection-planning-dubai-desktop.webp",
+          "distance": 18
+        },
+        {
+          "file": "/images/unique/pexels-7031594.webp",
+          "distance": 20
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-8353767.webp",
+      "closest": [
+        {
+          "file": "/images/dubai-civil-works-construction-site.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/dubai-civil-works-construction-site.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/internal/structural-reinforcement.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-8837623.webp",
+      "closest": [
+        {
+          "file": "/images/generated/company/civil-site-review-dubai-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/company/dubai-construction-industries-hero-desktop.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/emitronix-social-card.png",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-8962803.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-36397989.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/generated/company/dubai-project-consultation-hero-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/unique/pexels-30832161.webp",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-8978625.webp",
+      "closest": [
+        {
+          "file": "/images/generated/services/interior-fit-out-dubai-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/project-building-maintenance-dubai.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-building-maintenance-dubai.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-9370034.webp",
+      "closest": [
+        {
+          "file": "/images/generated/approvals/dewa-approval-electrical-coordination-dubai-mobile.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/home/dubai-modern-villa-community.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/unique/pexels-6794926.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-9617366.webp",
+      "closest": [
+        {
+          "file": "/images/sections/office-laptop-work.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/services/testing-commissioning-dubai-desktop.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/generated/services/testing-commissioning-dubai-og.webp",
+          "distance": 22
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-9617889.webp",
+      "closest": [
+        {
+          "file": "/images/unique/pexels-5505119.webp",
+          "distance": 20
+        },
+        {
+          "file": "/images/unique/pexels-31771226.webp",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-building-maintenance-dubai.avif",
+          "distance": 24
+        }
+      ]
+    },
+    {
+      "file": "/images/unique/pexels-9618110.webp",
+      "closest": [
+        {
+          "file": "/images/emitronix-logo-reversed.png",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-authority-approvals-dubai.avif",
+          "distance": 22
+        },
+        {
+          "file": "/images/project-authority-approvals-dubai.webp",
+          "distance": 22
+        }
+      ]
+    }
+  ]
+}

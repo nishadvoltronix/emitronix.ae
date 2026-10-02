@@ -1,8 +1,11 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
 import { ArrowRight, ClipboardCheck, FileCheck2, Layers3 } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail } from "@/components/ContentBlocks";
-import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { PremiumSectionHeading } from "@/components/Premium";
 import { blogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
@@ -177,8 +180,9 @@ const knowledgeCenterJsonLd = {
 };
 
 export default function ResourcesPage() {
+  const sectionPhotographs = getSectionPhotographs("/resources", 4);
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Resources" }]}
         eyebrow="Knowledge Center"
@@ -192,21 +196,23 @@ export default function ResourcesPage() {
 
       <section id="topic-directory" className="section-pad scroll-mt-28 bg-white">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Topic directory"
-            title="Find the context behind the next project decision."
-            description="Each pathway starts with a useful definition and connects to a detailed service, guide, policy or role-based resource. Project-specific documents and appointed professionals remain controlling."
-            align="center"
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <PremiumSectionHeading
+              eyebrow="Topic directory"
+              title="Find the context behind the next project decision."
+              description="Each pathway starts with a useful definition and connects to a detailed service, guide, policy or role-based resource. Project-specific documents and appointed professionals remain controlling."
+            />
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+          </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {topics.map((topic) => {
               const Icon = topic.icon;
               return (
-                <Link key={topic.title} href={topic.href} className="luxury-card rounded-[1.5rem] p-6">
+                <Link key={topic.title} href={topic.href} className="luxury-card rounded-lg p-6">
                   <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                  <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{topic.title}</h2>
+                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{topic.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{topic.description}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
                     Open resource <ArrowRight className="h-4 w-4" />
                   </span>
                 </Link>
@@ -219,21 +225,27 @@ export default function ResourcesPage() {
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-12 lg:grid-cols-2">
           <div>
-            <PremiumSectionHeading eyebrow="Service resources" title="Detailed scope pages." />
+            <div className="space-y-6">
+              <PremiumSectionHeading eyebrow="Service resources" title="Detailed scope pages." />
+              <SectionPhotograph photo={sectionPhotographs[1]} compact />
+            </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {services.map((service) => (
-                <Link key={service.slug} href={service.href} className="rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 font-bold transition hover:bg-white hover:text-brand">
+                <Link key={service.slug} href={service.href} className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-4 font-bold transition hover:bg-white hover:text-brand">
                   {service.title}
                 </Link>
               ))}
             </div>
           </div>
           <div>
-            <PremiumSectionHeading eyebrow="Long-form learning" title="Construction articles." />
+            <div className="space-y-6">
+              <PremiumSectionHeading eyebrow="Long-form learning" title="Construction articles." />
+              <SectionPhotograph photo={sectionPhotographs[2]} compact />
+            </div>
             <div className="mt-8 grid gap-3">
               {blogPosts.slice(0, 6).map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`} className="rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 transition hover:bg-white">
-                  <h3 className="font-black text-charcoal">{post.title}</h3>
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-4 transition hover:bg-white">
+                  <h3 className="font-semibold text-charcoal">{post.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-steel">{post.excerpt}</p>
                 </Link>
               ))}
@@ -248,13 +260,16 @@ export default function ResourcesPage() {
         description="Useful content should improve the questions a project team asks, while keeping authority, design, contract and site responsibilities explicit."
         steps={resourceProcess}
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[3]} compact />
+      </div>
 
       <section className="bg-white py-10">
         <div className="container-pad">
-          <div className="grid gap-5 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-6 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="grid gap-5 rounded-lg border border-brand/[0.15] bg-brand-soft p-6 shadow-none lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="premium-kicker">Publication standards</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal">See how content is written, reviewed and corrected.</h2>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">See how content is written, reviewed and corrected.</h2>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link href="/editorial-policy" className="premium-button-light">Editorial policy</Link>
@@ -265,7 +280,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <FAQSection
+      <FAQSection accordion
         title="Construction Knowledge Center FAQ."
         description="Answers about topic selection, technical boundaries, review and corrections."
         faqs={resourceFaqs}
@@ -274,6 +289,6 @@ export default function ResourcesPage() {
 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(knowledgeCenterJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

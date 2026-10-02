@@ -1,0 +1,94 @@
+{
+  "version": "15.5.27",
+  "rendererVersion": "19.2.0-canary-0bdb9206-20250818",
+  "upstream": "https://github.com/react/react/pull/35494",
+  "commit": "eaa592d626196e8cc4d87ef01e1ca9060d8a27dc",
+  "upstreamPatch": "https://github.com/react/react/commit/eaa592d626196e8cc4d87ef01e1ca9060d8a27dc.patch",
+  "upstreamPatchSha256": "9b573bd66f6dfd00e728e34b4bfdfbd45edb33bcb0add5d94a5d660dc618be01",
+  "sourceTarball": "https://registry.npmjs.org/next/-/next-15.5.27.tgz",
+  "sourceTarballIntegrity": "sha512-F82CrlPZ8GRxBH9RIIoR3qU1t5RT3dv1K8moe8SjlDEquiFipvEI13R1Om90TaUOEwShkWCMlg8+gvTNzfMhvg==",
+  "supportsHydration": true,
+  "adaptation": "Exact upstream HostComponent replay cursor restoration. Vendored DOM renderers have supportsHydration statically true, so that constant guard is omitted; HostComponent is tag 5. No other replay or unwind path changes.",
+  "targets": [
+    {
+      "path": "dist/compiled/react-dom/cjs/react-dom-client.development.js",
+      "originalSha256": "14c33685b88f2e39827dc6f0515f9d44411958758aef6573686468163465f6bb",
+      "patchedSha256": "9d642b64651182205fe2fccf0ec7c826e71ec06e33fe6557a997f202ee54bb2a",
+      "originalBytes": 979588,
+      "patchedBytes": 980021,
+      "insertionCount": 1,
+      "replayCallCount": 1,
+      "replayFiberVariable": "unitOfWork",
+      "replacements": [
+        {
+          "before": "    function upgradeHydrationErrorsToRecoverable() {",
+          "after": "    function popHydrationStateOnInterruptedWork(fiber) {\n      if (fiber !== hydrationParentFiber) return;\n      if (!isHydrating) {\n        popToNextHostParent(fiber);\n        isHydrating = true;\n        return;\n      }\n      popToNextHostParent(fiber);\n      if (fiber.tag === 5 && fiber.stateNode != null) {\n        nextHydratableInstance = fiber.stateNode;\n      }\n    }\n    function upgradeHydrationErrorsToRecoverable() {"
+        },
+        {
+          "before": "        case 5:\n          resetHooksOnUnwind(unitOfWork);\n        default:",
+          "after": "        case 5:\n          resetHooksOnUnwind(unitOfWork);\n          popHydrationStateOnInterruptedWork(unitOfWork);\n        default:"
+        }
+      ]
+    },
+    {
+      "path": "dist/compiled/react-dom/cjs/react-dom-client.production.js",
+      "originalSha256": "9bcaacd92279559075407d2fb09b19893f03f9b93ad74eb0ef42b31b66f6053e",
+      "patchedSha256": "079f9dbbd01170d3f726be28d674435846c4af39a7fddfa210e05515682c47ea",
+      "originalBytes": 530233,
+      "patchedBytes": 530608,
+      "insertionCount": 1,
+      "replayCallCount": 1,
+      "replayFiberVariable": "next",
+      "replacements": [
+        {
+          "before": "function upgradeHydrationErrorsToRecoverable() {",
+          "after": "function popHydrationStateOnInterruptedWork(fiber) {\n  if (fiber !== hydrationParentFiber) return;\n  if (!isHydrating) {\n    popToNextHostParent(fiber);\n    isHydrating = true;\n    return;\n  }\n  popToNextHostParent(fiber);\n  if (fiber.tag === 5 && fiber.stateNode != null) {\n    nextHydratableInstance = fiber.stateNode;\n  }\n}\nfunction upgradeHydrationErrorsToRecoverable() {"
+        },
+        {
+          "before": "    case 5:\n      resetHooksOnUnwind(next);\n    default:",
+          "after": "    case 5:\n      resetHooksOnUnwind(next);\n      popHydrationStateOnInterruptedWork(next);\n    default:"
+        }
+      ]
+    },
+    {
+      "path": "dist/compiled/react-dom/cjs/react-dom-profiling.development.js",
+      "originalSha256": "d0b4798776943fddff40056c9bd001e6076111b30aae3a392436722bfab24e2e",
+      "patchedSha256": "7c7825513d233106e4c30637e3666913b3afcc48e368302fe50bc3a4972201f2",
+      "originalBytes": 995972,
+      "patchedBytes": 996405,
+      "insertionCount": 1,
+      "replayCallCount": 1,
+      "replayFiberVariable": "unitOfWork",
+      "replacements": [
+        {
+          "before": "    function upgradeHydrationErrorsToRecoverable() {",
+          "after": "    function popHydrationStateOnInterruptedWork(fiber) {\n      if (fiber !== hydrationParentFiber) return;\n      if (!isHydrating) {\n        popToNextHostParent(fiber);\n        isHydrating = true;\n        return;\n      }\n      popToNextHostParent(fiber);\n      if (fiber.tag === 5 && fiber.stateNode != null) {\n        nextHydratableInstance = fiber.stateNode;\n      }\n    }\n    function upgradeHydrationErrorsToRecoverable() {"
+        },
+        {
+          "before": "        case 5:\n          resetHooksOnUnwind(unitOfWork);\n        default:",
+          "after": "        case 5:\n          resetHooksOnUnwind(unitOfWork);\n          popHydrationStateOnInterruptedWork(unitOfWork);\n        default:"
+        }
+      ]
+    },
+    {
+      "path": "dist/compiled/react-dom/cjs/react-dom-profiling.profiling.js",
+      "originalSha256": "2a2f9a79c0d5906720e6833f1d0cc605379b004279ca1b1ef37142a5fe392178",
+      "patchedSha256": "7c28044f69a0809e3f79d222b343c350a6416a674e508b78871380b37b7dd378",
+      "originalBytes": 563842,
+      "patchedBytes": 564217,
+      "insertionCount": 1,
+      "replayCallCount": 1,
+      "replayFiberVariable": "next",
+      "replacements": [
+        {
+          "before": "function upgradeHydrationErrorsToRecoverable() {",
+          "after": "function popHydrationStateOnInterruptedWork(fiber) {\n  if (fiber !== hydrationParentFiber) return;\n  if (!isHydrating) {\n    popToNextHostParent(fiber);\n    isHydrating = true;\n    return;\n  }\n  popToNextHostParent(fiber);\n  if (fiber.tag === 5 && fiber.stateNode != null) {\n    nextHydratableInstance = fiber.stateNode;\n  }\n}\nfunction upgradeHydrationErrorsToRecoverable() {"
+        },
+        {
+          "before": "    case 5:\n      resetHooksOnUnwind(next);\n    default:",
+          "after": "    case 5:\n      resetHooksOnUnwind(next);\n      popHydrationStateOnInterruptedWork(next);\n    default:"
+        }
+      ]
+    }
+  ]
+}

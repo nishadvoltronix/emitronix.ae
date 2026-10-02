@@ -1,0 +1,1916 @@
+{
+  "baseUrl": "http://127.0.0.1:3181",
+  "createdAt": "2026-10-02T13:41:25.476Z",
+  "methodology": "Local production server, fresh browser context per journey; one second after home load; real link clicks timed in browser through changed visible destination H1 plus two animation frames. Same-origin GET/HEAD only, optional consent denied. Route interception disables browser HTTP caching; Next router prefetch cache remains active. Unthrottled local timings are functional evidence, not a WAN speed guarantee.",
+  "expectLoading": true,
+  "expectFast": true,
+  "footerOnly": false,
+  "scenarios": [
+    {
+      "name": "desktop",
+      "viewport": "1440x1000",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "blockedMutations": [],
+      "blockedExternalHosts": [
+        "www.googletagmanager.com"
+      ],
+      "delayedRequests": [],
+      "flightRequests": [
+        {
+          "path": "/about",
+          "startedAt": 1790948486484,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486515,
+          "responseBytes": 109940
+        },
+        {
+          "path": "/services",
+          "startedAt": 1790948486484,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486514,
+          "responseBytes": 185744
+        },
+        {
+          "path": "/civil",
+          "startedAt": 1790948486485,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486516,
+          "responseBytes": 126879
+        },
+        {
+          "path": "/main-contracting",
+          "startedAt": 1790948486485,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486517,
+          "responseBytes": 126117
+        },
+        {
+          "path": "/warehouse-construction",
+          "startedAt": 1790948486486,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486520,
+          "responseBytes": 156635
+        },
+        {
+          "path": "/industrial-buildings",
+          "startedAt": 1790948486507,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486545,
+          "responseBytes": 127678
+        },
+        {
+          "path": "/commercial-buildings",
+          "startedAt": 1790948486509,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486545,
+          "responseBytes": 122140
+        },
+        {
+          "path": "/approval",
+          "startedAt": 1790948486512,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486548,
+          "responseBytes": 110916
+        },
+        {
+          "path": "/dubai-municipality-approval",
+          "startedAt": 1790948486514,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486549,
+          "responseBytes": 108454
+        },
+        {
+          "path": "/dda-approvals",
+          "startedAt": 1790948486523,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486551,
+          "responseBytes": 107340
+        },
+        {
+          "path": "/dcd-approvals",
+          "startedAt": 1790948486525,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486560,
+          "responseBytes": 109861
+        },
+        {
+          "path": "/dewa-approvals",
+          "startedAt": 1790948486535,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486564,
+          "responseBytes": 272006
+        },
+        {
+          "path": "/trakhees-approvals",
+          "startedAt": 1790948486549,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486585,
+          "responseBytes": 107180
+        },
+        {
+          "path": "/industries",
+          "startedAt": 1790948486550,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486585,
+          "responseBytes": 100836
+        },
+        {
+          "path": "/resources",
+          "startedAt": 1790948486553,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486585,
+          "responseBytes": 119428
+        },
+        {
+          "path": "/projects",
+          "startedAt": 1790948486560,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486586,
+          "responseBytes": 89606
+        },
+        {
+          "path": "/contact",
+          "startedAt": 1790948486565,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486588,
+          "responseBytes": 89610
+        },
+        {
+          "path": "/search",
+          "startedAt": 1790948486586,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486605,
+          "responseBytes": 150
+        },
+        {
+          "path": "/interior",
+          "startedAt": 1790948486586,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948486605,
+          "responseBytes": 124192
+        }
+      ],
+      "navigations": [
+        {
+          "from": "/",
+          "to": "/about",
+          "clickToVisibleHeadingMs": 123.1,
+          "clickToPaintedHeadingMs": 163,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "A Dubai contractor built around scope clarity.",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 22,
+              "responseAfterClickMs": 43,
+              "decodedBytes": 67094
+            },
+            {
+              "path": "/images/emitronix-logo.svg",
+              "initiator": "img",
+              "startAfterClickMs": 33,
+              "responseAfterClickMs": 128,
+              "decodedBytes": 4743
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 129,
+              "responseAfterClickMs": 142,
+              "decodedBytes": 22199
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 129,
+              "responseAfterClickMs": 143,
+              "decodedBytes": 13798
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 141,
+              "responseAfterClickMs": 151,
+              "decodedBytes": 1618
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/about",
+            "/approval",
+            "/civil",
+            "/commercial-buildings",
+            "/contact",
+            "/dcd-approvals",
+            "/dda-approvals",
+            "/dewa-approvals",
+            "/dubai-municipality-approval",
+            "/industrial-buildings",
+            "/industries",
+            "/interior",
+            "/main-contracting",
+            "/projects",
+            "/resources",
+            "/search",
+            "/services",
+            "/trakhees-approvals",
+            "/warehouse-construction"
+          ]
+        },
+        {
+          "from": "/about",
+          "to": "/projects",
+          "clickToVisibleHeadingMs": 152.3,
+          "clickToPaintedHeadingMs": 201.1,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "Construction scope planning scenarios",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 76,
+              "responseAfterClickMs": 85,
+              "decodedBytes": 66080
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 158,
+              "responseAfterClickMs": 163,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 166,
+              "responseAfterClickMs": 171,
+              "decodedBytes": 1618
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/about",
+            "/approval",
+            "/civil",
+            "/commercial-buildings",
+            "/contact",
+            "/dcd-approvals",
+            "/dda-approvals",
+            "/dewa-approvals",
+            "/dubai-municipality-approval",
+            "/industrial-buildings",
+            "/industries",
+            "/interior",
+            "/main-contracting",
+            "/projects",
+            "/resources",
+            "/search",
+            "/services",
+            "/trakhees-approvals",
+            "/warehouse-construction"
+          ]
+        },
+        {
+          "from": "/projects",
+          "to": "/contact",
+          "clickToVisibleHeadingMs": 50,
+          "clickToPaintedHeadingMs": 59.6,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "Start with the facts that control the Dubai project.",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 19,
+              "responseAfterClickMs": 31,
+              "decodedBytes": 66800
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 48,
+              "responseAfterClickMs": 54,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 53,
+              "responseAfterClickMs": 62,
+              "decodedBytes": 22254
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/about",
+            "/approval",
+            "/civil",
+            "/commercial-buildings",
+            "/contact",
+            "/dcd-approvals",
+            "/dda-approvals",
+            "/dewa-approvals",
+            "/dubai-municipality-approval",
+            "/industrial-buildings",
+            "/industries",
+            "/interior",
+            "/main-contracting",
+            "/projects",
+            "/resources",
+            "/search",
+            "/services",
+            "/trakhees-approvals",
+            "/warehouse-construction"
+          ]
+        }
+      ],
+      "homeScripts": {
+        "count": 26,
+        "transferBytes": 193242,
+        "encodedBytes": 185442,
+        "decodedBytes": 596226,
+        "files": [
+          {
+            "path": "/_next/static/chunks/webpack-4b988866e3820193.js",
+            "transferBytes": 2105,
+            "encodedBytes": 1805,
+            "decodedBytes": 3537
+          },
+          {
+            "path": "/_next/static/chunks/4bd1b696-139174b95e843013.js",
+            "transferBytes": 54706,
+            "encodedBytes": 54406,
+            "decodedBytes": 173128
+          },
+          {
+            "path": "/_next/static/chunks/1255-9ef406491bab10f3.js",
+            "transferBytes": 46862,
+            "encodedBytes": 46562,
+            "decodedBytes": 173827
+          },
+          {
+            "path": "/_next/static/chunks/main-app-ec7643f8d93f540d.js",
+            "transferBytes": 816,
+            "encodedBytes": 516,
+            "decodedBytes": 516
+          },
+          {
+            "path": "/_next/static/chunks/2619-3c9e02e22d10480a.js",
+            "transferBytes": 3688,
+            "encodedBytes": 3388,
+            "decodedBytes": 8538
+          },
+          {
+            "path": "/_next/static/chunks/1356-269338f042113799.js",
+            "transferBytes": 5513,
+            "encodedBytes": 5213,
+            "decodedBytes": 13639
+          },
+          {
+            "path": "/_next/static/chunks/6513-72fb715aa94c6cc9.js",
+            "transferBytes": 3488,
+            "encodedBytes": 3188,
+            "decodedBytes": 8946
+          },
+          {
+            "path": "/_next/static/chunks/159-33228387fd8484dc.js",
+            "transferBytes": 8194,
+            "encodedBytes": 7894,
+            "decodedBytes": 27698
+          },
+          {
+            "path": "/_next/static/chunks/7009-f8d23c1886b13e6a.js",
+            "transferBytes": 11717,
+            "encodedBytes": 11417,
+            "decodedBytes": 36660
+          },
+          {
+            "path": "/_next/static/chunks/app/global-error-77ba0b2d65a3052d.js",
+            "transferBytes": 1009,
+            "encodedBytes": 709,
+            "decodedBytes": 1199
+          },
+          {
+            "path": "/_next/static/chunks/9446-c5b997ace2af9311.js",
+            "transferBytes": 7187,
+            "encodedBytes": 6887,
+            "decodedBytes": 20068
+          },
+          {
+            "path": "/_next/static/chunks/1500-87128169005befee.js",
+            "transferBytes": 19332,
+            "encodedBytes": 19032,
+            "decodedBytes": 65619
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/layout-7c22a4f7cfae51c2.js",
+            "transferBytes": 853,
+            "encodedBytes": 553,
+            "decodedBytes": 553
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/page-aea867d9ca766789.js",
+            "transferBytes": 3013,
+            "encodedBytes": 2713,
+            "decodedBytes": 6182
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/error-49cc8811648c187a.js",
+            "transferBytes": 958,
+            "encodedBytes": 658,
+            "decodedBytes": 1187
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/not-found-723df8768a6d1aae.js",
+            "transferBytes": 1397,
+            "encodedBytes": 1097,
+            "decodedBytes": 2167
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/services/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/about/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/6278-89faa2e8594d4bf8.js",
+            "transferBytes": 5050,
+            "encodedBytes": 4750,
+            "decodedBytes": 11129
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/civil/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/main-contracting/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/warehouse-construction/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/industrial-buildings/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/commercial-buildings/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/3525-d778b21913a9053e.js",
+            "transferBytes": 4096,
+            "encodedBytes": 3796,
+            "decodedBytes": 14048
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/projects/page-8790d2613bbb3d70.js",
+            "transferBytes": 6701,
+            "encodedBytes": 6401,
+            "decodedBytes": 20944
+          }
+        ]
+      },
+      "prefetchesBeforeMenuOpen": [
+        "/about",
+        "/approval",
+        "/civil",
+        "/commercial-buildings",
+        "/contact",
+        "/dcd-approvals",
+        "/dda-approvals",
+        "/dewa-approvals",
+        "/dubai-municipality-approval",
+        "/industrial-buildings",
+        "/industries",
+        "/interior",
+        "/main-contracting",
+        "/projects",
+        "/resources",
+        "/search",
+        "/services",
+        "/trakhees-approvals",
+        "/warehouse-construction"
+      ]
+    },
+    {
+      "name": "mobile",
+      "viewport": "390x844",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "blockedMutations": [],
+      "blockedExternalHosts": [
+        "www.googletagmanager.com"
+      ],
+      "delayedRequests": [],
+      "flightRequests": [
+        {
+          "path": "/contact",
+          "startedAt": 1790948489110,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948489148,
+          "responseBytes": 89610
+        },
+        {
+          "path": "/civil",
+          "startedAt": 1790948489111,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948489148,
+          "responseBytes": 126879
+        },
+        {
+          "path": "/warehouse-construction",
+          "startedAt": 1790948489112,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948489154,
+          "responseBytes": 156635
+        },
+        {
+          "path": "/interior",
+          "startedAt": 1790948489112,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948489157,
+          "responseBytes": 124192
+        },
+        {
+          "path": "/approval",
+          "startedAt": 1790948489112,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948489160,
+          "responseBytes": 110916
+        },
+        {
+          "path": "/about",
+          "startedAt": 1790948489146,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948489186,
+          "responseBytes": 109940
+        },
+        {
+          "path": "/services",
+          "startedAt": 1790948489148,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948489188,
+          "responseBytes": 185744
+        },
+        {
+          "path": "/industries",
+          "startedAt": 1790948489156,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948489195,
+          "responseBytes": 100836
+        },
+        {
+          "path": "/resources",
+          "startedAt": 1790948489161,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948489201,
+          "responseBytes": 119428
+        },
+        {
+          "path": "/projects",
+          "startedAt": 1790948489166,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948489204,
+          "responseBytes": 89606
+        },
+        {
+          "path": "/search",
+          "startedAt": 1790948490305,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948490320,
+          "responseBytes": 150
+        }
+      ],
+      "navigations": [
+        {
+          "from": "/",
+          "to": "/about",
+          "clickToVisibleHeadingMs": 98.8,
+          "clickToPaintedHeadingMs": 110.5,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "A Dubai contractor built around scope clarity.",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 32,
+              "responseAfterClickMs": 53,
+              "decodedBytes": 20761
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 98,
+              "responseAfterClickMs": 102,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 101,
+              "responseAfterClickMs": 107,
+              "decodedBytes": 22357
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/about",
+            "/approval",
+            "/civil",
+            "/contact",
+            "/industries",
+            "/interior",
+            "/projects",
+            "/resources",
+            "/search",
+            "/services",
+            "/warehouse-construction"
+          ]
+        },
+        {
+          "from": "/about",
+          "to": "/projects",
+          "clickToVisibleHeadingMs": 82.1,
+          "clickToPaintedHeadingMs": 106,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "Construction scope planning scenarios",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 81,
+              "responseAfterClickMs": 89,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 95,
+              "responseAfterClickMs": 100,
+              "decodedBytes": 1618
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/about",
+            "/approval",
+            "/civil",
+            "/contact",
+            "/industries",
+            "/interior",
+            "/projects",
+            "/resources",
+            "/search",
+            "/services",
+            "/warehouse-construction"
+          ]
+        },
+        {
+          "from": "/projects",
+          "to": "/contact",
+          "clickToVisibleHeadingMs": 48.9,
+          "clickToPaintedHeadingMs": 76.4,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "Start with the facts that control the Dubai project.",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 48,
+              "responseAfterClickMs": 58,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 53,
+              "responseAfterClickMs": 62,
+              "decodedBytes": 22254
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 64,
+              "responseAfterClickMs": 71,
+              "decodedBytes": 1618
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/about",
+            "/approval",
+            "/civil",
+            "/contact",
+            "/industries",
+            "/interior",
+            "/projects",
+            "/resources",
+            "/search",
+            "/services",
+            "/warehouse-construction"
+          ]
+        }
+      ],
+      "homeScripts": {
+        "count": 28,
+        "transferBytes": 196966,
+        "encodedBytes": 188566,
+        "decodedBytes": 602626,
+        "files": [
+          {
+            "path": "/_next/static/chunks/webpack-4b988866e3820193.js",
+            "transferBytes": 2105,
+            "encodedBytes": 1805,
+            "decodedBytes": 3537
+          },
+          {
+            "path": "/_next/static/chunks/4bd1b696-139174b95e843013.js",
+            "transferBytes": 54706,
+            "encodedBytes": 54406,
+            "decodedBytes": 173128
+          },
+          {
+            "path": "/_next/static/chunks/1255-9ef406491bab10f3.js",
+            "transferBytes": 46862,
+            "encodedBytes": 46562,
+            "decodedBytes": 173827
+          },
+          {
+            "path": "/_next/static/chunks/main-app-ec7643f8d93f540d.js",
+            "transferBytes": 816,
+            "encodedBytes": 516,
+            "decodedBytes": 516
+          },
+          {
+            "path": "/_next/static/chunks/2619-3c9e02e22d10480a.js",
+            "transferBytes": 3688,
+            "encodedBytes": 3388,
+            "decodedBytes": 8538
+          },
+          {
+            "path": "/_next/static/chunks/1356-269338f042113799.js",
+            "transferBytes": 5513,
+            "encodedBytes": 5213,
+            "decodedBytes": 13639
+          },
+          {
+            "path": "/_next/static/chunks/6513-72fb715aa94c6cc9.js",
+            "transferBytes": 3488,
+            "encodedBytes": 3188,
+            "decodedBytes": 8946
+          },
+          {
+            "path": "/_next/static/chunks/159-33228387fd8484dc.js",
+            "transferBytes": 8194,
+            "encodedBytes": 7894,
+            "decodedBytes": 27698
+          },
+          {
+            "path": "/_next/static/chunks/7009-f8d23c1886b13e6a.js",
+            "transferBytes": 11717,
+            "encodedBytes": 11417,
+            "decodedBytes": 36660
+          },
+          {
+            "path": "/_next/static/chunks/app/global-error-77ba0b2d65a3052d.js",
+            "transferBytes": 1009,
+            "encodedBytes": 709,
+            "decodedBytes": 1199
+          },
+          {
+            "path": "/_next/static/chunks/9446-c5b997ace2af9311.js",
+            "transferBytes": 7187,
+            "encodedBytes": 6887,
+            "decodedBytes": 20068
+          },
+          {
+            "path": "/_next/static/chunks/1500-87128169005befee.js",
+            "transferBytes": 19332,
+            "encodedBytes": 19032,
+            "decodedBytes": 65619
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/layout-7c22a4f7cfae51c2.js",
+            "transferBytes": 853,
+            "encodedBytes": 553,
+            "decodedBytes": 553
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/page-aea867d9ca766789.js",
+            "transferBytes": 3013,
+            "encodedBytes": 2713,
+            "decodedBytes": 6182
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/error-49cc8811648c187a.js",
+            "transferBytes": 958,
+            "encodedBytes": 658,
+            "decodedBytes": 1187
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/not-found-723df8768a6d1aae.js",
+            "transferBytes": 1397,
+            "encodedBytes": 1097,
+            "decodedBytes": 2167
+          },
+          {
+            "path": "/_next/static/chunks/6278-89faa2e8594d4bf8.js",
+            "transferBytes": 5050,
+            "encodedBytes": 4750,
+            "decodedBytes": 11129
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/contact/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/civil/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/warehouse-construction/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/interior/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/approval/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/about/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/services/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/industries/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/resources/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/3525-d778b21913a9053e.js",
+            "transferBytes": 4096,
+            "encodedBytes": 3796,
+            "decodedBytes": 14048
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/projects/page-8790d2613bbb3d70.js",
+            "transferBytes": 6701,
+            "encodedBytes": 6401,
+            "decodedBytes": 20944
+          }
+        ]
+      },
+      "prefetchesBeforeMenuOpen": [
+        "/about",
+        "/approval",
+        "/civil",
+        "/contact",
+        "/industries",
+        "/interior",
+        "/projects",
+        "/resources",
+        "/services",
+        "/warehouse-construction"
+      ]
+    },
+    {
+      "name": "arabic-desktop",
+      "viewport": "1440x1000",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "blockedMutations": [],
+      "blockedExternalHosts": [
+        "www.googletagmanager.com"
+      ],
+      "delayedRequests": [],
+      "flightRequests": [
+        {
+          "path": "/ar/about",
+          "startedAt": 1790948491966,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492030,
+          "responseBytes": 85982
+        },
+        {
+          "path": "/ar/services",
+          "startedAt": 1790948491967,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492027,
+          "responseBytes": 101551
+        },
+        {
+          "path": "/ar/civil",
+          "startedAt": 1790948491968,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492005,
+          "responseBytes": 89857
+        },
+        {
+          "path": "/ar/main-contracting",
+          "startedAt": 1790948491968,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492007,
+          "responseBytes": 89878
+        },
+        {
+          "path": "/ar/warehouse-construction",
+          "startedAt": 1790948491968,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492026,
+          "responseBytes": 92350
+        },
+        {
+          "path": "/ar/industrial-buildings",
+          "startedAt": 1790948492004,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492053,
+          "responseBytes": 89515
+        },
+        {
+          "path": "/ar/commercial-buildings",
+          "startedAt": 1790948492009,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492052,
+          "responseBytes": 89451
+        },
+        {
+          "path": "/ar/approval",
+          "startedAt": 1790948492023,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492076,
+          "responseBytes": 89996
+        },
+        {
+          "path": "/ar/dubai-municipality-approval",
+          "startedAt": 1790948492025,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492079,
+          "responseBytes": 86875
+        },
+        {
+          "path": "/ar/dda-approvals",
+          "startedAt": 1790948492030,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492079,
+          "responseBytes": 87164
+        },
+        {
+          "path": "/ar/dcd-approvals",
+          "startedAt": 1790948492050,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492093,
+          "responseBytes": 87404
+        },
+        {
+          "path": "/ar/dewa-approvals",
+          "startedAt": 1790948492055,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492097,
+          "responseBytes": 87750
+        },
+        {
+          "path": "/ar/trakhees-approvals",
+          "startedAt": 1790948492072,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492109,
+          "responseBytes": 86337
+        },
+        {
+          "path": "/ar/industries",
+          "startedAt": 1790948492077,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492127,
+          "responseBytes": 86810
+        },
+        {
+          "path": "/ar/resources",
+          "startedAt": 1790948492079,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492128,
+          "responseBytes": 85921
+        },
+        {
+          "path": "/ar/projects",
+          "startedAt": 1790948492091,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492107,
+          "responseBytes": 113790
+        },
+        {
+          "path": "/ar/contact",
+          "startedAt": 1790948492096,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948492117,
+          "responseBytes": 85412
+        },
+        {
+          "path": "/search",
+          "startedAt": 1790948492106,
+          "mode": "auto-prefetch",
+          "completedAt": null,
+          "responseBytes": null
+        }
+      ],
+      "navigations": [
+        {
+          "from": "/ar",
+          "to": "/ar/about",
+          "clickToVisibleHeadingMs": 117.5,
+          "clickToPaintedHeadingMs": 141.7,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "مقاول في دبي يعتمد على الوضوح والانضباط في التنفيذ.",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 20,
+              "responseAfterClickMs": 55,
+              "decodedBytes": 67094
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 120,
+              "responseAfterClickMs": 133,
+              "decodedBytes": 13798
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 120,
+              "responseAfterClickMs": 134,
+              "decodedBytes": 19525
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/ar/about",
+            "/ar/approval",
+            "/ar/civil",
+            "/ar/commercial-buildings",
+            "/ar/contact",
+            "/ar/dcd-approvals",
+            "/ar/dda-approvals",
+            "/ar/dewa-approvals",
+            "/ar/dubai-municipality-approval",
+            "/ar/industrial-buildings",
+            "/ar/industries",
+            "/ar/main-contracting",
+            "/ar/projects",
+            "/ar/resources",
+            "/ar/services",
+            "/ar/trakhees-approvals",
+            "/ar/warehouse-construction",
+            "/search"
+          ]
+        }
+      ],
+      "homeScripts": {
+        "count": 18,
+        "transferBytes": 181409,
+        "encodedBytes": 176009,
+        "decodedBytes": 569270,
+        "files": [
+          {
+            "path": "/_next/static/chunks/webpack-4b988866e3820193.js",
+            "transferBytes": 2105,
+            "encodedBytes": 1805,
+            "decodedBytes": 3537
+          },
+          {
+            "path": "/_next/static/chunks/4bd1b696-139174b95e843013.js",
+            "transferBytes": 54706,
+            "encodedBytes": 54406,
+            "decodedBytes": 173128
+          },
+          {
+            "path": "/_next/static/chunks/1255-9ef406491bab10f3.js",
+            "transferBytes": 46862,
+            "encodedBytes": 46562,
+            "decodedBytes": 173827
+          },
+          {
+            "path": "/_next/static/chunks/main-app-ec7643f8d93f540d.js",
+            "transferBytes": 816,
+            "encodedBytes": 516,
+            "decodedBytes": 516
+          },
+          {
+            "path": "/_next/static/chunks/2619-3c9e02e22d10480a.js",
+            "transferBytes": 3688,
+            "encodedBytes": 3388,
+            "decodedBytes": 8538
+          },
+          {
+            "path": "/_next/static/chunks/1356-269338f042113799.js",
+            "transferBytes": 5513,
+            "encodedBytes": 5213,
+            "decodedBytes": 13639
+          },
+          {
+            "path": "/_next/static/chunks/6513-72fb715aa94c6cc9.js",
+            "transferBytes": 3488,
+            "encodedBytes": 3188,
+            "decodedBytes": 8946
+          },
+          {
+            "path": "/_next/static/chunks/159-33228387fd8484dc.js",
+            "transferBytes": 8194,
+            "encodedBytes": 7894,
+            "decodedBytes": 27698
+          },
+          {
+            "path": "/_next/static/chunks/7009-f8d23c1886b13e6a.js",
+            "transferBytes": 11717,
+            "encodedBytes": 11417,
+            "decodedBytes": 36660
+          },
+          {
+            "path": "/_next/static/chunks/app/global-error-77ba0b2d65a3052d.js",
+            "transferBytes": 1009,
+            "encodedBytes": 709,
+            "decodedBytes": 1199
+          },
+          {
+            "path": "/_next/static/chunks/9446-c5b997ace2af9311.js",
+            "transferBytes": 7187,
+            "encodedBytes": 6887,
+            "decodedBytes": 20068
+          },
+          {
+            "path": "/_next/static/chunks/1500-87128169005befee.js",
+            "transferBytes": 19332,
+            "encodedBytes": 19032,
+            "decodedBytes": 65619
+          },
+          {
+            "path": "/_next/static/chunks/app/ar/layout-7c22a4f7cfae51c2.js",
+            "transferBytes": 853,
+            "encodedBytes": 553,
+            "decodedBytes": 553
+          },
+          {
+            "path": "/_next/static/chunks/6278-89faa2e8594d4bf8.js",
+            "transferBytes": 5050,
+            "encodedBytes": 4750,
+            "decodedBytes": 11129
+          },
+          {
+            "path": "/_next/static/chunks/132-b45ed6c8a22b7a44.js",
+            "transferBytes": 4577,
+            "encodedBytes": 4277,
+            "decodedBytes": 11944
+          },
+          {
+            "path": "/_next/static/chunks/app/ar/%5B...slug%5D/page-29c8fe3f8847e51c.js",
+            "transferBytes": 3873,
+            "encodedBytes": 3573,
+            "decodedBytes": 8809
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/error-49cc8811648c187a.js",
+            "transferBytes": 958,
+            "encodedBytes": 658,
+            "decodedBytes": 1187
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/search/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          }
+        ]
+      },
+      "prefetchesBeforeMenuOpen": [
+        "/ar/about",
+        "/ar/approval",
+        "/ar/civil",
+        "/ar/commercial-buildings",
+        "/ar/contact",
+        "/ar/dcd-approvals",
+        "/ar/dda-approvals",
+        "/ar/dewa-approvals",
+        "/ar/dubai-municipality-approval",
+        "/ar/industrial-buildings",
+        "/ar/industries",
+        "/ar/main-contracting",
+        "/ar/projects",
+        "/ar/resources",
+        "/ar/services",
+        "/ar/trakhees-approvals",
+        "/ar/warehouse-construction",
+        "/search"
+      ]
+    },
+    {
+      "name": "arabic-mobile",
+      "viewport": "390x844",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "blockedMutations": [],
+      "blockedExternalHosts": [
+        "www.googletagmanager.com"
+      ],
+      "delayedRequests": [],
+      "flightRequests": [
+        {
+          "path": "/ar/about",
+          "startedAt": 1790948493834,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948493867,
+          "responseBytes": 85982
+        },
+        {
+          "path": "/ar/services",
+          "startedAt": 1790948493835,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948493866,
+          "responseBytes": 101551
+        },
+        {
+          "path": "/ar/approval",
+          "startedAt": 1790948493836,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948493867,
+          "responseBytes": 89996
+        },
+        {
+          "path": "/ar/industries",
+          "startedAt": 1790948493836,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948493870,
+          "responseBytes": 86810
+        },
+        {
+          "path": "/ar/resources",
+          "startedAt": 1790948493837,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948493871,
+          "responseBytes": 85921
+        },
+        {
+          "path": "/ar/projects",
+          "startedAt": 1790948493864,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948493885,
+          "responseBytes": 113790
+        },
+        {
+          "path": "/ar/contact",
+          "startedAt": 1790948493865,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": 1790948493885,
+          "responseBytes": 85412
+        },
+        {
+          "path": "/search",
+          "startedAt": 1790948494955,
+          "mode": "auto-prefetch",
+          "completedAt": null,
+          "responseBytes": null
+        }
+      ],
+      "navigations": [
+        {
+          "from": "/ar",
+          "to": "/ar/about",
+          "clickToVisibleHeadingMs": 169.7,
+          "clickToPaintedHeadingMs": 209.5,
+          "loadingIndicatorMs": null,
+          "sameDocument": true,
+          "heading": "مقاول في دبي يعتمد على الوضوح والانضباط في التنفيذ.",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 34,
+              "responseAfterClickMs": 46,
+              "decodedBytes": 20761
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 172,
+              "responseAfterClickMs": 193,
+              "decodedBytes": 13798
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 172,
+              "responseAfterClickMs": 195,
+              "decodedBytes": 19525
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 175,
+              "responseAfterClickMs": 190,
+              "decodedBytes": 1618
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/ar/about",
+            "/ar/approval",
+            "/ar/contact",
+            "/ar/industries",
+            "/ar/projects",
+            "/ar/resources",
+            "/ar/services",
+            "/search"
+          ]
+        }
+      ],
+      "homeScripts": {
+        "count": 16,
+        "transferBytes": 178970,
+        "encodedBytes": 174170,
+        "decodedBytes": 565810,
+        "files": [
+          {
+            "path": "/_next/static/chunks/webpack-4b988866e3820193.js",
+            "transferBytes": 2105,
+            "encodedBytes": 1805,
+            "decodedBytes": 3537
+          },
+          {
+            "path": "/_next/static/chunks/4bd1b696-139174b95e843013.js",
+            "transferBytes": 54706,
+            "encodedBytes": 54406,
+            "decodedBytes": 173128
+          },
+          {
+            "path": "/_next/static/chunks/1255-9ef406491bab10f3.js",
+            "transferBytes": 46862,
+            "encodedBytes": 46562,
+            "decodedBytes": 173827
+          },
+          {
+            "path": "/_next/static/chunks/main-app-ec7643f8d93f540d.js",
+            "transferBytes": 816,
+            "encodedBytes": 516,
+            "decodedBytes": 516
+          },
+          {
+            "path": "/_next/static/chunks/2619-3c9e02e22d10480a.js",
+            "transferBytes": 3688,
+            "encodedBytes": 3388,
+            "decodedBytes": 8538
+          },
+          {
+            "path": "/_next/static/chunks/1356-269338f042113799.js",
+            "transferBytes": 5513,
+            "encodedBytes": 5213,
+            "decodedBytes": 13639
+          },
+          {
+            "path": "/_next/static/chunks/6513-72fb715aa94c6cc9.js",
+            "transferBytes": 3488,
+            "encodedBytes": 3188,
+            "decodedBytes": 8946
+          },
+          {
+            "path": "/_next/static/chunks/159-33228387fd8484dc.js",
+            "transferBytes": 8194,
+            "encodedBytes": 7894,
+            "decodedBytes": 27698
+          },
+          {
+            "path": "/_next/static/chunks/7009-f8d23c1886b13e6a.js",
+            "transferBytes": 11717,
+            "encodedBytes": 11417,
+            "decodedBytes": 36660
+          },
+          {
+            "path": "/_next/static/chunks/app/global-error-77ba0b2d65a3052d.js",
+            "transferBytes": 1009,
+            "encodedBytes": 709,
+            "decodedBytes": 1199
+          },
+          {
+            "path": "/_next/static/chunks/9446-c5b997ace2af9311.js",
+            "transferBytes": 7187,
+            "encodedBytes": 6887,
+            "decodedBytes": 20068
+          },
+          {
+            "path": "/_next/static/chunks/app/ar/layout-7c22a4f7cfae51c2.js",
+            "transferBytes": 853,
+            "encodedBytes": 553,
+            "decodedBytes": 553
+          },
+          {
+            "path": "/_next/static/chunks/1500-87128169005befee.js",
+            "transferBytes": 19332,
+            "encodedBytes": 19032,
+            "decodedBytes": 65619
+          },
+          {
+            "path": "/_next/static/chunks/6278-89faa2e8594d4bf8.js",
+            "transferBytes": 5050,
+            "encodedBytes": 4750,
+            "decodedBytes": 11129
+          },
+          {
+            "path": "/_next/static/chunks/132-b45ed6c8a22b7a44.js",
+            "transferBytes": 4577,
+            "encodedBytes": 4277,
+            "decodedBytes": 11944
+          },
+          {
+            "path": "/_next/static/chunks/app/ar/%5B...slug%5D/page-29c8fe3f8847e51c.js",
+            "transferBytes": 3873,
+            "encodedBytes": 3573,
+            "decodedBytes": 8809
+          }
+        ]
+      },
+      "prefetchesBeforeMenuOpen": [
+        "/ar/about",
+        "/ar/approval",
+        "/ar/contact",
+        "/ar/industries",
+        "/ar/projects",
+        "/ar/resources",
+        "/ar/services"
+      ]
+    },
+    {
+      "name": "slow-search",
+      "viewport": "1440x1000",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "blockedMutations": [],
+      "blockedExternalHosts": [
+        "www.googletagmanager.com"
+      ],
+      "delayedRequests": [
+        {
+          "path": "/search",
+          "delayMs": 1200
+        }
+      ],
+      "flightRequests": [
+        {
+          "path": "/about",
+          "startedAt": 1790948495947,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948495983,
+          "responseBytes": 109940
+        },
+        {
+          "path": "/services",
+          "startedAt": 1790948495948,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948495984,
+          "responseBytes": 185744
+        },
+        {
+          "path": "/civil",
+          "startedAt": 1790948495953,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948495993,
+          "responseBytes": 126879
+        },
+        {
+          "path": "/main-contracting",
+          "startedAt": 1790948495953,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496000,
+          "responseBytes": 126117
+        },
+        {
+          "path": "/warehouse-construction",
+          "startedAt": 1790948495954,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496004,
+          "responseBytes": 156635
+        },
+        {
+          "path": "/industrial-buildings",
+          "startedAt": 1790948495981,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496038,
+          "responseBytes": 127678
+        },
+        {
+          "path": "/commercial-buildings",
+          "startedAt": 1790948495984,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496038,
+          "responseBytes": 122140
+        },
+        {
+          "path": "/approval",
+          "startedAt": 1790948495997,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496043,
+          "responseBytes": 110916
+        },
+        {
+          "path": "/dubai-municipality-approval",
+          "startedAt": 1790948496001,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496263,
+          "responseBytes": 108454
+        },
+        {
+          "path": "/dda-approvals",
+          "startedAt": 1790948496005,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496265,
+          "responseBytes": 107340
+        },
+        {
+          "path": "/dcd-approvals",
+          "startedAt": 1790948496041,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496315,
+          "responseBytes": 109861
+        },
+        {
+          "path": "/dewa-approvals",
+          "startedAt": 1790948496042,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496318,
+          "responseBytes": 272006
+        },
+        {
+          "path": "/trakhees-approvals",
+          "startedAt": 1790948496044,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496320,
+          "responseBytes": 107180
+        },
+        {
+          "path": "/industries",
+          "startedAt": 1790948496264,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496354,
+          "responseBytes": 100836
+        },
+        {
+          "path": "/resources",
+          "startedAt": 1790948496266,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496358,
+          "responseBytes": 119428
+        },
+        {
+          "path": "/projects",
+          "startedAt": 1790948496316,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496359,
+          "responseBytes": 89606
+        },
+        {
+          "path": "/contact",
+          "startedAt": 1790948496318,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496360,
+          "responseBytes": 89610
+        },
+        {
+          "path": "/search",
+          "startedAt": 1790948496322,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496363,
+          "responseBytes": 150
+        },
+        {
+          "path": "/interior",
+          "startedAt": 1790948496363,
+          "mode": "auto-prefetch",
+          "completedAt": 1790948496386,
+          "responseBytes": 124192
+        },
+        {
+          "path": "/search",
+          "startedAt": 1790948497411,
+          "mode": "full-prefetch-or-navigation",
+          "completedAt": null,
+          "responseBytes": null
+        }
+      ],
+      "navigations": [
+        {
+          "from": "/",
+          "to": "/search",
+          "clickToVisibleHeadingMs": 1318.3,
+          "clickToPaintedHeadingMs": 1334.3,
+          "loadingIndicatorMs": 26.6,
+          "sameDocument": true,
+          "heading": "Search Emitronix services and approval resources.",
+          "resourcesDuringNavigation": [
+            {
+              "path": "/search",
+              "initiator": "fetch",
+              "startAfterClickMs": 15,
+              "responseAfterClickMs": 1256,
+              "decodedBytes": 18287
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 33,
+              "responseAfterClickMs": 44,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 59,
+              "responseAfterClickMs": 66,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/icons/emitronix-mark.svg",
+              "initiator": "other",
+              "startAfterClickMs": 1278,
+              "responseAfterClickMs": 1287,
+              "decodedBytes": 1618
+            },
+            {
+              "path": "/_next/image",
+              "initiator": "img",
+              "startAfterClickMs": 1322,
+              "responseAfterClickMs": 1332,
+              "decodedBytes": 17693
+            }
+          ],
+          "prefetchedBeforeMenuOpen": true,
+          "prefetchedBeforeClick": true,
+          "prefetchesBeforeClick": [
+            "/about",
+            "/approval",
+            "/civil",
+            "/commercial-buildings",
+            "/contact",
+            "/dcd-approvals",
+            "/dda-approvals",
+            "/dewa-approvals",
+            "/dubai-municipality-approval",
+            "/industrial-buildings",
+            "/industries",
+            "/interior",
+            "/main-contracting",
+            "/projects",
+            "/resources",
+            "/search",
+            "/services",
+            "/trakhees-approvals",
+            "/warehouse-construction"
+          ]
+        }
+      ],
+      "homeScripts": {
+        "count": 26,
+        "transferBytes": 193242,
+        "encodedBytes": 185442,
+        "decodedBytes": 596226,
+        "files": [
+          {
+            "path": "/_next/static/chunks/webpack-4b988866e3820193.js",
+            "transferBytes": 2105,
+            "encodedBytes": 1805,
+            "decodedBytes": 3537
+          },
+          {
+            "path": "/_next/static/chunks/4bd1b696-139174b95e843013.js",
+            "transferBytes": 54706,
+            "encodedBytes": 54406,
+            "decodedBytes": 173128
+          },
+          {
+            "path": "/_next/static/chunks/1255-9ef406491bab10f3.js",
+            "transferBytes": 46862,
+            "encodedBytes": 46562,
+            "decodedBytes": 173827
+          },
+          {
+            "path": "/_next/static/chunks/main-app-ec7643f8d93f540d.js",
+            "transferBytes": 816,
+            "encodedBytes": 516,
+            "decodedBytes": 516
+          },
+          {
+            "path": "/_next/static/chunks/2619-3c9e02e22d10480a.js",
+            "transferBytes": 3688,
+            "encodedBytes": 3388,
+            "decodedBytes": 8538
+          },
+          {
+            "path": "/_next/static/chunks/1356-269338f042113799.js",
+            "transferBytes": 5513,
+            "encodedBytes": 5213,
+            "decodedBytes": 13639
+          },
+          {
+            "path": "/_next/static/chunks/6513-72fb715aa94c6cc9.js",
+            "transferBytes": 3488,
+            "encodedBytes": 3188,
+            "decodedBytes": 8946
+          },
+          {
+            "path": "/_next/static/chunks/159-33228387fd8484dc.js",
+            "transferBytes": 8194,
+            "encodedBytes": 7894,
+            "decodedBytes": 27698
+          },
+          {
+            "path": "/_next/static/chunks/7009-f8d23c1886b13e6a.js",
+            "transferBytes": 11717,
+            "encodedBytes": 11417,
+            "decodedBytes": 36660
+          },
+          {
+            "path": "/_next/static/chunks/app/global-error-77ba0b2d65a3052d.js",
+            "transferBytes": 1009,
+            "encodedBytes": 709,
+            "decodedBytes": 1199
+          },
+          {
+            "path": "/_next/static/chunks/9446-c5b997ace2af9311.js",
+            "transferBytes": 7187,
+            "encodedBytes": 6887,
+            "decodedBytes": 20068
+          },
+          {
+            "path": "/_next/static/chunks/1500-87128169005befee.js",
+            "transferBytes": 19332,
+            "encodedBytes": 19032,
+            "decodedBytes": 65619
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/layout-7c22a4f7cfae51c2.js",
+            "transferBytes": 853,
+            "encodedBytes": 553,
+            "decodedBytes": 553
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/page-aea867d9ca766789.js",
+            "transferBytes": 3013,
+            "encodedBytes": 2713,
+            "decodedBytes": 6182
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/error-49cc8811648c187a.js",
+            "transferBytes": 958,
+            "encodedBytes": 658,
+            "decodedBytes": 1187
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/not-found-723df8768a6d1aae.js",
+            "transferBytes": 1397,
+            "encodedBytes": 1097,
+            "decodedBytes": 2167
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/about/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/services/page-a9c251fe63e3c13f.js",
+            "transferBytes": 1481,
+            "encodedBytes": 1181,
+            "decodedBytes": 2273
+          },
+          {
+            "path": "/_next/static/chunks/6278-89faa2e8594d4bf8.js",
+            "transferBytes": 5050,
+            "encodedBytes": 4750,
+            "decodedBytes": 11129
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/civil/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/main-contracting/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/warehouse-construction/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/industrial-buildings/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/commercial-buildings/page-bf1a5810c3b82dba.js",
+            "transferBytes": 719,
+            "encodedBytes": 419,
+            "decodedBytes": 419
+          },
+          {
+            "path": "/_next/static/chunks/3525-d778b21913a9053e.js",
+            "transferBytes": 4096,
+            "encodedBytes": 3796,
+            "decodedBytes": 14048
+          },
+          {
+            "path": "/_next/static/chunks/app/(en)/projects/page-8790d2613bbb3d70.js",
+            "transferBytes": 6701,
+            "encodedBytes": 6401,
+            "decodedBytes": 20944
+          }
+        ]
+      },
+      "prefetchesBeforeMenuOpen": [
+        "/about",
+        "/approval",
+        "/civil",
+        "/commercial-buildings",
+        "/contact",
+        "/dcd-approvals",
+        "/dda-approvals",
+        "/dewa-approvals",
+        "/dubai-municipality-approval",
+        "/industrial-buildings",
+        "/industries",
+        "/interior",
+        "/main-contracting",
+        "/projects",
+        "/resources",
+        "/search",
+        "/services",
+        "/trakhees-approvals",
+        "/warehouse-construction"
+      ]
+    }
+  ]
+}

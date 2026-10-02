@@ -1,3 +1,4 @@
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import {
   ArrowRight,
   Building2,
@@ -93,8 +94,8 @@ const pageJsonLd = {
 
 export default function ProjectsPage() {
   return (
-    <>
-      <section className="relative overflow-hidden bg-brand-dark text-white">
+    <InternalPageFrame>
+      <section className="internal-page-intro relative overflow-hidden bg-brand-dark text-white">
         <ResponsiveIllustrativeImage
           asset={portfolioHeroImage}
           priority
@@ -111,8 +112,8 @@ export default function ProjectsPage() {
             <span className="text-white">Scope Planning Library</span>
           </nav>
           <div className="mt-12 max-w-5xl">
-            <p className="text-xs font-black uppercase tracking-[0.32em] text-brand-sky">Illustrative planning resources</p>
-            <h1 className="mt-6 text-balance text-5xl font-black leading-[0.96] tracking-tight sm:text-7xl lg:text-8xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-brand-sky">Illustrative planning resources</p>
+            <h1 className="internal-page-title mt-6 text-balance text-5xl font-semibold leading-[0.96] tracking-tight sm:text-7xl lg:text-8xl">
               Construction scope planning scenarios
             </h1>
             <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/85 sm:text-xl sm:leading-9">
@@ -122,7 +123,7 @@ export default function ProjectsPage() {
               <Link href="#scenario-library" className="premium-button">
                 Explore scenarios <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/15 px-6 py-3.5 text-sm font-black uppercase tracking-wide text-white backdrop-blur-xl transition hover:bg-white hover:text-brand focus-ring">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/15 px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white backdrop-blur-xl transition hover:bg-white hover:text-brand focus-ring">
                 Discuss an actual scope
               </Link>
             </div>
@@ -132,19 +133,19 @@ export default function ProjectsPage() {
 
       <section className="bg-white py-8">
         <div className="container-pad">
-          <div className="grid gap-5 rounded-[2rem] border border-amber-300 bg-amber-50 p-6 shadow-panel md:grid-cols-[auto_1fr] md:items-start">
+          <div className="grid gap-5 rounded-lg border border-amber-300 bg-amber-50 p-6 shadow-none md:grid-cols-[auto_1fr] md:items-start">
             <ShieldCheck className="h-9 w-9 text-amber-700" aria-hidden="true" />
             <div>
-              <h2 className="text-2xl font-black tracking-tight text-charcoal">Evidence and image notice</h2>
+              <h2 className="text-2xl font-semibold tracking-tight text-charcoal">Evidence and image notice</h2>
               <p className="mt-3 max-w-5xl text-sm leading-7 text-charcoal/80">
                 Every scenario and image on this page is illustrative. It does not identify a completed Emitronix project, client, site, result, testimonial or before-and-after record. Verified case studies will be published only after evidence review and publication consent.
               </p>
-              <p className="mt-5 text-sm font-black text-amber-900">
+              <p className="mt-5 text-sm font-semibold text-amber-900">
                 TODO — management evidence required before any completed-project case study is published:
               </p>
               <ul className="mt-4 grid gap-3 md:grid-cols-2">
                 {verifiedCaseStudyPublicationRequirements.map((requirement) => (
-                  <li key={requirement} className="flex gap-3 rounded-2xl border border-amber-200 bg-white p-4 text-sm font-bold leading-6 text-charcoal">
+                  <li key={requirement} className="flex gap-3 rounded-lg border border-amber-200 bg-white p-4 text-sm font-bold leading-6 text-charcoal">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" aria-hidden="true" />
                     {requirement}
                   </li>
@@ -167,9 +168,9 @@ export default function ProjectsPage() {
             {capabilities.map((item) => {
               const Icon = item.icon;
               return (
-                <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
+                <article key={item.title} className="luxury-card rounded-lg p-6">
                   <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                  <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
+                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{item.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
                 </article>
               );
@@ -192,12 +193,12 @@ export default function ProjectsPage() {
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-2">
             {projectTimeline.map((item) => (
-              <article key={item.phase} className="luxury-card grid gap-5 rounded-[1.5rem] p-6 sm:grid-cols-[auto_1fr]">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-sm font-black text-white">
+              <article key={item.phase} className="luxury-card grid gap-5 rounded-lg p-6 sm:grid-cols-[auto_1fr]">
+                <span className="grid h-12 w-12 place-items-center rounded-lg bg-brand text-sm font-semibold text-white">
                   {item.phase}
                 </span>
                 <div>
-                  <h2 className="text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
+                  <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{item.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
                 </div>
               </article>
@@ -212,7 +213,7 @@ export default function ProjectsPage() {
         showVerificationTodo={false}
       />
 
-      <FAQSection
+      <FAQSection accordion
         eyebrow="Planning library FAQ"
         title="How to interpret these scenarios."
         description="Clear answers about evidence, images, locations and project-specific review."
@@ -222,9 +223,9 @@ export default function ProjectsPage() {
 
       <section className="section-pad bg-white">
         <div className="container-pad">
-          <div className="rounded-[2.5rem] border border-brand/[0.15] bg-brand-soft p-7 shadow-luxe lg:p-12">
+          <div className="rounded-lg border border-brand/[0.15] bg-brand-soft p-7 shadow-none lg:p-12">
             <CheckCircle2 className="h-10 w-10 text-brand" aria-hidden="true" />
-            <h2 className="mt-5 max-w-4xl text-4xl font-black tracking-tight text-charcoal sm:text-5xl">
+            <h2 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
               Have a real project to assess?
             </h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
@@ -238,6 +239,6 @@ export default function ProjectsPage() {
       </section>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

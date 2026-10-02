@@ -1,3 +1,6 @@
+import { SectionPhotoPlacement } from "@/components/SectionPhotoPlacement";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import {
   ArrowRight,
   CheckCircle2,
@@ -129,9 +132,11 @@ const relatedLinks = [
   },
 ];
 
+const sectionPhotos = getSectionPhotographs("/faqs", 5);
+
 export default function FaqPage() {
   return (
-    <>
+    <InternalPageFrame>
       <div>
         <TrustPageHero
           eyebrow="Dubai project answers"
@@ -178,7 +183,7 @@ export default function FaqPage() {
               <p className="premium-kicker">Choose a starting point</p>
               <h2
                 id="service-guide-heading"
-                className="mt-4 text-balance text-4xl font-black tracking-tight text-charcoal sm:text-5xl"
+                className="mt-4 text-balance text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl"
               >
                 Find the service route that fits your project.
               </h2>
@@ -193,11 +198,11 @@ export default function FaqPage() {
                 const Icon = entry.icon;
 
                 return (
-                  <article key={entry.title} className="luxury-card rounded-[1.75rem] p-6 sm:p-7">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand">
+                  <article key={entry.title} className="luxury-card rounded-lg p-6 sm:p-7">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-soft text-brand">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <h3 className="mt-5 text-2xl font-black tracking-tight text-charcoal">
+                    <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">
                       {entry.title}
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{entry.description}</p>
@@ -209,7 +214,7 @@ export default function FaqPage() {
                         <Link
                           key={link.href}
                           href={link.href}
-                          className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-white px-4 py-2 text-sm font-black text-brand transition hover:bg-brand-soft"
+                          className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-white px-4 py-2 text-sm font-semibold text-brand transition hover:bg-brand-soft"
                         >
                           {link.label}
                           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -220,6 +225,7 @@ export default function FaqPage() {
                 );
               })}
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={0} sections={3} /></div>
           </div>
         </section>
 
@@ -227,7 +233,7 @@ export default function FaqPage() {
           <div className="container-pad grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
             <div>
               <p className="premium-kicker">Before requesting a quote</p>
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
                 Prepare a useful construction enquiry.
               </h2>
               <p className="mt-4 text-base leading-8 text-steel">
@@ -239,13 +245,14 @@ export default function FaqPage() {
               {enquiryChecklist.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4 text-sm font-bold leading-7 text-charcoal"
+                  className="flex gap-3 rounded-lg border border-brand/[0.12] bg-white p-4 text-sm font-bold leading-7 text-charcoal"
                 >
                   <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={1} sections={3} /></div>
           </div>
         </section>
 
@@ -258,7 +265,7 @@ export default function FaqPage() {
               <p className="premium-kicker">On this page</p>
               <h2
                 id="faq-list-heading"
-                className="mt-4 text-3xl font-black tracking-tight text-charcoal sm:text-4xl"
+                className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl"
               >
                 Construction questions organized by decision.
               </h2>
@@ -271,7 +278,7 @@ export default function FaqPage() {
                   <Link
                     key={group.id}
                     href={`#faq-${group.id}`}
-                    className="flex items-center justify-between rounded-2xl border border-brand/[0.12] bg-white px-4 py-3 text-sm font-black text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand"
+                    className="flex items-center justify-between rounded-lg border border-brand/[0.12] bg-white px-4 py-3 text-sm font-semibold text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand"
                   >
                     <span>{group.label}</span>
                     <span className="text-xs text-brand">{group.faqs.length}</span>
@@ -280,7 +287,7 @@ export default function FaqPage() {
               </nav>
               <Link
                 href="/disclaimer"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-black text-brand"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand"
               >
                 Read the information limits
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -299,7 +306,7 @@ export default function FaqPage() {
                     <p className="premium-kicker">{group.label}</p>
                     <h2
                       id={`faq-${group.id}-heading`}
-                      className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl"
+                      className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl"
                     >
                       {group.title}
                     </h2>
@@ -313,18 +320,18 @@ export default function FaqPage() {
                       <details
                         key={faq.question}
                         open={index === 0}
-                        className="group rounded-[1.5rem] border border-brand/[0.10] bg-white p-6 shadow-panel"
+                        className="group rounded-lg border border-brand/[0.10] bg-white p-6 shadow-none"
                       >
                         <summary className="flex cursor-pointer list-none items-start gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-4">
                           <HelpCircle
                             className="mt-0.5 h-6 w-6 shrink-0 text-brand"
                             aria-hidden="true"
                           />
-                          <span className="flex-1 text-xl font-black tracking-tight text-charcoal">
+                          <span className="flex-1 text-xl font-semibold tracking-tight text-charcoal">
                             {faq.question}
                           </span>
                           <span
-                            className="mt-1 text-xl font-black text-brand transition-transform group-open:rotate-45"
+                            className="mt-1 text-xl font-semibold text-brand transition-transform group-open:rotate-45"
                             aria-hidden="true"
                           >
                             +
@@ -337,7 +344,7 @@ export default function FaqPage() {
                               <Link
                                 key={link.href}
                                 href={link.href}
-                                className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-brand-soft px-4 py-2 text-sm font-black text-brand transition hover:bg-white"
+                                className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-brand-soft px-4 py-2 text-sm font-semibold text-brand transition hover:bg-white"
                               >
                                 {link.label}
                                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -351,6 +358,7 @@ export default function FaqPage() {
                 </section>
               ))}
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={2} sections={3} /></div>
           </div>
         </section>
 
@@ -358,6 +366,6 @@ export default function FaqPage() {
         <RelatedTrustLinks title="Continue planning your Dubai project" links={relatedLinks} />
       </div>
       <JsonLd data={faqJsonLd} />
-    </>
+    </InternalPageFrame>
   );
 }

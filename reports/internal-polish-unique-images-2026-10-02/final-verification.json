@@ -1,0 +1,190 @@
+{
+    "date":  "2026-10-02",
+    "implementationValidationPassed":  true,
+    "strictWebsiteImageUniquenessSatisfied":  false,
+    "tests":  {
+                  "groups":  10,
+                  "failed":  0,
+                  "total":  220
+              },
+    "commands":  [
+                     {
+                         "exitCode":  0,
+                         "command":  "npm test",
+                         "log":  "full-tests-final.log"
+                     },
+                     {
+                         "exitCode":  0,
+                         "command":  "npm run lint",
+                         "log":  "lint-final.log"
+                     },
+                     {
+                         "exitCode":  0,
+                         "command":  "npm run type-check",
+                         "log":  "type-check-final.log"
+                     },
+                     {
+                         "exitCode":  0,
+                         "command":  "npm run build (NEXT_DIST_DIR=.next-internal-polish)",
+                         "log":  "build.log"
+                     },
+                     {
+                         "exitCode":  0,
+                         "command":  "npm run validate:seo",
+                         "log":  "seo-validation.log"
+                     },
+                     {
+                         "exitCode":  0,
+                         "command":  "npm run validate:arabic-seo",
+                         "log":  "arabic-seo-validation.log"
+                     },
+                     {
+                         "exitCode":  0,
+                         "command":  "npm run validate:routes",
+                         "log":  "route-validation.log"
+                     }
+                 ],
+    "browser":  {
+                    "noJsPages":  11,
+                    "browserCases":  44,
+                    "linkChecks":  86,
+                    "failedSnapshots":  [
+
+                                        ],
+                    "failedCases":  [
+
+                                    ],
+                    "brokenLinks":  [
+
+                                    ],
+                    "maxCls":  0.07701421800947868
+                },
+    "homepage":  {
+                     "physicalImageFilesUnchanged":  true,
+                     "buildConfigurationRestored":  true,
+                     "comparisonsPassed":  true
+                 },
+    "navigation":  {
+                       "scenarios":  [
+                                         {
+                                             "navigations":  [
+                                                                 {
+                                                                     "to":  "/about",
+                                                                     "clickToPaintedHeadingMs":  163,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 },
+                                                                 {
+                                                                     "to":  "/projects",
+                                                                     "clickToPaintedHeadingMs":  201.1,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 },
+                                                                 {
+                                                                     "to":  "/contact",
+                                                                     "clickToPaintedHeadingMs":  59.6,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 }
+                                                             ],
+                                             "name":  "desktop"
+                                         },
+                                         {
+                                             "navigations":  [
+                                                                 {
+                                                                     "to":  "/about",
+                                                                     "clickToPaintedHeadingMs":  110.5,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 },
+                                                                 {
+                                                                     "to":  "/projects",
+                                                                     "clickToPaintedHeadingMs":  106,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 },
+                                                                 {
+                                                                     "to":  "/contact",
+                                                                     "clickToPaintedHeadingMs":  76.4,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 }
+                                                             ],
+                                             "name":  "mobile"
+                                         },
+                                         {
+                                             "navigations":  [
+                                                                 {
+                                                                     "to":  "/ar/about",
+                                                                     "clickToPaintedHeadingMs":  141.7,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 }
+                                                             ],
+                                             "name":  "arabic-desktop"
+                                         },
+                                         {
+                                             "navigations":  [
+                                                                 {
+                                                                     "to":  "/ar/about",
+                                                                     "clickToPaintedHeadingMs":  209.5,
+                                                                     "loadingIndicatorMs":  null,
+                                                                     "sameDocument":  true
+                                                                 }
+                                                             ],
+                                             "name":  "arabic-mobile"
+                                         },
+                                         {
+                                             "navigations":  [
+                                                                 {
+                                                                     "to":  "/search",
+                                                                     "clickToPaintedHeadingMs":  1334.3,
+                                                                     "loadingIndicatorMs":  26.6,
+                                                                     "sameDocument":  true
+                                                                 }
+                                                             ],
+                                             "name":  "slow-search"
+                                         }
+                                     ],
+                       "limitation":  "Local production server, fresh browser context per journey; one second after home load; real link clicks timed in browser through changed visible destination H1 plus two animation frames. Same-origin GET/HEAD only, optional consent denied. Route interception disables browser HTTP caching; Next router prefetch cache remains active. Unthrottled local timings are functional evidence, not a WAN speed guarantee.",
+                       "passed":  true
+                   },
+    "images":  {
+                   "scannedAt":  "2026-10-02T13:33:36.520Z",
+                   "build":  ".next-internal-polish",
+                   "label":  "final",
+                   "renderedRoutes":  258,
+                   "contentImagePlacements":  1354,
+                   "uniqueContentImageIdentities":  127,
+                   "duplicateContentIdentityGroups":  57,
+                   "excessDuplicateContentPlacements":  1227,
+                   "editablePlacementsRequiringReplacement":  1220,
+                   "lockedHomepageExcessPlacements":  7,
+                   "sharedAssetPlacements":  519,
+                   "sharedAssetIdentities":  2,
+                   "physicalImageFilesScanned":  265,
+                   "technicalReferences":  1540,
+                   "missingRenderedLocalAssets":  0,
+                   "missingDistinctReplacements":  1220,
+                   "renderedNewPhotoPlacements":  58,
+                   "uniqueNewPhotoIdentities":  58,
+                   "reviewedNewFilesMatchingProvenance":  58,
+                   "newFilesMissingOrMismatchedReviewProof":  0,
+                   "strictWebsiteUniquenessSatisfied":  false,
+                   "perceptualCandidatePairs":  0,
+                   "usedPerceptualCandidatePairs":  0,
+                   "changedContentPlacements":  58,
+                   "duplicatesReplacedWithUniqueImages":  58,
+                   "removedOrUnscannedContentPlacements":  0,
+                   "addedOrPreviouslyUnscannedContentPlacements":  0,
+                   "duplicateExcessReduction":  54
+               },
+    "interactiveImageAudit":  {
+                                  "searchAdditionalVariants":  29,
+                                  "states":  29,
+                                  "browserErrors":  0,
+                                  "blogAdditionalVariants":  4,
+                                  "limitations":  "Observed desktop category and representative query states only. Arbitrary query strings are unbounded; placement variants across alternative states are not additive simultaneous images. Static/default-route totals remain exact for the inventoried snapshots, not every possible interactive state. No forms with side effects were submitted; site-search queries were GET navigations."
+                              },
+    "report":  "final-verification.md"
+}

@@ -3,6 +3,7 @@
 import { Loader2, Send, UploadCloud } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useId, useState } from "react";
+import { isValidPhone } from "@/lib/phoneValidation";
 
 const fieldClass =
   "focus-ring w-full rounded-2xl border border-brand/[0.15] bg-white/[0.92] px-4 py-3.5 text-sm font-bold text-charcoal shadow-sm outline-none transition placeholder:text-steel/65 hover:border-brand/30 focus:border-brand";
@@ -135,6 +136,7 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting) return;
 
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -143,11 +145,17 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
     const file = resume instanceof File && resume.name ? resume : null;
 
     setSuccess(false);
+    setError("");
 
     if (missingRequired || !file) {
       setError(text.missing);
       return;
     }
+    if (!isValidPhone(formData.get("mobile"))) {
+      setError(isArabic ? "يرجى إدخال رقم هاتف صالح." : "Please enter a valid mobile number.");
+      return;
+    }
+    if (!form.reportValidity()) return;
 
     const allowedExtensions = [".pdf", ".doc", ".docx"];
     const fileName = file.name.toLowerCase();

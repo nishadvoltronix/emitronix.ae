@@ -3,6 +3,7 @@
 import { Loader2, Send, X } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { isValidPhone } from "@/lib/phoneValidation";
 
 const DISMISSED_KEY = "emitronix-blog-enquiry-dismissed";
 
@@ -86,7 +87,7 @@ export function BlogEnquiryPopup({
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [sending, setSending] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "invalid-phone">("idle");
 
   useEffect(() => {
     const alreadyDismissed = window.sessionStorage.getItem(DISMISSED_KEY) === "true";
@@ -141,6 +142,10 @@ export function BlogEnquiryPopup({
     const formData = new FormData(form);
     const serviceRequired = String(formData.get("serviceRequired") || "");
     const message = String(formData.get("message") || "");
+    if (!isValidPhone(formData.get("mobile"))) {
+      setStatus("invalid-phone");
+      return;
+    }
 
     setStatus("idle");
     setSending(true);
@@ -165,7 +170,8 @@ export function BlogEnquiryPopup({
         }),
       });
 
-      if (!response.ok) {
+      const result = (await response.json().catch(() => null)) as { ok?: boolean } | null;
+      if (!response.ok || !result?.ok) {
         throw new Error("SUBMISSION_FAILED");
       }
 
@@ -275,7 +281,7 @@ export function BlogEnquiryPopup({
             aria-live="polite"
             className="rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep"
           >
-            {status === "success" ? text.success : text.error}
+            {status === "success" ? text.success : status === "invalid-phone" ? (isArabic ? "يرجى إدخال رقم هاتف صالح." : "Please enter a valid mobile number.") : text.error}
           </p>
         ) : null}
       </form>

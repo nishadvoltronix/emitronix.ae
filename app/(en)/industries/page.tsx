@@ -1,8 +1,11 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
 import { Building2, Factory, Home, Landmark, ShieldCheck, Sparkles, Warehouse } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
-import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, stats } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
@@ -114,8 +117,9 @@ const breadcrumbJsonLd = {
 };
 
 export default function IndustriesPage() {
+  const sectionPhotographs = getSectionPhotographs("/industries", 4);
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Industries" }]}
         eyebrow="Industries"
@@ -129,19 +133,21 @@ export default function IndustriesPage() {
 
       <section className="section-pad bg-white">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Sector focus"
-            title="Construction categories that need disciplined coordination."
-            description="Each industry path connects to the service or approval page most relevant to the enquiry."
-            align="center"
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <PremiumSectionHeading
+              eyebrow="Sector focus"
+              title="Construction categories that need disciplined coordination."
+              description="Each industry path connects to the service or approval page most relevant to the enquiry."
+            />
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+          </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {industries.map((industry) => {
               const Icon = industry.icon;
               return (
-                <Link key={industry.title} href={industry.href} className="luxury-card rounded-[1.5rem] p-7">
+                <Link key={industry.title} href={industry.href} className="luxury-card rounded-lg p-7">
                   <Icon className="h-9 w-9 text-brand" />
-                  <h2 className="mt-6 text-3xl font-black tracking-tight text-charcoal">{industry.title}</h2>
+                  <h2 className="mt-6 text-3xl font-semibold tracking-tight text-charcoal">{industry.title}</h2>
                   <p className="mt-4 text-sm leading-7 text-steel">{industry.description}</p>
                 </Link>
               );
@@ -152,15 +158,18 @@ export default function IndustriesPage() {
 
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
-          <PremiumSectionHeading
-            eyebrow="Market fit"
-            title="From private villas to authority-controlled commercial environments."
-            description="The common requirement is not only construction capability. It is coordination quality: documentation, sequencing, inspections, consultant decisions and close-out visibility."
-            light
-          />
-          <div className="rounded-[2rem] border border-brand/[0.12] bg-white/[0.82] p-8 backdrop-blur-xl">
+          <div className="space-y-6">
+            <PremiumSectionHeading
+              eyebrow="Market fit"
+              title="From private villas to authority-controlled commercial environments."
+              description="The common requirement is not only construction capability. It is coordination quality: documentation, sequencing, inspections, consultant decisions and close-out visibility."
+              light
+            />
+            <SectionPhotograph photo={sectionPhotographs[1]} compact />
+          </div>
+          <div className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-8 backdrop-blur-xl">
             <Building2 className="h-12 w-12 text-brand" />
-            <h2 className="mt-6 text-4xl font-black tracking-tight">Dubai-first construction support.</h2>
+            <h2 className="mt-6 text-4xl font-semibold tracking-tight">Dubai-first construction support.</h2>
             <p className="mt-4 text-base leading-8 text-steel">
               Project owners and consultants can use the sector routes to connect civil, fit-out and approval work to the asset&apos;s operating and authority constraints.
             </p>
@@ -175,6 +184,9 @@ export default function IndustriesPage() {
         items={industryBenefits}
         tone="soft"
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[2]} compact />
+      </div>
 
       <ProcessRail
         eyebrow="Sector process"
@@ -182,6 +194,9 @@ export default function IndustriesPage() {
         description="A villa, warehouse, commercial building or authority-facing unit needs a different enquiry conversation. This process keeps the first step clear."
         steps={industryProcess}
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[3]} compact />
+      </div>
 
       <TrustBar
         eyebrow="Industry trust"
@@ -194,7 +209,7 @@ export default function IndustriesPage() {
         ]}
       />
 
-      <FAQSection
+      <FAQSection accordion
         title="Dubai construction industries FAQ."
         description="Useful answers for users matching their asset type to a construction or approval service."
         faqs={industryFaqs}
@@ -203,6 +218,6 @@ export default function IndustriesPage() {
 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

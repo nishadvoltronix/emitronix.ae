@@ -1,0 +1,50 @@
+{
+  "/warehouse-construction": {
+    "hero": "Pexels236705",
+    "sections": ["Pexels4487364", "Pexels8962803", "Pexels37912780", "Pexels4483558"]
+  },
+  "/ar/warehouse-construction": {
+    "hero": "Pexels36398150",
+    "sections": ["Pexels14688876", "Pexels6614837", "Pexels11666903", "Pexels36397989"]
+  },
+  "/industrial-buildings": {
+    "hero": "Pexels236709",
+    "sections": ["Pexels12951624", "Pexels36003983", "Pexels36003978", "Pexels12171800"]
+  },
+  "/villa-construction": {
+    "hero": "Pexels10610731",
+    "sections": ["Pexels19344317", "Pexels17077378", "Pexels8134821", "Pexels31771226"]
+  },
+  "/ar/villa-construction": {
+    "hero": "Pexels13752348",
+    "sections": ["Pexels36394726", "Pexels7031594", "Pexels36676879", "Pexels9618110"]
+  },
+  "/interior": {
+    "hero": "Pexels6794926",
+    "sections": ["Pexels8353767", "Pexels5511130", "Pexels7534179", "Pexels7688084"]
+  },
+  "/building-renovation": {
+    "hero": "Pexels10346959",
+    "sections": ["Pexels6794929", "Pexels8837623", "Pexels6615237", "Pexels9617366"]
+  },
+  "/civil": {
+    "hero": "Pexels18162495",
+    "sections": ["Pexels17395035", "Pexels15768192", "Pexels30832161", "Pexels29298450"]
+  },
+  "/dcd-approvals": {
+    "hero": "Pexels26173880",
+    "sections": ["Pexels8978625", "Pexels6614757", "Pexels6281012", "Pexels6615239"]
+  },
+  "/dewa-approvals": {
+    "hero": "Pexels17842832",
+    "sections": ["Pexels21812146", "Pexels34054464"]
+  },
+  "/ar/dewa-approvals": { "hero": "Pexels17843269" },
+  "/main-contracting": {
+    "hero": "Pexels544971",
+    "sections": ["Pexels9370034", "Pexels15225447", "Pexels7108779", "Pexels5505119"]
+  },
+  "/structural-works": { "hero": "Pexels8272123", "sections": ["Pexels12233662"] },
+  "/design-build": { "hero": "Pexels3771045" },
+  "/project-management": { "hero": "Pexels9617889" }
+}

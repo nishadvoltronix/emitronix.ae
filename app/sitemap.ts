@@ -119,7 +119,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...warehouseAuthorityPages.map((page) => ({
       path: page.href,
       priority: 0.78,
-      lastModified: trustContentLastReviewedIso,
+      lastModified: page.modifiedDate ?? trustContentLastReviewedIso,
     })),
     ...blogPosts.map((post) => ({
       path: `/blog/${post.slug}`,

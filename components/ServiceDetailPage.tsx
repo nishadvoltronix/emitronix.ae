@@ -1,14 +1,14 @@
-import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, FileCheck2, MapPin, MessageCircle, PhoneCall } from "lucide-react";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
+import { ArrowRight, CalendarCheck, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
-import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
+import type { ReactNode } from "react";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
-import { CTA } from "@/components/CTA";
 import { ContactForm } from "@/components/ContactForm";
-import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
-import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { ServiceVideoShowcase } from "@/components/ServiceVideoShowcase";
+import { FAQSection } from "@/components/ContentBlocks";
+import { PremiumSectionHeading } from "@/components/Premium";
+import { SectionPhotograph } from "@/components/SectionPhotograph";
 import { approvalServices } from "@/data/approvals";
-import { getGeneratedImage } from "@/data/generatedImages";
+import { getInternalServiceImage, getSectionPhotographs, getUniquePhotoAttribution } from "@/data/pagePhotography";
 import { buildServiceExpandedFaqs, getServiceDeepContent } from "@/data/serviceDeepContent";
 import { getServiceVideo } from "@/data/serviceVideos";
 import {
@@ -25,6 +25,9 @@ const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
 type ServiceDetailPageProps = {
   service: Service;
+  overviewContent?: ReactNode;
+  afterOverview?: ReactNode;
+  showVideo?: boolean;
 };
 
 function labelFromHref(href: string) {
@@ -32,15 +35,15 @@ function labelFromHref(href: string) {
   return href.replace("/", "").replace(/-/g, " ");
 }
 
-export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
-  const Icon = service.icon;
+export function ServiceDetailPage({ service, overviewContent, afterOverview, showVideo = true }: ServiceDetailPageProps) {
   const phoneHref = site.phoneHref;
   const deepContent = getServiceDeepContent(service);
   const expandedFaqs = buildServiceExpandedFaqs(service);
   const pageUrl = absoluteUrl(service.href);
-  const primaryImageUrl = absoluteUrl(service.image);
-  const serviceImage = getGeneratedImage(service.generatedImage);
-  const serviceVideo = getServiceVideo(service.href);
+  const serviceImage = getInternalServiceImage(service.href);
+  const sectionPhotographs = getSectionPhotographs(service.href, 4, [serviceImage.src]);
+  const primaryImageUrl = absoluteUrl(serviceImage.src);
+  const serviceVideo = showVideo ? getServiceVideo(service.href) : undefined;
   const isWarehouseService = service.href === "/warehouse-construction";
   const relatedLinks = service.relatedHrefs.map((href) => {
     const relatedService = allServices.find((item) => item.href === href);
@@ -55,63 +58,21 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         "Related Dubai construction and authority coordination resource from Emitronix.",
     };
   });
-  const audienceItems = [
-    {
-      title: "Dubai owners and developers",
-      description: `${service.title} support for project owners who need clear scope, construction planning, authority visibility and decision-led communication before site commitments are made.`,
-      href: "/contact",
-      label: "Request consultation",
-    },
-    {
-      title: "Consultants and design teams",
-      description: "Consultant-led projects need disciplined tracking of drawings, comments, civil interfaces, authority requirements and handover evidence.",
-      href: "/projects",
-      label: "View project categories",
-    },
-    {
-      title: "Commercial and industrial operators",
-      description: "Warehouses, factories, offices, showrooms and retail assets need dependency-led sequencing, fire-safety visibility, utility coordination and business-ready handover.",
-      href: "/industries",
-      label: "View industries",
-    },
-  ];
   const tableOfContents = [
     ...(serviceVideo
       ? [{ label: "Visual Briefing", href: "#warehouse-video" }]
       : []),
     { label: "Overview", href: "#overview" },
-    { label: "Answers", href: "#answers" },
-    { label: "Topical Map", href: "#topical-authority" },
+    { label: "Budget questions", href: "#answers" },
+    { label: "Project decisions", href: "#topical-authority" },
     { label: "Documents", href: "#documents" },
     { label: "Methodology", href: "#methodology" },
-    { label: "Knowledge", href: "#knowledge" },
+    { label: "Technical scope", href: "#knowledge" },
     { label: "Field Briefing", href: "#field-briefing" },
     { label: "Dubai Standards", href: "#dubai-standards" },
     { label: "Timeline & Cost", href: "#timeline-cost" },
     { label: "Mistakes", href: "#mistakes" },
     { label: "FAQ", href: "#faq" },
-  ];
-  const serviceFeatures = [
-    {
-      title: "Scope control",
-      description: "Project requirements, drawings, constraints and authority exposure are clarified early.",
-      icon: CheckCircle2,
-    },
-    {
-      title: "Engineering rhythm",
-      description: "Civil, structural, MEP, fit-out and consultant interfaces are managed as one delivery system.",
-      icon: CheckCircle2,
-    },
-    {
-      title: "Document readiness",
-      description: "Submissions, comments, inspections and close-out records stay visible during delivery.",
-      icon: CheckCircle2,
-    },
-    {
-      title: "Handover focus",
-      description: "Site execution is planned around completion documentation and operational readiness.",
-      icon: CheckCircle2,
-    },
   ];
   const imageJsonLd = {
     "@context": "https://schema.org",
@@ -122,6 +83,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     name: `${service.title} construction image`,
     caption: serviceImage.alt,
     description: serviceImage.alt,
+    width: serviceImage.width,
+    height: serviceImage.height,
   };
   const webPageJsonLd = {
     "@context": "https://schema.org",
@@ -240,655 +203,233 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       }
     : null;
 
+  const resourceLinks = Array.from(new Map([
+    ...deepContent.internalLinkBlocks,
+    ...relatedLinks,
+    { href: "/industries", title: "Industries", description: "Project environments and operational requirements." },
+    { href: "/projects", title: "Planning library", description: "Scope-planning resources for your next project." },
+  ].map((item) => [item.href, item])).values());
+
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Services", href: "/services" },
-          { label: service.title },
-        ]}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.title }]}
         eyebrow={`Emitronix ${service.shortTitle}`}
         title={`${service.title} Dubai`}
         description={service.details}
-        imageAsset={serviceImage}
+        image={serviceImage.src}
+        imageAlt={serviceImage.alt}
+        imageCaption={serviceImage.caption}
+        imageAttribution={getUniquePhotoAttribution(serviceImage)}
+        imagePosition={serviceImage.objectPosition}
         primaryCta={{ label: "Request a Quote", href: "/contact" }}
         secondaryCta={{ label: "Planning Library", href: "/projects" }}
-        metrics={[
-          { value: "Dubai", label: "Local market focus" },
-          { value: "DIP 02", label: "Published location" },
-          { value: "Mon–Sat", label: "Published business days" },
-          { value: "UAE", label: "Published enquiry coverage" },
-        ]}
+        showPlanningSummary={false}
       />
 
-      <AnswerEngineSummary
-        question={`What is ${service.title.toLowerCase()} in Dubai?`}
-        answer={deepContent.aiAnswer}
-        facts={[
-          `Typical project fit: ${service.whoNeeds[0]}`,
-          `Key document examples: ${deepContent.documents.slice(0, 3).join(", ")}`,
-          "Final scope and authority responsibilities must be confirmed for the specific project",
-          "Useful enquiry details: project location, drawings status, authority comments and timeline",
-        ]}
-        cta={{ label: `Request ${service.shortTitle.toLowerCase()} consultation`, href: "/contact" }}
-      />
+      <nav className="container-pad flex flex-wrap gap-x-5 gap-y-3 py-6 text-sm font-semibold" aria-label={`${service.title} page sections`}>
+        {tableOfContents.map((item) => <a key={item.href} href={item.href} className="text-brand underline underline-offset-4">{item.label}</a>)}
+      </nav>
 
-      <section className="bg-white py-8">
-        <div className="container-pad">
-          <div className="rounded-[1.75rem] border border-brand/[0.15] bg-brand-soft p-6 text-charcoal shadow-panel">
-            <p className="premium-kicker">Scope note</p>
-            <h2 className="mt-3 text-2xl font-black tracking-tight">General guidance must be checked against project facts.</h2>
-            <p className="mt-3 max-w-5xl text-sm leading-7 text-steel">
-              Materials, methods, standards, authority routes, consultant duties, cost and programme vary by design, location, use and site condition. This page supports early planning and does not replace approved drawings, project specifications, formal authority requirements or advice from the appointed professionals.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {serviceVideo ? <ServiceVideoShowcase asset={serviceVideo} /> : null}
-
-      <section className="section-pad bg-white">
-        <div className="container-pad grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <PremiumSectionHeading
-            eyebrow="Scope planning"
-            title={`A controlled ${service.title.toLowerCase()} workflow for Dubai projects.`}
-            description="Review scope, decisions, Dubai authority considerations, programme variables, cost drivers and common failure modes before defining the project brief."
-          />
-          <div className="grid gap-5 sm:grid-cols-3">
-            {service.highlights.map((highlight) => (
-              <article key={highlight} className="luxury-card rounded-[1.5rem] p-6">
-                <CheckCircle2 className="h-7 w-7 text-brand" />
-                <h2 className="mt-5 text-xl font-black tracking-tight text-charcoal">{highlight}</h2>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-8">
-        <div className="container-pad">
-          <div className="grid gap-4 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-5 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
-            <div>
-              <p className="premium-kicker">Start this scope</p>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">
-                Need {service.title.toLowerCase()} in Dubai?
-              </h2>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link href="/contact" className="premium-button">
-                Request a Quote <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/contact?intent=site-visit" className="premium-button-light">
-                Request a Site Visit <CalendarCheck className="h-4 w-4" />
-              </Link>
-              <a href={phoneHref} className="premium-button-light">
-                Call Now <PhoneCall className="h-4 w-4" />
-              </a>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-                WhatsApp Us <MessageCircle className="h-4 w-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="overview" className="section-pad soft-section">
-        <div className="container-pad grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="luxury-card rounded-[1.75rem] p-5">
-              <p className="premium-kicker">Page guide</p>
-              <nav className="mt-5 grid gap-2" aria-label={`${service.title} table of contents`}>
-                {tableOfContents.map((item) => (
-                  <Link key={item.href} href={item.href} className="flex items-center justify-between rounded-2xl border border-brand/[0.12] bg-white px-4 py-3 text-sm font-black text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand">
-                    {item.label}
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          </aside>
-          <div className="grid gap-6">
-            <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
-              <p className="premium-kicker">What it means</p>
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
-                {service.title} in Dubai, explained for owners and consultants.
-              </h2>
-              <div className="mt-6 grid gap-5 text-base leading-8 text-steel">
-                <p>{deepContent.buyerPromise}</p>
-                {service.overview.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                <p>
-                  Use the sections below to review documents, possible authority touchpoints, technical risks, decision factors and questions to raise before defining a project-specific scope.
-                </p>
-              </div>
-            </article>
-            <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
-              <p className="premium-kicker">Who needs it</p>
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal">Typical clients and project situations.</h2>
-              <div className="mt-6 grid gap-3">
-                {service.whoNeeds.map((item) => (
-                  <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
-                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                    <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="answers" className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Direct answers"
-            title={`${service.title} questions for owners and consultants.`}
-            description={`These concise answers help owners comparing ${deepContent.primaryKeyword} understand scope, contractor selection, authority exposure and enquiry readiness before contacting Emitronix.`}
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
-            {deepContent.answerBlocks.map((item) => (
-              <article key={item.title} className="luxury-card rounded-[1.5rem] p-6 lg:p-7">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="topical-authority" className="section-pad soft-section">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Project context"
-            title={`${service.title} decisions, risks and Dubai project context.`}
-            description="This section connects scope questions, possible approval exposure, technical interfaces and enquiry readiness."
-            align="center"
-          />
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            <div className="grid gap-4">
-              {deepContent.topicalAuthorityBlocks.map((item) => (
-                <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
-                  <h2 className="text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
-                </article>
-              ))}
-            </div>
-            <div className="grid gap-4">
-              {deepContent.commercialIntentBlocks.map((item) => (
-                <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-white p-6 shadow-panel">
-                  <p className="premium-kicker">Decision factor</p>
-                  <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad soft-section">
-        <div className="container-pad grid gap-10 lg:grid-cols-2">
+      <section id="overview" className="section-pad bg-white">
+        <div className="container-pad grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <PremiumSectionHeading
-              eyebrow="Buyer pain points"
-              title={`Problems that delay ${service.title.toLowerCase()} in Dubai.`}
-              description="Commercial buyers usually contact a contractor because a real risk needs to be controlled: drawings, authority comments, site constraints, cost uncertainty or handover pressure."
-            />
-            <div className="mt-8 grid gap-4">
-              {deepContent.painPoints.map((item) => (
-                <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-white p-6 shadow-panel">
-                  <h2 className="text-xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
-                </article>
-              ))}
-            </div>
+            {overviewContent ?? (
+              <>
+                <PremiumSectionHeading eyebrow="Service overview" title={`${service.title}: scope and approach`} description={deepContent.aiAnswer} />
+                <p className="mt-5 leading-7 text-steel">{deepContent.buyerPromise}</p>
+                <ul className="mt-5 flex flex-wrap gap-2" aria-label="Scope highlights">
+                  {service.highlights.map((item) => <li key={item} className="rounded-lg bg-brand-soft px-3 py-2 text-sm font-semibold text-charcoal">{item}</li>)}
+                </ul>
+              </>
+            )}
           </div>
-          <div>
-            <PremiumSectionHeading
-              eyebrow="Emitronix solution"
-              title="How the risk is reduced before it reaches site."
-              description="Early fact-checking protects the programme, procurement and site commitments from assumptions that become expensive to change."
-            />
-            <div className="mt-8 grid gap-4">
-              {deepContent.solutionBlocks.map((item) => (
-                <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-brand-soft p-6">
-                  <CheckCircle2 className="h-6 w-6 text-brand" />
-                  <h2 className="mt-4 text-xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-charcoal/80">{item.description}</p>
-                </article>
-              ))}
-            </div>
+          <div className="space-y-6">
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+            <aside className="rounded-lg border border-brand/[0.15] bg-platinum p-6" aria-labelledby="project-fit-heading">
+              <h2 id="project-fit-heading" className="text-2xl font-semibold text-charcoal">Who this service supports</h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">
+                {service.whoNeeds.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+              <details className="mt-5 border-t border-brand/[0.15] pt-4">
+                <summary className="cursor-pointer font-semibold text-brand">Industry considerations</summary>
+                <div className="mt-4 space-y-4">
+                  {deepContent.industries.map((item) => <article key={item.title}><h3 className="font-semibold text-charcoal">{item.title}</h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></article>)}
+                </div>
+              </details>
+            </aside>
           </div>
         </div>
       </section>
 
-      <section id="documents" className="section-pad bg-white">
-        <div className="container-pad grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
-          <PremiumSectionHeading
-            eyebrow="Documents and deliverables"
-            title={`What to prepare before requesting ${service.title.toLowerCase()}.`}
-            description="Better starting information creates faster technical review, cleaner pricing assumptions and fewer avoidable revision cycles."
-          />
-          <div className="grid gap-5 md:grid-cols-2">
-            <article className="luxury-card rounded-[1.5rem] p-6">
-              <h2 className="text-2xl font-black tracking-tight text-charcoal">Useful documents</h2>
-              <div className="mt-5 grid gap-3">
-                {deepContent.documents.map((item) => (
-                  <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
-                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                    <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                  </div>
-                ))}
-              </div>
+      {afterOverview}
+
+      <section id="documents" className="section-pad soft-section">
+        <div className="container-pad">
+          <PremiumSectionHeading eyebrow="Scope and records" title="Documents and deliverables" description="Confirm the required package against the project scope, appointed parties and authority route." />
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <article className="luxury-card rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-charcoal">Documents to prepare</h3>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{deepContent.documents.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
-            <article className="luxury-card rounded-[1.5rem] p-6">
-              <h2 className="text-2xl font-black tracking-tight text-charcoal">Typical deliverables</h2>
-              <div className="mt-5 grid gap-3">
-                {deepContent.deliverables.map((item) => (
-                  <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
-                    <FileCheck2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                    <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                  </div>
-                ))}
-              </div>
+            <article className="luxury-card rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-charcoal">Delivery records and outputs</h3>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{deepContent.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
           </div>
         </div>
       </section>
 
-      <ProcessRail
-        eyebrow="Process"
-        title={`${service.title} process designed for Dubai decision clarity.`}
-        description="A disciplined process helps prevent late authority surprises, unclear responsibilities and avoidable site rework."
-        steps={service.workflow}
-      />
+      <section id="methodology" className="section-pad bg-white">
+        <div className="container-pad grid gap-8 lg:grid-cols-[0.65fr_1.35fr]">
+          <div className="space-y-6">
+            <PremiumSectionHeading eyebrow="Methodology" title={`How we approach ${service.shortTitle.toLowerCase()}`} />
+            <SectionPhotograph photo={sectionPhotographs[1]} compact />
+          </div>
+          <ol className="grid gap-4">
+            {service.methodology.map((item, index) => <li key={item} className="flex gap-4 rounded-lg border border-brand/[0.15] p-5"><span className="text-lg font-semibold text-brand" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p className="text-sm leading-7 text-charcoal">{item}</p></li>)}
+          </ol>
+        </div>
+      </section>
 
       <section id="knowledge" className="section-pad soft-section">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Technical knowledge base"
-            title={`${service.title} technical points buyers should understand.`}
-            description="These topics help non-technical owners ask better questions while giving consultants a clear basis for project-specific review."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {deepContent.technicalTopics.map((topic) => (
-              <article key={topic.title} className="luxury-card rounded-[1.5rem] p-6">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{topic.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel">{topic.summary}</p>
-                <div className="mt-5 grid gap-2">
-                  {topic.points.map((point) => (
-                    <div key={point} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-3">
-                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-brand" />
-                      <p className="text-sm font-bold leading-6 text-charcoal">{point}</p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            ))}
+          <PremiumSectionHeading eyebrow="Technical guidance" title="Resolve the technical scope before work starts" />
+          <div id="field-briefing" className="mt-6 grid items-start gap-6 xl:grid-cols-[0.7fr_1.3fr]">
+            <SectionPhotograph photo={sectionPhotographs[2]} />
+            <div className="grid gap-5 md:grid-cols-2">
+              {deepContent.technicalTopics.map((topic) => (
+                <article key={topic.title} className="luxury-card rounded-lg p-6">
+                  <h3 className="text-xl font-semibold text-charcoal">{topic.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-steel">{topic.summary}</p>
+                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{topic.points.map((point) => <li key={point}>{point}</li>)}</ul>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="field-briefing" className="section-pad bg-white">
+      <section id="topical-authority" className="section-pad bg-white">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Field decision briefing"
-            title={`${service.title} decisions worth resolving before site pressure builds.`}
-            description="These notes connect design intent to procurement, inspections and handover. They are general planning prompts; the appointed professionals must confirm the project-specific design and authority requirements."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
-            {deepContent.fieldDecisionBriefs.map((brief, index) => (
-              <article key={brief.title} className="luxury-card rounded-[1.5rem] p-6 lg:p-7">
-                <p className="premium-kicker">Decision {String(index + 1).padStart(2, "0")}</p>
-                <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{brief.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel">{brief.description}</p>
+          <PremiumSectionHeading eyebrow="Project decisions" title="What changes the delivery route" />
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            {deepContent.decisionFactors.map((item) => <article key={item.title} className="luxury-card rounded-lg p-6"><h3 className="text-xl font-semibold text-charcoal">{item.title}</h3><p className="mt-3 text-sm leading-7 text-steel">{item.description}</p></article>)}
+          </div>
+          <details id="mistakes" className="mt-6 rounded-lg border border-brand/[0.15] p-5">
+            <summary className="cursor-pointer font-semibold text-brand">Scope risks, controls and quality checks</summary>
+            <div className="mt-5 grid gap-5 md:grid-cols-2">
+              {[...deepContent.painPoints, ...deepContent.solutionBlocks].map((item) => <article key={item.title}><h3 className="font-semibold text-charcoal">{item.title}</h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></article>)}
+              <article><h3 className="font-semibold text-charcoal">Quality checks</h3><ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{service.qualityStandards.map((item) => <li key={item}>{item}</li>)}</ul></article>
+              <article><h3 className="font-semibold text-charcoal">Mistakes to avoid</h3><ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{service.commonMistakes.map((item) => <li key={item}>{item}</li>)}</ul></article>
+              <article>
+                <h3 className="font-semibold text-charcoal">Checks before the next activity</h3>
+                <ul className="mt-2 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">
+                  <li>Record each open decision&apos;s owner, due date, supporting evidence and dependent activity.</li>
+                  <li>Check procurement inputs against current drawing revisions and authority comments before ordering.</li>
+                  <li>Complete inspections and record outcomes before concealment or irreversible work.</li>
+                </ul>
               </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="methodology" className="blue-grid section-pad text-charcoal">
-        <div className="container-pad grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <Icon className="h-14 w-14 text-brand" />
-            <PremiumSectionHeading
-              eyebrow="Methodology"
-              title={`How Emitronix approaches ${service.shortTitle}.`}
-              description="The project experience is designed to reduce ambiguity before it reaches the site, keeping owners, consultants, authorities and field teams aligned."
-            />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {service.methodology.map((item) => (
-              <article key={item} className="rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-6 backdrop-blur-xl">
-                <CheckCircle2 className="h-6 w-6 text-brand" />
-                <p className="mt-4 text-sm font-bold leading-7 text-charcoal">{item}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <InsightGrid
-        eyebrow="Industries served"
-        title={`${service.title} across Dubai project environments.`}
-        description="The service is structured for asset types that require coordinated decisions between owners, consultants, authorities and site teams."
-        items={audienceItems}
-        tone="soft"
-      />
-
-      <section id="dubai-standards" className="section-pad bg-white">
-        <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <ImagePanel
-            asset={serviceImage}
-            label="Planning illustration"
-            title={`${service.title} scope and coordination considerations.`}
-          />
-          <div>
-            <PremiumSectionHeading
-              eyebrow="Authority and standards context"
-              title={`${service.title} support for owners, consultants and commercial teams.`}
-              description="The applicable authorities, standards and appointed-party responsibilities depend on location, use, design and project stage."
-            />
-            <div className="mt-8 grid gap-3">
-              {deepContent.authorityTouchpoints.slice(0, 6).map((item) => (
-                <div key={item.title} className="rounded-2xl border border-brand/[0.12] bg-platinum px-5 py-4">
-                  <h2 className="text-sm font-black text-charcoal">{item.title}</h2>
-                  <p className="mt-2 text-sm leading-6 text-steel">{item.description}</p>
-                </div>
-              ))}
             </div>
-            <Link href="/contact" className="premium-button mt-8">
-              Discuss this scope <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+          </details>
         </div>
       </section>
 
-      <section className="section-pad soft-section">
-        <div className="container-pad grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <PremiumSectionHeading
-            eyebrow="Published service area"
-            title={`${service.title} enquiries within Emitronix's published coverage.`}
-            description="Availability and the applicable authority route remain subject to the actual project location, scope and appointed parties."
-          />
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {site.serviceArea.map((location) => (
-              <Link key={location} href="/contact" className="luxury-card rounded-[1.5rem] p-5">
-                <MapPin className="h-6 w-6 text-brand" />
-                <h2 className="mt-4 text-xl font-black tracking-tight text-charcoal">{location}</h2>
-                <p className="mt-3 text-sm leading-7 text-steel">
-                  {service.title} enquiries for {location}, subject to scope review, authority jurisdiction, availability and site readiness.
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <InsightGrid
-        eyebrow="Industry use cases"
-        title={`${service.title} by buyer type and project environment.`}
-        description="Every asset type creates different technical, authority, procurement and handover questions."
-        items={deepContent.industries.map((item) => ({ ...item, href: "/contact", label: "Discuss scope" }))}
-        tone="light"
-      />
-
-      <section className="section-pad soft-section">
+      <section id="dubai-standards" className="section-pad soft-section">
         <div className="container-pad grid gap-8 lg:grid-cols-2">
-          <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
-            <p className="premium-kicker">Quality standards</p>
-            <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal">What controlled delivery looks like.</h2>
-            <div className="mt-6 grid gap-3">
-              {service.qualityStandards.map((item) => (
-                <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                  <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                </div>
-              ))}
-            </div>
-          </article>
-          <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
-            <p className="premium-kicker">Dubai regulations</p>
-            <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal">Authority-aware planning, without guessing.</h2>
-            <div className="mt-6 grid gap-3">
-              {service.dubaiRegulations.map((item) => (
-                <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                  <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                </div>
-              ))}
-            </div>
-          </article>
+          <div>
+            <PremiumSectionHeading eyebrow="Dubai requirements" title="Confirm the applicable authority route" description="Emitronix provides construction and coordination support. Formal approvals, technical submissions and inspection outcomes remain with the relevant authority and properly appointed professionals; outcomes and review periods are not guaranteed." />
+            <p className="mt-4 text-sm leading-7 text-steel">Possible interfaces: {deepContent.authorityTouchpoints.slice(0, 6).map((item) => item.title).join(", ")}. Applicability depends on the site, proposed work and appointment scope.</p>
+            <p className="mt-3 text-sm leading-7 text-steel">Published enquiry coverage: {site.serviceArea.join(", ")}. Availability is subject to scope and site review.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-charcoal">Planning requirements</h3>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{service.dubaiRegulations.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
         </div>
       </section>
 
       <section id="timeline-cost" className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Timeline and cost"
-            title={`${service.title} planning variables buyers should understand.`}
-            description="Timelines and budgets depend on the real project conditions. These tables explain the factors that usually shape decisions in Dubai."
-            align="center"
-          />
-          <div className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="overflow-x-auto rounded-[1.75rem] border border-brand/[0.12] bg-white shadow-panel">
-              <table className="w-full min-w-[720px] border-collapse text-left text-sm">
-                <caption className="sr-only">{service.title} timeline planning variables</caption>
-                <thead className="bg-brand-soft text-charcoal">
-                  <tr>
-                    <th scope="col" className="px-5 py-4 font-black">Phase</th>
-                    <th scope="col" className="px-5 py-4 font-black">Typical Duration</th>
-                    <th scope="col" className="px-5 py-4 font-black">What Changes It</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-brand/[0.10]">
-                  {service.timeline.map((item) => (
-                    <tr key={item.phase} className="align-top">
-                      <th scope="row" className="px-5 py-4 font-black text-charcoal">{item.phase}</th>
-                      <td className="px-5 py-4 font-bold text-brand">{item.typicalDuration}</td>
-                      <td className="px-5 py-4 leading-7 text-steel">{item.notes}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
-              <p className="premium-kicker">Cost factors</p>
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal">What affects pricing.</h2>
-              <div className="mt-6 grid gap-3">
-                {service.costFactors.map((item) => (
-                  <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
-                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                    <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                  </div>
-                ))}
-              </div>
+        <div id="answers" className="container-pad">
+          <PremiumSectionHeading eyebrow="Budget and programme" title="Timeline and cost factors" description="Durations and prices depend on the actual site, design, procurement and authority requirements. These are planning variables, not a project quotation or guaranteed programme." />
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            <article>
+              <h3 className="text-xl font-semibold text-charcoal">What affects pricing</h3>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{service.costFactors.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
+            <details className="rounded-lg border border-brand/[0.15] p-5">
+              <summary className="cursor-pointer font-semibold text-brand">View programme planning variables</summary>
+              <div className="mt-4 overflow-x-auto" role="region" aria-label={`${service.title} timeline planning variables`} tabIndex={0}>
+                <table className="w-full min-w-[540px] border-collapse text-left text-sm">
+                  <caption className="sr-only">{service.title} timeline planning variables</caption>
+                  <thead className="bg-brand-soft"><tr><th scope="col" className="p-3">Phase</th><th scope="col" className="p-3">Typical Duration</th><th scope="col" className="p-3">What Changes It</th></tr></thead>
+                  <tbody className="divide-y divide-brand/10">{service.timeline.map((item) => <tr key={item.phase} className="align-top"><th scope="row" className="p-3 font-semibold text-charcoal">{item.phase}</th><td className="p-3 text-brand">{item.typicalDuration}</td><td className="p-3 leading-7 text-steel">{item.notes}</td></tr>)}</tbody>
+                </table>
+              </div>
+            </details>
           </div>
         </div>
       </section>
 
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Decision factors"
-            title={`What changes the route for ${deepContent.primaryKeyword}.`}
-            description="These factors influence cost, timeline, authority exposure, site sequence and the level of documentation needed."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {deepContent.decisionFactors.map((factor) => (
-              <article key={factor.title} className="luxury-card rounded-[1.5rem] p-6">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{factor.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel">{factor.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="mistakes" className="section-pad soft-section">
-        <div className="container-pad grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <PremiumSectionHeading
-            eyebrow="Mistakes to avoid"
-            title={`Common ${service.title.toLowerCase()} mistakes in Dubai.`}
-            description="Good construction decisions often come from avoiding predictable problems early."
-          />
-          <div className="grid gap-4 md:grid-cols-2">
-            {service.commonMistakes.map((item) => (
-              <article key={item} className="luxury-card rounded-[1.5rem] p-6">
-                <CheckCircle2 className="h-6 w-6 text-brand" />
-                <p className="mt-4 text-sm font-bold leading-7 text-charcoal">{item}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Control points"
-            title="A construction workflow that feels calm at decision speed."
-            description="Useful delivery control comes from visible responsibilities, current documents and authority-aware decisions."
-            align="center"
-          />
-          <div className="mt-12">
-            <FeatureGrid features={serviceFeatures} />
-          </div>
-        </div>
-      </section>
-
-      <TrustBar
-        eyebrow="Trust section"
-        title="Defined coordination without inflated claims."
-        points={[
-          "Verified Dubai business details",
-          "Clear scope and document tracking",
-          "Authority-aware project planning",
-          "Responsive enquiry and handover focus",
-        ]}
-      />
-
-      {isWarehouseService ? (
-        <section id="warehouse-authority-silo" className="section-pad soft-section">
-          <div className="container-pad">
-            <PremiumSectionHeading
-              eyebrow="Warehouse authority silo"
-              title="Warehouse construction pages for deeper Dubai project planning."
-              description="Use these supporting pages to explore warehouse construction, civil works, steel structures, authority approvals, fit-out, maintenance and handover topics with stronger internal context."
-              align="center"
-            />
-            <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {warehouseAuthorityPages.map((page) => (
-                <Link key={page.href} href={page.href} className="luxury-card rounded-[1.35rem] p-5">
-                  <p className="premium-kicker">{page.category}</p>
-                  <h2 className="mt-3 text-xl font-black leading-snug text-charcoal">{page.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-steel">{page.metaDescription}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
-                    Open topic <ArrowRight className="h-4 w-4" />
-                  </span>
-                </Link>
-              ))}
+      {serviceVideo ? (
+        <section id="warehouse-video" className="container-pad pb-8">
+          <details className="rounded-lg border border-brand/[0.15] p-5">
+            <summary className="cursor-pointer font-semibold text-brand">Illustrative technical video: {serviceVideo.title}</summary>
+            <div className="mt-5 grid gap-6 md:grid-cols-[0.6fr_1.4fr]">
+              <video controls playsInline preload="none" poster={serviceVideo.posterSrc} width={serviceVideo.width} height={serviceVideo.height} aria-label={serviceVideo.ariaLabel} className="max-h-[32rem] w-full rounded-lg bg-charcoal object-contain">
+                <source src={serviceVideo.webmSrc} type="video/webm" />
+                <source src={serviceVideo.mp4Src} type="video/mp4" />
+                Your browser does not support this video.
+              </video>
+              <div><h2 className="text-2xl font-semibold text-charcoal">{serviceVideo.title}</h2><p className="mt-3 text-sm leading-7 text-steel">{serviceVideo.description}</p><p className="mt-3 text-sm leading-7 text-steel">Illustrative visualisation, not a completed Emitronix project. {serviceVideo.caption}</p><div className="mt-4 space-y-3">{serviceVideo.highlights.map((item) => <article key={item.title}><h3 className="font-semibold text-charcoal">{item.title}</h3><p className="mt-1 text-sm leading-7 text-steel">{item.description}</p></article>)}</div></div>
             </div>
-          </div>
+          </details>
         </section>
       ) : null}
 
-      <section className="section-pad bg-white">
+      <section className="section-pad soft-section">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Next resources"
-            title={`${service.title} connected to related Dubai services and approvals.`}
-            description="Continue to related scopes, approval guidance and enquiry routes based on the next project decision."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {deepContent.internalLinkBlocks.map((item) => (
-              <Link key={`${item.href}-${item.title}`} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
-                <h2 className="text-xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
-                  {item.label} <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
-            ))}
+          <PremiumSectionHeading eyebrow="Related resources" title="Continue planning your project" />
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {resourceLinks.map((item) => <Link key={item.href} href={item.href} className="luxury-card rounded-lg p-5"><h3 className="flex items-center justify-between gap-3 text-lg font-semibold text-charcoal">{item.title}<ArrowRight className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" /></h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></Link>)}
           </div>
+          {isWarehouseService ? (
+            <details id="warehouse-authority-silo" className="mt-6 rounded-lg border border-brand/[0.15] bg-white p-5">
+              <summary className="cursor-pointer font-semibold text-brand">Warehouse construction and authority planning library</summary>
+              <ul className="mt-5 grid gap-x-6 gap-y-3 md:grid-cols-2 lg:grid-cols-3">{warehouseAuthorityPages.map((page) => <li key={page.href}><Link href={page.href} className="text-sm leading-6 text-brand underline underline-offset-4">{page.title}</Link></li>)}</ul>
+            </details>
+          ) : null}
         </div>
       </section>
 
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Related services"
-            title={`Plan ${service.title.toLowerCase()} with the right supporting scopes.`}
-            description="Use these related resources to move between construction, fit-out, authority approvals and project planning without losing context."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {relatedLinks.map((item) => (
-              <Link key={item.href} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
-                <h2 className="text-xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
-                  Open page <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div id="faq"><FAQSection accordion title={`${service.title} Dubai FAQ.`} description="Common questions from owners, consultants and commercial teams evaluating a premium construction partner in Dubai." faqs={expandedFaqs} schema /></div>
 
       <section className="section-pad soft-section">
-        <div className="container-pad grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+        <div className="container-pad grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <div>
-            <PremiumSectionHeading
-              eyebrow="Quick quote"
-              title={`Request ${service.shortTitle.toLowerCase()} consultation.`}
-              description={`Share your project location, drawing status, authority comments and timeline. The ${service.title.toLowerCase()} review will identify the next coordination action.`}
-            />
-            <div className="mt-6 grid gap-3">
-              {["Project location and scope", "Drawings or authority status", "Preferred timeline and site access"].map((item) => (
-                <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                  <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
-                </div>
-              ))}
+            <PremiumSectionHeading eyebrow="Project enquiry" title={`Request ${service.shortTitle.toLowerCase()} consultation.`} description="Share your project location, scope, drawings, authority status and preferred timeline so the next coordination action can be identified." />
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/contact" className="premium-button">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+              <Link href="/contact?intent=site-visit" className="premium-button-light">Request a Site Visit <CalendarCheck className="h-4 w-4" aria-hidden="true" /></Link>
+              <a href={phoneHref} className="premium-button-light">Call Now <PhoneCall className="h-4 w-4" aria-hidden="true" /></a>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">WhatsApp Us <MessageCircle className="h-4 w-4" aria-hidden="true" /></a>
             </div>
+            <SectionPhotograph photo={sectionPhotographs[3]} className="mt-6" compact />
           </div>
           <ContactForm />
         </div>
       </section>
 
-      <ContentReviewRecord
-        title={`${service.title} content record`}
-        reviewScope="General editorial review of service scope, workflow, document requirements, claim boundaries and Dubai context. Project requirements must be confirmed against current drawings, contracts, authority requirements and appointed-professional responsibilities."
-      />
-
-      <div id="faq">
-        <FAQSection
-          title={`${service.title} Dubai FAQ.`}
-          description="Common questions from owners, consultants and commercial teams evaluating a premium construction partner in Dubai."
-          faqs={expandedFaqs}
-          schema
-        />
-      </div>
-
-      <CTA />
+      <details className="container-pad py-6">
+        <summary className="cursor-pointer text-sm font-semibold text-brand">Content ownership and review boundaries</summary>
+        <ContentReviewRecord title={`${service.title} content record`} reviewScope="General editorial review of service scope, workflow, document requirements, claim boundaries and Dubai context. Project requirements must be confirmed against current drawings, contracts, authority requirements and appointed-professional responsibilities." />
+      </details>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
-      {videoJsonLd ? (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }} />
-      ) : null}
-    </>
+      {videoJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }} /> : null}
+    </InternalPageFrame>
   );
 }

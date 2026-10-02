@@ -1,0 +1,1994 @@
+{
+  "base": "http://127.0.0.1:3181",
+  "phase": "after",
+  "files": {
+    "app/(en)/page.tsx": "ff47553ac05ba7c7608eb5140c7d443dd4bab22a521bbefe437fe774fb838183",
+    "app/ar/page.tsx": "709acec86d14028c5c386b7b300295c1d25171c391f4fd4881f3278fe09517d4",
+    "components/Home.module.css": "bd404659443ad969551201d9e2c8af825ee3b423ae5db1607820ec38b169659b",
+    "components/HomeHeroSlideshow.tsx": "a493ddc0975ff4e81f3b4d4261c967116c125ebbcd2d3cfc097208507016bec7",
+    "components/HomeSignatureHero.tsx": "852706a1b299763c5c34b29c3b4eaaf6d587a325beec771010d99a5de10b98af",
+    "data/homeHeroSlides.ts": "4407c522aed4c8c4c78ff630d16061fdc4a18215e877001caf640c79c46db3f6",
+    "data/site.ts": "183934e65bc3489fbc16d29c0774623f3c1c0f622df5f6d01e53082920b69d09",
+    "data/generatedImages.ts": "f7c7a448e2b4415693739428f8d5389a460a8597fbd14bebac12207e77901b5f",
+    "app/globals.css": "54d5d2916d8f5037770b84580223971ba24dd13c975b0db4a497d5f37855b57e"
+  },
+  "cases": [
+    {
+      "route": "/",
+      "width": 1440,
+      "main": "b422709f7a92829c43f72df66ae8f3a9dfa77320a369de24cd669ef4c668c7f3",
+      "images": [
+        {
+          "source": "/images/home/jumeirah-village-circle-construction.webp",
+          "alt": "Tower cranes, reinforced concrete floors and exposed steel reinforcement at a construction site in Jumeirah Village Circle, Dubai",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 860
+        },
+        {
+          "source": "/images/internal/warehouse-steel-frame.webp",
+          "alt": "Cranes and lifting equipment erecting the steel frame and roof structure of a warehouse",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 860
+        },
+        {
+          "source": "/images/home/dubai-hills-construction.webp",
+          "alt": "Tower cranes, scaffolding and concrete buildings under construction in Dubai Hills",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 860
+        },
+        {
+          "source": "/images/home/construction-workers-sunset.webp",
+          "alt": "Construction workers silhouetted on a scaffolded concrete building against a golden sunset sky",
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 860
+        },
+        {
+          "source": "/images/civil-contractor-dubai-construction-site.webp",
+          "alt": "Construction workers beside a reinforced concrete building frame",
+          "x": 33,
+          "y": 1279.578125,
+          "width": 438,
+          "height": 236.75
+        },
+        {
+          "source": "/images/warehouse-construction-dubai.webp",
+          "alt": "Cranes erecting steel portal frames for a warehouse building",
+          "x": 501,
+          "y": 1279.578125,
+          "width": 438,
+          "height": 236.75
+        },
+        {
+          "source": "/images/mep-civil-contracting-dubai.webp",
+          "alt": "Construction workers on a scissor lift installing steel roof trusses",
+          "x": 969,
+          "y": 1279.578125,
+          "width": 438,
+          "height": 236.75
+        },
+        {
+          "source": "/images/dubai-authority-approval-contractor.webp",
+          "alt": "A project team reviewing architectural plans and building drawings",
+          "x": 33,
+          "y": 1736.59375,
+          "width": 438,
+          "height": 236.75
+        },
+        {
+          "source": "/images/commercial-fit-out-contractor-dubai.webp",
+          "alt": "Completed office interior with glass partitions and coordinated finishes",
+          "x": 501,
+          "y": 1736.59375,
+          "width": 438,
+          "height": 236.75
+        },
+        {
+          "source": "/images/building-contractor-dubai-construction-site.webp",
+          "alt": "Two construction professionals in hard hats reviewing a clipboard on site",
+          "x": 969,
+          "y": 1736.59375,
+          "width": 438,
+          "height": 236.75
+        },
+        {
+          "source": "/images/project-civil-works-dubai.webp",
+          "alt": "Construction workers preparing steel reinforcement at a building site",
+          "x": 32,
+          "y": 2368.328125,
+          "width": 652,
+          "height": 673.28125
+        },
+        {
+          "source": "/images/project-warehouse-industrial-dubai.webp",
+          "alt": "Storage racks and circulation aisles inside a working warehouse",
+          "x": 32,
+          "y": 4156.296875,
+          "width": 326,
+          "height": 271.65625
+        },
+        {
+          "source": "/images/project-office-fit-out-dubai.webp",
+          "alt": "Glass-fronted office spaces with overhead building services",
+          "x": 382,
+          "y": 4156.296875,
+          "width": 326,
+          "height": 271.65625
+        },
+        {
+          "source": "/images/mep-civil-contracting-dubai.webp",
+          "alt": "Steel roof structure being installed for an industrial building",
+          "x": 732,
+          "y": 4156.296875,
+          "width": 326,
+          "height": 271.65625
+        },
+        {
+          "source": "/images/project-commercial-renovation-dubai.webp",
+          "alt": "Finished commercial corridor with exposed mechanical services",
+          "x": 1082,
+          "y": 4156.296875,
+          "width": 326,
+          "height": 271.65625
+        },
+        {
+          "source": "/images/warehouse-construction-dubai.webp",
+          "alt": "Steel columns and roof frames being erected across a warehouse construction site",
+          "x": 32,
+          "y": 5574.171875,
+          "width": 774.375,
+          "height": 417.59375
+        },
+        {
+          "source": "/images/project-office-fit-out-dubai.webp",
+          "alt": "Completed commercial workspace with glass partitions and exposed ceiling services",
+          "x": 834.375,
+          "y": 5574.171875,
+          "width": 573.625,
+          "height": 417.59375
+        },
+        {
+          "source": "/images/civil-contractor-dubai-construction-site.webp",
+          "alt": "Construction team overlooking foundation reinforcement at a building site",
+          "x": 32,
+          "y": 8557.953125,
+          "width": 437.328125,
+          "height": 262.390625
+        },
+        {
+          "source": "/images/dubai-authority-approval-contractor.webp",
+          "alt": "Architectural drawings reviewed with a ruler and calculator",
+          "x": 501.328125,
+          "y": 8557.953125,
+          "width": 437.328125,
+          "height": 262.390625
+        },
+        {
+          "source": "/images/warehouse-construction-dubai.webp",
+          "alt": "Steel warehouse frame under construction with cranes and site equipment",
+          "x": 970.65625,
+          "y": 8557.953125,
+          "width": 437.34375,
+          "height": 262.40625
+        }
+      ],
+      "title": "Construction Company in Dubai | warehouse construction company in dubai",
+      "canonical": "https://emitronix.ae/",
+      "robots": "index, follow",
+      "jsonLd": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": [
+                "Organization",
+                "LocalBusiness",
+                "GeneralContractor"
+              ],
+              "@id": "https://emitronix.ae/#organization",
+              "name": "Emitronix Contracting LLC",
+              "alternateName": "Emitronix",
+              "url": "https://emitronix.ae",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://emitronix.ae/images/emitronix-logo.png",
+                "contentUrl": "https://emitronix.ae/images/emitronix-logo.png",
+                "width": 1728,
+                "height": 404,
+                "caption": "Emitronix — Building the Future"
+              },
+              "image": "https://emitronix.ae/images/generated/social/emitronix-construction-dubai-og.webp",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "email": "info@emitronix.ae",
+              "telephone": "+97148240002",
+              "sameAs": [
+                "https://www.facebook.com/profile.php?id=61591789313979",
+                "https://www.linkedin.com/company/emitronix-contracting-llc",
+                "https://www.instagram.com/etnxllc/",
+                "https://x.com/etnxllc",
+                "https://pin.it/5MhLO8Rme"
+              ],
+              "founder": {
+                "@id": "https://emitronix.ae/founder#person"
+              },
+              "publishingPrinciples": "https://emitronix.ae/editorial-policy",
+              "ethicsPolicy": "https://emitronix.ae/editorial-policy",
+              "correctionsPolicy": "https://emitronix.ae/corrections-policy",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Dubai Investment Park 02",
+                "addressLocality": "Dubai",
+                "addressCountry": "AE"
+              },
+              "areaServed": [
+                {
+                  "@type": "City",
+                  "name": "Dubai"
+                },
+                {
+                  "@type": "City",
+                  "name": "Abu Dhabi"
+                },
+                {
+                  "@type": "City",
+                  "name": "Sharjah"
+                },
+                {
+                  "@type": "Country",
+                  "name": "United Arab Emirates"
+                }
+              ],
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ],
+                  "opens": "08:00",
+                  "closes": "18:00"
+                }
+              ],
+              "contactPoint": [
+                {
+                  "@id": "https://emitronix.ae/#office-contact"
+                },
+                {
+                  "@id": "https://emitronix.ae/#mobile-contact"
+                }
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Dubai contracting and approval services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/civil",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Civil Contracting",
+                      "description": "G+4 buildings, villas, warehouses, commercial and industrial projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/main-contracting",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Main Contracting",
+                      "description": "Single-point contracting coordination for civil, structural, fit-out, approvals and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/warehouse-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Warehouse Construction",
+                      "description": "Planning, civil works and delivery coordination for logistics, storage and industrial warehouses.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/industrial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Industrial Buildings",
+                      "description": "Industrial building contracting for factories, workshops, logistics and operational facilities.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/commercial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Commercial Buildings",
+                      "description": "Commercial building construction for offices, showrooms, retail buildings and mixed-use assets.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/villa-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Villa Construction",
+                      "description": "Villa construction and renovation coordination for private residential projects in Dubai and UAE.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/interior",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Interior Fit-Out",
+                      "description": "Complete interior fit-out solutions for commercial, retail and residential projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/building-renovation",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Building Renovation",
+                      "description": "Civil renovation, modification and upgrade works for villas, commercial and industrial buildings.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/structural-works",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Structural Works",
+                      "description": "Structural concrete, steel, strengthening and modification coordination for Dubai building projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/design-build",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Design & Build",
+                      "description": "Design and build coordination that connects concept, approvals, construction and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/turnkey-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Turnkey Construction",
+                      "description": "Turnkey construction coordination from scope definition to completion-ready handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/project-management",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Project Management",
+                      "description": "Construction project management support for scope, program, communication and handover control.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#office-contact",
+              "name": "Emitronix primary office contact",
+              "telephone": "+97148240002",
+              "email": "info@emitronix.ae",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://emitronix.ae/contact"
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#mobile-contact",
+              "name": "Emitronix secondary mobile and WhatsApp contact",
+              "telephone": "+971559828492",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://wa.me/971559828492"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://emitronix.ae/#website",
+              "name": "Emitronix",
+              "url": "https://emitronix.ae",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "publisher": {
+                "@id": "https://emitronix.ae/#organization"
+              },
+              "inLanguage": [
+                "en-AE",
+                "ar-AE"
+              ]
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Construction Company Dubai | Emitronix Contracting LLC",
+          "url": "https://emitronix.ae/",
+          "description": "Emitronix Contracting LLC is a leading construction company in Dubai providing building construction, civil contracting, warehouse construction, turnkey projects, and renovation services across the UAE.",
+          "primaryImageOfPage": "https://emitronix.ae/images/home-construction-og.webp",
+          "provider": {
+            "@id": "https://emitronix.ae/#organization",
+            "name": "Emitronix Contracting LLC"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": "https://emitronix.ae/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What construction services does Emitronix provide in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Emitronix provides civil contracting, building construction, warehouse construction, turnkey construction, villa construction, renovation and interior fit-out, alongside Dubai authority approval coordination. The scope and required appointments are confirmed for each project."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What types of construction projects does Emitronix handle?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The published scope covers civil and building works, villas, warehouses, interior fit-out and authority-approval coordination. Each enquiry is reviewed against location, drawings, use, access and required professional appointments before suitability is confirmed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide warehouse construction in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Warehouse construction covers logistics, storage, light industrial and operational facilities. Planning considers civil works, loading and access, floor performance, fire-safety requirements, utility coordination and handover readiness."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide turnkey construction solutions?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Turnkey construction can bring planning, procurement, civil works, fit-out coordination, authority visibility and handover into one delivery pathway. The agreed scope defines exclusions, consultant responsibilities and completion requirements."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide civil contracting services in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Civil contracting covers G+4 buildings, villas, warehouses, commercial and industrial developments in Dubai and the UAE. Drawings, site conditions, structural interfaces and approval requirements inform the proposed scope."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix assist with Dubai authority approvals?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Coordination enquiries can involve DEWA, Dubai Municipality, Dubai Civil Defence, RTA, Trakhees and Dubai Development Authority. The exact authority, formal submitter and consultant responsibility must be confirmed for the property and proposed work."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which Dubai authority approvals can Emitronix assist with?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Authority coordination enquiries can involve Dubai Municipality, Dubai Development Authority (DDA), Trakhees, DEWA, Dubai Civil Defence and RTA. The applicable route depends on the property's jurisdiction, intended use and proposed works; the authority retains the approval decision."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can Emitronix provide a project estimate and timeline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Share your project location, scope, drawings, site condition and target completion date to request an estimate and proposed timeline. The review identifies missing information, approval dependencies and procurement requirements before pricing and programme assumptions are confirmed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide commercial fit-out and renovation services?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Interior fit-out enquiries can cover commercial, retail, office, villa and residential spaces. A useful brief includes the existing and proposed layouts, landlord conditions, MEP capacities, fire-safety interfaces, finish schedule and target handover date. Renovation enquiries also cover civil modifications and upgrades to existing buildings."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I request a construction quotation from Emitronix?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can contact Emitronix through the website contact form, phone or email with your project location, scope, service required and enquiry details."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix support MEP contracting coordination in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "MEP interfaces can be coordinated alongside civil construction and fit-out, including service routes, builders' work, access, testing, inspection readiness and as-built records. Design responsibility remains with the correctly appointed professionals."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can Emitronix help with villa renovation approvals in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Villa renovation may need authority planning when layouts, structure, external appearance, services or fire-safety conditions change. Review the approved baseline and proposed work before demolition or procurement begins."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do warehouse fit-out projects need authority approvals in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Often, but the route depends on jurisdiction, lease conditions, intended storage or industrial use, fire strategy, utilities and civil modifications. Confirm those facts with the appointed consultant and relevant authority before relying on a generic checklist."
+              }
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://emitronix.ae/"
+            }
+          ]
+        }
+      ],
+      "overflow": false,
+      "screenshot": "home-en-1440-after.png",
+      "imageHash": "de4e7c02a2a1cada36abd73c9cb93cac4ceee9024f7667c85a38a2619833889c",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "main": "b422709f7a92829c43f72df66ae8f3a9dfa77320a369de24cd669ef4c668c7f3",
+      "images": [
+        {
+          "source": "/images/home/jumeirah-village-circle-construction.webp",
+          "alt": "Tower cranes, reinforced concrete floors and exposed steel reinforcement at a construction site in Jumeirah Village Circle, Dubai",
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 755.390625
+        },
+        {
+          "source": "/images/internal/warehouse-steel-frame.webp",
+          "alt": "Cranes and lifting equipment erecting the steel frame and roof structure of a warehouse",
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 755.390625
+        },
+        {
+          "source": "/images/home/dubai-hills-construction.webp",
+          "alt": "Tower cranes, scaffolding and concrete buildings under construction in Dubai Hills",
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 755.390625
+        },
+        {
+          "source": "/images/home/construction-workers-sunset.webp",
+          "alt": "Construction workers silhouetted on a scaffolded concrete building against a golden sunset sky",
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 755.390625
+        },
+        {
+          "source": "/images/civil-contractor-dubai-construction-site.webp",
+          "alt": "Construction workers beside a reinforced concrete building frame",
+          "x": 17,
+          "y": 1299.71875,
+          "width": 356,
+          "height": 192.421875
+        },
+        {
+          "source": "/images/warehouse-construction-dubai.webp",
+          "alt": "Cranes erecting steel portal frames for a warehouse building",
+          "x": 17,
+          "y": 1706.40625,
+          "width": 356,
+          "height": 192.421875
+        },
+        {
+          "source": "/images/mep-civil-contracting-dubai.webp",
+          "alt": "Construction workers on a scissor lift installing steel roof trusses",
+          "x": 17,
+          "y": 2138.28125,
+          "width": 356,
+          "height": 192.421875
+        },
+        {
+          "source": "/images/dubai-authority-approval-contractor.webp",
+          "alt": "A project team reviewing architectural plans and building drawings",
+          "x": 17,
+          "y": 2544.96875,
+          "width": 356,
+          "height": 192.421875
+        },
+        {
+          "source": "/images/commercial-fit-out-contractor-dubai.webp",
+          "alt": "Completed office interior with glass partitions and coordinated finishes",
+          "x": 17,
+          "y": 3002.03125,
+          "width": 356,
+          "height": 192.421875
+        },
+        {
+          "source": "/images/building-contractor-dubai-construction-site.webp",
+          "alt": "Two construction professionals in hard hats reviewing a clipboard on site",
+          "x": 17,
+          "y": 3433.90625,
+          "width": 356,
+          "height": 192.421875
+        },
+        {
+          "source": "/images/project-civil-works-dubai.webp",
+          "alt": "Construction workers preparing steel reinforcement at a building site",
+          "x": 16,
+          "y": 3927.59375,
+          "width": 357.984375,
+          "height": 238.65625
+        },
+        {
+          "source": "/images/project-warehouse-industrial-dubai.webp",
+          "alt": "Storage racks and circulation aisles inside a working warehouse",
+          "x": 16,
+          "y": 7082.625,
+          "width": 358,
+          "height": 216.96875
+        },
+        {
+          "source": "/images/project-office-fit-out-dubai.webp",
+          "alt": "Glass-fronted office spaces with overhead building services",
+          "x": 16,
+          "y": 7434.96875,
+          "width": 358,
+          "height": 216.96875
+        },
+        {
+          "source": "/images/mep-civil-contracting-dubai.webp",
+          "alt": "Steel roof structure being installed for an industrial building",
+          "x": 16,
+          "y": 7787.3125,
+          "width": 358,
+          "height": 216.96875
+        },
+        {
+          "source": "/images/project-commercial-renovation-dubai.webp",
+          "alt": "Finished commercial corridor with exposed mechanical services",
+          "x": 16,
+          "y": 8139.65625,
+          "width": 358,
+          "height": 216.96875
+        },
+        {
+          "source": "/images/warehouse-construction-dubai.webp",
+          "alt": "Steel columns and roof frames being erected across a warehouse construction site",
+          "x": 16,
+          "y": 10064.234375,
+          "width": 358,
+          "height": 216.96875
+        },
+        {
+          "source": "/images/project-office-fit-out-dubai.webp",
+          "alt": "Completed commercial workspace with glass partitions and exposed ceiling services",
+          "x": 16,
+          "y": 10369.203125,
+          "width": 358,
+          "height": 216.96875
+        },
+        {
+          "source": "/images/civil-contractor-dubai-construction-site.webp",
+          "alt": "Construction team overlooking foundation reinforcement at a building site",
+          "x": 16,
+          "y": 14254.203125,
+          "width": 358,
+          "height": 214.796875
+        },
+        {
+          "source": "/images/dubai-authority-approval-contractor.webp",
+          "alt": "Architectural drawings reviewed with a ruler and calculator",
+          "x": 16,
+          "y": 14778.546875,
+          "width": 358,
+          "height": 214.796875
+        },
+        {
+          "source": "/images/warehouse-construction-dubai.webp",
+          "alt": "Steel warehouse frame under construction with cranes and site equipment",
+          "x": 16,
+          "y": 15330.890625,
+          "width": 358,
+          "height": 214.796875
+        }
+      ],
+      "title": "Construction Company in Dubai | warehouse construction company in dubai",
+      "canonical": "https://emitronix.ae/",
+      "robots": "index, follow",
+      "jsonLd": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": [
+                "Organization",
+                "LocalBusiness",
+                "GeneralContractor"
+              ],
+              "@id": "https://emitronix.ae/#organization",
+              "name": "Emitronix Contracting LLC",
+              "alternateName": "Emitronix",
+              "url": "https://emitronix.ae",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://emitronix.ae/images/emitronix-logo.png",
+                "contentUrl": "https://emitronix.ae/images/emitronix-logo.png",
+                "width": 1728,
+                "height": 404,
+                "caption": "Emitronix — Building the Future"
+              },
+              "image": "https://emitronix.ae/images/generated/social/emitronix-construction-dubai-og.webp",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "email": "info@emitronix.ae",
+              "telephone": "+97148240002",
+              "sameAs": [
+                "https://www.facebook.com/profile.php?id=61591789313979",
+                "https://www.linkedin.com/company/emitronix-contracting-llc",
+                "https://www.instagram.com/etnxllc/",
+                "https://x.com/etnxllc",
+                "https://pin.it/5MhLO8Rme"
+              ],
+              "founder": {
+                "@id": "https://emitronix.ae/founder#person"
+              },
+              "publishingPrinciples": "https://emitronix.ae/editorial-policy",
+              "ethicsPolicy": "https://emitronix.ae/editorial-policy",
+              "correctionsPolicy": "https://emitronix.ae/corrections-policy",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Dubai Investment Park 02",
+                "addressLocality": "Dubai",
+                "addressCountry": "AE"
+              },
+              "areaServed": [
+                {
+                  "@type": "City",
+                  "name": "Dubai"
+                },
+                {
+                  "@type": "City",
+                  "name": "Abu Dhabi"
+                },
+                {
+                  "@type": "City",
+                  "name": "Sharjah"
+                },
+                {
+                  "@type": "Country",
+                  "name": "United Arab Emirates"
+                }
+              ],
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ],
+                  "opens": "08:00",
+                  "closes": "18:00"
+                }
+              ],
+              "contactPoint": [
+                {
+                  "@id": "https://emitronix.ae/#office-contact"
+                },
+                {
+                  "@id": "https://emitronix.ae/#mobile-contact"
+                }
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Dubai contracting and approval services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/civil",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Civil Contracting",
+                      "description": "G+4 buildings, villas, warehouses, commercial and industrial projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/main-contracting",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Main Contracting",
+                      "description": "Single-point contracting coordination for civil, structural, fit-out, approvals and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/warehouse-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Warehouse Construction",
+                      "description": "Planning, civil works and delivery coordination for logistics, storage and industrial warehouses.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/industrial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Industrial Buildings",
+                      "description": "Industrial building contracting for factories, workshops, logistics and operational facilities.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/commercial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Commercial Buildings",
+                      "description": "Commercial building construction for offices, showrooms, retail buildings and mixed-use assets.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/villa-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Villa Construction",
+                      "description": "Villa construction and renovation coordination for private residential projects in Dubai and UAE.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/interior",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Interior Fit-Out",
+                      "description": "Complete interior fit-out solutions for commercial, retail and residential projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/building-renovation",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Building Renovation",
+                      "description": "Civil renovation, modification and upgrade works for villas, commercial and industrial buildings.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/structural-works",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Structural Works",
+                      "description": "Structural concrete, steel, strengthening and modification coordination for Dubai building projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/design-build",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Design & Build",
+                      "description": "Design and build coordination that connects concept, approvals, construction and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/turnkey-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Turnkey Construction",
+                      "description": "Turnkey construction coordination from scope definition to completion-ready handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/project-management",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Project Management",
+                      "description": "Construction project management support for scope, program, communication and handover control.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#office-contact",
+              "name": "Emitronix primary office contact",
+              "telephone": "+97148240002",
+              "email": "info@emitronix.ae",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://emitronix.ae/contact"
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#mobile-contact",
+              "name": "Emitronix secondary mobile and WhatsApp contact",
+              "telephone": "+971559828492",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://wa.me/971559828492"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://emitronix.ae/#website",
+              "name": "Emitronix",
+              "url": "https://emitronix.ae",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "publisher": {
+                "@id": "https://emitronix.ae/#organization"
+              },
+              "inLanguage": [
+                "en-AE",
+                "ar-AE"
+              ]
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Construction Company Dubai | Emitronix Contracting LLC",
+          "url": "https://emitronix.ae/",
+          "description": "Emitronix Contracting LLC is a leading construction company in Dubai providing building construction, civil contracting, warehouse construction, turnkey projects, and renovation services across the UAE.",
+          "primaryImageOfPage": "https://emitronix.ae/images/home-construction-og.webp",
+          "provider": {
+            "@id": "https://emitronix.ae/#organization",
+            "name": "Emitronix Contracting LLC"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": "https://emitronix.ae/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What construction services does Emitronix provide in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Emitronix provides civil contracting, building construction, warehouse construction, turnkey construction, villa construction, renovation and interior fit-out, alongside Dubai authority approval coordination. The scope and required appointments are confirmed for each project."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What types of construction projects does Emitronix handle?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The published scope covers civil and building works, villas, warehouses, interior fit-out and authority-approval coordination. Each enquiry is reviewed against location, drawings, use, access and required professional appointments before suitability is confirmed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide warehouse construction in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Warehouse construction covers logistics, storage, light industrial and operational facilities. Planning considers civil works, loading and access, floor performance, fire-safety requirements, utility coordination and handover readiness."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide turnkey construction solutions?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Turnkey construction can bring planning, procurement, civil works, fit-out coordination, authority visibility and handover into one delivery pathway. The agreed scope defines exclusions, consultant responsibilities and completion requirements."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide civil contracting services in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Civil contracting covers G+4 buildings, villas, warehouses, commercial and industrial developments in Dubai and the UAE. Drawings, site conditions, structural interfaces and approval requirements inform the proposed scope."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix assist with Dubai authority approvals?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Coordination enquiries can involve DEWA, Dubai Municipality, Dubai Civil Defence, RTA, Trakhees and Dubai Development Authority. The exact authority, formal submitter and consultant responsibility must be confirmed for the property and proposed work."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which Dubai authority approvals can Emitronix assist with?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Authority coordination enquiries can involve Dubai Municipality, Dubai Development Authority (DDA), Trakhees, DEWA, Dubai Civil Defence and RTA. The applicable route depends on the property's jurisdiction, intended use and proposed works; the authority retains the approval decision."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can Emitronix provide a project estimate and timeline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Share your project location, scope, drawings, site condition and target completion date to request an estimate and proposed timeline. The review identifies missing information, approval dependencies and procurement requirements before pricing and programme assumptions are confirmed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix provide commercial fit-out and renovation services?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Interior fit-out enquiries can cover commercial, retail, office, villa and residential spaces. A useful brief includes the existing and proposed layouts, landlord conditions, MEP capacities, fire-safety interfaces, finish schedule and target handover date. Renovation enquiries also cover civil modifications and upgrades to existing buildings."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I request a construction quotation from Emitronix?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can contact Emitronix through the website contact form, phone or email with your project location, scope, service required and enquiry details."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Emitronix support MEP contracting coordination in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "MEP interfaces can be coordinated alongside civil construction and fit-out, including service routes, builders' work, access, testing, inspection readiness and as-built records. Design responsibility remains with the correctly appointed professionals."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can Emitronix help with villa renovation approvals in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Villa renovation may need authority planning when layouts, structure, external appearance, services or fire-safety conditions change. Review the approved baseline and proposed work before demolition or procurement begins."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do warehouse fit-out projects need authority approvals in Dubai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Often, but the route depends on jurisdiction, lease conditions, intended storage or industrial use, fire strategy, utilities and civil modifications. Confirm those facts with the appointed consultant and relevant authority before relying on a generic checklist."
+              }
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://emitronix.ae/"
+            }
+          ]
+        }
+      ],
+      "overflow": false,
+      "screenshot": "home-en-390-after.png",
+      "imageHash": "cff0fd4307bc5630fd3eb0f5b2e51ace7368d025b610bff8b11c817b57bcb75d",
+      "errors": []
+    },
+    {
+      "route": "/ar",
+      "width": 1440,
+      "main": "c75f719367f179dd5fa1b61a281906adee1d3fb19c7448ec5232f821ddadcdb3",
+      "images": [
+        {
+          "source": "/images/generated/home/dubai-construction-company-hero-desktop.webp",
+          "alt": "فريق موقع يرتدي معدات السلامة أمام برج قيد الإنشاء ورافعة برجية في دبي",
+          "x": 0,
+          "y": 81,
+          "width": 1440,
+          "height": 722
+        }
+      ],
+      "title": "شريك مقاولات في دبي للمشاريع التي تحتاج وضوحا قبل التنفيذ. | Emitronix",
+      "canonical": "https://emitronix.ae/ar",
+      "robots": "index, follow",
+      "jsonLd": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": [
+                "Organization",
+                "LocalBusiness",
+                "GeneralContractor"
+              ],
+              "@id": "https://emitronix.ae/#organization",
+              "name": "Emitronix Contracting LLC",
+              "alternateName": "Emitronix",
+              "url": "https://emitronix.ae",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://emitronix.ae/images/emitronix-logo.png",
+                "contentUrl": "https://emitronix.ae/images/emitronix-logo.png",
+                "width": 1728,
+                "height": 404,
+                "caption": "Emitronix — Building the Future"
+              },
+              "image": "https://emitronix.ae/images/generated/social/emitronix-construction-dubai-og.webp",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "email": "info@emitronix.ae",
+              "telephone": "+97148240002",
+              "sameAs": [
+                "https://www.facebook.com/profile.php?id=61591789313979",
+                "https://www.linkedin.com/company/emitronix-contracting-llc",
+                "https://www.instagram.com/etnxllc/",
+                "https://x.com/etnxllc",
+                "https://pin.it/5MhLO8Rme"
+              ],
+              "founder": {
+                "@id": "https://emitronix.ae/founder#person"
+              },
+              "publishingPrinciples": "https://emitronix.ae/editorial-policy",
+              "ethicsPolicy": "https://emitronix.ae/editorial-policy",
+              "correctionsPolicy": "https://emitronix.ae/corrections-policy",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Dubai Investment Park 02",
+                "addressLocality": "Dubai",
+                "addressCountry": "AE"
+              },
+              "areaServed": [
+                {
+                  "@type": "City",
+                  "name": "Dubai"
+                },
+                {
+                  "@type": "City",
+                  "name": "Abu Dhabi"
+                },
+                {
+                  "@type": "City",
+                  "name": "Sharjah"
+                },
+                {
+                  "@type": "Country",
+                  "name": "United Arab Emirates"
+                }
+              ],
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ],
+                  "opens": "08:00",
+                  "closes": "18:00"
+                }
+              ],
+              "contactPoint": [
+                {
+                  "@id": "https://emitronix.ae/#office-contact"
+                },
+                {
+                  "@id": "https://emitronix.ae/#mobile-contact"
+                }
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Dubai contracting and approval services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/civil",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Civil Contracting",
+                      "description": "G+4 buildings, villas, warehouses, commercial and industrial projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/main-contracting",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Main Contracting",
+                      "description": "Single-point contracting coordination for civil, structural, fit-out, approvals and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/warehouse-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Warehouse Construction",
+                      "description": "Planning, civil works and delivery coordination for logistics, storage and industrial warehouses.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/industrial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Industrial Buildings",
+                      "description": "Industrial building contracting for factories, workshops, logistics and operational facilities.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/commercial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Commercial Buildings",
+                      "description": "Commercial building construction for offices, showrooms, retail buildings and mixed-use assets.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/villa-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Villa Construction",
+                      "description": "Villa construction and renovation coordination for private residential projects in Dubai and UAE.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/interior",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Interior Fit-Out",
+                      "description": "Complete interior fit-out solutions for commercial, retail and residential projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/building-renovation",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Building Renovation",
+                      "description": "Civil renovation, modification and upgrade works for villas, commercial and industrial buildings.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/structural-works",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Structural Works",
+                      "description": "Structural concrete, steel, strengthening and modification coordination for Dubai building projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/design-build",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Design & Build",
+                      "description": "Design and build coordination that connects concept, approvals, construction and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/turnkey-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Turnkey Construction",
+                      "description": "Turnkey construction coordination from scope definition to completion-ready handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/project-management",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Project Management",
+                      "description": "Construction project management support for scope, program, communication and handover control.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#office-contact",
+              "name": "Emitronix primary office contact",
+              "telephone": "+97148240002",
+              "email": "info@emitronix.ae",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://emitronix.ae/contact"
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#mobile-contact",
+              "name": "Emitronix secondary mobile and WhatsApp contact",
+              "telephone": "+971559828492",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://wa.me/971559828492"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://emitronix.ae/#website",
+              "name": "Emitronix",
+              "url": "https://emitronix.ae",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "publisher": {
+                "@id": "https://emitronix.ae/#organization"
+              },
+              "inLanguage": [
+                "en-AE",
+                "ar-AE"
+              ]
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://emitronix.ae/ar#webpage",
+              "url": "https://emitronix.ae/ar",
+              "name": "شريك مقاولات في دبي للمشاريع التي تحتاج وضوحا قبل التنفيذ.",
+              "description": "تدعم Emitronix Contracting LLC المقاولات المدنية، البناء، المستودعات، الفلل، التشطيبات الداخلية، تنسيق MEP وموافقات الجهات في دبي والإمارات.",
+              "inLanguage": "ar-AE",
+              "isPartOf": {
+                "@id": "https://emitronix.ae/#website",
+                "name": "Emitronix",
+                "url": "https://emitronix.ae"
+              },
+              "primaryImageOfPage": {
+                "@type": "ImageObject",
+                "url": "https://emitronix.ae/images/generated/home/dubai-construction-company-hero-desktop.webp",
+                "caption": "فريق موقع يرتدي معدات السلامة أمام برج قيد الإنشاء ورافعة برجية في دبي"
+              },
+              "translationOfWork": {
+                "@type": "WebPage",
+                "url": "https://emitronix.ae/",
+                "inLanguage": "en-AE"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://emitronix.ae/ar#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "الرئيسية",
+                  "item": "https://emitronix.ae/ar"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "overflow": false,
+      "screenshot": "home-ar-1440-after.png",
+      "imageHash": "590023a8f1c92d2ec83af31ce9837d3f8e0df51e7aa87cdb6f0fd677773ed5d0",
+      "errors": []
+    },
+    {
+      "route": "/ar",
+      "width": 390,
+      "main": "c75f719367f179dd5fa1b61a281906adee1d3fb19c7448ec5232f821ddadcdb3",
+      "images": [
+        {
+          "source": "/images/generated/home/dubai-construction-company-hero-desktop.webp",
+          "alt": "فريق موقع يرتدي معدات السلامة أمام برج قيد الإنشاء ورافعة برجية في دبي",
+          "x": 0,
+          "y": 81,
+          "width": 390,
+          "height": 791.3125
+        }
+      ],
+      "title": "شريك مقاولات في دبي للمشاريع التي تحتاج وضوحا قبل التنفيذ. | Emitronix",
+      "canonical": "https://emitronix.ae/ar",
+      "robots": "index, follow",
+      "jsonLd": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": [
+                "Organization",
+                "LocalBusiness",
+                "GeneralContractor"
+              ],
+              "@id": "https://emitronix.ae/#organization",
+              "name": "Emitronix Contracting LLC",
+              "alternateName": "Emitronix",
+              "url": "https://emitronix.ae",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://emitronix.ae/images/emitronix-logo.png",
+                "contentUrl": "https://emitronix.ae/images/emitronix-logo.png",
+                "width": 1728,
+                "height": 404,
+                "caption": "Emitronix — Building the Future"
+              },
+              "image": "https://emitronix.ae/images/generated/social/emitronix-construction-dubai-og.webp",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "email": "info@emitronix.ae",
+              "telephone": "+97148240002",
+              "sameAs": [
+                "https://www.facebook.com/profile.php?id=61591789313979",
+                "https://www.linkedin.com/company/emitronix-contracting-llc",
+                "https://www.instagram.com/etnxllc/",
+                "https://x.com/etnxllc",
+                "https://pin.it/5MhLO8Rme"
+              ],
+              "founder": {
+                "@id": "https://emitronix.ae/founder#person"
+              },
+              "publishingPrinciples": "https://emitronix.ae/editorial-policy",
+              "ethicsPolicy": "https://emitronix.ae/editorial-policy",
+              "correctionsPolicy": "https://emitronix.ae/corrections-policy",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Dubai Investment Park 02",
+                "addressLocality": "Dubai",
+                "addressCountry": "AE"
+              },
+              "areaServed": [
+                {
+                  "@type": "City",
+                  "name": "Dubai"
+                },
+                {
+                  "@type": "City",
+                  "name": "Abu Dhabi"
+                },
+                {
+                  "@type": "City",
+                  "name": "Sharjah"
+                },
+                {
+                  "@type": "Country",
+                  "name": "United Arab Emirates"
+                }
+              ],
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ],
+                  "opens": "08:00",
+                  "closes": "18:00"
+                }
+              ],
+              "contactPoint": [
+                {
+                  "@id": "https://emitronix.ae/#office-contact"
+                },
+                {
+                  "@id": "https://emitronix.ae/#mobile-contact"
+                }
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Dubai contracting and approval services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/civil",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Civil Contracting",
+                      "description": "G+4 buildings, villas, warehouses, commercial and industrial projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/main-contracting",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Main Contracting",
+                      "description": "Single-point contracting coordination for civil, structural, fit-out, approvals and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/warehouse-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Warehouse Construction",
+                      "description": "Planning, civil works and delivery coordination for logistics, storage and industrial warehouses.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/industrial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Industrial Buildings",
+                      "description": "Industrial building contracting for factories, workshops, logistics and operational facilities.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/commercial-buildings",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Commercial Buildings",
+                      "description": "Commercial building construction for offices, showrooms, retail buildings and mixed-use assets.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/villa-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Villa Construction",
+                      "description": "Villa construction and renovation coordination for private residential projects in Dubai and UAE.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/interior",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Interior Fit-Out",
+                      "description": "Complete interior fit-out solutions for commercial, retail and residential projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/building-renovation",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Building Renovation",
+                      "description": "Civil renovation, modification and upgrade works for villas, commercial and industrial buildings.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/structural-works",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Structural Works",
+                      "description": "Structural concrete, steel, strengthening and modification coordination for Dubai building projects.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/design-build",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Design & Build",
+                      "description": "Design and build coordination that connects concept, approvals, construction and handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/turnkey-construction",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Turnkey Construction",
+                      "description": "Turnkey construction coordination from scope definition to completion-ready handover.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "url": "https://emitronix.ae/project-management",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Project Management",
+                      "description": "Construction project management support for scope, program, communication and handover control.",
+                      "areaServed": "Dubai, United Arab Emirates",
+                      "provider": {
+                        "@id": "https://emitronix.ae/#organization"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#office-contact",
+              "name": "Emitronix primary office contact",
+              "telephone": "+97148240002",
+              "email": "info@emitronix.ae",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://emitronix.ae/contact"
+            },
+            {
+              "@type": "ContactPoint",
+              "@id": "https://emitronix.ae/#mobile-contact",
+              "name": "Emitronix secondary mobile and WhatsApp contact",
+              "telephone": "+971559828492",
+              "contactType": "customer service",
+              "areaServed": {
+                "@type": "Country",
+                "name": "United Arab Emirates"
+              },
+              "availableLanguage": [
+                "English",
+                "Arabic"
+              ],
+              "url": "https://wa.me/971559828492"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://emitronix.ae/#website",
+              "name": "Emitronix",
+              "url": "https://emitronix.ae",
+              "description": "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
+              "publisher": {
+                "@id": "https://emitronix.ae/#organization"
+              },
+              "inLanguage": [
+                "en-AE",
+                "ar-AE"
+              ]
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://emitronix.ae/ar#webpage",
+              "url": "https://emitronix.ae/ar",
+              "name": "شريك مقاولات في دبي للمشاريع التي تحتاج وضوحا قبل التنفيذ.",
+              "description": "تدعم Emitronix Contracting LLC المقاولات المدنية، البناء، المستودعات، الفلل، التشطيبات الداخلية، تنسيق MEP وموافقات الجهات في دبي والإمارات.",
+              "inLanguage": "ar-AE",
+              "isPartOf": {
+                "@id": "https://emitronix.ae/#website",
+                "name": "Emitronix",
+                "url": "https://emitronix.ae"
+              },
+              "primaryImageOfPage": {
+                "@type": "ImageObject",
+                "url": "https://emitronix.ae/images/generated/home/dubai-construction-company-hero-desktop.webp",
+                "caption": "فريق موقع يرتدي معدات السلامة أمام برج قيد الإنشاء ورافعة برجية في دبي"
+              },
+              "translationOfWork": {
+                "@type": "WebPage",
+                "url": "https://emitronix.ae/",
+                "inLanguage": "en-AE"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://emitronix.ae/ar#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "الرئيسية",
+                  "item": "https://emitronix.ae/ar"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "overflow": false,
+      "screenshot": "home-ar-390-after.png",
+      "imageHash": "9e5b612c9f3c405fcc4ec9c3a18c193cda6b49c2ae8328c5f49291bc1320d683",
+      "errors": []
+    }
+  ],
+  "comparisons": [
+    {
+      "route": "/",
+      "width": 1440,
+      "mainUnchanged": true,
+      "imagesUnchanged": true,
+      "metadataUnchanged": true,
+      "pixelsUnchanged": true,
+      "noErrors": true
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "mainUnchanged": true,
+      "imagesUnchanged": true,
+      "metadataUnchanged": true,
+      "pixelsUnchanged": true,
+      "noErrors": true
+    },
+    {
+      "route": "/ar",
+      "width": 1440,
+      "mainUnchanged": true,
+      "imagesUnchanged": true,
+      "metadataUnchanged": true,
+      "pixelsUnchanged": true,
+      "noErrors": true
+    },
+    {
+      "route": "/ar",
+      "width": 390,
+      "mainUnchanged": true,
+      "imagesUnchanged": true,
+      "metadataUnchanged": true,
+      "pixelsUnchanged": true,
+      "noErrors": true
+    }
+  ],
+  "pass": true
+}

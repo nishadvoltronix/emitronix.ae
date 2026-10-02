@@ -55,12 +55,14 @@ export function ContentReviewRecord({
                   <ShieldCheck className="h-4 w-4" aria-hidden="true" />
                   Review scope
                 </dt>
-                <dd className="mt-3 text-sm leading-7 text-charcoal">{reviewScope}</dd>
-                {showVerificationTodo ? (
-                  <p className="mt-3 text-sm font-bold leading-7 text-amber-800">
-                    TODO — named technical reviewer, verified credentials and review scope: {managementVerificationNotice}
-                  </p>
-                ) : null}
+                <dd className="mt-3 text-sm leading-7 text-charcoal">
+                  {reviewScope}
+                  {showVerificationTodo ? (
+                    <p className="mt-3 text-sm font-bold leading-7 text-amber-800">
+                      TODO — named technical reviewer, verified credentials and review scope: {managementVerificationNotice}
+                    </p>
+                  ) : null}
+                </dd>
               </div>
             </dl>
           </div>

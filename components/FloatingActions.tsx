@@ -30,7 +30,7 @@ export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
   const isArabic = isArabicPath(pathname);
 
   return (
-    <>
+    <aside aria-label={isArabic ? "\u062e\u064a\u0627\u0631\u0627\u062a \u0627\u0644\u062a\u0648\u0627\u0635\u0644" : "Contact options"}>
       <a
         href={whatsappUrl}
         target="_blank"
@@ -60,6 +60,6 @@ export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
           {isArabic ? arabicLabels.liveChat : "Live Chat"}
         </span>
       </button>
-    </>
+    </aside>
   );
 }

@@ -1,4 +1,6 @@
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -31,20 +33,27 @@ import {
 } from "lucide-react";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { ContactForm } from "@/components/ContactForm";
-import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
-import { getGeneratedImage, type GeneratedImageAsset } from "@/data/generatedImages";
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { PhotoAttribution } from "@/components/PhotoAttribution";
+import { getGeneratedImage } from "@/data/generatedImages";
+import { dewaSupportingImages, type InternalServiceImage } from "@/data/internalServiceImages";
+import { getInternalServiceImage, getSectionPhotographs, getUniquePhotoAttribution } from "@/data/pagePhotography";
 import { applySeoOverrides, createPageMetadata } from "@/data/seo";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
 import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
 
 const pagePath = "/dewa-approvals";
 const pageUrl = absoluteUrl(pagePath);
-const heroImageAsset = getGeneratedImage("approvals.dewa-approval-electrical-coordination-dubai");
-const inspectionImageAsset = getGeneratedImage("services.testing-commissioning-dubai");
-const cableImageAsset = getGeneratedImage("approvals.dewa-cable-works-dubai");
-const heroImage = heroImageAsset.desktop.src;
-const inspectionImage = inspectionImageAsset.desktop.src;
-const cableImage = cableImageAsset.desktop.src;
+const socialImageAsset = getGeneratedImage("approvals.dewa-approval-electrical-coordination-dubai");
+const heroImageAsset = getInternalServiceImage(pagePath);
+const heroImageAttribution = getUniquePhotoAttribution(heroImageAsset);
+const inspectionImageAsset = dewaSupportingImages.inspection;
+const cableImageAsset = dewaSupportingImages.cables;
+const heroImage = heroImageAsset.src;
+const inspectionImage = inspectionImageAsset.src;
+const cableImage = cableImageAsset.src;
+const sectionPhotographs = getSectionPhotographs(pagePath, 2, [heroImage, inspectionImage, cableImage]);
+const videoThumbnail = socialImageAsset.desktop.src;
 const videoUrl = "/videos/dewa-approval-dubai-workflow.mp4";
 const phoneHref = site.phoneHref;
 
@@ -68,8 +77,8 @@ export async function generateMetadata(): Promise<Metadata> {
         "A practical DEWA coordination guide for Dubai projects covering connections, load changes, documents, consultant roles, inspections and authority limitations.",
       path: pagePath,
       keywords: dewaKeywords,
-      image: heroImageAsset.og!.src,
-      imageAlt: heroImageAsset.alt,
+      image: socialImageAsset.og!.src,
+      imageAlt: socialImageAsset.alt,
     }),
     pagePath,
   );
@@ -1505,7 +1514,7 @@ function SectionIntro({
   return (
     <div id={id} className={`${align === "center" ? "mx-auto text-center" : ""} max-w-5xl scroll-mt-28`}>
       <p className="premium-kicker">{eyebrow}</p>
-      <h2 className="mt-4 text-3xl font-black leading-tight text-charcoal sm:text-4xl lg:text-5xl">
+      <h2 className="mt-4 text-3xl font-semibold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       {description ? (
@@ -1531,10 +1540,10 @@ function MiniCardGrid({ items, columns = "three" }: { items: MiniCard[]; columns
         const Icon = item.icon ?? CheckCircle2;
         const content = (
           <>
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-brand/[0.15] bg-brand-soft text-brand">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg border border-brand/[0.15] bg-brand-soft text-brand">
               <Icon className="h-6 w-6" aria-hidden="true" />
             </span>
-            <h3 className="mt-5 text-xl font-black leading-snug text-charcoal">{item.title}</h3>
+            <h3 className="mt-5 text-xl font-semibold leading-snug text-charcoal">{item.title}</h3>
             <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
             {item.items ? (
               <ul className="mt-5 grid gap-2">
@@ -1547,7 +1556,7 @@ function MiniCardGrid({ items, columns = "three" }: { items: MiniCard[]; columns
               </ul>
             ) : null}
             {item.cta && item.href ? (
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase text-brand">
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase text-brand">
                 {item.cta} <ArrowRight className="h-4 w-4" />
               </span>
             ) : null}
@@ -1555,11 +1564,11 @@ function MiniCardGrid({ items, columns = "three" }: { items: MiniCard[]; columns
         );
 
         return item.href ? (
-          <Link key={item.title} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
+          <Link key={item.title} href={item.href} className="luxury-card rounded-lg p-6">
             {content}
           </Link>
         ) : (
-          <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
+          <article key={item.title} className="luxury-card rounded-lg p-6">
             {content}
           </article>
         );
@@ -1574,25 +1583,26 @@ function ImageFeature({
   caption,
   priority = false,
 }: {
-  asset: GeneratedImageAsset;
+  asset: InternalServiceImage;
   title: string;
   caption: string;
   priority?: boolean;
 }) {
   return (
-    <figure title={title} className="overflow-hidden rounded-[1.75rem] border border-brand/[0.14] bg-white shadow-panel">
+    <figure title={title} className="overflow-hidden rounded-lg border border-brand/[0.14] bg-white shadow-none">
       <div className="relative aspect-[16/9] w-full">
-        <ResponsiveIllustrativeImage
-          asset={asset}
+        <Image
+          src={asset.src}
+          alt={asset.alt}
+          fill
           priority={priority}
           sizes="(min-width: 1024px) 48vw, 100vw"
-          className="absolute inset-0 block h-full w-full"
-          imageClassName="h-full w-full object-cover"
-          imageStyle={{ height: "100%", objectFit: "cover" }}
+          className="object-cover"
         />
       </div>
       <figcaption className="border-t border-brand/[0.12] bg-white p-4 text-sm font-bold leading-6 text-charcoal">
         {caption}
+        <span className="mt-2 block text-xs font-normal">{asset.caption}</span>
       </figcaption>
     </figure>
   );
@@ -1700,27 +1710,33 @@ function JsonLd() {
         "@id": `${pageUrl}#primaryimage`,
         url: absoluteUrl(heroImage),
         contentUrl: absoluteUrl(heroImage),
-        name: "DEWA approval coordination in Dubai",
+        name: heroImageAsset.alt,
         caption: heroImageAsset.alt,
-        description: "Electrical design and utility coordination for a Dubai building project.",
+        description: heroImageAsset.caption,
+        width: heroImageAsset.width,
+        height: heroImageAsset.height,
       },
       {
         "@type": "ImageObject",
         "@id": `${pageUrl}#inspectionimage`,
         url: absoluteUrl(inspectionImage),
         contentUrl: absoluteUrl(inspectionImage),
-        name: "DEWA LV inspection and testing Dubai",
+        name: inspectionImageAsset.alt,
         caption: inspectionImageAsset.alt,
-        description: "Electrical inspection preparation with switchgear and testing equipment.",
+        description: inspectionImageAsset.caption,
+        width: inspectionImageAsset.width,
+        height: inspectionImageAsset.height,
       },
       {
         "@type": "ImageObject",
         "@id": `${pageUrl}#cableimage`,
         url: absoluteUrl(cableImage),
         contentUrl: absoluteUrl(cableImage),
-        name: "DEWA HV and LV cable works Dubai",
+        name: cableImageAsset.alt,
         caption: cableImageAsset.alt,
-        description: "Protected electrical cable installation and utility-route coordination.",
+        description: cableImageAsset.caption,
+        width: cableImageAsset.width,
+        height: cableImageAsset.height,
       },
       {
         "@type": "VideoObject",
@@ -1728,7 +1744,7 @@ function JsonLd() {
         name: "DEWA Approval Workflow Dubai",
         description:
           "Short visual overview of DEWA approval coordination, LV inspection preparation and HV/LV cable route planning for Dubai projects.",
-        thumbnailUrl: absoluteUrl(heroImage),
+        thumbnailUrl: absoluteUrl(videoThumbnail),
         uploadDate: "2026-07-06T09:00:00+04:00",
         duration: "PT15S",
         contentUrl: absoluteUrl(videoUrl),
@@ -1744,25 +1760,25 @@ function JsonLd() {
 
 export default function DewaApprovalsPage() {
   return (
-    <>
-      <section className="relative isolate overflow-hidden bg-brand-dark text-white">
-        <ResponsiveIllustrativeImage
-          asset={heroImageAsset}
+    <InternalPageFrame>
+      <section className="internal-page-intro relative isolate overflow-hidden bg-brand-dark text-white">
+        <Image
+          src={heroImageAsset.src}
+          alt={heroImageAsset.alt}
+          fill
           priority
           quality={65}
-          sizes="100vw"
-          className="absolute inset-0 z-0 block h-full w-full"
-          imageClassName="h-full w-full object-cover"
-          imageStyle={{ height: "100%", objectFit: "cover" }}
+          sizes={`(max-width: 1023px) ${heroImageAsset.width}px, 100vw`}
+          className="absolute inset-0 z-0 object-cover"
         />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.96)_0%,rgba(18,58,115,0.82)_45%,rgba(11,31,58,0.42)_100%)]" />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(11,31,58,0.08)_0%,rgba(11,31,58,0.76)_100%)]" />
         <div className="container-pad relative z-20 grid min-h-[740px] gap-10 pt-32 lg:grid-cols-[0.98fr_0.62fr] lg:items-end lg:pb-24 lg:pt-40">
           <div className="max-w-5xl pb-16 lg:pb-0">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-brand-sky">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-sky">
               Dubai authority coordination guide
             </p>
-            <h1 className="mt-6 text-5xl font-black leading-none text-white sm:text-6xl lg:text-7xl">
+            <h1 className="internal-page-title mt-6 text-5xl font-semibold leading-none text-white sm:text-6xl lg:text-7xl">
               DEWA Approval Coordination Guide for Dubai Projects
             </h1>
             <p id="dewa-direct-answer" className="mt-7 max-w-3xl text-lg font-medium leading-9 text-white/[0.88] sm:text-xl">
@@ -1773,8 +1789,8 @@ export default function DewaApprovalsPage() {
             </div>
           </div>
 
-          <aside className="hidden rounded-[1.75rem] border border-white/25 bg-white/[0.14] p-5 shadow-luxe backdrop-blur-2xl lg:block">
-            <div className="rounded-[1.25rem] border border-white/20 bg-white/[0.9] p-5 text-charcoal shadow-panel">
+          <aside className="hidden rounded-lg border border-white/25 bg-white/[0.14] p-5 shadow-none backdrop-blur-2xl lg:block">
+            <div className="rounded-lg border border-white/20 bg-white/[0.9] p-5 text-charcoal shadow-none">
               <p className="premium-kicker">Request-ready summary</p>
               <ul className="mt-5 grid gap-3">
                 {[
@@ -1794,9 +1810,14 @@ export default function DewaApprovalsPage() {
         </div>
       </section>
 
+      <p className="container-pad py-3 text-xs leading-5 text-steel">
+        {heroImageAsset.caption}
+        {heroImageAttribution ? <PhotoAttribution {...heroImageAttribution} /> : null}
+      </p>
+
       <section className="sticky top-0 z-30 border-b border-brand/[0.12] bg-white/[0.92] py-3 shadow-sm backdrop-blur-2xl">
         <div className="container-pad">
-          <nav className="flex gap-2 overflow-x-auto text-sm font-black text-charcoal" aria-label="DEWA approval page navigation">
+          <nav className="flex gap-2 overflow-x-auto text-sm font-semibold text-charcoal" aria-label="DEWA approval page navigation">
             {anchorLinks.map((item) => (
               <a key={item.href} href={item.href} className="shrink-0 rounded-full border border-brand/[0.14] bg-white px-4 py-2 hover:border-brand hover:text-brand">
                 {item.label}
@@ -1834,8 +1855,8 @@ export default function DewaApprovalsPage() {
               </p>
             </div>
           </div>
-          <div className="mt-10 rounded-[1.5rem] border border-amber-300 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
-            <p className="font-black">Authority and responsibility notice</p>
+          <div className="mt-10 rounded-lg border border-amber-300 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+            <p className="font-semibold">Authority and responsibility notice</p>
             <p className="mt-2">
               Emitronix is not DEWA and cannot guarantee an approval, inspection outcome or timeline. Formal submissions and regulated work must be handled by the properly appointed and currently eligible party for the specific service. Emitronix&apos;s exact coordination, construction or specialist scope must be confirmed in writing for each project.
             </p>
@@ -1859,10 +1880,10 @@ export default function DewaApprovalsPage() {
 
       <section className="bg-white py-8">
         <div className="container-pad">
-          <div className="grid gap-6 rounded-[1.75rem] border border-brand/[0.15] bg-brand-soft p-6 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-8">
+          <div className="grid gap-6 rounded-lg border border-brand/[0.15] bg-brand-soft p-6 shadow-none lg:grid-cols-[1fr_auto] lg:items-center lg:p-8">
             <div>
               <p className="premium-kicker">Project enquiry</p>
-              <h2 className="mt-2 text-2xl font-black leading-tight text-charcoal sm:text-3xl">
+              <h2 className="mt-2 text-2xl font-semibold leading-tight text-charcoal sm:text-3xl">
                 Need DEWA approval, additional load or inspection support now?
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-charcoal/85">
@@ -1918,10 +1939,10 @@ export default function DewaApprovalsPage() {
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {processSteps.map((step) => (
-              <article key={step.title} className="luxury-card rounded-[1.5rem] p-6">
-                <h3 className="text-xl font-black leading-snug text-charcoal">{step.title}</h3>
+              <article key={step.title} className="luxury-card rounded-lg p-6">
+                <h3 className="text-xl font-semibold leading-snug text-charcoal">{step.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-steel">{step.description}</p>
-                <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold leading-6 text-emerald-900">
+                <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold leading-6 text-emerald-900">
                   Owner focus: {step.ownerFocus}
                 </div>
               </article>
@@ -1938,22 +1959,22 @@ export default function DewaApprovalsPage() {
               title="How long DEWA approval can take depends on more than DEWA review time."
               description="Official service milestones can be short when the file is complete. The full client timeline includes design preparation, NOCs, comments, payment, site works, inspection readiness and snag closure."
             />
-            <div className="overflow-hidden rounded-[1.5rem] border border-brand/[0.14] bg-white shadow-panel">
+            <div className="overflow-hidden rounded-lg border border-brand/[0.14] bg-white shadow-none">
               <table className="w-full border-collapse text-left text-sm">
                 <caption id="dewa-timeline-answer" className="sr-only">
                   DEWA approval timeline planning table for Dubai projects
                 </caption>
                 <thead className="bg-brand text-white">
                   <tr>
-                    <th scope="col" className="p-4 font-black">Phase</th>
-                    <th scope="col" className="p-4 font-black">Typical planning view</th>
-                    <th scope="col" className="p-4 font-black">What affects it</th>
+                    <th scope="col" className="p-4 font-semibold">Phase</th>
+                    <th scope="col" className="p-4 font-semibold">Typical planning view</th>
+                    <th scope="col" className="p-4 font-semibold">What affects it</th>
                   </tr>
                 </thead>
                 <tbody>
                   {timelineRows.map((row) => (
                     <tr key={row.phase} className="border-t border-brand/[0.12] align-top">
-                      <th scope="row" className="p-4 font-black text-charcoal">{row.phase}</th>
+                      <th scope="row" className="p-4 font-semibold text-charcoal">{row.phase}</th>
                       <td className="p-4 leading-7 text-steel">{row.typical}</td>
                       <td className="p-4 leading-7 text-steel">{row.note}</td>
                     </tr>
@@ -1967,12 +1988,14 @@ export default function DewaApprovalsPage() {
 
       <section id="documents" className="section-pad bg-white scroll-mt-28">
         <div className="container-pad">
-          <SectionIntro
-            eyebrow="Documents required"
-            title="DEWA approval documents must be complete, consistent and uploaded in the correct format."
-            description="The exact document list changes by service, authority path and project type. These are the document groups that usually decide whether the file moves or returns with comments."
-            align="center"
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+            <SectionIntro
+              eyebrow="Documents required"
+              title="DEWA approval documents must be complete, consistent and uploaded in the correct format."
+              description="The exact document list changes by service, authority path and project type. These are the document groups that usually decide whether the file moves or returns with comments."
+            />
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+          </div>
           <div className="mt-12">
             <MiniCardGrid items={documentGroups} columns="two" />
           </div>
@@ -1994,7 +2017,7 @@ export default function DewaApprovalsPage() {
             />
             <div className="mt-8 grid gap-3">
               {["Route drawings must match the real site.", "Existing utilities and crossings must be checked.", "Testing and reinstatement records should be planned before excavation starts."].map((point) => (
-                <div key={point} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4 text-sm font-bold leading-6 text-charcoal shadow-sm">
+                <div key={point} className="flex gap-3 rounded-lg border border-brand/[0.12] bg-white p-4 text-sm font-bold leading-6 text-charcoal shadow-sm">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
                   {point}
                 </div>
@@ -2029,7 +2052,7 @@ export default function DewaApprovalsPage() {
           <div className="mt-12">
             <MiniCardGrid items={inspectionTopics} columns="three" />
           </div>
-          <div className="mt-10 grid gap-5 rounded-[1.5rem] border border-brand/[0.14] bg-white p-6 shadow-panel lg:grid-cols-3">
+          <div className="mt-10 grid gap-5 rounded-lg border border-brand/[0.14] bg-white p-6 shadow-none lg:grid-cols-3">
             {[
               "Pre-inspection: compare approved drawings, site condition, labels, tests and access.",
               "Inspection day: keep responsible people, keys, records and safe working conditions available.",
@@ -2067,7 +2090,7 @@ export default function DewaApprovalsPage() {
           />
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {["Dubai", site.location].map((location) => (
-              <div key={location} className="flex min-h-20 items-center gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4 text-sm font-black text-charcoal shadow-sm">
+              <div key={location} className="flex min-h-20 items-center gap-3 rounded-lg border border-brand/[0.12] bg-white p-4 text-sm font-semibold text-charcoal shadow-sm">
                 <MapPinIcon />
                 {location}
               </div>
@@ -2112,11 +2135,11 @@ export default function DewaApprovalsPage() {
               title="Use official DEWA sources for the latest service rules."
               description="Official service pages, portal routes, file formats, delivery times and conditions can change. The sources below were reviewed on 23 July 2026; verify the live official source again before submission."
             />
-            <p id="dewa-cost-answer" className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm font-bold leading-7 text-amber-950">
+            <p id="dewa-cost-answer" className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-5 text-sm font-bold leading-7 text-amber-950">
               Cost note: public DEWA service pages may list some e-service registrations as free, but project owners should still plan for estimates, connection charges, contractor works, consultant drawings, equipment, testing and rectification when applicable.
             </p>
-            <div className="mt-4 rounded-2xl border border-brand/[0.14] bg-white p-5 text-sm leading-7 text-steel">
-              <p className="font-black text-charcoal">Editorial status</p>
+            <div className="mt-4 rounded-lg border border-brand/[0.14] bg-white p-5 text-sm leading-7 text-steel">
+              <p className="font-semibold text-charcoal">Editorial status</p>
               <p className="mt-2">
                 Last reviewed {trustContentLastReviewedLabel}. Emitronix is the organizational publisher. No named technical reviewer is presented until management verifies the reviewer&apos;s identity and credentials.
               </p>
@@ -2135,10 +2158,10 @@ export default function DewaApprovalsPage() {
                 href={resource.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="luxury-card rounded-[1.25rem] p-5"
+                className="luxury-card rounded-lg p-5"
               >
                 <span className="premium-kicker">Official DEWA resource</span>
-                <h3 className="mt-3 text-xl font-black leading-snug text-charcoal">{resource.title}</h3>
+                <h3 className="mt-3 text-xl font-semibold leading-snug text-charcoal">{resource.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-steel">{resource.description}</p>
               </a>
             ))}
@@ -2153,12 +2176,12 @@ export default function DewaApprovalsPage() {
             title="A short visual overview of the DEWA approval workflow."
             description="Use this short visual summary as an orientation to approval coordination, LV inspection preparation and cable-route planning."
           />
-          <figure className="overflow-hidden rounded-[1.75rem] border border-brand/[0.14] bg-white shadow-panel">
+          <figure className="overflow-hidden rounded-lg border border-brand/[0.14] bg-white shadow-none">
             <video
               controls
               muted
               preload="none"
-              poster={heroImage}
+              poster={videoThumbnail}
               className="aspect-video w-full bg-brand-dark object-cover"
               aria-label="DEWA approval workflow visual overview for Dubai projects"
             >
@@ -2181,9 +2204,9 @@ export default function DewaApprovalsPage() {
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {relatedServices.map((item) => (
-              <Link key={item.href} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
+              <Link key={item.href} href={item.href} className="luxury-card rounded-lg p-6">
                 <span className="premium-kicker">Related</span>
-                <h3 className="mt-4 text-xl font-black leading-snug text-charcoal">{item.title}</h3>
+                <h3 className="mt-4 text-xl font-semibold leading-snug text-charcoal">{item.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
               </Link>
             ))}
@@ -2207,15 +2230,15 @@ export default function DewaApprovalsPage() {
           <div className="mt-12 grid gap-8">
             {faqCategories.map((category) => (
               <section key={category} aria-labelledby={`faq-${category.replace(/\s+/g, "-").toLowerCase()}`}>
-                <h3 id={`faq-${category.replace(/\s+/g, "-").toLowerCase()}`} className="text-2xl font-black text-charcoal">
+                <h3 id={`faq-${category.replace(/\s+/g, "-").toLowerCase()}`} className="text-2xl font-semibold text-charcoal">
                   {category}
                 </h3>
                 <div className="mt-5 grid gap-4 md:grid-cols-2">
                   {publishedDewaFaqs
                     .filter((faq) => faq.category === category)
                     .map((faq) => (
-                      <details key={faq.question} className="group rounded-[1.25rem] border border-brand/[0.14] bg-white p-5 shadow-sm open:shadow-panel">
-                        <summary className="cursor-pointer list-none text-lg font-black leading-snug text-charcoal">
+                      <details key={faq.question} className="group rounded-lg border border-brand/[0.14] bg-white p-5 shadow-sm open:shadow-none">
+                        <summary className="cursor-pointer list-none text-lg font-semibold leading-snug text-charcoal">
                           {faq.question}
                         </summary>
                         <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
@@ -2243,7 +2266,7 @@ export default function DewaApprovalsPage() {
                 { label: `Location: ${site.location}`, href: undefined },
                 { label: `Hours: ${site.hours}`, href: undefined },
               ].map((item) => (
-                <div key={item.label} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-platinum p-4 text-sm font-bold leading-6 text-charcoal">
+                <div key={item.label} className="flex gap-3 rounded-lg border border-brand/[0.12] bg-platinum p-4 text-sm font-bold leading-6 text-charcoal">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
                   {item.href ? <a href={item.href} className="transition hover:text-brand">{item.label}</a> : item.label}
                 </div>
@@ -2252,6 +2275,7 @@ export default function DewaApprovalsPage() {
             <div className="mt-8">
               <CtaButtons compact />
             </div>
+            <SectionPhotograph photo={sectionPhotographs[1]} className="mt-6" compact />
           </div>
           <ContactForm
             scopeOptions={[
@@ -2273,13 +2297,13 @@ export default function DewaApprovalsPage() {
       </section>
 
       <JsonLd />
-    </>
+    </InternalPageFrame>
   );
 }
 
 function MapPinIcon() {
   return (
-    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-brand/[0.14] bg-brand-soft text-brand">
+    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-brand/[0.14] bg-brand-soft text-brand">
       <Building2 className="h-5 w-5" aria-hidden="true" />
     </span>
   );

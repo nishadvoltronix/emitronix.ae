@@ -1,15 +1,11 @@
-"use client";
-
 import { ArrowRight, Mail, MapPin, MessageCircle, Phone, Smartphone } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/BrandLogo";
 import { CookieSettingsFooterButton } from "@/components/CookieConsentManager";
-import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
 import { approvalServices } from "@/data/approvals";
 import { arabicApprovalTitle, arabicFooterLabels, arabicNavItems, arabicServiceTitle } from "@/data/arabic";
 import { navItems, services, site, socialLinks, whatsappUrl } from "@/data/site";
-import { isArabicPath, localizedPath } from "@/lib/i18n";
+import { localizedPath, type Locale } from "@/lib/i18n";
 
 const sectorLinks = [
   { label: "Luxury Villas", href: "/industries" },
@@ -18,10 +14,8 @@ const sectorLinks = [
   { label: "Retail & Hospitality", href: "/industries" },
 ];
 
-export function Footer() {
-  const pathname = useHydrationSafePathname(usePathname());
-  const isArabic = isArabicPath(pathname);
-  const locale = isArabic ? "ar" : "en";
+export function Footer({ locale }: { locale: Locale }) {
+  const isArabic = locale === "ar";
   const currentNavItems = isArabic ? arabicNavItems : navItems;
   const labels = isArabic
     ? arabicFooterLabels
@@ -64,7 +58,7 @@ export function Footer() {
                 imageClassName="h-14 w-auto object-contain sm:h-16"
                 sizes="(min-width: 640px) 274px, 240px"
               />
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-steel">
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5f6f86]">
                 {isArabic
                   ? "شركة مقاولات متميزة في دبي للأعمال المدنية، تنسيق موافقات الجهات، التشطيبات الداخلية، الفلل، المستودعات ودعم المشاريع التجارية."
                   : "Dubai construction company for civil contracting, authority approval coordination, interior fit-out, villa, warehouse and commercial project support."}
@@ -90,7 +84,7 @@ export function Footer() {
           <div className="grid gap-8 p-6 md:grid-cols-2 lg:grid-cols-5 lg:p-10">
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.2em] text-charcoal">{labels.navigation}</h3>
-              <ul className="mt-5 grid gap-3 text-sm font-bold text-steel">
+              <ul className="mt-5 grid gap-3 text-sm font-bold text-[#5f6f86]">
                 {currentNavItems.map((item) => (
                   <li key={item.href}>
                     <Link href={localizedPath(item.href, locale)} className="transition hover:text-brand">
@@ -152,7 +146,7 @@ export function Footer() {
 
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.2em] text-charcoal">{labels.services}</h3>
-              <ul className="mt-5 grid gap-3 text-sm font-bold text-steel">
+              <ul className="mt-5 grid gap-3 text-sm font-bold text-[#5f6f86]">
                 {services.map((service) => (
                   <li key={service.slug}>
                     <Link href={localizedPath(service.href, locale)} className="transition hover:text-brand">
@@ -170,7 +164,7 @@ export function Footer() {
 
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.2em] text-charcoal">{labels.approvals}</h3>
-              <ul className="mt-5 grid gap-3 text-sm font-bold text-steel">
+              <ul className="mt-5 grid gap-3 text-sm font-bold text-[#5f6f86]">
                 {approvalServices.slice(0, 6).map((service) => (
                   <li key={service.slug}>
                     <Link href={localizedPath(service.href, locale)} className="transition hover:text-brand">
@@ -183,7 +177,7 @@ export function Footer() {
 
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.2em] text-charcoal">{labels.industries}</h3>
-              <ul className="mt-5 grid gap-3 text-sm font-bold text-steel">
+              <ul className="mt-5 grid gap-3 text-sm font-bold text-[#5f6f86]">
                 {currentSectorLinks.map((item) => (
                   <li key={item.label}>
                     <Link href={localizedPath(item.href, locale)} className="transition hover:text-brand">
@@ -196,7 +190,7 @@ export function Footer() {
 
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.2em] text-charcoal">{labels.contact}</h3>
-              <ul className="mt-5 grid gap-4 text-sm font-bold text-steel">
+              <ul className="mt-5 grid gap-4 text-sm font-bold text-[#5f6f86]">
                 <li className="flex gap-3">
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   <span>
@@ -245,7 +239,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 border-t border-brand/[0.12] px-6 py-5 text-xs font-bold uppercase tracking-[0.18em] text-steel sm:flex-row sm:items-center sm:justify-between lg:px-10">
+          <div className="flex flex-col gap-3 border-t border-brand/[0.12] px-6 py-5 text-xs font-bold uppercase tracking-[0.18em] text-[#5f6f86] sm:flex-row sm:items-center sm:justify-between lg:px-10">
             <span>&copy; {new Date().getFullYear()} {site.legalName}. {isArabic ? "جميع الحقوق محفوظة." : "All rights reserved."}</span>
             <span>{labels.footerTagline}</span>
           </div>

@@ -4,6 +4,7 @@ import { CookieConsentManager } from "@/components/CookieConsentManager";
 import { FloatingActions } from "@/components/FloatingActions";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { RouteContent } from "@/components/RouteContent";
 import {
   absoluteUrl,
   brandAssets,
@@ -14,6 +15,10 @@ import {
   whatsappUrl,
 } from "@/data/site";
 import { googleTagManagerId } from "@/lib/googleTagManager";
+// Prepare the small, scoped styles shared by the main navigation destinations.
+// Otherwise the first internal-page click suspends on CSS despite prefetched data.
+import "@/components/InternalPage.module.css";
+import "@/components/SectionPhotograph.module.css";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
@@ -148,6 +153,7 @@ export function SiteRootLayout({
     <html
       lang={isArabic ? "ar-AE" : "en-AE"}
       dir={isArabic ? "rtl" : "ltr"}
+      data-scroll-behavior="smooth"
       className={inter.variable}
     >
       <head>
@@ -201,8 +207,8 @@ gtag('consent', 'default', {
           <span className="skip-link-label-ar" lang="ar-AE" dir="rtl">تخطي إلى المحتوى الرئيسي</span>
         </a>
         <Header />
-        <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>
-        <Footer />
+        <main id="main-content" className="min-h-screen" tabIndex={-1}><RouteContent>{children}</RouteContent></main>
+        <Footer locale={locale} />
         <CookieConsentManager />
         <FloatingActions whatsappUrl={whatsappUrl} />
       </body>

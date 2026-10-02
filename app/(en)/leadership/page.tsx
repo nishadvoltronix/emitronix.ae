@@ -1,3 +1,6 @@
+import { SectionPhotoPlacement } from "@/components/SectionPhotoPlacement";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import type { Metadata } from "next";
 import {
   ArrowRight,
@@ -119,11 +122,13 @@ const leadershipJsonLd = {
   ],
 };
 
+const sectionPhotos = getSectionPhotographs("/leadership", 5);
+
 export default function LeadershipPage() {
   return (
-    <>
+    <InternalPageFrame>
       <div className="bg-white text-charcoal">
-        <section className="premium-grid relative overflow-hidden pb-16 pt-10 lg:pb-24 lg:pt-14">
+        <section className="internal-page-intro premium-grid relative overflow-hidden pb-16 pt-10 lg:pb-24 lg:pt-14">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute right-[12%] top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-brand/20 to-transparent lg:block" />
             <div className="absolute bottom-20 left-0 h-px w-2/3 bg-gradient-to-r from-transparent via-brand-sky/20 to-transparent" />
@@ -141,7 +146,7 @@ export default function LeadershipPage() {
             <div className="grid gap-10 lg:grid-cols-[1.02fr_0.78fr] lg:items-end">
               <div className="max-w-5xl">
                 <p className="premium-kicker">Leadership & delivery</p>
-                <h1 className="mt-5 text-balance text-5xl font-black leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
+                <h1 className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
                   Leadership identity with clear publication boundaries.
                 </h1>
                 <p className="mt-7 max-w-4xl text-lg leading-9 text-steel">
@@ -150,7 +155,7 @@ export default function LeadershipPage() {
               </div>
 
               <div className="grid gap-5">
-                <figure className="relative aspect-[3/2] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-brand-soft shadow-luxe">
+                <figure className="relative aspect-[3/2] overflow-hidden rounded-lg border border-brand/[0.15] bg-brand-soft shadow-none">
                   <ResponsiveIllustrativeImage
                     asset={leadershipImage}
                     priority
@@ -160,13 +165,13 @@ export default function LeadershipPage() {
                     imageStyle={{ height: "100%", objectFit: "cover" }}
                   />
                 </figure>
-                <aside className="luxury-surface rounded-[2rem] p-6 sm:p-8">
-                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand text-white shadow-blue">
+                <aside className="luxury-surface rounded-lg p-6 sm:p-8">
+                <span className="grid h-14 w-14 place-items-center rounded-lg bg-brand text-white shadow-blue">
                   <Users className="h-7 w-7" aria-hidden="true" />
                 </span>
                 <p className="mt-6 premium-kicker">Named profile</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal">{founderProfile.name}</h2>
-                <p className="mt-2 text-base font-black text-brand">{founderProfile.jobTitle}</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{founderProfile.name}</h2>
+                <p className="mt-2 text-base font-semibold text-brand">{founderProfile.jobTitle}</p>
                 <p className="mt-4 text-sm leading-7 text-steel">
                   The founder profile contains only the professional themes supplied for publication.
                 </p>
@@ -176,6 +181,7 @@ export default function LeadershipPage() {
                 </aside>
               </div>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={0} sections={4} /></div>
           </div>
         </section>
 
@@ -192,24 +198,24 @@ export default function LeadershipPage() {
               {leadershipFunctions.map((deliveryFunction) => {
                 const Icon = functionIcons[deliveryFunction.id] ?? Users;
                 return (
-                  <article key={deliveryFunction.id} id={deliveryFunction.id} className="luxury-card scroll-mt-28 rounded-[1.75rem] p-6 lg:p-8">
+                  <article key={deliveryFunction.id} id={deliveryFunction.id} className="luxury-card scroll-mt-28 rounded-lg p-6 lg:p-8">
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand">
+                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand">
                         <Icon className="h-7 w-7" aria-hidden="true" />
                       </span>
-                      <span className="w-fit rounded-full border border-brand/[0.15] bg-white px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-brand">
+                      <span className="w-fit rounded-full border border-brand/[0.15] bg-white px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-brand">
                         {deliveryFunction.profileType}
                       </span>
                     </div>
 
-                    <h2 className="mt-6 text-3xl font-black tracking-tight text-charcoal">{deliveryFunction.title}</h2>
+                    <h2 className="mt-6 text-3xl font-semibold tracking-tight text-charcoal">{deliveryFunction.title}</h2>
                     <p className="mt-4 text-base leading-8 text-steel">{deliveryFunction.summary}</p>
 
                     <div className="mt-6">
-                      <p className="text-xs font-black uppercase tracking-[0.22em] text-brand">Core expertise</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">Core expertise</p>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {deliveryFunction.coreExpertise.map((item) => (
-                          <span key={item} className="rounded-full border border-brand/[0.12] bg-brand-soft px-3 py-2 text-xs font-black text-charcoal">
+                          <span key={item} className="rounded-full border border-brand/[0.12] bg-brand-soft px-3 py-2 text-xs font-semibold text-charcoal">
                             {item}
                           </span>
                         ))}
@@ -217,13 +223,13 @@ export default function LeadershipPage() {
                     </div>
 
                     <div className="mt-6 rounded-[1.3rem] border border-brand/[0.12] bg-white p-5">
-                      <p className="text-xs font-black uppercase tracking-[0.22em] text-brand">Industry specialization</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">Industry specialization</p>
                       <p className="mt-2 text-sm font-bold leading-7 text-charcoal">{deliveryFunction.specialization}</p>
                     </div>
 
                     <div className="mt-6 grid gap-6 sm:grid-cols-2">
                       <div>
-                        <h3 className="text-lg font-black tracking-tight text-charcoal">Responsibilities</h3>
+                        <h3 className="text-lg font-semibold tracking-tight text-charcoal">Responsibilities</h3>
                         <ul className="mt-3 grid gap-3">
                           {deliveryFunction.responsibilities.map((item) => (
                             <li key={item} className="flex gap-3 text-sm leading-7 text-steel">
@@ -234,7 +240,7 @@ export default function LeadershipPage() {
                         </ul>
                       </div>
                       <div>
-                        <h3 className="text-lg font-black tracking-tight text-charcoal">Technical capabilities</h3>
+                        <h3 className="text-lg font-semibold tracking-tight text-charcoal">Technical capabilities</h3>
                         <ul className="mt-3 grid gap-3">
                           {deliveryFunction.technicalCapabilities.map((item) => (
                             <li key={item} className="flex gap-3 text-sm leading-7 text-steel">
@@ -249,33 +255,35 @@ export default function LeadershipPage() {
                 );
               })}
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={1} sections={4} /></div>
           </div>
         </section>
 
         <section className="section-pad soft-section">
           <div className="container-pad">
-            <div className="grid gap-8 rounded-[2rem] border border-amber-200 bg-amber-50/70 p-6 shadow-panel lg:grid-cols-[0.72fr_1.28fr] lg:p-9">
+            <div className="grid gap-8 rounded-lg border border-amber-200 bg-amber-50/70 p-6 shadow-none lg:grid-cols-[0.72fr_1.28fr] lg:p-9">
               <div>
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-amber-700 shadow-sm">
+                <span className="grid h-12 w-12 place-items-center rounded-lg bg-white text-amber-700 shadow-sm">
                   <ShieldAlert className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <p className="mt-5 text-xs font-black uppercase tracking-[0.24em] text-amber-800">Named profile gate</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal">
+                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-amber-800">Named profile gate</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">
                   Function titles are not staff biographies.
                 </h2>
-                <p className="mt-4 text-base font-black leading-8 text-amber-900">
+                <p className="mt-4 text-base font-semibold leading-8 text-amber-900">
                   {leadershipPublicationGate.statement}
                 </p>
               </div>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {leadershipPublicationGate.fields.map((field) => (
-                  <li key={field} className="flex gap-3 rounded-2xl border border-amber-200 bg-white p-4 text-sm font-bold leading-6 text-charcoal">
+                  <li key={field} className="flex gap-3 rounded-lg border border-amber-200 bg-white p-4 text-sm font-bold leading-6 text-charcoal">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" aria-hidden="true" />
                     {field}
                   </li>
                 ))}
               </ul>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={2} sections={4} /></div>
           </div>
         </section>
 
@@ -283,7 +291,7 @@ export default function LeadershipPage() {
           <div className="container-pad grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="premium-kicker">Authority pathways</p>
-              <h2 className="mt-4 text-balance text-4xl font-black tracking-tight text-charcoal sm:text-5xl">
+              <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
                 Move from people and functions to verified company facts.
               </h2>
               <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
@@ -298,6 +306,7 @@ export default function LeadershipPage() {
                 Contact Emitronix <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={3} sections={4} /></div>
           </div>
         </section>
       </div>
@@ -308,6 +317,6 @@ export default function LeadershipPage() {
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(leadershipJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

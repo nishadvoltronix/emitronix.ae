@@ -22,6 +22,7 @@ export default function ArabicNotFoundRoute() {
   return (
     <div lang="ar-AE" dir="rtl">
       <ErrorPageShell
+        locale="ar"
         code="404"
         eyebrow="الصفحة غير موجودة"
         title="مسار المشروع المطلوب غير متاح."

@@ -59,30 +59,38 @@ npm run build
 
 The contact and article enquiry forms submit to the consent-checked server-side API route at `/api/contact`, which creates a follow-up record in the configured CRM. CRM credentials must stay server-side in environment variables and must never be exposed in browser code.
 
-Create a local `.env.local` or production environment with:
+Set these required server-only credentials privately in the intended environment:
 
-```bash
-ZOHO_CLIENT_ID=your_zoho_client_id
-ZOHO_CLIENT_SECRET=your_zoho_client_secret
-ZOHO_REFRESH_TOKEN=your_zoho_refresh_token
-ZOHO_ACCOUNTS_BASE_URL=https://accounts.zoho.com
-ZOHO_CRM_API_BASE_URL=https://www.zohoapis.com
-ZOHO_CRM_API_VERSION=v2
-ZOHO_SERVICE_INTEREST_FIELD_API_NAME=
+```dotenv
+ZOHO_CLIENT_ID=
+ZOHO_CLIENT_SECRET=
+ZOHO_REFRESH_TOKEN=
 ```
 
-Use the Zoho accounts and API domains for the correct Zoho data center, for example `.com`, `.eu`, `.in`, or the value returned by Zoho OAuth. The OAuth app should have CRM lead creation access, such as `ZohoCRM.modules.Leads.CREATE` or a broader approved CRM module scope.
+The optional defaults read by `lib/zoho.ts` are:
+
+```dotenv
+ZOHO_ACCOUNTS_URL=https://accounts.zoho.com
+ZOHO_API_DOMAIN=https://www.zohoapis.com
+ZOHO_CRM_MODULE=Leads
+ZOHO_LEAD_SOURCE=Website Contact Form
+```
+
+Use the account/API domains for the actual tenant's data center. The helper posts to `${ZOHO_ACCOUNTS_URL}/oauth/v2/token`; the returned OAuth `api_domain` takes precedence over `ZOHO_API_DOMAIN`. CRM writes use `/crm/v8/<module>`. There is no environment override for the CRM API version or a custom service field.
 
 Field mapping:
 
 - Full name: split into `First_Name` and mandatory `Last_Name`
-- Company: `Company`, using `Individual Enquiry` when omitted
+- Company: `Company`, using `Website Enquiry - Emitronix` when omitted
 - Email: `Email`
-- Phone: `Phone`
-- Service: `Lead_Source`
-- Project Details: `Description`
-- Optional service custom field: set `ZOHO_SERVICE_INTEREST_FIELD_API_NAME` to a Zoho Lead field API name if the CRM has a dedicated service-interest field
+- Phone: both `Phone` and `Mobile`
+- Lead source: `Lead_Source`, using `ZOHO_LEAD_SOURCE`
+- Selected service, project location, project details, page/browser context and consent: `Description`
 
-After updating environment variables, restart the Next.js process so the API route can read them.
+**REQUIRES LIVE VERIFICATION:** the repository does not establish valid production credentials, OAuth scope, tenant/module/field permissions, duplicate rules or notification delivery. An authorized operator must confirm receipt and field mapping in the actual CRM, including two enquiries sharing an email but containing different service/message details. `DUPLICATE_DATA` is acknowledged as success and does not prove that new details were saved.
+
+Contact/blog requests await CRM acknowledgement. Careers first save private CV/JSON files and then attempt a best-effort CRM notification; career HTTP 200 does not prove that notification was delivered, and the CV is not attached to Zoho. The application has no SMTP sender; intended email/team notifications require verification of the tenant's workflows. See [the detailed setup and live verification checklist](docs/zoho-crm-contact-form.md).
+
+Server environment changes and production restarts require explicit authorization; these setup notes do not authorize deployment or a live test submission.
 
 Update final production phone, email, social links and domain in `data/site.ts` before launch.

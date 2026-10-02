@@ -1,9 +1,13 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
 import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone, Smartphone } from "lucide-react";
-import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
+import { FAQSection, InsightGrid, ProcessRail } from "@/components/ContentBlocks";
+import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
-import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
-import { absoluteUrl, contactItems, site, socialLinks, whatsappUrl } from "@/data/site";
+import { absoluteUrl, site, socialLinks, whatsappUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
@@ -96,8 +100,9 @@ const contactPageJsonLd = {
 };
 
 export default function ContactPage() {
+  const sectionPhotographs = getSectionPhotographs("/contact", 4);
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
         eyebrow="Contact"
@@ -125,19 +130,23 @@ export default function ContactPage() {
                     href={item.href}
                     target={item.href.startsWith("http") ? "_blank" : undefined}
                     rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className={`luxury-card flex gap-4 rounded-[1.5rem] p-5 ${item.label === "Location" ? "sm:col-span-2" : ""}`}
+                    className={`luxury-card flex gap-4 rounded-lg p-5 ${item.label === "Location" ? "sm:col-span-2" : ""}`}
                   >
                     <Icon className="mt-1 h-5 w-5 shrink-0 text-brand" />
                     <span>
-                      <span className="block text-sm font-black uppercase tracking-wide text-charcoal">{item.label}</span>
+                      <span className="block text-sm font-semibold uppercase tracking-wide text-charcoal">{item.label}</span>
                       <span className="mt-1 block text-sm leading-6 text-steel">{item.value}</span>
                     </span>
                   </a>
                 );
               })}
             </div>
-            <div className="mt-6 rounded-[1.5rem] border border-brand/[0.14] bg-brand-soft p-5">
-              <h2 className="text-sm font-black uppercase tracking-[0.2em] text-charcoal">Official profiles</h2>
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm leading-7 text-steel">
+              <p><span className="font-semibold text-charcoal">Hours:</span> {site.hours}</p>
+              <Link href="/locations/dubai" className="font-semibold text-brand underline underline-offset-4">Dubai location details</Link>
+            </div>
+            <div className="mt-6 rounded-lg border border-brand/[0.14] bg-brand-soft p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-charcoal">Official profiles</h2>
               <div className="mt-4 flex flex-wrap gap-3">
                 {socialLinks.map((item) => {
                   const Icon = item.icon;
@@ -147,7 +156,7 @@ export default function ContactPage() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-brand/[0.12] bg-white px-4 py-2 text-xs font-black uppercase tracking-wide text-brand transition hover:border-brand/30 hover:bg-brand hover:text-white"
+                      className="inline-flex items-center gap-2 rounded-full border border-brand/[0.12] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-brand transition hover:border-brand/30 hover:bg-brand hover:text-white"
                     >
                       <Icon className="h-4 w-4" aria-hidden="true" />
                       {item.label}
@@ -160,41 +169,21 @@ export default function ContactPage() {
 
           <div className="order-1 lg:order-2">
             <ContactForm />
+            <SectionPhotograph photo={sectionPhotographs[0]} compact className="mt-6" />
           </div>
-        </div>
-      </section>
-
-      <section className="blue-grid section-pad text-charcoal">
-        <div className="container-pad grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-          {contactItems.map((item) => {
-            const Icon = item.icon;
-            const cardContent = (
-              <>
-                <Icon className="h-7 w-7 text-brand" />
-                <h2 className="mt-5 text-lg font-black tracking-tight">{item.label}</h2>
-                <p className="mt-2 text-sm leading-6 text-steel">{item.value}</p>
-              </>
-            );
-            const cardClassName = "rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-5 backdrop-blur-xl";
-
-            return item.href ? (
-              <a href={item.href} key={item.label} className={`${cardClassName} transition hover:-translate-y-0.5 hover:border-brand/30`}>
-                {cardContent}
-              </a>
-            ) : (
-              <article key={item.label} className={cardClassName}>{cardContent}</article>
-            );
-          })}
         </div>
       </section>
 
       <InsightGrid
         eyebrow="Before you enquire"
-        title="Send the details that help a premium contractor respond intelligently."
-        description="Good enquiry structure helps the team understand whether your requirement is civil, fit-out, approval, renovation, warehouse, villa or commercial project support."
+        title="Details to include in your project enquiry."
+        description="These three points help the team understand the scope and next step."
         items={enquiryGuidance}
         tone="soft"
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[1]} compact />
+      </div>
 
       <ProcessRail
         eyebrow="Contact process"
@@ -202,26 +191,21 @@ export default function ContactPage() {
         description="The contact form turns an open enquiry into a reviewable project brief with location, scope, drawings and authority status."
         steps={contactProcess}
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[2]} compact />
+      </div>
 
-      <TrustBar
-        eyebrow="Contact trust"
-        title="Consistent published contact details."
-        points={[
-          { label: site.phone, href: site.phoneHref },
-          site.email,
-          site.location,
-          site.hours,
-        ]}
-      />
-
-      <FAQSection
+      <FAQSection accordion
         title="Contact Emitronix FAQ."
         description="Answers for project owners and consultants preparing a Dubai construction or approval enquiry."
         faqs={contactFaqs}
         schema
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[3]} compact />
+      </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

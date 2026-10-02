@@ -55,7 +55,7 @@ The built-in image-generation capability was used in photorealistic-natural mode
 - The video appears only on `/warehouse-construction`.
 - Playback uses WebM first with MP4 fallback.
 - The poster reserves the video's 9:16 aspect ratio to prevent layout shift.
-- The video is muted, looped and plays inline. It starts only when substantially visible and does not autoplay when reduced motion is requested.
-- Native controls remain available.
+- The silent video sits in a labelled disclosure and uses `preload="none"`. Playback starts through the native controls; it plays inline without autoplay or looping.
+- Native controls remain available, including for visitors who prefer reduced motion.
 - A visible equivalent-text caption describes the silent sequence.
 - The page includes a matching `VideoObject` with absolute production URLs, duration, upload date, dimensions, thumbnail, publisher and project-evidence disclosure.

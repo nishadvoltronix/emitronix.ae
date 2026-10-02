@@ -55,24 +55,34 @@ export function CookieConsentAdminLogin({ configured }: { configured: boolean })
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [message, setMessage] = useState("");
 
   async function login(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "loading") return;
     setStatus("loading");
-    const response = await fetch("/api/admin/cookie-consent/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password }),
-    });
+    setMessage("");
+    try {
+      const response = await fetch("/api/admin/cookie-consent/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
 
-    if (response.ok) {
-      router.refresh();
-      return;
+      if (response.ok) {
+        setStatus("idle");
+        router.refresh();
+        return;
+      }
+
+      setStatus("error");
+      setMessage("Invalid password or expired session.");
+    } catch {
+      setStatus("error");
+      setMessage("Sign in could not be completed. Check your connection and try again.");
     }
-
-    setStatus("error");
   }
 
   return (
@@ -95,7 +105,7 @@ export function CookieConsentAdminLogin({ configured }: { configured: boolean })
                 />
               </label>
               {status === "error" ? (
-                <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700">Invalid password or expired session.</p>
+                <p role="alert" className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700">{message}</p>
               ) : null}
               <button type="submit" className="premium-button" disabled={status === "loading"}>
                 {status === "loading" ? "Checking..." : "Sign In"}
@@ -200,6 +210,7 @@ export function CookieConsentAdmin({ initialData }: { initialData: AdminData }) 
   }
 
   async function saveSettings() {
+    if (status === "saving") return;
     setStatus("saving");
     setMessage("");
 
@@ -215,48 +226,75 @@ export function CookieConsentAdmin({ initialData }: { initialData: AdminData }) 
       return;
     }
 
-    const response = await fetch("/api/admin/cookie-consent/settings", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ config: nextConfig }),
-    });
+    try {
+      const response = await fetch("/api/admin/cookie-consent/settings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ config: nextConfig }),
+      });
 
-    const data = (await response.json().catch(() => null)) as AdminData | null;
-    if (!response.ok || !data?.config) {
+      const data = (await response.json().catch(() => null)) as AdminData | null;
+      if (!response.ok || !data?.config) {
+        setStatus("error");
+        setMessage("Settings could not be saved.");
+        return;
+      }
+
+      setConfig(data.config);
+      setStats(data.stats);
+      setSectionDrafts(createSectionDrafts(data.config));
+      setStatus("saved");
+      setMessage("Settings saved.");
+    } catch {
       setStatus("error");
-      setMessage("Settings could not be saved.");
-      return;
+      setMessage("Settings could not be saved. Check your connection and try again.");
     }
-
-    setConfig(data.config);
-    setStats(data.stats);
-    setSectionDrafts(createSectionDrafts(data.config));
-    setStatus("saved");
-    setMessage("Settings saved.");
   }
 
   async function resetConsents() {
+    if (status === "saving") return;
     if (!window.confirm("Reset aggregate statistics and show the banner again to all visitors?")) return;
-    const response = await fetch("/api/admin/cookie-consent/reset", { method: "POST" });
-    const data = (await response.json().catch(() => null)) as AdminData | null;
-    if (!response.ok || !data?.config) {
-      setStatus("error");
-      setMessage("Consent reset failed.");
-      return;
-    }
+    setStatus("saving");
+    setMessage("");
+    try {
+      const response = await fetch("/api/admin/cookie-consent/reset", { method: "POST" });
+      const data = (await response.json().catch(() => null)) as AdminData | null;
+      if (!response.ok || !data?.config) {
+        setStatus("error");
+        setMessage("Consent reset failed.");
+        return;
+      }
 
-    setConfig(data.config);
-    setStats(data.stats);
-    setSectionDrafts(createSectionDrafts(data.config));
-    setStatus("saved");
-    setMessage("Consent version reset. Visitors will be prompted again.");
+      setConfig(data.config);
+      setStats(data.stats);
+      setSectionDrafts(createSectionDrafts(data.config));
+      setStatus("saved");
+      setMessage("Consent version reset. Visitors will be prompted again.");
+    } catch {
+      setStatus("error");
+      setMessage("Consent reset failed. Check your connection and try again.");
+    }
   }
 
   async function logout() {
-    await fetch("/api/admin/cookie-consent/logout", { method: "POST" });
-    router.refresh();
+    if (status === "saving") return;
+    setStatus("saving");
+    setMessage("");
+    try {
+      const response = await fetch("/api/admin/cookie-consent/logout", { method: "POST" });
+      if (!response.ok) {
+        setStatus("error");
+        setMessage("Sign out could not be completed. Please try again.");
+        return;
+      }
+      setStatus("idle");
+      router.refresh();
+    } catch {
+      setStatus("error");
+      setMessage("Sign out could not be completed. Check your connection and try again.");
+    }
   }
 
   return (
@@ -275,7 +313,7 @@ export function CookieConsentAdmin({ initialData }: { initialData: AdminData }) 
               <Save className="h-4 w-4" />
               {status === "saving" ? "Saving..." : "Save Changes"}
             </button>
-            <button type="button" className="premium-button-light" onClick={logout}>
+            <button type="button" className="premium-button-light" onClick={logout} disabled={status === "saving"}>
               <LogOut className="h-4 w-4" />
               Logout
             </button>
@@ -283,7 +321,7 @@ export function CookieConsentAdmin({ initialData }: { initialData: AdminData }) 
         </div>
 
         {message ? (
-          <div className={`mt-6 flex items-center gap-3 rounded-2xl px-5 py-4 text-sm font-black ${status === "error" ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700"}`}>
+          <div role={status === "error" ? "alert" : "status"} className={`mt-6 flex items-center gap-3 rounded-2xl px-5 py-4 text-sm font-black ${status === "error" ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700"}`}>
             {status === "error" ? <ShieldAlert className="h-5 w-5" /> : <CheckCircle2 className="h-5 w-5" />}
             {message}
           </div>
@@ -429,7 +467,7 @@ export function CookieConsentAdmin({ initialData }: { initialData: AdminData }) 
                   </div>
                 ))}
               </div>
-              <button type="button" className="premium-button-light mt-6 w-full" onClick={resetConsents}>
+              <button type="button" className="premium-button-light mt-6 w-full" onClick={resetConsents} disabled={status === "saving"}>
                 <RefreshCw className="h-4 w-4" />
                 Reset All User Consents
               </button>

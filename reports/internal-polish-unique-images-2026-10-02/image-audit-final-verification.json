@@ -1,0 +1,50 @@
+{
+  "homepageImageRecordsUnchanged": true,
+  "homepageImageRecords": 25,
+  "newImagesExactlyOnce": true,
+  "newIdentityPrefixCorrect": true,
+  "changedPages": [
+    "/ar/dewa-approvals",
+    "/ar/villa-construction",
+    "/ar/warehouse-construction",
+    "/building-renovation",
+    "/civil",
+    "/dcd-approvals",
+    "/design-build",
+    "/dewa-approvals",
+    "/industrial-buildings",
+    "/interior",
+    "/main-contracting",
+    "/project-management",
+    "/structural-works",
+    "/villa-construction",
+    "/warehouse-construction"
+  ],
+  "disappearedLegacyIdentities": [
+    "unsplash:photo-1558054665-fbe00cd7d920",
+    "pexels:10647324",
+    "pexels:34188580",
+    "unsplash:photo-1613490493576-7fde63acd811"
+  ],
+  "sharedAssets": [
+    {
+      "identity": "/images/emitronix-logo",
+      "occurrences": 516,
+      "imagePaths": [
+        "/images/emitronix-logo.png"
+      ],
+      "classification": "Logo/brand asset",
+      "reason": "Repeated company identity in navigation/footer; brand assets are explicitly allowed to be shared."
+    },
+    {
+      "identity": "/images/emitronix-logo-reversed",
+      "occurrences": 3,
+      "imagePaths": [
+        "/images/emitronix-logo-reversed.png"
+      ],
+      "classification": "Logo/brand asset",
+      "reason": "Repeated company identity in navigation/footer; brand assets are explicitly allowed to be shared."
+    }
+  ],
+  "requiredEditableReplacementRows": 1220
+}

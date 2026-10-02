@@ -1,5 +1,9 @@
+import { SectionPhotoPlacement } from "@/components/SectionPhotoPlacement";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
 import { CalendarDays, Cookie, FileText, Languages, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import { InternalPageFrame } from "@/components/InternalPageFrame";
+import styles from "./InternalPage.module.css";
 import { type CookieLanguage, type CookiePolicyPageKey, type LocalizedPolicyPage } from "@/data/cookieConsentDefaults";
 import { absoluteUrl, site } from "@/data/site";
 import { policyPageRoutes } from "@/lib/policyPages";
@@ -57,6 +61,7 @@ export function PolicyContentPage({
   const alternateLanguage = language === "ar" ? "en" : "ar";
   const currentHref = policyPageRoutes[pageKey][language];
   const pageUrl = absoluteUrl(currentHref);
+  const sectionPhotos = getSectionPhotographs(currentHref, 5);
   const homeHref = language === "ar" ? "/ar" : "/";
   const homeLabel = language === "ar" ? "الرئيسية" : "Home";
 
@@ -96,10 +101,11 @@ export function PolicyContentPage({
   const safePageJsonLd = JSON.stringify(pageJsonLd).replace(/</g, "\\u003c");
 
   return (
+    <InternalPageFrame lang={language === "ar" ? "ar-AE" : "en-AE"} dir={isRtl ? "rtl" : "ltr"}>
     <article lang={language === "ar" ? "ar-AE" : "en-AE"} dir={isRtl ? "rtl" : "ltr"} className="bg-white text-charcoal">
-      <section className="blue-grid section-pad">
+      <section className={styles.policyHero}>
         <div className="container-pad">
-          <div className="mx-auto max-w-5xl">
+          <div className={styles.policyBody}>
             <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label={language === "ar" ? "مسار التنقل" : "Breadcrumb"}>
               <Link href={homeHref} className="transition hover:text-brand">
                 {homeLabel}
@@ -114,17 +120,17 @@ export function PolicyContentPage({
                 {complianceLabels[language].languageSwitch}
               </Link>
             </div>
-            <h1 className="mt-8 text-balance text-5xl font-black leading-[1.03] tracking-tight text-charcoal sm:text-6xl lg:text-7xl">
+            <h1 className={styles.editorialTitle}>
               {page.title}
             </h1>
-            <p className="mt-6 max-w-4xl text-lg leading-8 text-steel">{page.description}</p>
+            <p className={styles.editorialDescription}>{page.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-white px-4 py-3 text-sm font-black text-brand shadow-sm">
-                <CalendarDays className="h-4 w-4" />
+              <span className={styles.policyStatus}>
+                <CalendarDays className="h-4 w-4 shrink-0" aria-hidden="true" />
                 {page.lastUpdatedLabel}: {formatDate(updatedAt, language)}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-white px-4 py-3 text-sm font-black text-brand shadow-sm">
-                <ShieldCheck className="h-4 w-4" />
+              <span className={styles.policyStatus}>
+                <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
                 {language === "ar" ? "ضوابط الخصوصية والموافقة" : "Privacy and consent controls"}
               </span>
             </div>
@@ -136,16 +142,17 @@ export function PolicyContentPage({
         <div className="container-pad">
           <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
             <aside className="lg:sticky lg:top-28 lg:self-start">
-              <div className="luxury-card rounded-[1.75rem] p-6">
+              <div className="luxury-card rounded-lg p-6">
                 <Cookie className="h-8 w-8 text-brand" />
-                <h2 className="mt-4 text-2xl font-black tracking-tight">{site.name}</h2>
+                <h2 className="mt-4 text-2xl font-semibold tracking-tight">{site.name}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">{complianceLabels[language].legalNote}</p>
                 <div className="mt-6 grid gap-2">
                   {(Object.keys(policyPageRoutes) as CookiePolicyPageKey[]).map((key) => (
                     <Link
                       key={key}
                       href={policyPageRoutes[key][language]}
-                      className={`rounded-2xl border px-4 py-3 text-sm font-black transition ${
+                      aria-current={key === pageKey ? "page" : undefined}
+                      className={`rounded-lg border px-4 py-3 text-sm font-semibold transition ${
                         key === pageKey
                           ? "border-brand bg-brand text-white shadow-blue"
                           : "border-brand/[0.12] bg-white text-charcoal hover:bg-brand-soft hover:text-brand"
@@ -159,22 +166,23 @@ export function PolicyContentPage({
             </aside>
 
             <div className="grid gap-5">
-              {page.sections.map((section) => (
-                <section key={section.heading} className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
+              {page.sections.map((section, index) => (
+                <section key={section.heading} className="luxury-card rounded-lg p-6 lg:p-8">
                   <div className="flex items-start gap-4">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-brand-soft text-brand">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand">
                       <FileText className="h-5 w-5" />
                     </span>
                     <div>
-                      <h2 className="text-2xl font-black tracking-tight text-charcoal">{section.heading}</h2>
+                      <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{section.heading}</h2>
                       <p className="mt-4 whitespace-pre-line text-base leading-8 text-steel">{section.body}</p>
+                      <SectionPhotoPlacement photos={sectionPhotos} index={index} sections={page.sections.length} locale={language} />
                     </div>
                   </div>
                 </section>
               ))}
 
-              <section className="rounded-[1.75rem] border border-brand/[0.15] bg-brand-soft p-6 lg:p-8">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{site.legalName}</h2>
+              <section className="rounded-lg border border-brand/[0.15] bg-brand-soft p-6 lg:p-8">
+                <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{site.legalName}</h2>
                 <p className="mt-4 text-base leading-8 text-steel">{complianceLabels[language].contact}</p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <a href={`mailto:${site.email}`} className="premium-button-light">{site.email}</a>
@@ -188,5 +196,6 @@ export function PolicyContentPage({
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safePageJsonLd }} />
     </article>
+    </InternalPageFrame>
   );
 }

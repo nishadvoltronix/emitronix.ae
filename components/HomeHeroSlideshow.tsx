@@ -89,6 +89,7 @@ export function HomeHeroSlideshow({ children }: { children: ReactNode }) {
       </div>
       <div className={styles.heroBackdrop} aria-hidden="true" />
       <div className={styles.heroContent}>{children}</div>
+      <p className={styles.heroImageNote}>Representative construction photography</p>
       {hydrated && (
         <button
           type="button"

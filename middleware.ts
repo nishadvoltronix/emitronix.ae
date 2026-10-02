@@ -1,15 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, type NextFetchEvent } from "next/server";
 import { isArabicPath } from "@/lib/i18n";
 import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
 type RedirectEntry = { from: string; to: string; permanent: boolean };
 
 const CACHE_TTL_MS = 30 * 1000;
+const REDIRECT_LOOKUP_TIMEOUT_MS = 500;
+const REDIRECT_RETRY_MS = 5 * 1000;
 const ARABIC_NOT_FOUND_ROUTE = "/ar/emitronix-route-not-found";
 const INTERNAL_NOT_FOUND_HEADER = "x-emitronix-internal-not-found";
 const PUBLIC_ORIGIN = "https://emitronix.ae";
 
-let cache: { at: number; map: Map<string, RedirectEntry> } | null = null;
+let cache: Map<string, RedirectEntry> | null = null;
+let refreshAfter = 0;
+let pendingRefresh: Promise<Map<string, RedirectEntry>> | null = null;
 
 function preferredPublicPath(pathname: string) {
   let preferred = pathname.replace(/\/{2,}/g, "/");
@@ -57,27 +61,72 @@ function rewriteToBrandedNotFound(request: NextRequest) {
   return response;
 }
 
-async function loadRedirects(request: NextRequest): Promise<Map<string, RedirectEntry>> {
-  if (cache && Date.now() - cache.at < CACHE_TTL_MS) return cache.map;
+function refreshRedirects(request: NextRequest): Promise<Map<string, RedirectEntry>> {
+  if (pendingRefresh) return pendingRefresh;
 
-  const map = new Map<string, RedirectEntry>();
-  try {
+  const controller = new AbortController();
+  let timeout: ReturnType<typeof setTimeout>;
+  const deadline = new Promise<never>((_, reject) => {
+    timeout = setTimeout(() => {
+      controller.abort();
+      reject(new Error("Redirect lookup timed out"));
+    }, REDIRECT_LOOKUP_TIMEOUT_MS);
+  });
+  const lookup = async () => {
     const origin = process.env.INTERNAL_ORIGIN || request.nextUrl.origin;
-    const response = await fetch(`${origin}/api/redirects/export`, { cache: "no-store" });
-    if (response.ok) {
-      const data = (await response.json()) as { redirects?: RedirectEntry[] };
-      for (const entry of data.redirects ?? []) {
-        if (entry?.from && entry?.to) map.set(entry.from, entry);
+    const response = await fetch(`${origin}/api/redirects/export`, {
+      cache: "no-store",
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error("Redirect lookup failed");
+    const data = (await response.json()) as { redirects?: RedirectEntry[] } | null;
+    if (!Array.isArray(data?.redirects)) throw new Error("Invalid redirect map");
+
+    const map = new Map<string, RedirectEntry>();
+    for (const entry of data.redirects) {
+      if (typeof entry?.from === "string" && entry.from && typeof entry.to === "string" && entry.to) {
+        map.set(entry.from, entry);
       }
     }
-  } catch {
-    // On failure keep an empty map; retry after TTL.
-  }
-  cache = { at: Date.now(), map };
-  return map;
+    return map;
+  };
+
+  // Bound the response body as well as the connection. Only the winning
+  // lookup may update the cache, even if a timed-out fetch finishes later.
+  pendingRefresh = Promise.race([lookup(), deadline])
+    .then((map) => {
+      cache = map;
+      refreshAfter = Date.now() + CACHE_TTL_MS;
+      return map;
+    })
+    .catch(() => {
+      // Keep known redirects during an outage. A cold failure also initializes
+      // the fallback so future retries can happen without blocking navigation.
+      cache ??= new Map<string, RedirectEntry>();
+      refreshAfter = Date.now() + REDIRECT_RETRY_MS;
+      return cache;
+    })
+    .finally(() => {
+      clearTimeout(timeout);
+      pendingRefresh = null;
+    });
+  return pendingRefresh;
 }
 
-export async function middleware(request: NextRequest) {
+async function loadRedirects(request: NextRequest, event: NextFetchEvent): Promise<Map<string, RedirectEntry>> {
+  if (cache && Date.now() < refreshAfter) return cache;
+
+  const refresh = refreshRedirects(request);
+  if (cache) {
+    // A page request must not wait for an expired map. Keep the refresh alive
+    // after returning the response, including on edge/serverless runtimes.
+    event.waitUntil(refresh);
+    return cache;
+  }
+  return refresh;
+}
+
+export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const pathname = preferredPublicPath(request.nextUrl.pathname);
 
   if (pathname !== request.nextUrl.pathname) {
@@ -96,7 +145,7 @@ export async function middleware(request: NextRequest) {
     return nextWithLocaleHeaders(request, 404);
   }
 
-  const redirects = await loadRedirects(request);
+  const redirects = await loadRedirects(request, event);
   const entry = redirects.get(pathname);
   if (entry) {
     try {

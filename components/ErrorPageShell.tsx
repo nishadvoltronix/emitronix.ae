@@ -1,5 +1,8 @@
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import type { ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
 
 type ErrorPageShellProps = {
   code: "404" | "500";
@@ -7,6 +10,7 @@ type ErrorPageShellProps = {
   title: string;
   description: string;
   actions: ReactNode;
+  locale?: "en" | "ar";
 };
 
 export function ErrorPageShell({
@@ -15,21 +19,23 @@ export function ErrorPageShell({
   title,
   description,
   actions,
+  locale = "en",
 }: ErrorPageShellProps) {
+  const photos = getSectionPhotographs("/404", 5);
   return (
-    <section
-      className="relative isolate overflow-hidden bg-brand-dark text-white"
+    <InternalPageFrame>
+      <section
+      className="internal-page-intro relative isolate overflow-hidden bg-brand-dark text-white"
       data-error-page={code}
       aria-labelledby={`error-${code}-title`}
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(70,145,255,0.34),transparent_34%),linear-gradient(135deg,#0b1f3a_0%,#123a73_52%,#194991_100%)]" />
-      <div className="absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:48px_48px]" />
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-32 h-px w-2/3 bg-gradient-to-r from-transparent via-white/35 to-transparent" />
         <div className="absolute bottom-24 right-0 h-px w-1/2 bg-gradient-to-r from-transparent via-brand-sky/25 to-transparent" />
       </div>
 
-      <div className="container-pad relative z-10 grid min-h-[78vh] content-center py-28">
+      <div className="container-pad relative z-10 grid min-h-[78vh] content-center gap-10 py-28 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
         <div className="max-w-4xl">
           <BrandLogo
             variant="reversed"
@@ -37,12 +43,12 @@ export function ErrorPageShell({
             imageClassName="h-12 w-auto object-contain sm:h-14"
             sizes="(min-width: 640px) 240px, 206px"
           />
-          <p className="text-xs font-black uppercase tracking-[0.32em] text-brand-sky">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-brand-sky">
             {code} · {eyebrow}
           </p>
           <h1
             id={`error-${code}-title`}
-            className="mt-5 text-balance text-5xl font-black leading-[0.98] tracking-tight text-white sm:text-7xl"
+            className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-7xl"
           >
             {title}
           </h1>
@@ -53,7 +59,12 @@ export function ErrorPageShell({
             {actions}
           </div>
         </div>
+        <SectionPhotograph photo={photos[0]} locale={locale} compact />
       </div>
-    </section>
+      </section>
+      <div className="container-pad grid gap-6 py-10 sm:grid-cols-2 lg:grid-cols-4">
+        {photos.slice(1).map(photo => <SectionPhotograph key={photo.sourceId} photo={photo} locale={locale} compact />)}
+      </div>
+    </InternalPageFrame>
   );
 }

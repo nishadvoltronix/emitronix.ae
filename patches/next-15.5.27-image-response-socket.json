@@ -1,0 +1,33 @@
+{
+  "version": "15.5.27",
+  "upstream": "https://github.com/vercel/next.js/pull/98168",
+  "commit": "dcbfff7789b84f39388228e6dab11456c446e269",
+  "targets": [
+    {
+      "path": "dist/server/image-optimizer.js",
+      "originalSha256": "bf2e6f1961dd49c8928a9671319f1f623478a868cc460b979ba414f19e82f48b",
+      "replacements": [
+        {
+          "before": "        const mocked = (0, _mockrequest.createRequestResponseMocks)({\n            url: href,\n            method: _req.method || 'GET',\n            socket: _req.socket,\n            maximumResponseBody\n        });",
+          "after": "        const mocked = {\n            req: new _mockrequest.MockedRequest({\n                url: href,\n                method: _req.method || 'GET',\n                headers: {},\n                socket: _req.socket\n            }),\n            res: new _mockrequest.MockedResponse({\n                maximumResponseBody\n            })\n        };"
+        }
+      ],
+      "patchedSha256": "b58776ad73af45057f8633db2365033c9f9818fb448a78b9cacb50f1b683cd7e"
+    },
+    {
+      "path": "dist/esm/server/image-optimizer.js",
+      "originalSha256": "88f4b0d61c9c8b1a95522538f30a25bf387bf54a97f4dd4c336d469c318f57dc",
+      "replacements": [
+        {
+          "before": "import { createRequestResponseMocks } from './lib/mock-request';",
+          "after": "import { MockedRequest, MockedResponse } from './lib/mock-request';"
+        },
+        {
+          "before": "        const mocked = createRequestResponseMocks({\n            url: href,\n            method: _req.method || 'GET',\n            socket: _req.socket,\n            maximumResponseBody\n        });",
+          "after": "        const mocked = {\n            req: new MockedRequest({\n                url: href,\n                method: _req.method || 'GET',\n                headers: {},\n                socket: _req.socket\n            }),\n            res: new MockedResponse({\n                maximumResponseBody\n            })\n        };"
+        }
+      ],
+      "patchedSha256": "6ca1564437292c57e7510a69b92bd273805b153b99efbb270b0344ad26f15583"
+    }
+  ]
+}

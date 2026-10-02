@@ -1,4 +1,5 @@
 import { ServiceDetailPage } from "@/components/ServiceDetailPage";
+import { WarehouseServiceOverview, WarehouseServiceSections, warehouseServiceKeywords } from "@/components/WarehouseServiceContent";
 import { createMetadataResolver } from "@/data/seo";
 import { getServiceDeepContent } from "@/data/serviceDeepContent";
 import { services } from "@/data/site";
@@ -10,11 +11,18 @@ export const generateMetadata = createMetadataResolver({
   title: deepContent.seoTitle,
   description: deepContent.metaDescription,
   path: service.href,
-  keywords: deepContent.semanticKeywords,
+  keywords: Array.from(new Set([...warehouseServiceKeywords, ...deepContent.semanticKeywords])),
   image: service.image,
   imageAlt: service.imageAlt,
 });
 
 export default function WarehouseConstructionPage() {
-  return <ServiceDetailPage service={service} />;
+  return (
+    <ServiceDetailPage
+      service={service}
+      overviewContent={<WarehouseServiceOverview />}
+      afterOverview={<WarehouseServiceSections />}
+      showVideo={false}
+    />
+  );
 }

@@ -1,4 +1,7 @@
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import { BlogKnowledgeHub } from "@/components/BlogKnowledgeHub";
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
 import {
   blogCategories,
   blogPostUrl,
@@ -61,13 +64,19 @@ const breadcrumbJsonLd = {
 
 export default function BlogPage() {
   const postSummaries = blogPosts.map(toBlogPostSummary);
+  const sectionPhotographs = getSectionPhotographs("/blog", 2);
 
   return (
-    <>
-      <BlogKnowledgeHub posts={postSummaries} categories={blogCategories} />
+    <InternalPageFrame>
+      <BlogKnowledgeHub
+        posts={postSummaries}
+        categories={blogCategories}
+        categoryPhotograph={<SectionPhotograph photo={sectionPhotographs[0]} compact />}
+        enquiryPhotograph={<SectionPhotograph photo={sectionPhotographs[1]} compact />}
+      />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

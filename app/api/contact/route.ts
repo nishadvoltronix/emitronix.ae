@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createZohoLead, leadFingerprint, ZohoApiError, ZohoConfigError, type WebsiteLead } from "@/lib/zoho";
+import { isValidPhone } from "@/lib/phoneValidation";
+import { readBoundedRequestBody } from "@/lib/requestBody";
+import { clientIp, createLocalRateLimiter } from "@/lib/requestSecurity";
 
 export const runtime = "nodejs";
 
@@ -8,8 +11,9 @@ const RATE_LIMIT_MAX = 5;
 const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
 const MAX_BODY_BYTES = 16_000;
 
-const rateLimits = new Map<string, { count: number; resetAt: number }>();
+const isRateLimited = createLocalRateLimiter({ limit: RATE_LIMIT_MAX, windowMs: RATE_LIMIT_WINDOW_MS });
 const recentSubmissions = new Map<string, number>();
+const pendingSubmissions = new Map<string, ReturnType<typeof createZohoLead>>();
 
 type ContactPayload = {
   name?: unknown;
@@ -30,25 +34,6 @@ function text(value: unknown, maxLength: number) {
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function clientIp(request: NextRequest) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
-}
-
-function isRateLimited(key: string) {
-  const now = Date.now();
-  const current = rateLimits.get(key);
-
-  if (!current || current.resetAt <= now) {
-    rateLimits.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-
-  current.count += 1;
-  rateLimits.set(key, current);
-
-  return current.count > RATE_LIMIT_MAX;
 }
 
 function cleanupRecentSubmissions() {
@@ -89,16 +74,15 @@ export async function POST(request: NextRequest) {
   let payload: ContactPayload;
 
   try {
-    const body = await request.text();
-
-    if (Buffer.byteLength(body, "utf8") > MAX_BODY_BYTES) {
+    const { body, tooLarge } = await readBoundedRequestBody(request, MAX_BODY_BYTES);
+    if (tooLarge) {
       return NextResponse.json(
         { ok: false, message: "The enquiry is too large. Please shorten the message and try again." },
         { status: 413 },
       );
     }
 
-    const parsed = JSON.parse(body) as unknown;
+    const parsed = JSON.parse(body.toString("utf8")) as unknown;
 
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
       return badRequest("Invalid enquiry format.");
@@ -137,6 +121,9 @@ export async function POST(request: NextRequest) {
   if (!lead.phone) {
     return badRequest("Please enter a mobile number.");
   }
+  if (!isValidPhone(lead.phone)) {
+    return badRequest("Please enter a valid mobile number.");
+  }
 
   if (!lead.service) {
     return badRequest("Please select the service required.");
@@ -162,8 +149,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  const submission = pendingSubmissions.get(fingerprint) ?? createZohoLead(lead);
+  pendingSubmissions.set(fingerprint, submission);
+
   try {
-    const result = await createZohoLead(lead);
+    const result = await submission;
     recentSubmissions.set(fingerprint, Date.now() + DUPLICATE_WINDOW_MS);
 
     console.info("Website enquiry synced to Zoho CRM", {
@@ -208,5 +198,7 @@ export async function POST(request: NextRequest) {
       { ok: false, message: "We could not submit the enquiry right now. Please try again or contact Emitronix directly." },
       { status: 500 },
     );
+  } finally {
+    if (pendingSubmissions.get(fingerprint) === submission) pendingSubmissions.delete(fingerprint);
   }
 }

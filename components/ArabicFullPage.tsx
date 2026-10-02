@@ -1,7 +1,9 @@
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import { ReactNode } from "react";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import type { ArabicPageData } from "@/data/arabic";
+import { findInternalServiceImage } from "@/data/pagePhotography";
 import { absoluteUrl, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
 
@@ -33,6 +35,8 @@ function breadcrumbItems(page: ArabicPageData) {
 }
 
 export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
+  const internalPhoto = page.path === "/" ? undefined : findInternalServiceImage(`/ar${page.path}`);
+  const primaryImage = internalPhoto?.src ?? page.image;
   const arabicUrl = absoluteUrl(toArabicPath(page.path));
   const englishUrl = absoluteUrl(page.path);
   const blogPost = page.kind === "blog-post" ? blogPosts.find((post) => `/blog/${post.slug}` === page.path) : null;
@@ -70,8 +74,9 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
         },
         primaryImageOfPage: {
           "@type": "ImageObject",
-          url: absoluteUrl(page.image),
-          caption: page.imageAlt,
+          url: absoluteUrl(primaryImage),
+          caption: internalPhoto?.altAr ?? page.imageAlt,
+          ...(internalPhoto ? { width: internalPhoto.width, height: internalPhoto.height } : {}),
         },
         translationOfWork: {
           "@type": "WebPage",
@@ -124,7 +129,7 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
               name: serviceLike.name,
               description: serviceLike.description,
               url: arabicUrl,
-              image: absoluteUrl(page.image),
+              image: absoluteUrl(primaryImage),
               areaServed: site.serviceArea.map((name) => ({ "@type": "Place", name })),
               provider: {
                 "@id": absoluteUrl("/#organization"),
@@ -147,9 +152,15 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
 
   return (
     <>
-      <div lang="ar-AE" dir="rtl" className="arabic-page bg-white text-charcoal">
-        {children}
-      </div>
+      {page.path === "/" ? (
+        <div lang="ar-AE" dir="rtl" className="arabic-page bg-white text-charcoal">
+          {children}
+        </div>
+      ) : (
+        <InternalPageFrame lang="ar-AE" dir="rtl" className="arabic-page bg-white text-charcoal">
+          {children}
+        </InternalPageFrame>
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}

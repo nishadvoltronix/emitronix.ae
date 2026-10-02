@@ -1,9 +1,12 @@
+import { SectionPhotograph } from "@/components/SectionPhotograph";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame, InternalPageHero as PageHero } from "@/components/InternalPageFrame";
 import { ArrowRight, FileCheck2 } from "lucide-react";
 import Link from "next/link";
 import { approvalServices } from "@/data/approvals";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
-import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, authorities, stats } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
@@ -71,8 +74,9 @@ const breadcrumbJsonLd = {
 };
 
 export default function ApprovalPage() {
+  const sectionPhotographs = getSectionPhotographs("/approval", 4);
   return (
-    <>
+    <InternalPageFrame>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Authority Approvals" }]}
         eyebrow="Authority approval services"
@@ -86,8 +90,8 @@ export default function ApprovalPage() {
 
       <section className="bg-white pt-10">
         <div className="container-pad">
-          <div className="rounded-[1.5rem] border border-amber-300 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
-            <p className="font-black">Authority and appointment notice</p>
+          <div className="rounded-lg border border-amber-300 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+            <p className="font-semibold">Authority and appointment notice</p>
             <p className="mt-2">
               Emitronix is not a government authority and does not guarantee permits, NOCs, inspections, timelines or outcomes. The authority, current submission route, required consultant or contractor enrollment, and Emitronix&apos;s exact role must be confirmed for each project before appointment.
             </p>
@@ -97,20 +101,22 @@ export default function ApprovalPage() {
 
       <section className="section-pad bg-white">
         <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Approval menu"
-            title="Choose the authority workflow you need."
-            description="Each page includes the process, documents commonly requested, related approvals and a Dubai-focused enquiry path."
-            align="center"
-          />
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <PremiumSectionHeading
+              eyebrow="Approval menu"
+              title="Choose the authority workflow you need."
+              description="Each page includes the process, documents commonly requested, related approvals and a Dubai-focused enquiry path."
+            />
+            <SectionPhotograph photo={sectionPhotographs[0]} compact />
+          </div>
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {approvalServices.map((service) => (
-              <Link key={service.slug} href={service.href} className="luxury-card rounded-[1.5rem] p-6">
+              <Link key={service.slug} href={service.href} className="luxury-card rounded-lg p-6">
                 <FileCheck2 className="h-8 w-8 text-brand" />
-                <p className="mt-5 text-xs font-black uppercase tracking-[0.22em] text-brand">Approval Service</p>
-                <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{service.menuLabel}</h2>
+                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-brand">Approval Service</p>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{service.menuLabel}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">{service.metaDescription}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
                   Learn more <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
@@ -121,19 +127,22 @@ export default function ApprovalPage() {
 
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
-          <PremiumSectionHeading
-            eyebrow="Authority ecosystem"
-            title="Planning approval requirements before they affect site execution."
-            description="Dubai authority work is shaped by location, project type, consultant scope, tenant requirements and inspection milestones."
-            light
-          />
+          <div className="space-y-6">
+            <PremiumSectionHeading
+              eyebrow="Authority ecosystem"
+              title="Planning approval requirements before they affect site execution."
+              description="Dubai authority work is shaped by location, project type, consultant scope, tenant requirements and inspection milestones."
+              light
+            />
+            <SectionPhotograph photo={sectionPhotographs[1]} compact />
+          </div>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {authorities.map((authority) => {
               const Icon = authority.icon;
               return (
-                <article key={authority.name} className="rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-6 backdrop-blur-xl">
+                <article key={authority.name} className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-6 backdrop-blur-xl">
                   <Icon className="h-8 w-8 text-brand" />
-                  <h2 className="mt-5 text-xl font-black tracking-tight">{authority.name}</h2>
+                  <h2 className="mt-5 text-xl font-semibold tracking-tight">{authority.name}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{authority.description}</p>
                 </article>
               );
@@ -148,6 +157,9 @@ export default function ApprovalPage() {
         description="The best approval support starts by clarifying jurisdiction, documents and authority exposure before project teams commit to site timelines."
         steps={approvalProcess}
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[2]} compact />
+      </div>
 
       <TrustBar
         eyebrow="Approval trust"
@@ -160,16 +172,19 @@ export default function ApprovalPage() {
         ]}
       />
 
-      <FAQSection
+      <FAQSection accordion
         title="Dubai authority approvals FAQ."
         description="Common questions from owners, tenants and consultants preparing approval-connected construction work in Dubai."
         faqs={approvalFaqs}
         schema
       />
+      <div className="container-pad pb-10">
+        <SectionPhotograph photo={sectionPhotographs[3]} compact />
+      </div>
 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(approvalHubItemListJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

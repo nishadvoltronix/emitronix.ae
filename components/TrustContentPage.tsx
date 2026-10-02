@@ -1,3 +1,5 @@
+import { SectionPhotoPlacement } from "@/components/SectionPhotoPlacement";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
 import {
   ArrowRight,
   BadgeCheck,
@@ -11,6 +13,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { InternalPageFrame } from "@/components/InternalPageFrame";
+import styles from "./InternalPage.module.css";
 import {
   createTrustPageJsonLd,
   trustContentLastReviewedLabel,
@@ -66,24 +70,22 @@ export function TrustPageHero({
   children?: ReactNode;
 }) {
   return (
-    <header className="relative isolate overflow-hidden border-b border-brand/[0.10] bg-white pt-28">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_84%_18%,rgba(74,144,226,0.16),transparent_28%),linear-gradient(135deg,#ffffff_0%,#f4f8ff_58%,#edf4ff_100%)]" />
-      <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(rgba(18,58,115,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(18,58,115,0.06)_1px,transparent_1px)] [background-size:48px_48px]" />
-      <div className="container-pad relative py-16 sm:py-20 lg:py-24">
+    <header className={styles.editorialHero}>
+      <div className="container-pad">
         <TrustBreadcrumbs items={breadcrumbs} />
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_0.38fr] lg:items-end">
+        <div className={styles.editorialLayout}>
           <div className="max-w-5xl">
             <p className="premium-kicker">{eyebrow}</p>
-            <h1 className="mt-5 text-balance text-5xl font-black leading-[0.98] tracking-tight text-charcoal sm:text-6xl lg:text-7xl">
+            <h1 className={styles.editorialTitle}>
               {title}
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-steel sm:text-xl sm:leading-9">{summary}</p>
+            <p className={styles.editorialDescription}>{summary}</p>
           </div>
-          <div className="rounded-[1.5rem] border border-brand/[0.14] bg-white/85 p-5 shadow-panel backdrop-blur-xl">
+          <div className={styles.contentRecord}>
             <div className="flex items-start gap-3">
-              <CalendarClock className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+              <CalendarClock className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">Content record</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Content record</p>
                 <p className="mt-2 text-sm font-bold text-charcoal">Editorial owner: {site.legalName}</p>
                 <p className="mt-2 text-sm font-bold text-charcoal">Last reviewed {lastReviewedLabel}</p>
                 <p className="mt-1 text-sm leading-6 text-steel">English-language public information</p>
@@ -110,9 +112,9 @@ export function PrincipleGrid({
         </h2>
         <div className="grid gap-5 md:grid-cols-3">
           {principles.map((principle) => (
-            <article key={principle.title} className="luxury-card rounded-[1.5rem] p-6">
+            <article key={principle.title} className="luxury-card rounded-lg p-6">
               <BadgeCheck className="h-7 w-7 text-brand" aria-hidden="true" />
-              <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">{principle.title}</h3>
+              <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{principle.title}</h3>
               <p className="mt-3 text-sm leading-7 text-steel">{principle.description}</p>
             </article>
           ))}
@@ -135,19 +137,19 @@ export function RelatedTrustLinks({
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="premium-kicker">Continue reading</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">{title}</h2>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">{title}</h2>
           </div>
-          <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+          <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
             Contact Emitronix <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="luxury-card group rounded-[1.5rem] p-6">
+            <Link key={link.href} href={link.href} className="luxury-card group rounded-lg p-6">
               <BookOpenCheck className="h-7 w-7 text-brand" aria-hidden="true" />
-              <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">{link.label}</h3>
+              <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{link.label}</h3>
               <p className="mt-3 text-sm leading-7 text-steel">{link.description}</p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-brand">
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand">
                 Read more
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </span>
@@ -169,10 +171,10 @@ export function VerificationPanel({
   return (
     <section aria-labelledby="verification-heading" className="bg-white py-16">
       <div className="container-pad">
-        <div className="rounded-[2rem] border border-brand/[0.12] bg-brand-soft p-6 shadow-panel sm:p-8">
+        <div className="rounded-lg border border-brand/[0.12] bg-brand-soft p-6 shadow-none sm:p-8">
           <div className="max-w-3xl">
             <p className="premium-kicker">Publication boundary</p>
-            <h2 id="verification-heading" className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
+            <h2 id="verification-heading" className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
               {title}
             </h2>
             <p className="mt-4 text-base leading-8 text-steel">
@@ -181,8 +183,8 @@ export function VerificationPanel({
           </div>
           <dl className="mt-8 grid gap-4 lg:grid-cols-2">
             {items.map((item) => (
-              <div key={item.label} className="rounded-2xl border border-brand/[0.12] bg-white p-5">
-                <dt className="flex items-start gap-3 text-sm font-black text-charcoal">
+              <div key={item.label} className="rounded-lg border border-brand/[0.12] bg-white p-5">
+                <dt className="flex items-start gap-3 text-sm font-semibold text-charcoal">
                   {item.verified ? (
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
                   ) : (
@@ -204,24 +206,24 @@ export function ContactStrip() {
   return (
     <section className="border-y border-brand/[0.10] bg-white py-10">
       <div className="container-pad grid gap-4 sm:grid-cols-3">
-        <a href={site.phoneHref} className="flex items-start gap-3 rounded-2xl p-3 transition hover:bg-brand-soft">
+        <a href={site.phoneHref} className="flex items-start gap-3 rounded-lg p-3 transition hover:bg-brand-soft">
           <Phone className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
           <span>
-            <span className="block text-xs font-black uppercase tracking-wide text-steel">Phone</span>
+            <span className="block text-xs font-semibold uppercase tracking-wide text-steel">Phone</span>
             <span className="mt-1 block font-bold text-charcoal">{site.phone}</span>
           </span>
         </a>
-        <a href={`mailto:${site.email}`} className="flex items-start gap-3 rounded-2xl p-3 transition hover:bg-brand-soft">
+        <a href={`mailto:${site.email}`} className="flex items-start gap-3 rounded-lg p-3 transition hover:bg-brand-soft">
           <Mail className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
           <span>
-            <span className="block text-xs font-black uppercase tracking-wide text-steel">Email</span>
+            <span className="block text-xs font-semibold uppercase tracking-wide text-steel">Email</span>
             <span className="mt-1 block font-bold text-charcoal">{site.email}</span>
           </span>
         </a>
-        <Link href="/locations/dubai" className="flex items-start gap-3 rounded-2xl p-3 transition hover:bg-brand-soft">
+        <Link href="/locations/dubai" className="flex items-start gap-3 rounded-lg p-3 transition hover:bg-brand-soft">
           <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
           <span>
-            <span className="block text-xs font-black uppercase tracking-wide text-steel">Published location</span>
+            <span className="block text-xs font-semibold uppercase tracking-wide text-steel">Published location</span>
             <span className="mt-1 block font-bold text-charcoal">{site.location}</span>
           </span>
         </Link>
@@ -231,6 +233,7 @@ export function ContactStrip() {
 }
 
 export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
+  const sectionPhotos = getSectionPhotographs(content.path, 5);
   const jsonLd = createTrustPageJsonLd({
     path: content.path,
     name: content.title,
@@ -242,7 +245,7 @@ export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
   });
 
   return (
-    <>
+    <InternalPageFrame>
       <div>
         <article>
           <TrustPageHero
@@ -260,11 +263,12 @@ export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
             <div className="container-pad grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
               <div className="space-y-6">
                 {content.sections.map((section, index) => (
-                  <section key={section.title} aria-labelledby={`policy-section-${index}`} className="rounded-[1.75rem] border border-brand/[0.10] bg-white p-6 shadow-panel sm:p-8">
-                    <h2 id={`policy-section-${index}`} className="text-2xl font-black tracking-tight text-charcoal sm:text-3xl">
+                  <section key={section.title} aria-labelledby={`policy-section-${index}`} className="rounded-lg border border-brand/[0.10] bg-white p-6 shadow-none sm:p-8">
+                    <h2 id={`policy-section-${index}`} className="text-2xl font-semibold tracking-tight text-charcoal sm:text-3xl">
                       {section.title}
                     </h2>
                     {section.intro ? <p className="mt-4 text-base leading-8 text-steel">{section.intro}</p> : null}
+                    <SectionPhotoPlacement photos={sectionPhotos} index={index} sections={content.sections.length} />
                     {section.paragraphs?.map((paragraph) => (
                       <p key={paragraph} className="mt-4 text-base leading-8 text-steel">
                         {paragraph}
@@ -284,8 +288,8 @@ export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
                 ))}
               </div>
 
-              <aside className="rounded-[1.5rem] border border-brand/[0.12] bg-white p-5 shadow-panel lg:sticky lg:top-28">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">Policy contact</p>
+              <aside className="rounded-lg border border-brand/[0.12] bg-white p-5 shadow-none lg:sticky lg:top-28">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Policy contact</p>
                 <p className="mt-3 text-sm leading-7 text-steel">
                   Questions, accessibility feedback and correction reports can be sent using the verified contact details.
                 </p>
@@ -297,7 +301,7 @@ export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
                   <Phone className="h-5 w-5 text-brand" aria-hidden="true" />
                   {site.phone}
                 </a>
-                <Link href="/faqs" className="mt-6 inline-flex items-center gap-2 text-sm font-black text-brand">
+                <Link href="/faqs" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand">
                   Read common questions <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </aside>
@@ -309,6 +313,6 @@ export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
         <RelatedTrustLinks links={content.relatedLinks} />
       </div>
       <JsonLd data={jsonLd} />
-    </>
+    </InternalPageFrame>
   );
 }

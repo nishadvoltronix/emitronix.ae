@@ -3,15 +3,28 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "node scripts/apply-next-image-response-patch.cjs && node scripts/apply-next-hydration-replay-patch.cjs",
+    "predev": "npm run validate:framework-patch",
     "dev": "next dev",
+    "prebuild": "npm run validate:framework-patch",
     "build": "next build",
+    "prestart": "npm run validate:framework-patch",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "test": "npm run test:consent && npm run test:warehouse-links && npm run test:contact",
-    "test:consent": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/cookie-consent-runtime.test.mjs",
+    "test": "npm run test:consent && npm run test:warehouse-links && npm run test:contact && npm run test:lead-safety && npm run test:framework-patch && npm run test:admin-auth && npm run test:careers && npm run test:request-security && npm run test:navigation && npm run test:photography",
+    "test:photography": "node --test tests/page-photography.test.cjs",
+    "test:navigation": "node --test tests/middleware-navigation.test.cjs",
+    "test:request-security": "node --test tests/request-security.test.cjs",
+    "test:careers": "node --test tests/careers-store.test.cjs",
+    "test:admin-auth": "node --test tests/admin-auth-store.test.cjs",
+    "test:framework-patch": "node --test tests/next-image-response-patch.test.cjs tests/next-hydration-replay-patch.test.cjs",
+    "patch:framework": "node scripts/apply-next-image-response-patch.cjs && node scripts/apply-next-hydration-replay-patch.cjs",
+    "validate:framework-patch": "node scripts/apply-next-image-response-patch.cjs --check && node scripts/apply-next-hydration-replay-patch.cjs --check",
+    "test:consent": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/cookie-consent-runtime.test.mjs tests/cookie-consent-store.test.cjs",
     "test:warehouse-links": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/warehouse-blog-resource-links.test.mjs",
     "test:contact": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/contact-form-intent.test.mjs",
+    "test:lead-safety": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/lead-validation.test.mjs",
     "generate:brand-assets": "node scripts/generate-brand-assets.mjs",
     "validate:brand": "node scripts/validate-brand-assets.mjs",
     "validate:seo": "node scripts/validate-site.mjs",
@@ -19,6 +32,8 @@
     "validate:arabic-seo": "node scripts/validate-arabic-seo.mjs",
     "validate:routes": "node scripts/validate-error-routes.mjs",
     "audit:content": "node scripts/audit-content-quality.mjs",
+    "audit:indexability": "node scripts/audit-indexability.mjs",
+    "review:nonindexed": "node scripts/review-nonindexed-pages.mjs",
     "report:gsc-inventory": "node scripts/create-gsc-url-inventory.mjs",
     "generate:images": "node scripts/build-generated-image-variants.mjs",
     "validate:images": "node scripts/validate-image-assets.mjs",
@@ -26,7 +41,7 @@
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
-    "next": "^15.5.21",
+    "next": "15.5.27",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -36,15 +51,22 @@
     "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
-    "eslint-config-next": "^15.5.21",
-    "postcss": "^8.4.49",
+    "eslint-config-next": "15.5.27",
+    "postcss": "8.5.23",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
   },
   "overrides": {
     "next": {
-      "postcss": "8.5.22",
-      "sharp": "0.35.3"
-    }
+      "postcss": "$postcss",
+      "sharp": "0.35.4"
+    },
+    "nanoid": "3.3.18",
+    "baseline-browser-mapping": "2.11.0",
+    "browserslist": "4.28.7",
+    "brace-expansion@^1.0.0": "1.1.21",
+    "brace-expansion@^5.0.0": "5.0.12",
+    "js-yaml": "4.3.2",
+    "postcss-selector-parser": "6.1.3"
   }
 }

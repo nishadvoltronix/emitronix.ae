@@ -1218,7 +1218,7 @@ export function CookieConsentManager() {
               </div>
               <p id={categoryHeadingId} className="premium-kicker mt-5">{content.categoryHeading[language]}</p>
               <h2 id={preferencesTitleId} className="mt-3 text-3xl font-black tracking-tight text-charcoal">{content.title[language]}</h2>
-              <p id={preferencesDescriptionId} className="mt-4 text-sm leading-7 text-steel">{content.description[language]}</p>
+              <p id={preferencesDescriptionId} className="mt-4 text-sm leading-7 text-[#5f6f86]">{content.description[language]}</p>
               <div className="mt-5 flex flex-wrap gap-2 text-sm font-black" role="group" aria-label={content.languageLabel[language]}>
                 <button
                   type="button"

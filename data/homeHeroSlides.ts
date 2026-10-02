@@ -1,15 +1,15 @@
 export const homeHeroSlides = [
   {
-    src: "/images/home/emitronix-warehouse-team-hero.webp",
-    alt: "AI-generated warehouse concept with workers wearing white-and-blue Emitronix uniforms at aluminium fabrication workstations",
-    label: "Warehouse and fabrication concept",
-    position: "76% center",
+    src: "/images/home/jumeirah-village-circle-construction.webp",
+    alt: "Tower cranes, reinforced concrete floors and exposed steel reinforcement at a construction site in Jumeirah Village Circle, Dubai",
+    label: "Building construction in Jumeirah Village Circle",
+    position: "55% center",
   },
   {
-    src: "/images/home/dubai-modern-villa-community.webp",
-    alt: "Completed contemporary white villa with a balcony and landscaped gardens in Dubai",
-    label: "Modern Dubai villas",
-    position: "40% center",
+    src: "/images/internal/warehouse-steel-frame.webp",
+    alt: "Cranes and lifting equipment erecting the steel frame and roof structure of a warehouse",
+    label: "Warehouse steel-frame construction",
+    position: "62% 42%",
   },
   {
     src: "/images/home/dubai-hills-construction.webp",

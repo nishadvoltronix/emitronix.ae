@@ -1,5 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { withConsentFileLock } from "@/lib/consentFileLock";
 import {
   cookieCategoryIds,
   defaultCookieConsentConfig,
@@ -77,9 +78,9 @@ function normalizeStats(stats: Partial<CookieConsentStats> | undefined): CookieC
   };
 }
 
-async function readStore(): Promise<CookieConsentStoreData> {
+async function readStore(filePath = storePath(), strict = false): Promise<CookieConsentStoreData> {
   try {
-    const file = await fs.readFile(storePath(), "utf8");
+    const file = await fs.readFile(filePath, "utf8");
     const data = JSON.parse(file) as Partial<CookieConsentStoreData>;
     return {
       config: normalizeCookieConsentConfig(data.config),
@@ -88,8 +89,11 @@ async function readStore(): Promise<CookieConsentStoreData> {
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
       console.error("Cookie consent store read failed", {
-        code: error instanceof Error ? error.message : "UNKNOWN_ERROR",
+        code: "CONSENT_STORE_READ_FAILED",
+        reason: cookieConsentErrorReason(error),
       });
+      // A failed mutation read must not replace existing counters with defaults.
+      if (strict) throw error;
     }
     return {
       config: clone(defaultCookieConsentConfig),
@@ -98,15 +102,51 @@ async function readStore(): Promise<CookieConsentStoreData> {
   }
 }
 
-async function writeStore(data: CookieConsentStoreData) {
-  const filePath = storePath();
+async function withCleanup<T>(operation: () => Promise<T>, cleanup: () => Promise<unknown>): Promise<T> {
+  let result: T;
+  try {
+    result = await operation();
+  } catch (error) {
+    try {
+      await cleanup();
+    } catch (cleanupError) {
+      throw new AggregateError([error, cleanupError], "Cookie consent operation and cleanup failed");
+    }
+    throw error;
+  }
+  await cleanup();
+  return result;
+}
+
+export function cookieConsentErrorReason(error: unknown): string {
+  if (error instanceof SyntaxError) return "INVALID_JSON";
+  if (error instanceof AggregateError) return "OPERATION_AND_CLEANUP_FAILED";
+  const code = error && typeof error === "object" && "code" in error ? error.code : undefined;
+  return typeof code === "string" && [
+    "EACCES", "EPERM", "ENOENT", "EEXIST", "EIO", "ENOSPC", "EROFS", "ENOTEMPTY", "EXDEV",
+    "CONSENT_LOCK_LEGACY", "CONSENT_LOCK_INVALID", "CONSENT_LOCK_FOREIGN_OWNER",
+    "CONSENT_LOCK_OWNER_UNVERIFIABLE", "CONSENT_LOCK_TIMEOUT", "CONSENT_LOCK_UNSUPPORTED_PLATFORM",
+  ].includes(code) ? code : "STORAGE_UNAVAILABLE";
+}
+
+async function mutateStore<T>(mutation: (data: CookieConsentStoreData, filePath: string, temporaryPath: string) => Promise<T>) {
+  const filePath = path.resolve(storePath());
   const directory = path.dirname(filePath);
   await fs.mkdir(directory, { recursive: true, mode: 0o700 });
   await fs.chmod(directory, 0o700);
-  const tmpPath = `${filePath}.${process.pid}.${Date.now()}.tmp`;
-  await fs.writeFile(tmpPath, JSON.stringify(data, null, 2), { encoding: "utf8", mode: 0o600 });
-  await fs.rename(tmpPath, filePath);
-  await fs.chmod(filePath, 0o600);
+  return withConsentFileLock(filePath, async temporaryPath => mutation(await readStore(filePath, true), filePath, temporaryPath));
+}
+
+async function writeStore(data: CookieConsentStoreData, filePath: string, tmpPath: string) {
+  const file = await fs.open(tmpPath, "wx", 0o600);
+  return withCleanup(async () => {
+    await withCleanup(
+      () => file.writeFile(JSON.stringify(data, null, 2), "utf8"),
+      () => file.close(),
+    );
+    await fs.rename(tmpPath, filePath);
+    await fs.chmod(filePath, 0o600);
+  }, () => fs.rm(tmpPath, { force: true }));
 }
 
 export async function getCookieConsentData() {
@@ -119,35 +159,37 @@ export async function getCookieConsentConfig() {
 }
 
 export async function updateCookieConsentConfig(config: CookieConsentConfig) {
-  const data = await readStore();
-  const nextConfig = normalizeCookieConsentConfig({
-    ...config,
-    version: Math.max(1, Number(data.config.version || 1) + 1),
-    updatedAt: new Date().toISOString(),
+  return mutateStore(async (data, filePath, temporaryPath) => {
+    const nextConfig = normalizeCookieConsentConfig({
+      ...config,
+      version: Math.max(1, Number(data.config.version || 1) + 1),
+      updatedAt: new Date().toISOString(),
+    });
+    const nextData = {
+      ...data,
+      config: nextConfig,
+    };
+    await writeStore(nextData, filePath, temporaryPath);
+    return nextData;
   });
-  const nextData = {
-    ...data,
-    config: nextConfig,
-  };
-  await writeStore(nextData);
-  return nextData;
 }
 
 export async function resetCookieConsents() {
-  const data = await readStore();
-  const nextData: CookieConsentStoreData = {
-    config: normalizeCookieConsentConfig({
-      ...data.config,
-      version: Math.max(1, Number(data.config.version || 1) + 1),
-      updatedAt: new Date().toISOString(),
-    }),
-    stats: {
-      ...clone(defaultStats),
-      resetAt: new Date().toISOString(),
-    },
-  };
-  await writeStore(nextData);
-  return nextData;
+  return mutateStore(async (data, filePath, temporaryPath) => {
+    const nextData: CookieConsentStoreData = {
+      config: normalizeCookieConsentConfig({
+        ...data.config,
+        version: Math.max(1, Number(data.config.version || 1) + 1),
+        updatedAt: new Date().toISOString(),
+      }),
+      stats: {
+        ...clone(defaultStats),
+        resetAt: new Date().toISOString(),
+      },
+    };
+    await writeStore(nextData, filePath, temporaryPath);
+    return nextData;
+  });
 }
 
 function sanitizeAction(action: unknown): ConsentAction {
@@ -165,25 +207,26 @@ function sanitizeCategoryMap(categories: ConsentEventInput["categories"]): Conse
 }
 
 export async function recordCookieConsentEvent(input: ConsentEventInput) {
-  const data = await readStore();
-  const action = sanitizeAction(input.action);
-  const categories = sanitizeCategoryMap(input.categories);
-  const nextStats = normalizeStats(data.stats);
+  return mutateStore(async (data, filePath, temporaryPath) => {
+    const action = sanitizeAction(input.action);
+    const categories = sanitizeCategoryMap(input.categories);
+    const nextStats = normalizeStats(data.stats);
 
-  nextStats.totalEvents += 1;
-  nextStats.actions[action] += 1;
-  nextStats.lastConsentAt = new Date().toISOString();
+    nextStats.totalEvents += 1;
+    nextStats.actions[action] += 1;
+    nextStats.lastConsentAt = new Date().toISOString();
 
-  for (const id of cookieCategoryIds) {
-    if (categories[id]) {
-      nextStats.categories[id] += 1;
+    for (const id of cookieCategoryIds) {
+      if (categories[id]) {
+        nextStats.categories[id] += 1;
+      }
     }
-  }
 
-  const nextData = {
-    ...data,
-    stats: nextStats,
-  };
-  await writeStore(nextData);
-  return nextStats;
+    const nextData = {
+      ...data,
+      stats: nextStats,
+    };
+    await writeStore(nextData, filePath, temporaryPath);
+    return nextStats;
+  });
 }

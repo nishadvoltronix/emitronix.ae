@@ -1,3 +1,6 @@
+import { SectionPhotoPlacement } from "@/components/SectionPhotoPlacement";
+import { getSectionPhotographs } from "@/data/sectionPhotography";
+import { InternalPageFrame } from "@/components/InternalPageFrame";
 import type { Metadata } from "next";
 import {
   ArrowRight,
@@ -97,11 +100,13 @@ const companyInformationJsonLd = {
   ],
 };
 
+const sectionPhotos = getSectionPhotographs("/company-information", 5);
+
 export default function CompanyInformationPage() {
   return (
-    <>
+    <InternalPageFrame>
       <div className="bg-white text-charcoal">
-        <section className="premium-grid relative overflow-hidden pb-16 pt-10 lg:pb-24 lg:pt-14">
+        <section className="internal-page-intro premium-grid relative overflow-hidden pb-16 pt-10 lg:pb-24 lg:pt-14">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute left-0 top-28 h-px w-2/3 bg-gradient-to-r from-transparent via-brand/[0.24] to-transparent" />
             <div className="absolute bottom-16 right-0 h-px w-1/2 bg-gradient-to-r from-transparent via-brand-sky/20 to-transparent" />
@@ -119,7 +124,7 @@ export default function CompanyInformationPage() {
             <div className="grid gap-10 lg:grid-cols-[1.06fr_0.74fr] lg:items-center">
               <div className="max-w-5xl">
                 <p className="premium-kicker">Company information</p>
-                <h1 className="mt-5 text-balance text-5xl font-black leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
+                <h1 className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
                   Published business facts in one clear place.
                 </h1>
                 <p className="mt-7 max-w-4xl text-lg leading-9 text-steel">
@@ -135,8 +140,8 @@ export default function CompanyInformationPage() {
                 </div>
               </div>
 
-              <aside className="luxury-surface rounded-[2.25rem] p-6 sm:p-8" aria-label="Emitronix identity">
-                <div className="rounded-[1.6rem] border border-brand/[0.12] bg-white p-5 shadow-sm">
+              <aside className="luxury-surface rounded-lg p-6 sm:p-8" aria-label="Emitronix identity">
+                <div className="rounded-lg border border-brand/[0.12] bg-white p-5 shadow-sm">
                   <BrandLogo
                     alt="Emitronix — Building the Future"
                     className="block w-full"
@@ -146,13 +151,14 @@ export default function CompanyInformationPage() {
                   />
                 </div>
                 <p className="mt-7 premium-kicker">Legal business name</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal">{site.legalName}</h2>
-                <div className="mt-6 flex items-start gap-3 rounded-2xl border border-brand/[0.12] bg-brand-soft p-4">
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{site.legalName}</h2>
+                <div className="mt-6 flex items-start gap-3 rounded-lg border border-brand/[0.12] bg-brand-soft p-4">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
                   <p className="text-sm font-bold leading-7 text-charcoal">{site.location}</p>
                 </div>
               </aside>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={0} sections={6} /></div>
           </div>
         </section>
 
@@ -174,14 +180,15 @@ export default function CompanyInformationPage() {
                 ) : fact.value;
 
                 return (
-                  <div key={fact.label} className="luxury-card rounded-[1.6rem] p-6">
+                  <div key={fact.label} className="luxury-card rounded-lg p-6">
                     <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                    <dt className="mt-5 text-xs font-black uppercase tracking-[0.22em] text-brand">{fact.label}</dt>
-                    <dd className="mt-3 text-xl font-black leading-8 text-charcoal">{value}</dd>
+                    <dt className="mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-brand">{fact.label}</dt>
+                    <dd className="mt-3 text-xl font-semibold leading-8 text-charcoal">{value}</dd>
                   </div>
                 );
               })}
             </dl>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={1} sections={6} /></div>
           </div>
         </section>
 
@@ -204,15 +211,16 @@ export default function CompanyInformationPage() {
                 return (
                   <div
                     key={fact.label}
-                    className={`rounded-[1.5rem] border border-brand/[0.12] bg-white p-6 shadow-panel ${index === companyFacts.contact.length - 1 ? "sm:col-span-2" : ""}`}
+                    className={`rounded-lg border border-brand/[0.12] bg-white p-6 shadow-none ${index === companyFacts.contact.length - 1 ? "sm:col-span-2" : ""}`}
                   >
                     <Icon className="h-7 w-7 text-brand" aria-hidden="true" />
-                    <dt className="mt-5 text-xs font-black uppercase tracking-[0.22em] text-brand">{fact.label}</dt>
-                    <dd className="mt-3 text-base font-black leading-7 text-charcoal">{value}</dd>
+                    <dt className="mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-brand">{fact.label}</dt>
+                    <dd className="mt-3 text-base font-semibold leading-7 text-charcoal">{value}</dd>
                   </div>
                 );
               })}
             </dl>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={2} sections={6} /></div>
           </div>
         </section>
 
@@ -226,9 +234,9 @@ export default function CompanyInformationPage() {
               />
               <div className="mt-8 grid gap-3 sm:grid-cols-2">
                 {companyFacts.serviceAreas.map((area) => (
-                  <div key={area} className="flex items-center gap-3 rounded-2xl border border-brand/[0.12] bg-white/[0.88] p-4 shadow-sm">
+                  <div key={area} className="flex items-center gap-3 rounded-lg border border-brand/[0.12] bg-white/[0.88] p-4 shadow-sm">
                     <MapPin className="h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
-                    <span className="text-sm font-black text-charcoal">{area}</span>
+                    <span className="text-sm font-semibold text-charcoal">{area}</span>
                   </div>
                 ))}
               </div>
@@ -249,33 +257,35 @@ export default function CompanyInformationPage() {
                 ))}
               </nav>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={3} sections={6} /></div>
           </div>
         </section>
 
         <section className="section-pad bg-white">
           <div className="container-pad">
-            <div className="grid gap-8 rounded-[2rem] border border-amber-200 bg-amber-50/70 p-6 shadow-panel lg:grid-cols-[0.72fr_1.28fr] lg:p-9">
+            <div className="grid gap-8 rounded-lg border border-amber-200 bg-amber-50/70 p-6 shadow-none lg:grid-cols-[0.72fr_1.28fr] lg:p-9">
               <div>
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-amber-700 shadow-sm">
+                <span className="grid h-12 w-12 place-items-center rounded-lg bg-white text-amber-700 shadow-sm">
                   <ShieldAlert className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <p className="mt-5 text-xs font-black uppercase tracking-[0.24em] text-amber-800">Company disclosure gate</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal">
+                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-amber-800">Company disclosure gate</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">
                   Unpublished company details are not inferred.
                 </h2>
-                <p className="mt-4 text-base font-black leading-8 text-amber-900">
+                <p className="mt-4 text-base font-semibold leading-8 text-amber-900">
                   {companyFacts.publicationGate.statement}
                 </p>
               </div>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {companyFacts.publicationGate.fields.map((field) => (
-                  <li key={field} className="flex gap-3 rounded-2xl border border-amber-200 bg-white p-4 text-sm font-bold leading-6 text-charcoal">
+                  <li key={field} className="flex gap-3 rounded-lg border border-amber-200 bg-white p-4 text-sm font-bold leading-6 text-charcoal">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" aria-hidden="true" />
                     {field}
                   </li>
                 ))}
               </ul>
             </div>
+          <div className="col-span-full"><SectionPhotoPlacement photos={sectionPhotos} index={4} sections={6} /></div>
           </div>
         </section>
 
@@ -283,7 +293,7 @@ export default function CompanyInformationPage() {
           <div className="container-pad grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="premium-kicker">Company pathways</p>
-              <h2 className="mt-4 text-balance text-4xl font-black tracking-tight text-charcoal sm:text-5xl">
+              <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
                 Continue to the founder, leadership functions or contact page.
               </h2>
             </div>
@@ -305,6 +315,6 @@ export default function CompanyInformationPage() {
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(companyInformationJsonLd) }} />
-    </>
+    </InternalPageFrame>
   );
 }

@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { site } from "@/data/site";
+import { clientIp, createLocalRateLimiter, isSameOriginRequest } from "@/lib/requestSecurity";
 import {
   COOKIE_ADMIN_SESSION_NAME,
   COOKIE_ADMIN_SESSION_TTL_SECONDS,
@@ -14,50 +16,7 @@ const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const MAX_BODY_BYTES = 2_048;
 
-const rateLimits = new Map<string, { count: number; resetAt: number }>();
-
-function clientIp(request: NextRequest) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
-}
-
-function isRateLimited(key: string) {
-  const now = Date.now();
-  const current = rateLimits.get(key);
-
-  if (!current || current.resetAt <= now) {
-    rateLimits.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-
-  current.count += 1;
-  return current.count > RATE_LIMIT_MAX;
-}
-
-function normalizedOrigin(value: string | null) {
-  if (!value) return null;
-
-  try {
-    return new URL(value).origin;
-  } catch {
-    return null;
-  }
-}
-
-function isSameOrigin(request: NextRequest) {
-  if (request.headers.get("sec-fetch-site") === "cross-site") return false;
-
-  const suppliedOrigin = normalizedOrigin(request.headers.get("origin"));
-  if (!suppliedOrigin) return false;
-
-  const directOrigin = new URL(request.url).origin;
-  const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
-  const host = forwardedHost || request.headers.get("host");
-  const forwardedProtocol = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
-  const protocol = forwardedProtocol || new URL(request.url).protocol.replace(":", "");
-  const forwardedOrigin = host ? normalizedOrigin(`${protocol}://${host}`) : null;
-
-  return suppliedOrigin === directOrigin || suppliedOrigin === forwardedOrigin;
-}
+const isRateLimited = createLocalRateLimiter({ limit: RATE_LIMIT_MAX, windowMs: RATE_LIMIT_WINDOW_MS });
 
 async function readBoundedBody(request: NextRequest) {
   const declaredLength = request.headers.get("content-length");
@@ -89,7 +48,7 @@ async function readBoundedBody(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  if (!isSameOrigin(request)) {
+  if (!isSameOriginRequest(request, site.url)) {
     return NextResponse.json({ ok: false, code: "CROSS_SITE_REQUEST" }, { status: 403 });
   }
 

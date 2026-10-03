@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { runInNewContext } from "node:vm";
+import ts from "typescript";
 import {
   applyConsentTransition,
   getSalesIqRuntimePrivacy,
@@ -9,6 +11,7 @@ import {
 } from "../lib/cookieConsentRuntime.ts";
 import {
   defaultCookieConsentConfig,
+  cookieCategoryIds,
   normalizeCookieConsentConfig,
 } from "../data/cookieConsentDefaults.ts";
 
@@ -253,7 +256,7 @@ test("essential SalesIQ requests are not blocked when optional functional consen
   );
 });
 
-test("standard GTM bootstrap and noscript exist once without a consent-loader duplicate", async () => {
+test("GTM consent bootstrap exists once without a no-JavaScript tracking bypass", async () => {
   const [layout, englishRoot, arabicRoot, consentManager] = await Promise.all([
     readFile(new URL("../components/SiteRootLayout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/(en)/layout.tsx", import.meta.url), "utf8"),
@@ -266,7 +269,7 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   assert.equal(layout.match(/id="emitronix-google-tag-manager"/g)?.length, 1);
   assert.equal(layout.match(/id="emitronix-google-consent-default"/g)?.length, 1);
   assert.equal(layout.match(/googletagmanager\.com\/gtm\.js/g)?.length, 1);
-  assert.equal(layout.match(/googletagmanager\.com\/ns\.html/g)?.length, 1);
+  assert.doesNotMatch(layout, /googletagmanager\.com\/ns\.html/);
   assert.equal(consentManager.match(/googletagmanager\.com\/gtm\.js/g)?.length || 0, 0);
   assert.equal(consentManager.match(/googletagmanager\.com\/gtag\/js/g)?.length || 0, 0);
   assert.equal(layout.match(/salesiq\.zohopublic\.com\/widget/g)?.length || 0, 0);
@@ -291,6 +294,204 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
     layout.indexOf('id="emitronix-google-consent-default"') <
       layout.indexOf('id="emitronix-google-tag-manager"'),
   );
+});
+
+test("GTM bootstrap waits for activation and avoids duplicate gateway or repeated loads", async (t) => {
+  const layout = await readFile(new URL("../components/SiteRootLayout.tsx", import.meta.url), "utf8");
+  const containerId = "GTM-TEST123";
+  const bootstrapTemplate = layout.match(/const googleTagManagerBootstrap = `([\s\S]*?)`;/)?.[1];
+  const consentDefaults = layout.match(/id="emitronix-google-consent-default"[\s\S]*?__html: `([\s\S]*?)`/)?.[1];
+  assert.ok(bootstrapTemplate, "the production bootstrap must be exercised");
+  assert.ok(consentDefaults, "the production consent defaults must be exercised");
+  const bootstrap = bootstrapTemplate.replace("${JSON.stringify(googleTagManagerId)}", JSON.stringify(containerId));
+
+  for (const scenario of [
+    { name: "matching gateway", gateway: [containerId], scripts: 0 },
+    { name: "matching gateway among other containers", gateway: ["GTM-OTHER", containerId], scripts: 0 },
+    { name: "absent gateway", scripts: 1 },
+    { name: "different gateway container", gateway: ["GTM-OTHER"], scripts: 1 },
+    { name: "empty gateway registration", gateway: [], scripts: 1 },
+    { name: "malformed gateway registration", gateway: containerId, scripts: 1 },
+  ]) {
+    await t.test(scenario.name, () => {
+      const inserted = [];
+      const existingEvent = { event: "existing-application-event" };
+      const dataLayer = [existingEvent];
+      const firstScript = {
+        parentNode: {
+          insertBefore: (script, before) => {
+            assert.equal(before, firstScript);
+            inserted.push(script);
+          },
+        },
+      };
+      const context = {
+        dataLayer,
+        document: {
+          getElementsByTagName: (tag) => {
+            assert.equal(tag, "script");
+            return [firstScript];
+          },
+          createElement: (tag) => {
+            assert.equal(tag, "script");
+            return {};
+          },
+        },
+      };
+      context.window = context;
+      if ("gateway" in scenario) context.google_tags_first_party = scenario.gateway;
+
+      runInNewContext(consentDefaults, context);
+      const consent = dataLayer[1];
+      runInNewContext(bootstrap, context);
+      assert.equal(inserted.length, 0, "registering the loader must not download GTM");
+      assert.equal(dataLayer.length, 2, "registering the loader must not initialize GTM");
+      context.EmitronixLoadGoogleTagManager();
+      context.EmitronixLoadGoogleTagManager();
+
+      assert.equal(context.dataLayer, dataLayer, "existing queued events must survive");
+      assert.equal(dataLayer[0], existingEvent);
+      assert.equal(dataLayer[1], consent, "consent defaults must remain ahead of tag initialization");
+      assert.equal(consent[0], "consent");
+      assert.equal(consent[1], "default");
+      assert.equal(consent[2].analytics_storage, "denied");
+      assert.equal(consent[2].ad_storage, "denied");
+      assert.equal(inserted.length, scenario.scripts);
+      assert.equal(dataLayer.filter((entry) => entry.event === "gtm.js").length, scenario.scripts);
+      if (scenario.scripts) {
+        assert.equal(inserted[0].src, `https://www.googletagmanager.com/gtm.js?id=${containerId}`);
+        assert.equal(inserted[0].async, true);
+      }
+    });
+  }
+});
+
+async function googleConsentHarness(storedRecord = null) {
+  const [layout, manager] = await Promise.all([
+    readFile(new URL("../components/SiteRootLayout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/CookieConsentManager.tsx", import.meta.url), "utf8"),
+  ]);
+  const bootstrap = layout.match(/const googleTagManagerBootstrap = `([\s\S]*?)`;/)?.[1]
+    .replace("${JSON.stringify(googleTagManagerId)}", JSON.stringify("GTM-TEST123"));
+  const defaults = layout.match(/id="emitronix-google-consent-default"[\s\S]*?__html: `([\s\S]*?)`/)?.[1];
+  assert.ok(bootstrap);
+  assert.ok(defaults);
+  const functions = ["getLocalStorageValue", "getCookieValue", "getStoredConsent", "updateGoogleConsent", "loadGrantedIntegrationScripts"]
+    .map((name) => {
+      const source = manager.match(new RegExp(`function ${name}\\([\\s\\S]*?\\n\\}`))?.[0];
+      assert.ok(source, `exercise the actual ${name} implementation`);
+      return source;
+    }).join("\n");
+  const inserted = [];
+  const chatCalls = [];
+  const context = {
+    dataLayer: [],
+    cookieCategoryIds,
+    CONSENT_STORAGE_KEY: "emitronix_cookie_consent",
+    localStorage: { getItem: () => storedRecord === null ? null : JSON.stringify(storedRecord) },
+    restoreActiveTrackingGuard: null,
+    consentReloadScheduled: false,
+    integrationIds: {},
+    extraScripts: {},
+    loadExtraScripts: () => {},
+    loadSalesIqWidget: (categories) => chatCalls.push(categories),
+    document: {
+      cookie: "",
+      getElementsByTagName: () => [{ parentNode: { insertBefore: (script) => inserted.push(script) } }],
+      createElement: () => ({}),
+    },
+  };
+  context.window = context;
+  runInNewContext(defaults, context);
+  runInNewContext(bootstrap, context);
+  runInNewContext(ts.transpileModule(functions, { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText, context);
+  return { context, inserted, chatCalls, manager };
+}
+
+test("Google scripts require analytics or marketing and preserve each Consent Mode category", async (t) => {
+  for (const scenario of [
+    { name: "all optional consent denied", categories: rejected, expected: 0 },
+    { name: "functional consent alone", categories: { ...rejected, functional: true }, expected: 0 },
+    { name: "performance consent alone", categories: { ...rejected, performance: true }, expected: 0 },
+    { name: "analytics only", categories: { ...rejected, analytics: true }, expected: 1 },
+    { name: "marketing only", categories: { ...rejected, marketing: true }, expected: 1 },
+    { name: "all optional consent granted", categories: accepted, expected: 1 },
+  ]) {
+    await t.test(scenario.name, async () => {
+      const { context, inserted, chatCalls } = await googleConsentHarness();
+      assert.equal(inserted.length, 0);
+      context.updateGoogleConsent(scenario.categories);
+      context.loadGrantedIntegrationScripts(scenario.categories);
+      context.loadGrantedIntegrationScripts(scenario.categories);
+      assert.equal(inserted.length, scenario.expected);
+      assert.equal(chatCalls.length, 2, "essential chat remains available for every choice");
+      const update = context.dataLayer[1];
+      assert.equal(update[0], "consent");
+      assert.equal(update[1], "update");
+      assert.equal(update[2].analytics_storage, scenario.categories.analytics ? "granted" : "denied");
+      for (const key of ["ad_storage", "ad_user_data", "ad_personalization"]) {
+        assert.equal(update[2][key], scenario.categories.marketing ? "granted" : "denied");
+      }
+      assert.equal(context.dataLayer.filter((entry) => entry.event === "gtm.js").length, scenario.expected);
+      if (scenario.expected) assert.equal(context.dataLayer[2].event, "gtm.js", "update must precede initialization");
+    });
+  }
+});
+
+test("only a valid stored Google consent grant can activate the initial visit", async (t) => {
+  const valid = {
+    version: defaultCookieConsentConfig.version,
+    categories: accepted,
+    language: "en",
+    expiresAt: new Date(Date.now() + 86400000).toISOString(),
+  };
+  for (const scenario of [
+    { name: "no stored choice", record: null, expected: 0 },
+    { name: "stored acceptance", record: valid, expected: 1 },
+    { name: "stored rejection", record: { ...valid, categories: rejected }, expected: 0 },
+    { name: "expired acceptance", record: { ...valid, expiresAt: "2000-01-01T00:00:00.000Z" }, expected: 0 },
+    { name: "obsolete version acceptance", record: { ...valid, version: valid.version - 1 }, expected: 0 },
+  ]) {
+    await t.test(scenario.name, async () => {
+      const { context, inserted, manager } = await googleConsentHarness(scenario.record);
+      assert.equal(
+        manager.match(/updateGoogleConsent\(stored\.categories\);\s+loadGrantedIntegrationScripts\(stored\.categories\);/g)?.length,
+        2,
+        "both config-success and config-fallback paths update before loading",
+      );
+      const stored = context.getStoredConsent(defaultCookieConsentConfig);
+      if (stored) {
+        context.updateGoogleConsent(stored.categories);
+        context.loadGrantedIntegrationScripts(stored.categories);
+      }
+      assert.equal(inserted.length, scenario.expected);
+    });
+  }
+});
+
+test("Google consent withdrawal updates denial and schedules reload without reactivating tags", async () => {
+  const { context, inserted } = await googleConsentHarness();
+  context.updateGoogleConsent(accepted);
+  context.loadGrantedIntegrationScripts(accepted);
+  const calls = [];
+  const transition = applyConsentTransition({
+    previousCategories: accepted,
+    nextCategories: rejected,
+    prepareRevocation: () => calls.push("guard"),
+    updateConsent: (categories) => {
+      context.updateGoogleConsent(categories);
+      calls.push("update");
+    },
+    persistConsent: () => calls.push("persist"),
+    clearRevokedState: () => calls.push("cleanup"),
+    loadGrantedScripts: () => calls.push("load"),
+    scheduleReload: () => calls.push("reload"),
+  });
+  assert.equal(transition.reloadScheduled, true);
+  assert.deepEqual(calls, ["guard", "update", "persist", "cleanup", "reload"]);
+  assert.equal(inserted.length, 1);
+  assert.equal(context.dataLayer.at(-1)[2].analytics_storage, "denied");
+  assert.equal(context.dataLayer.at(-1)[2].ad_storage, "denied");
 });
 
 test("SalesIQ initializes essential chat while respecting live visitor tracking consent", async () => {

@@ -29,10 +29,18 @@ const inter = Inter({
 });
 
 const googleTagManagerBootstrap = `
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+(function(w,d,s,l,i){
+var started=false;
+w.EmitronixLoadGoogleTagManager=function(){
+if(started)return;
+started=true;
+// Cloudflare's Google tag gateway already bootstraps registered containers.
+if(Array.isArray(w.google_tags_first_party)&&w.google_tags_first_party.includes(i))return;
+w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+};
 })(window,document,'script','dataLayer',${JSON.stringify(googleTagManagerId)});
 `;
 
@@ -191,17 +199,6 @@ gtag('consent', 'default', {
         />
       </head>
       <body className="min-h-screen antialiased">
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${encodeURIComponent(googleTagManagerId)}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-            title="Google Tag Manager"
-            aria-hidden="true"
-            tabIndex={-1}
-          />
-        </noscript>
         <a href="#main-content" className="skip-link">
           <span className="skip-link-label-en" lang="en-AE">Skip to main content</span>
           <span className="skip-link-label-ar" lang="ar-AE" dir="rtl">تخطي إلى المحتوى الرئيسي</span>

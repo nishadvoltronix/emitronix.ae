@@ -1,4 +1,7 @@
 .home {
+  /* Contain the hero's negative top margin while streamed content replaces the
+     loading fallback. The hero still overlaps the header without moving main. */
+  display: flow-root;
   background: var(--background);
   color: var(--foreground);
 }

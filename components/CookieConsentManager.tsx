@@ -92,6 +92,7 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    EmitronixLoadGoogleTagManager?: () => void;
     fbq?: QueuedTrackingFunction;
     _fbq?: unknown;
     _linkedin_partner_id?: string;
@@ -579,6 +580,12 @@ function loadGrantedIntegrationScripts(categories: ConsentCategoryMap) {
   // temporary transport wrappers before activating allowed integrations.
   restoreActiveTrackingGuard?.();
   consentReloadScheduled = false;
+
+  // Consent Mode is updated before this function runs. Keep Google analytics
+  // and ads off the network until one of their own categories is granted.
+  if (categories.analytics || categories.marketing) {
+    window.EmitronixLoadGoogleTagManager?.();
+  }
 
   if (categories.marketing && integrationIds.meta) {
     if (!document.getElementById("emitronix-meta-pixel")) {

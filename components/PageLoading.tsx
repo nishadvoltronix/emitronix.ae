@@ -1,9 +1,11 @@
 export function PageLoading({ locale = "en" }: { locale?: "en" | "ar" }) {
   return (
+    // Reserve enough height to keep the footer's large shadow below the viewport
+    // while streamed page content replaces this temporary loading placeholder.
     <section
       role="status"
       aria-live="polite"
-      className="container-pad min-h-[70vh] py-16 sm:py-24"
+      className="container-pad min-h-[calc(100vh+80px)] py-16 sm:py-24"
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <p className="text-sm font-bold text-brand">

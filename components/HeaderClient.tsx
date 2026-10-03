@@ -164,9 +164,9 @@ export function HeaderClient({
   useEffect(() => () => clearCloseTimer(), [clearCloseTimer]);
 
   useEffect(() => {
-    // Desktop links prefetch when visible. Mobile links are only mounted when
-    // the menu opens, so warm the main destinations during idle time as well.
-    if (window.matchMedia("(min-width: 768px)").matches) return;
+    // Warm mobile destinations on menu intent, not while the initial hero and
+    // consent controls are loading. Visible desktop links still prefetch normally.
+    if (!open || window.matchMedia("(min-width: 768px)").matches) return;
     const connection = (navigator as Navigator & {
       connection?: { saveData?: boolean; effectiveType?: string };
     }).connection;
@@ -185,7 +185,7 @@ export function HeaderClient({
     }
     const timer = globalThis.setTimeout(prefetchNavigation, 200);
     return () => globalThis.clearTimeout(timer);
-  }, [currentNavItems, locale, router]);
+  }, [currentNavItems, locale, open, router]);
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 768px)");

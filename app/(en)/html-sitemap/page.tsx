@@ -111,7 +111,7 @@ export default function HtmlSitemapPage() {
                 <div className="mt-6"><SectionPhotograph photo={sectionPhotographs[index]} compact /></div>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {group.links.map((link) => (
-                    <Link key={`${group.title}-${link.href}`} href={link.href} className="rounded-lg border border-brand/[0.12] bg-white px-4 py-3 text-sm font-semibold text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand">
+                    <Link key={`${group.title}-${link.href}`} href={link.href} prefetch={link.href === "/" || link.href === "/ar" ? false : undefined} className="rounded-lg border border-brand/[0.12] bg-white px-4 py-3 text-sm font-semibold text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand">
                       {link.label}
                     </Link>
                   ))}

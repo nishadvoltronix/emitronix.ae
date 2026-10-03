@@ -11,6 +11,8 @@ import {
 
 type PageMetadataInput = {
   title: string;
+  /** Set false when a page requires an exact, editorially supplied title. */
+  appendBrand?: boolean;
   description: string;
   path: string;
   /**
@@ -67,6 +69,7 @@ function withAssignedHeroImage(metadata: Metadata, pagePath: string): Metadata {
 
 export function createPageMetadata({
   title,
+  appendBrand = true,
   description,
   path,
   arabicPath,
@@ -74,7 +77,7 @@ export function createPageMetadata({
   image = defaultImage,
   imageAlt = defaultImageAlt,
 }: PageMetadataInput): Metadata {
-  const resolvedTitle = resolveMetaTitle(title);
+  const resolvedTitle = appendBrand ? resolveMetaTitle(title) : title;
   const url = buildCanonicalUrl(path);
   const languages =
     arabicPath === null

@@ -2,9 +2,10 @@ import { homeFaqs, services } from "@/data/site";
 
 // The SEO team's supplied wording takes precedence over approximate length targets.
 export const homeMetadata = {
-  title: "Construction Company in Dubai | warehouse construction company in dubai",
+  title: "Construction Company in Dubai | Building Contractor",
+  appendBrand: false,
   description:
-    "Emitronix Contracting LLC is a leading construction company in Dubai providing building construction, civil contracting, warehouse construction, turnkey projects, and renovation services across the UAE.",
+    "Emitronix is a construction company in Dubai offering building, civil, warehouse and turnkey construction services with reliable project execution.",
 };
 
 function serviceDescription(href: string) {

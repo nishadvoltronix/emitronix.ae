@@ -107,7 +107,7 @@ export function PolicyContentPage({
         <div className="container-pad">
           <div className={styles.policyBody}>
             <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label={language === "ar" ? "مسار التنقل" : "Breadcrumb"}>
-              <Link href={homeHref} className="transition hover:text-brand">
+              <Link href={homeHref} prefetch={false} className="transition hover:text-brand">
                 {homeLabel}
               </Link>
               <span aria-hidden="true">/</span>

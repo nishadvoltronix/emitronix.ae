@@ -16,7 +16,7 @@
     "test:home-images": "node --test tests/home-image-variants.test.cjs",
     "generate:home-images": "node scripts/build-home-image-variants.mjs",
     "test:photography": "node --test tests/page-photography.test.cjs",
-    "test:navigation": "node --test tests/middleware-navigation.test.cjs",
+    "test:navigation": "node --test tests/middleware-navigation.test.cjs tests/homepage-prefetch.test.cjs",
     "test:request-security": "node --test tests/request-security.test.cjs",
     "test:careers": "node --test tests/careers-store.test.cjs",
     "test:admin-auth": "node --test tests/admin-auth-store.test.cjs",

@@ -20,7 +20,7 @@ export function WarehouseGuideHero({ page, image }: { page: WarehouseAuthorityPa
       <div className="container-pad">
         <nav aria-label="Breadcrumb" className={styles.breadcrumbs}>
           <ol>
-            <li><Link href="/">Home</Link></li>
+            <li><Link href="/" prefetch={false}>Home</Link></li>
             <li><span aria-hidden="true">/</span><Link href="/warehouse-construction">Warehouse Construction</Link></li>
             <li><span aria-hidden="true">/</span><span aria-current="page">{page.title}</span></li>
           </ol>

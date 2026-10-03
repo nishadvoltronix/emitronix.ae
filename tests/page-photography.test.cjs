@@ -54,6 +54,7 @@ function loadPhotography(assets = [], assignments = {}, override = null) {
     legacy: load("data/internalServiceImages.ts"),
     sections: load("data/sectionPhotography.ts"),
     seo: () => load("data/seo.ts"),
+    home: () => load("data/home.ts"),
   };
 }
 
@@ -155,4 +156,43 @@ test("hero metadata changes images only and preserves administrator override pre
   const final = await overridden.seo().applySeoOverrides(base, "/ar/civil");
   assert.equal(final.openGraph.images[0].url, "https://emitronix.ae/approved-social.webp");
   assert.deepEqual(final.twitter.images, ["https://emitronix.ae/approved-social.webp"]);
+});
+
+test("homepage metadata preserves the exact supplied title and description across search and social tags", async () => {
+  const { seo, home } = loadPhotography();
+  const input = { ...home().homeMetadata, path: "/", image: "/images/home-construction-og.webp" };
+  const result = await seo().createMetadataResolver(input)();
+  const title = "Construction Company in Dubai | Building Contractor";
+  const description = "Emitronix is a construction company in Dubai offering building, civil, warehouse and turnkey construction services with reliable project execution.";
+  assert.deepEqual(result.title, { absolute: title });
+  assert.equal(result.description, description);
+  for (const social of [result.openGraph, result.twitter]) {
+    assert.equal(social.title, title);
+    assert.equal(social.description, description);
+  }
+  const existingBehavior = seo().createPageMetadata({ ...input, appendBrand: true });
+  for (const key of ["alternates", "robots", "keywords"]) {
+    assert.deepEqual(result[key], existingBehavior[key]);
+  }
+  assert.equal(result.alternates.canonical, "https://emitronix.ae");
+  assert.deepEqual(result.openGraph.images, existingBehavior.openGraph.images);
+  assert.deepEqual(result.twitter.images, existingBehavior.twitter.images);
+});
+
+test("exact homepage titles do not change other pages' branding or administrator override precedence", async () => {
+  const { seo, home } = loadPhotography();
+  for (const path of ["/civil", "/ar/civil"]) {
+    const input = { title: "Civil Contracting", description: "Existing description", path };
+    const result = seo().createPageMetadata(input);
+    assert.deepEqual(result.title, { absolute: seo().resolveMetaTitle(input.title) });
+    assert.equal(result.description, input.description);
+  }
+  const overridden = loadPhotography([], {}, { metaTitle: "Administrator title", metaDescription: "Administrator description" });
+  const result = await overridden.seo().createMetadataResolver({ ...home().homeMetadata, path: "/" })();
+  assert.deepEqual(result.title, { absolute: "Administrator title" });
+  assert.equal(result.description, "Administrator description");
+  for (const social of [result.openGraph, result.twitter]) {
+    assert.equal(social.title, "Administrator title");
+    assert.equal(social.description, "Administrator description");
+  }
 });

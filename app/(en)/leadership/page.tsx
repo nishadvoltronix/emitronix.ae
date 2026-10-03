@@ -136,7 +136,7 @@ export default function LeadershipPage() {
 
           <div className="container-pad relative">
             <nav className="mb-9 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label="Breadcrumb">
-              <Link href="/" className="transition hover:text-brand">Home</Link>
+              <Link href="/" prefetch={false} className="transition hover:text-brand">Home</Link>
               <span aria-hidden="true">/</span>
               <Link href="/about" className="transition hover:text-brand">About</Link>
               <span aria-hidden="true">/</span>

@@ -1830,7 +1830,7 @@ export default function DewaApprovalsPage() {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <nav className="mb-10 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-brand">Home</Link>
+            <Link href="/" prefetch={false} className="hover:text-brand">Home</Link>
             <ChevronRight size={16} aria-hidden="true" />
             <Link href="/approval" className="hover:text-brand">Approval</Link>
             <ChevronRight size={16} aria-hidden="true" />

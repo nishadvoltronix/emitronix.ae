@@ -41,7 +41,7 @@ export function TrustBreadcrumbs({
           <li key={`${item.label}-${index}`} className="flex items-center gap-2">
             {index > 0 ? <span aria-hidden="true">/</span> : null}
             {item.href ? (
-              <Link href={item.href} className="font-bold text-brand transition hover:text-brand-dark">
+              <Link href={item.href} prefetch={item.href === "/" || item.href === "/ar" ? false : undefined} className="font-bold text-brand transition hover:text-brand-dark">
                 {item.label}
               </Link>
             ) : (

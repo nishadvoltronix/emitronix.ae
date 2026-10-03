@@ -143,7 +143,7 @@ export default function CareersPage() {
 
           <div className="container-pad relative">
             <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label="Breadcrumb">
-              <Link href="/" className="transition hover:text-brand">Home</Link>
+            <Link href="/" prefetch={false} className="transition hover:text-brand">Home</Link>
               <span aria-hidden="true">/</span>
               <span className="text-charcoal">Careers</span>
             </nav>

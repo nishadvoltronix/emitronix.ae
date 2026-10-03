@@ -165,7 +165,8 @@ export function HeaderClient({
 
   useEffect(() => {
     // Warm mobile destinations on menu intent, not while the initial hero and
-    // consent controls are loading. Visible desktop links still prefetch normally.
+    // consent controls are loading. Leave homepage CSS for an actual home visit;
+    // otherwise the browser warns about preloaded styles that remain unused.
     if (!open || window.matchMedia("(min-width: 768px)").matches) return;
     const connection = (navigator as Navigator & {
       connection?: { saveData?: boolean; effectiveType?: string };
@@ -175,7 +176,7 @@ export function HeaderClient({
     const prefetchNavigation = () => {
       for (const item of currentNavItems) {
         const href = localizedPath(item.href, locale);
-        if (href !== window.location.pathname) router.prefetch(href);
+        if (href !== window.location.pathname && href !== "/" && href !== "/ar") router.prefetch(href);
       }
     };
 
@@ -293,6 +294,7 @@ export function HeaderClient({
         <div className="relative grid h-20 grid-cols-[auto_1fr] items-center gap-x-3 md:grid-rows-[40px_40px] xl:flex xl:justify-between">
           <Link
             href={localizedPath("/", locale)}
+            prefetch={false}
             className="flex shrink-0 items-center rounded-xl focus-ring"
             aria-label={copy.homeLabel}
             aria-current={isCurrentPage("/") ? "page" : undefined}
@@ -455,6 +457,7 @@ export function HeaderClient({
                 <Link
                   key={item.href}
                   href={localizedPath(item.href, locale)}
+                  prefetch={localizedPath(item.href, locale) === localizedPath("/", locale) ? false : undefined}
                   className={baseClass}
                   aria-current={isCurrentPage(item.href) ? "page" : undefined}
                 >
@@ -585,6 +588,7 @@ export function HeaderClient({
                 <div key={item.href}>
                   <Link
                     href={localizedPath(item.href, locale)}
+                    prefetch={localizedPath(item.href, locale) === localizedPath("/", locale) ? false : undefined}
                     onClick={closeMobileMenu}
                     className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-black uppercase tracking-wide transition ${
                       active ? "bg-brand text-white" : "text-charcoal hover:bg-brand-soft hover:text-brand"

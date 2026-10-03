@@ -107,7 +107,7 @@ export default function ProjectsPage() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.78)_55%,rgba(11,31,58,0.52)_100%)]" />
         <div className="container-pad relative py-24 sm:py-32 lg:py-40">
           <nav className="flex flex-wrap items-center gap-2 text-sm font-bold text-white/75" aria-label="Breadcrumb">
-            <Link href="/" className="transition hover:text-white">Home</Link>
+            <Link href="/" prefetch={false} className="transition hover:text-white">Home</Link>
             <span aria-hidden="true">/</span>
             <span className="text-white">Scope Planning Library</span>
           </nav>

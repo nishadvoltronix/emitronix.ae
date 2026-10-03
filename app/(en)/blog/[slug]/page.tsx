@@ -179,7 +179,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
         <header className="internal-page-intro premium-grid pb-14 pt-10 lg:pb-20 lg:pt-14">
           <div className="container-pad">
             <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label="Breadcrumb">
-              <Link href="/" className="transition hover:text-brand">Home</Link>
+            <Link href="/" prefetch={false} className="transition hover:text-brand">Home</Link>
               <span aria-hidden="true">/</span>
               <Link href="/blog" className="transition hover:text-brand">Blog</Link>
               <span aria-hidden="true">/</span>

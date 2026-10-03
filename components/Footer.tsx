@@ -87,7 +87,7 @@ export function Footer({ locale }: { locale: Locale }) {
               <ul className="mt-5 grid gap-3 text-sm font-bold text-[#5f6f86]">
                 {currentNavItems.map((item) => (
                   <li key={item.href}>
-                    <Link href={localizedPath(item.href, locale)} className="transition hover:text-brand">
+                    <Link href={localizedPath(item.href, locale)} prefetch={localizedPath(item.href, locale) === localizedPath("/", locale) ? false : undefined} className="transition hover:text-brand">
                       {item.label}
                     </Link>
                   </li>

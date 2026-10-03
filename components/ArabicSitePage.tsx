@@ -68,7 +68,7 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
           <div className="max-w-5xl">
             {page.path !== "/" ? (
               <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm font-bold text-white/80" aria-label="مسار التنقل">
-                <Link href="/ar" className="transition hover:text-white">
+                <Link href="/ar" prefetch={false} className="transition hover:text-white">
                   {arabicUi.breadcrumbHome}
                 </Link>
                 <span aria-hidden="true">/</span>
@@ -193,7 +193,7 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
               {section.links?.length ? (
                 <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {section.links.map((link) => (
-                    <Link key={link.href} href={link.href} className={page.path === "/" ? "group luxury-card flex min-h-28 items-center justify-between gap-4 rounded-[1.5rem] p-5 transition hover:-translate-y-1 hover:border-brand/30 hover:bg-brand-soft" : "group luxury-card flex min-h-28 items-center justify-between gap-4 rounded-lg p-5 transition hover:-translate-y-1 hover:border-brand/30 hover:bg-brand-soft"}>
+                    <Link key={link.href} href={link.href} prefetch={link.href === "/" || link.href === "/ar" ? false : undefined} className={page.path === "/" ? "group luxury-card flex min-h-28 items-center justify-between gap-4 rounded-[1.5rem] p-5 transition hover:-translate-y-1 hover:border-brand/30 hover:bg-brand-soft" : "group luxury-card flex min-h-28 items-center justify-between gap-4 rounded-lg p-5 transition hover:-translate-y-1 hover:border-brand/30 hover:bg-brand-soft"}>
                       <span className={page.path === "/" ? "text-lg font-black leading-7 text-charcoal" : "text-lg font-semibold leading-7 text-charcoal"}>{link.label}</span>
                       <ArrowLeft className="h-5 w-5 shrink-0 text-brand transition group-hover:-translate-x-1" />
                     </Link>

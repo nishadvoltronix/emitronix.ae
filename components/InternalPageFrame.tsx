@@ -99,7 +99,7 @@ export function InternalPageHero({
                 {breadcrumbs.map((item, index) => (
                   <li key={`${item.label}-${index}`}>
                     {index > 0 ? <span aria-hidden="true">/</span> : null}
-                    {item.href ? <Link href={item.href}>{item.label}</Link> : <span aria-current="page">{item.label}</span>}
+                    {item.href ? <Link href={item.href} prefetch={item.href === "/" || item.href === "/ar" ? false : undefined}>{item.label}</Link> : <span aria-current="page">{item.label}</span>}
                   </li>
                 ))}
               </ol>

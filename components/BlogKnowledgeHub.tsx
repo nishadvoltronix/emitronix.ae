@@ -65,7 +65,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
 
         <div className="container-pad relative z-30">
           <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-white/[0.78]" aria-label="Breadcrumb">
-            <Link href="/" className="transition hover:text-brand-sky">Home</Link>
+            <Link href="/" prefetch={false} className="transition hover:text-brand-sky">Home</Link>
             <span aria-hidden="true">/</span>
             <span className="text-white">Blog</span>
           </nav>

@@ -221,7 +221,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
           <aside className="hidden xl:block">
             <div className="sticky top-28 max-h-[calc(100vh-18rem)] overflow-auto rounded-lg border border-brand/[0.12] bg-white/[0.9] p-5 shadow-none backdrop-blur-xl">
               <p className="premium-kicker">Contents</p>
-              <nav className="mt-5 grid gap-3" aria-label="Table of contents">
+              <nav className="mt-5 grid gap-3" aria-label="Table of contents" data-internal-section-nav>
                 {post.sections.map((section) => (
                   <a key={section.id} href={`#${section.id}`} className="text-sm font-bold leading-6 text-steel transition hover:text-brand">
                     {section.title}
@@ -235,7 +235,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
           <div className="w-full min-w-0 max-w-4xl justify-self-center" data-blog-content>
             <details className="rounded-lg border border-brand/[0.12] bg-white p-5 shadow-none xl:hidden">
               <summary className="focus-ring cursor-pointer text-sm font-semibold text-brand">Table of contents</summary>
-              <div className="mt-4 grid gap-2">
+              <div className="mt-4 grid gap-2" data-internal-section-nav>
                 {post.sections.map((section) => (
                   <a key={section.id} href={`#${section.id}`} className="text-sm font-bold text-steel transition hover:text-brand">
                     {section.title}

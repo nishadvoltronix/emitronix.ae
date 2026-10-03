@@ -1815,9 +1815,9 @@ export default function DewaApprovalsPage() {
         {heroImageAttribution ? <PhotoAttribution {...heroImageAttribution} /> : null}
       </p>
 
-      <section className="sticky top-0 z-30 border-b border-brand/[0.12] bg-white/[0.92] py-3 shadow-sm backdrop-blur-2xl">
+      <section className="sticky top-0 z-30 border-b border-brand/[0.12] bg-white/[0.92] py-3 shadow-sm backdrop-blur-2xl" data-internal-nav-shell>
         <div className="container-pad">
-          <nav className="flex gap-2 overflow-x-auto text-sm font-semibold text-charcoal" aria-label="DEWA approval page navigation">
+          <nav className="flex gap-2 overflow-x-auto text-sm font-semibold text-charcoal" aria-label="DEWA approval page navigation" data-internal-section-nav>
             {anchorLinks.map((item) => (
               <a key={item.href} href={item.href} className="shrink-0 rounded-full border border-brand/[0.14] bg-white px-4 py-2 hover:border-brand hover:text-brand">
                 {item.label}

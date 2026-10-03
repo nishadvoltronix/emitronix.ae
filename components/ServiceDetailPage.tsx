@@ -227,9 +227,11 @@ export function ServiceDetailPage({ service, overviewContent, afterOverview, sho
         showPlanningSummary={false}
       />
 
-      <nav className="container-pad flex flex-wrap gap-x-5 gap-y-3 py-6 text-sm font-semibold" aria-label={`${service.title} page sections`}>
-        {tableOfContents.map((item) => <a key={item.href} href={item.href} className="text-brand underline underline-offset-4">{item.label}</a>)}
-      </nav>
+      <div data-internal-nav-shell>
+        <nav className="container-pad flex flex-wrap gap-x-5 gap-y-3 py-4 text-sm font-semibold" aria-label={`${service.title} page sections`} data-internal-section-nav>
+          {tableOfContents.map((item) => <a key={item.href} href={item.href} className="px-2 py-1.5">{item.label}</a>)}
+        </nav>
+      </div>
 
       <section id="overview" className="section-pad bg-white">
         <div className="container-pad grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
@@ -286,8 +288,8 @@ export function ServiceDetailPage({ service, overviewContent, afterOverview, sho
             <PremiumSectionHeading eyebrow="Methodology" title={`How we approach ${service.shortTitle.toLowerCase()}`} />
             <SectionPhotograph photo={sectionPhotographs[1]} compact />
           </div>
-          <ol className="grid gap-4">
-            {service.methodology.map((item, index) => <li key={item} className="flex gap-4 rounded-lg border border-brand/[0.15] p-5"><span className="text-lg font-semibold text-brand" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p className="text-sm leading-7 text-charcoal">{item}</p></li>)}
+          <ol className="grid gap-4" data-internal-reveal-group="methodology">
+            {service.methodology.map((item, index) => <li key={item} className="flex gap-4 rounded-lg border border-brand/[0.15] p-5" data-internal-reveal-item><span className="text-lg font-semibold text-brand" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p className="text-sm leading-7 text-charcoal">{item}</p></li>)}
           </ol>
         </div>
       </section>

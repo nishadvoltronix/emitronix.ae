@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, type LucideIcon } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { PremiumSectionHeading } from "./Premium";
 
@@ -30,9 +30,9 @@ export function ProcessRail({
     <section className="section-pad bg-white">
       <div className="container-pad">
         <PremiumSectionHeading eyebrow={eyebrow} title={title} description={description} align="center" />
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4" data-internal-reveal-group="process">
           {steps.map((step, index) => (
-            <article key={step} className="luxury-card rounded-[1.5rem] p-6">
+            <article key={step} className="luxury-card rounded-[1.5rem] p-6" data-internal-reveal-item>
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-sm font-black text-white shadow-blue">
                 {String(index + 1).padStart(2, "0")}
               </span>
@@ -62,7 +62,7 @@ export function InsightGrid({
     <section className={`section-pad ${tone === "soft" ? "soft-section" : "bg-white"}`}>
       <div className="container-pad">
         <PremiumSectionHeading eyebrow={eyebrow} title={title} description={description} align="center" />
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3" data-internal-reveal-group="insights">
           {items.map((item) => {
             const Icon = item.icon ?? CheckCircle2;
             const content = (
@@ -79,11 +79,11 @@ export function InsightGrid({
             );
 
             return item.href ? (
-              <Link key={item.title} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
+              <Link key={item.title} href={item.href} className="luxury-card rounded-[1.5rem] p-6" data-internal-reveal-item>
                 {content}
               </Link>
             ) : (
-              <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
+              <article key={item.title} className="luxury-card rounded-[1.5rem] p-6" data-internal-reveal-item>
                 {content}
               </article>
             );
@@ -169,14 +169,17 @@ export function FAQSection({
     <section className="section-pad soft-section">
       <div className="container-pad">
         <PremiumSectionHeading eyebrow={eyebrow} title={title} description={description} align="center" />
-        <div className={accordion ? "mt-8 grid items-start gap-4 md:grid-cols-2" : "mt-12 grid gap-5 md:grid-cols-2"}>
+        <div className={accordion ? "mt-8 grid items-start gap-4 md:grid-cols-2" : "mt-12 grid gap-5 md:grid-cols-2"} data-internal-reveal-group="faq">
           {faqs.map((faq) => (
-            accordion ? <details key={faq.question} className="luxury-card rounded-lg p-5">
+            accordion ? <details key={faq.question} className="luxury-card rounded-lg p-5" data-internal-faq data-internal-reveal-item>
               <summary className="cursor-pointer text-brand">
-                <h3 className="inline text-lg font-semibold leading-7 text-charcoal">{faq.question}</h3>
+                <h3 className="flex w-full items-start justify-between gap-4 text-lg font-semibold leading-7 text-charcoal">
+                  {faq.question}
+                  <ChevronDown aria-hidden="true" data-internal-faq-chevron />
+                </h3>
               </summary>
               <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
-            </details> : <article key={faq.question} className="luxury-card rounded-[1.5rem] p-6">
+            </details> : <article key={faq.question} className="luxury-card rounded-[1.5rem] p-6" data-internal-reveal-item>
               <h3 className="text-xl font-black tracking-tight text-charcoal">{faq.question}</h3>
               <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
             </article>

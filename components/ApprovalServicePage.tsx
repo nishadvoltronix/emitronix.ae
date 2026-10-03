@@ -223,8 +223,8 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <PremiumSectionHeading eyebrow="Approval process" title="From scope review to authority response" />
-          <ol className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-            {service.process.map((step, index) => <li key={step} className="luxury-card rounded-lg p-5"><span className="text-xl font-semibold text-brand" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p className="mt-3 text-sm leading-7 text-charcoal">{step}</p></li>)}
+          <ol className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5" data-internal-reveal-group="approval-process">
+            {service.process.map((step, index) => <li key={step} className="luxury-card rounded-lg p-5" data-internal-reveal-item><span className="text-xl font-semibold text-brand" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><p className="mt-3 text-sm leading-7 text-charcoal">{step}</p></li>)}
           </ol>
           <details className="mt-6 rounded-lg border border-brand/[0.15] p-5">
             <summary className="cursor-pointer font-semibold text-brand">Document, comment and site coordination</summary>

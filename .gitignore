@@ -14,3 +14,6 @@ pnpm-debug.log*
 *.tsbuildinfo
 _codex_push_*
 storage
+
+# Local browser, crawler, and audit output. Existing tracked reports remain tracked.
+/reports/**

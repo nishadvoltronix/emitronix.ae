@@ -492,7 +492,7 @@ export function HeaderClient({
                   ? "inline-flex items-center justify-center gap-2 rounded-full border border-white/45 bg-transparent font-black uppercase tracking-wide text-white transition duration-300 hover:bg-white/15 focus-ring"
                   : "premium-button-light"
               }`}
-              aria-label={copy.languageLabel}
+              aria-label={`${copy.language}: ${copy.languageLabel}`}
             >
               <Languages className="h-4 w-4 shrink-0" aria-hidden="true" />
               {copy.language}

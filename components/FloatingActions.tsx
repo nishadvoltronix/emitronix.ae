@@ -35,7 +35,7 @@ export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={isArabic ? arabicLabels.whatsapp : "Chat with Emitronix on WhatsApp"}
+        aria-label={isArabic ? `${arabicLabels.needHelp} ${arabicLabels.whatsapp}` : "Need Help? Chat with Emitronix on WhatsApp"}
         className="fixed bottom-5 left-5 z-[99999] flex items-center gap-3 rounded-full"
       >
         <span className="grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl shadow-brand/[0.15] ring-4 ring-white transition hover:scale-105 sm:h-16 sm:w-16">
@@ -50,7 +50,7 @@ export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
       <button
         type="button"
         onClick={openZohoChat}
-        aria-label={isArabic ? arabicLabels.openChat : "Open Emitronix Zoho chatbot"}
+        aria-label={isArabic ? `${arabicLabels.liveChat}: ${arabicLabels.openChat}` : "Live Chat: Open Emitronix Zoho chatbot"}
         className="fixed bottom-5 right-5 z-[99999] flex items-center gap-3 rounded-full"
       >
         <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-white shadow-xl shadow-brand/[0.18] ring-4 ring-white transition hover:scale-105 sm:h-16 sm:w-16">

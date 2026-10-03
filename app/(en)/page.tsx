@@ -124,13 +124,13 @@ export default function HomePage() {
             {featuredServices.map((service, index) => (
               <article key={service.href} className={styles.serviceCard}>
                 <div className={styles.serviceImage}>
-                  <Image src={servicePhotos[index].src} alt={servicePhotos[index].alt} fill sizes="(min-width: 1520px) 468px, (min-width: 768px) 33vw, (min-width: 480px) 50vw, 100vw" />
+                  <Image src={servicePhotos[index].src} alt={servicePhotos[index].alt} fill quality={65} sizes="(min-width: 1520px) 465px, (min-width: 1101px) calc((100vw - 126px) / 3), (min-width: 1024px) calc((100vw - 110px) / 3), (min-width: 768px) calc((100vw - 94px) / 3), (min-width: 640px) calc((100vw - 72px) / 2), (min-width: 480px) calc((100vw - 56px) / 2), calc(100vw - 34px)" />
                 </div>
                 <div className={styles.serviceBody}>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
-                  <Link href={service.href} className={styles.textLink} aria-label={`Learn more about ${service.title}`}>
-                    Learn More <ArrowRight aria-hidden="true" />
+                  <Link href={service.href} className={styles.textLink}>
+                    Explore {service.title} <ArrowRight aria-hidden="true" />
                   </Link>
                 </div>
               </article>

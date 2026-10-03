@@ -1,0 +1,163 @@
+{
+  "/images/home/jumeirah-village-circle-construction.webp": {
+    "sourceHash": "e2705e5ebcfc1b45970224c965fd94bb1ed7b4b776fe2e1f4dcff87359f6fea6",
+    "width": 1920,
+    "height": 1080,
+    "position": "55% center",
+    "crop": {
+      "left": 581,
+      "top": 0,
+      "width": 864,
+      "height": 1080
+    },
+    "portrait": {
+      "width": 864,
+      "avif": "/images/home-optimized/jumeirah-village-circle-construction-portrait-864-809348b0305b2505.avif",
+      "webp": "/images/home-optimized/jumeirah-village-circle-construction-portrait-864-2f076ada8d88541b.webp"
+    },
+    "wide": [
+      {
+        "width": 768,
+        "avif": "/images/home-optimized/jumeirah-village-circle-construction-768-fa939537f6a4d483.avif",
+        "webp": "/images/home-optimized/jumeirah-village-circle-construction-768-2e47fcb1ca25a84a.webp"
+      },
+      {
+        "width": 1280,
+        "avif": "/images/home-optimized/jumeirah-village-circle-construction-1280-a7edbf677ff0caab.avif",
+        "webp": "/images/home-optimized/jumeirah-village-circle-construction-1280-62394892bb57cedd.webp"
+      },
+      {
+        "width": 1600,
+        "avif": "/images/home-optimized/jumeirah-village-circle-construction-1600-913c7a0669052ecd.avif",
+        "webp": "/images/home-optimized/jumeirah-village-circle-construction-1600-11fe0a2d8bd8d46c.webp"
+      },
+      {
+        "width": 1920,
+        "avif": "/images/home-optimized/jumeirah-village-circle-construction-1920-97aa2e661213b509.avif",
+        "webp": "/images/home-optimized/jumeirah-village-circle-construction-1920-9e9d96277d2805a6.webp"
+      }
+    ]
+  },
+  "/images/internal/warehouse-steel-frame.webp": {
+    "sourceHash": "920e4d7fafb7e3555576560f936b0f2ab05a5ecc92eafcdc9951574cf34ae91f",
+    "width": 1920,
+    "height": 1280,
+    "position": "62% 42%",
+    "crop": {
+      "left": 556,
+      "top": 0,
+      "width": 1024,
+      "height": 1280
+    },
+    "portrait": {
+      "width": 1024,
+      "avif": "/images/home-optimized/warehouse-steel-frame-portrait-1024-03264599e6c1f12b.avif",
+      "webp": "/images/home-optimized/warehouse-steel-frame-portrait-1024-693d22195f1066f2.webp"
+    },
+    "wide": [
+      {
+        "width": 768,
+        "avif": "/images/home-optimized/warehouse-steel-frame-768-5f0fad525621274c.avif",
+        "webp": "/images/home-optimized/warehouse-steel-frame-768-66f2ed59e8e5667f.webp"
+      },
+      {
+        "width": 1280,
+        "avif": "/images/home-optimized/warehouse-steel-frame-1280-8454a9043b3ae4d3.avif",
+        "webp": "/images/home-optimized/warehouse-steel-frame-1280-adda2e8624a0b617.webp"
+      },
+      {
+        "width": 1600,
+        "avif": "/images/home-optimized/warehouse-steel-frame-1600-25a837757a7d3077.avif",
+        "webp": "/images/home-optimized/warehouse-steel-frame-1600-8db0437dd78358cc.webp"
+      },
+      {
+        "width": 1920,
+        "avif": "/images/home-optimized/warehouse-steel-frame-1920-8a875859474c67a8.avif",
+        "webp": "/images/home-optimized/warehouse-steel-frame-1920-47d36fffc9c26fc3.webp"
+      }
+    ]
+  },
+  "/images/home/dubai-hills-construction.webp": {
+    "sourceHash": "22ade8968cd58455509912dc98e0dfc7dd2c179288b5af6b7964925a6b48443a",
+    "width": 1920,
+    "height": 1080,
+    "position": "60% top",
+    "crop": {
+      "left": 634,
+      "top": 0,
+      "width": 864,
+      "height": 1080
+    },
+    "portrait": {
+      "width": 864,
+      "avif": "/images/home-optimized/dubai-hills-construction-portrait-864-ce5f4bd965867a02.avif",
+      "webp": "/images/home-optimized/dubai-hills-construction-portrait-864-ff92be77e79441b8.webp"
+    },
+    "wide": [
+      {
+        "width": 768,
+        "avif": "/images/home-optimized/dubai-hills-construction-768-5613446ad67753f2.avif",
+        "webp": "/images/home-optimized/dubai-hills-construction-768-597f3ba18d7b117f.webp"
+      },
+      {
+        "width": 1280,
+        "avif": "/images/home-optimized/dubai-hills-construction-1280-6eb02324ceb3d487.avif",
+        "webp": "/images/home-optimized/dubai-hills-construction-1280-9f77ad279194aed9.webp"
+      },
+      {
+        "width": 1600,
+        "avif": "/images/home-optimized/dubai-hills-construction-1600-acbcfbbe6aaae2b7.avif",
+        "webp": "/images/home-optimized/dubai-hills-construction-1600-a9c794eb09c03a4d.webp"
+      },
+      {
+        "width": 1920,
+        "avif": "/images/home-optimized/dubai-hills-construction-1920-d5a4f389c93202c9.avif",
+        "webp": "/images/home-optimized/dubai-hills-construction-1920-823c190fb063aa37.webp"
+      }
+    ]
+  },
+  "/images/home/construction-workers-sunset.webp": {
+    "sourceHash": "630087587fc377148cbe250825cc578ef6757c5fdd76260c67f43fa8ac1e5ad3",
+    "width": 2400,
+    "height": 1602,
+    "position": "65% 72%",
+    "crop": {
+      "left": 727,
+      "top": 0,
+      "width": 1282,
+      "height": 1602
+    },
+    "portrait": {
+      "width": 1282,
+      "avif": "/images/home-optimized/construction-workers-sunset-portrait-1282-7b1fe2fe753b5345.avif",
+      "webp": "/images/home-optimized/construction-workers-sunset-portrait-1282-942dc6490079d4e2.webp"
+    },
+    "wide": [
+      {
+        "width": 768,
+        "avif": "/images/home-optimized/construction-workers-sunset-768-9350af720e304bbf.avif",
+        "webp": "/images/home-optimized/construction-workers-sunset-768-190a36723fc11228.webp"
+      },
+      {
+        "width": 1280,
+        "avif": "/images/home-optimized/construction-workers-sunset-1280-6bcd77555766085c.avif",
+        "webp": "/images/home-optimized/construction-workers-sunset-1280-b97e1b66f032fc5a.webp"
+      },
+      {
+        "width": 1600,
+        "avif": "/images/home-optimized/construction-workers-sunset-1600-bcf010965ceccdae.avif",
+        "webp": "/images/home-optimized/construction-workers-sunset-1600-eadafc1b249bcc25.webp"
+      },
+      {
+        "width": 1920,
+        "avif": "/images/home-optimized/construction-workers-sunset-1920-6fff8c00f58fff1f.avif",
+        "webp": "/images/home-optimized/construction-workers-sunset-1920-2c71f2e14cd464d2.webp"
+      },
+      {
+        "width": 2400,
+        "avif": "/images/home-optimized/construction-workers-sunset-2400-43c7afd84711fd59.avif",
+        "webp": "/images/home-optimized/construction-workers-sunset-2400-0f9022ad255e1e0b.webp"
+      }
+    ]
+  }
+}

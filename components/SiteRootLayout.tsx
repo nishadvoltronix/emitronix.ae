@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-head-element -- This shared component is rendered only by App Router root layouts. */
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import { CookieConsentManager } from "@/components/CookieConsentManager";
 import { FloatingActions } from "@/components/FloatingActions";
 import { Footer } from "@/components/Footer";
@@ -199,10 +200,10 @@ gtag('consent', 'default', {
         />
       </head>
       <body className="min-h-screen antialiased">
-        <a href="#main-content" className="skip-link">
+        <Link href="#main-content" className="skip-link" prefetch={false}>
           <span className="skip-link-label-en" lang="en-AE">Skip to main content</span>
           <span className="skip-link-label-ar" lang="ar-AE" dir="rtl">تخطي إلى المحتوى الرئيسي</span>
-        </a>
+        </Link>
         <Header />
         <main id="main-content" className="min-h-screen" tabIndex={-1}><RouteContent>{children}</RouteContent></main>
         <Footer locale={locale} />

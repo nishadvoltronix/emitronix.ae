@@ -13,6 +13,18 @@
 
 .section {
   padding-block: clamp(56px, 6.2vw, 96px);
+  /* Keep all content in server HTML, but let the browser defer offscreen
+     layout/paint. It renders automatically when scrolled, focused or linked to,
+     including without JavaScript; remember measured sizes after first render. */
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 900px;
+}
+
+@media print {
+  .section {
+    content-visibility: visible;
+    contain-intrinsic-block-size: none;
+  }
 }
 
 .pale {

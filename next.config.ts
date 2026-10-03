@@ -183,6 +183,11 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
       {
+        // Only content-hashed, pre-generated images use immutable caching.
+        source: "/images/home-optimized/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
         source: "/api/:path*",
         headers: [
           {

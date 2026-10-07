@@ -89,7 +89,7 @@ export function InternalPageHero({
             imageStyle={{ height: "100%", objectFit: "cover" }}
           />
         ) : image ? (
-          <Image src={image} alt={imageAlt ?? ""} fill priority quality={imageCaption ? 65 : undefined} sizes="100vw" className={styles.heroImage} style={imagePosition ? { objectPosition: imagePosition } : undefined} />
+          <Image src={image} alt={imageAlt ?? ""} fill priority fetchPriority="high" quality={imageCaption ? 65 : undefined} sizes="100vw" className={styles.heroImage} style={imagePosition ? { objectPosition: imagePosition } : undefined} />
         ) : null}
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={`container-pad ${styles.heroContent}`}>

@@ -37,6 +37,7 @@
   ],
   "exclude": [
     "node_modules",
-    "_codex_push_*"
+    "_codex_push_*",
+    "reports"
   ]
 }

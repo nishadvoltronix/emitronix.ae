@@ -1,6 +1,7 @@
 "use client";
 
-import { MessageCircle } from "lucide-react";
+import { LoaderCircle, MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { isArabicPath } from "@/lib/i18n";
 import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
@@ -12,6 +13,16 @@ type SalesIqLauncherWindow = Window & {
 };
 
 const CHAT_REQUEST_EVENT = "emitronix:request-zoho-chat";
+const CHAT_STATUS_EVENT = "emitronix:chat-status";
+type ChatStatus = "idle" | "loading" | "slow" | "error";
+
+function nextChatStatus(current: ChatStatus, event: string): ChatStatus {
+  if (event === "ready") return "idle";
+  if (event === "error") return "error";
+  if (event === "timeout") return current === "loading" ? "slow" : current;
+  if (event === "loading") return current === "slow" ? "slow" : "loading";
+  return current;
+}
 
 const arabicLabels = {
   whatsapp: "\u062a\u062d\u062f\u062b \u0645\u0639 Emitronix \u0639\u0628\u0631 \u0648\u0627\u062a\u0633\u0627\u0628",
@@ -28,6 +39,30 @@ function openZohoChat() {
 export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
   const pathname = useHydrationSafePathname(usePathname());
   const isArabic = isArabicPath(pathname);
+  const [chatStatus, setChatStatus] = useState<ChatStatus>("idle");
+
+  useEffect(() => {
+    const onChatStatus = (event: Event) => {
+      const status = (event as CustomEvent<string>).detail;
+      setChatStatus(current => nextChatStatus(current, status));
+    };
+    window.addEventListener(CHAT_STATUS_EVENT, onChatStatus);
+    return () => window.removeEventListener(CHAT_STATUS_EVENT, onChatStatus);
+  }, []);
+
+  useEffect(() => {
+    if (chatStatus !== "loading") return;
+    const timer = window.setTimeout(() => setChatStatus(current => nextChatStatus(current, "timeout")), 15000);
+    return () => window.clearTimeout(timer);
+  }, [chatStatus]);
+
+  const chatLabel = chatStatus === "loading"
+    ? (isArabic ? "جارٍ تحميل الدردشة…" : "Loading chat…")
+    : chatStatus === "slow"
+      ? (isArabic ? "الدردشة لا تزال قيد التحميل…" : "Chat is still loading…")
+      : chatStatus === "error"
+        ? (isArabic ? "إعادة محاولة الدردشة" : "Retry chat")
+        : (isArabic ? arabicLabels.liveChat : "Live Chat");
 
   return (
     <aside aria-label={isArabic ? "\u062e\u064a\u0627\u0631\u0627\u062a \u0627\u0644\u062a\u0648\u0627\u0635\u0644" : "Contact options"}>
@@ -49,17 +84,40 @@ export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
       </a>
       <button
         type="button"
-        onClick={openZohoChat}
+        onClick={() => {
+          setChatStatus(current => nextChatStatus(current, "loading"));
+          openZohoChat();
+        }}
+        aria-busy={chatStatus === "loading" || chatStatus === "slow"}
         aria-label={isArabic ? `${arabicLabels.liveChat}: ${arabicLabels.openChat}` : "Live Chat: Open Emitronix Zoho chatbot"}
         className="fixed bottom-5 right-5 z-[99999] flex items-center gap-3 rounded-full"
       >
         <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-white shadow-xl shadow-brand/[0.18] ring-4 ring-white transition hover:scale-105 sm:h-16 sm:w-16">
-          <MessageCircle className="h-7 w-7" />
+          {chatStatus === "loading"
+            ? <LoaderCircle className="h-7 w-7 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+            : <MessageCircle className="h-7 w-7" />}
         </span>
-        <span className="hidden rounded-full border border-brand/[0.15] bg-white/[0.92] px-4 py-3 text-sm font-black uppercase tracking-wide text-charcoal shadow-xl shadow-brand/[0.12] backdrop-blur-xl sm:block">
-          {isArabic ? arabicLabels.liveChat : "Live Chat"}
+        <span className={`${chatStatus === "idle" ? "hidden sm:block" : "block"} max-w-[calc(100vw-11rem)] rounded-full border border-brand/[0.15] bg-white/[0.92] px-4 py-3 text-sm font-black uppercase tracking-wide text-charcoal shadow-xl shadow-brand/[0.12] backdrop-blur-xl sm:max-w-none`}>
+          {chatLabel}
         </span>
       </button>
+      {chatStatus === "slow" && (
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-24 right-5 z-[99999] max-w-[calc(100vw-2.5rem)] rounded-xl border border-brand/[0.15] bg-white px-4 py-3 text-sm font-semibold text-brand shadow-lg focus-ring"
+        >
+          {isArabic ? "للمساعدة الآن، تواصل عبر واتساب" : "For help now, contact us on WhatsApp"}
+        </a>
+      )}
+      <span className="sr-only" role="status" aria-live="polite">
+        {chatStatus === "loading" ? chatLabel : chatStatus === "error"
+          ? (isArabic ? "تعذر تحميل الدردشة. حاول مرة أخرى أو تواصل معنا عبر واتساب." : "Chat could not finish loading. Try again or contact us on WhatsApp.")
+          : chatStatus === "slow"
+            ? (isArabic ? "الدردشة تستغرق وقتًا أطول من المتوقع. يمكنك الانتظار أو التواصل معنا عبر رابط واتساب." : "Chat is taking longer than expected. You can wait or use the WhatsApp link to contact us.")
+            : ""}
+      </span>
     </aside>
   );
 }

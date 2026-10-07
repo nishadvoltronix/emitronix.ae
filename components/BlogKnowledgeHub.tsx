@@ -2,8 +2,8 @@
 
 import { ArrowRight, CalendarDays, Clock3, Mail, Search, Tag } from "lucide-react";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
-import { blogImageAlt, type BlogPostSummary } from "@/data/blog";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import type { BlogPostSummary } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 
@@ -13,6 +13,8 @@ type BlogKnowledgeHubProps = {
   categoryPhotograph?: ReactNode;
   enquiryPhotograph?: ReactNode;
 };
+
+const ARTICLES_PER_BATCH = 12;
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-AE", {
@@ -29,6 +31,18 @@ function postHref(post: BlogPostSummary) {
 export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquiryPhotograph }: BlogKnowledgeHubProps) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_BATCH);
+  const libraryRef = useRef<HTMLDivElement>(null);
+  const nextArticleIndex = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (nextArticleIndex.current === null) return;
+    const firstNewArticle = libraryRef.current?.querySelectorAll<HTMLAnchorElement>("a[data-library-post]")[nextArticleIndex.current];
+    nextArticleIndex.current = null;
+    // Keep keyboard and pointer readers at the start of the newly added batch.
+    firstNewArticle?.focus({ preventScroll: true });
+    firstNewArticle?.scrollIntoView({ block: "nearest" });
+  }, [visibleCount]);
   const featured = posts.find((post) => post.featured) ?? posts[0];
   const featuredAsset = getGeneratedImage(featured.generatedImage);
   const featuredCards = posts.filter((post) => post.slug !== featured.slug).slice(0, 3);
@@ -54,7 +68,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
       <section className="internal-page-intro relative isolate overflow-hidden bg-brand-dark pb-16 pt-24 text-white lg:pb-20 lg:pt-28">
         <ResponsiveIllustrativeImage
           asset={featuredAsset}
-          alt={blogImageAlt(featured)}
+          alt={featured.imageAlt}
           priority
           sizes="100vw"
           className="absolute inset-0 z-0 h-full w-full"
@@ -90,7 +104,10 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                   id="blog-search"
                   type="search"
                   value={query}
-                  onChange={(event) => setQuery(event.target.value)}
+                  onChange={(event) => {
+                    setQuery(event.target.value);
+                    setVisibleCount(ARTICLES_PER_BATCH);
+                  }}
                   placeholder="Search approvals, warehouses, civil works..."
                   className="min-w-0 flex-1 bg-transparent text-sm font-bold text-charcoal outline-none placeholder:text-steel/70"
                   aria-controls="blog-article-library"
@@ -111,7 +128,10 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                   <button
                     key={category}
                     type="button"
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => {
+                      setActiveCategory(category);
+                      setVisibleCount(ARTICLES_PER_BATCH);
+                    }}
                     aria-pressed={activeCategory === category}
                     aria-controls="blog-article-library"
                     className={`flex shrink-0 items-center justify-between gap-5 rounded-lg px-4 py-3 text-left text-sm font-semibold transition xl:w-full ${
@@ -121,7 +141,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                     }`}
                   >
                     <span>{category}</span>
-                    <span className={activeCategory === category ? "text-white/80" : "text-steel"}>
+                    <span className={`shrink-0 whitespace-nowrap ${activeCategory === category ? "text-white/80" : "text-steel"}`}>
                       {category === "All" ? posts.length : posts.filter((post) => post.categories.includes(category)).length}
                     </span>
                   </button>
@@ -136,7 +156,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
               <div className="relative h-[320px] lg:h-auto lg:min-h-[430px]">
                 <ResponsiveIllustrativeImage
                   asset={featuredAsset}
-                  alt={blogImageAlt(featured)}
+                  alt={featured.imageAlt}
                   sizes="(min-width: 1280px) 42vw, 100vw"
                   quality={65}
                   className="absolute inset-0 h-full w-full"
@@ -168,7 +188,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <ResponsiveIllustrativeImage
                       asset={getGeneratedImage(post.generatedImage)}
-                      alt={blogImageAlt(post)}
+                      alt={post.imageAlt}
                       sizes="(min-width: 1024px) 24vw, 100vw"
                       quality={65}
                       className="absolute inset-0 h-full w-full"
@@ -205,13 +225,13 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                   </Link>
                 </div>
 
-                <div id="blog-article-library" className="mt-8 grid gap-5">
-                  {filteredPosts.map((post) => (
-                    <Link key={post.slug} href={postHref(post)} className="luxury-card grid min-w-0 gap-5 rounded-lg p-4 sm:grid-cols-[180px_minmax(0,1fr)]">
+                <div id="blog-article-library" ref={libraryRef} className="mt-8 grid gap-5">
+                  {filteredPosts.slice(0, visibleCount).map((post) => (
+                    <Link key={post.slug} href={postHref(post)} data-library-post className="luxury-card grid min-w-0 gap-5 rounded-lg p-4 sm:grid-cols-[180px_minmax(0,1fr)]">
                       <div className="relative h-[180px] overflow-hidden rounded-lg bg-brand-soft sm:h-auto sm:min-h-[190px]">
                         <ResponsiveIllustrativeImage
                           asset={getGeneratedImage(post.generatedImage)}
-                          alt={blogImageAlt(post)}
+                          alt={post.imageAlt}
                           sizes="(min-width: 768px) 180px, 100vw"
                           quality={65}
                           className="absolute inset-0 h-full w-full"
@@ -231,6 +251,33 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                     </Link>
                   ))}
                 </div>
+                <noscript>
+                  <p className="mt-6 text-sm text-steel">
+                    <a href="/html-sitemap" className="underline">Browse all articles in the site map.</a>
+                  </p>
+                </noscript>
+                {filteredPosts.length === 0 ? (
+                  <p className="mt-6 text-sm text-steel">No articles match. Try another search or category.</p>
+                ) : (
+                  <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                    <p className="text-sm text-steel" role="status" aria-live="polite">
+                      Showing {Math.min(visibleCount, filteredPosts.length)} of {filteredPosts.length} articles
+                    </p>
+                    {visibleCount < filteredPosts.length && (
+                      <button
+                        type="button"
+                        className="premium-button-light"
+                        aria-controls="blog-article-library"
+                        onClick={() => {
+                          nextArticleIndex.current = visibleCount;
+                          setVisibleCount((count) => count + ARTICLES_PER_BATCH);
+                        }}
+                      >
+                        Load more articles <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
 
               <aside className="grid min-w-0 gap-5 self-start">

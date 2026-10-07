@@ -55,6 +55,23 @@ You can also double-click `start-dev.cmd` from the project folder to launch the 
 npm run build
 ```
 
+`npm run build` preserves previous production CSS, JavaScript and font files in
+the ignored `.next-static-history` directory, then merges them into the completed
+build. This keeps older open tabs working after a manual build and PM2 restart.
+Use this command rather than invoking `next build` directly, and keep the history
+directory between releases. `NEXT_DIST_DIR` builds have separate histories.
+The archive contains only public static assets, never server bundles or private
+storage. It is additive; monitor its disk usage and plan any cleanup around the
+maximum lifetime of cached pages and open tabs. Already-deleted assets cannot be
+recovered by this change; affected visitors should hard-refresh once.
+
+This preserves files **after** a rebuild; it does not make an in-place build safe
+while PM2 is serving the same output directory. For a manual maintenance deployment,
+stop the app before rebuilding, and restart it only after a successful build.
+For uninterrupted service, use separately built release directories with a reviewed
+switch-over process. Do not restart a failed build: restoring static assets is not
+a rollback of server code. Production changes still require explicit authorization.
+
 ## Zoho CRM Lead Integration
 
 The contact and article enquiry forms submit to the consent-checked server-side API route at `/api/contact`, which creates a follow-up record in the configured CRM. CRM credentials must stay server-side in environment variables and must never be exposed in browser code.

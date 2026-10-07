@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { homeHeroSlides } from "@/data/homeHeroSlides";
 import homeImageVariants from "@/data/homeImageVariants.json";
 import styles from "./Home.module.css";
@@ -23,15 +23,33 @@ function imageSizes(src: typeof homeHeroSlides[number]["src"]) {
 }
 
 export function HomeHeroSlideshow({ children }: { children: ReactNode }) {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [slideState, setSlideState] = useState<{ active: number; previous: number | null }>({ active: 0, previous: null });
+  const activeSlide = slideState.active;
   const [readySlides, setReadySlides] = useState<number[]>([]);
   const [requestedSlides, setRequestedSlides] = useState<number[]>([0]);
   const [failedSlides, setFailedSlides] = useState<number[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isDocumentVisible, setIsDocumentVisible] = useState(true);
+  const [isInView, setIsInView] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
   const [hydrated, setHydrated] = useState(false);
-  const isRotating = isPlaying && isDocumentVisible && readySlides.some((index) => index !== activeSlide);
+  const isRotating = isPlaying && isDocumentVisible && isInView && readySlides.some((index) => index !== activeSlide);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    if (!("IntersectionObserver" in window)) {
+      setIsInView(true);
+      return;
+    }
+
+    // Keep the visitor's play/pause preference while suspending background work
+    // below the hero, including when browser history restores a scrolled page.
+    const observer = new IntersectionObserver(([entry]) => setIsInView(entry.isIntersecting));
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -56,7 +74,7 @@ export function HomeHeroSlideshow({ children }: { children: ReactNode }) {
     // Opacity-hidden slides still count as in-viewport for native lazy loading.
     // Load only the next slide, after the current image, when rotation is wanted.
     // Keep the first image in server HTML, including for visitors without JS.
-    if (!isPlaying || !isDocumentVisible) return;
+    if (!isPlaying || !isDocumentVisible || !isInView) return;
     if (!readySlides.includes(activeSlide) && !failedSlides.includes(activeSlide)) return;
 
     for (let offset = 1; offset < homeHeroSlides.length; offset += 1) {
@@ -65,16 +83,16 @@ export function HomeHeroSlideshow({ children }: { children: ReactNode }) {
       setRequestedSlides((requested) => requested.includes(next) ? requested : [...requested, next]);
       break;
     }
-  }, [activeSlide, failedSlides, isDocumentVisible, isPlaying, readySlides]);
+  }, [activeSlide, failedSlides, isDocumentVisible, isInView, isPlaying, readySlides]);
 
   useEffect(() => {
     if (!isRotating) return;
 
     const timer = window.setInterval(() => {
-      setActiveSlide((current) => {
+      setSlideState((current) => {
         for (let offset = 1; offset < homeHeroSlides.length; offset += 1) {
-          const next = (current + offset) % homeHeroSlides.length;
-          if (readySlides.includes(next)) return next;
+          const next = (current.active + offset) % homeHeroSlides.length;
+          if (readySlides.includes(next)) return { active: next, previous: current.active };
         }
         return current;
       });
@@ -82,8 +100,19 @@ export function HomeHeroSlideshow({ children }: { children: ReactNode }) {
     return () => window.clearInterval(timer);
   }, [isRotating, readySlides]);
 
+  useEffect(() => {
+    if (slideState.previous === null) return;
+    // Both visible photographs continue panning throughout the crossfade. Once
+    // it ends, the hidden image no longer needs an active compositor animation.
+    const timer = window.setTimeout(() => {
+      setSlideState((current) => ({ ...current, previous: null }));
+    }, FADE_DURATION);
+    return () => window.clearTimeout(timer);
+  }, [slideState.active, slideState.previous]);
+
   return (
     <div
+      ref={stageRef}
       className={styles.heroStage}
       role="region"
       aria-roledescription="carousel"
@@ -109,6 +138,7 @@ export function HomeHeroSlideshow({ children }: { children: ReactNode }) {
             aria-roledescription="slide"
             aria-label={`${index + 1} of ${homeHeroSlides.length}: ${slide.label}`}
             aria-hidden={index !== activeSlide}
+            data-motion-visible={index === activeSlide || index === slideState.previous}
           >
             {requestedSlides.includes(index) && <picture>
               <source media={PORTRAIT_MEDIA} type="image/avif" srcSet={homeImageVariants[slide.src].portrait.avif} />

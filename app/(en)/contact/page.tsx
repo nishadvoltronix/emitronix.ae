@@ -5,6 +5,7 @@ import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone, Smartphon
 import { FAQSection, InsightGrid, ProcessRail } from "@/components/ContentBlocks";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
+import { socialIcons } from "@/components/SocialIcons";
 import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site, socialLinks, whatsappUrl } from "@/data/site";
@@ -149,7 +150,7 @@ export default function ContactPage() {
               <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-charcoal">Official profiles</h2>
               <div className="mt-4 flex flex-wrap gap-3">
                 {socialLinks.map((item) => {
-                  const Icon = item.icon;
+                  const Icon = socialIcons[item.label];
                   return (
                     <a
                       key={item.href}

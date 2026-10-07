@@ -526,7 +526,7 @@ test("SalesIQ initializes essential chat while respecting live visitor tracking 
     consentManager,
     /if \(!privacy\?\.visitorTracking && !salesIqOpenRequested\) return;/,
   );
-  assert.match(consentManager, /if \(opened\) salesIqOpenRequested = false;/);
+  assert.match(consentManager, /if \(opened\) \{[\s\S]*?salesIqOpenRequested = false;/);
   assert.match(
     consentManager,
     /if \(salesIqOpenRequested\) \{[\s\S]*?window\.EmitronixJyothika\?\.open\(\);/,
@@ -571,6 +571,164 @@ test("SalesIQ loader removes a failed script so the launcher can retry", async (
   );
 });
 
+async function salesIqLoadingHarness() {
+  const manager = await readFile(new URL("../components/CookieConsentManager.tsx", import.meta.url), "utf8");
+  const functions = [
+    "getSalesIqApi", "announceSalesIqStatus", "openSalesIqWindow",
+    "syncSalesIqTracking", "syncSalesIqCookieConsent", "syncSalesIqPrivacyState",
+    "handleSalesIqScriptError", "loadSalesIqWidget",
+  ].map((name) => {
+    const source = manager.match(new RegExp(`function ${name}\\([\\s\\S]*?\\n\\}`))?.[0];
+    assert.ok(source, `exercise the actual ${name} implementation`);
+    return source;
+  }).join("\n");
+  const scripts = new Map();
+  const inserted = [];
+  const statuses = [];
+  const tracking = [];
+  const cookiePreferences = [];
+  const opens = [];
+  const context = {
+    salesIqConsentCategories: null,
+    salesIqOpenRequested: false,
+    salesIqReadyHandlerInstalled: false,
+    salesIqReadyFired: false,
+    salesIqAfterReadyFired: false,
+    SALESIQ_SCRIPT_ID: "zsiqscript",
+    SALESIQ_WIDGET_URL: "https://salesiq.zohopublic.com/widget?wc=test",
+    SALESIQ_PROACTIVE_DELAY_MS: 10000,
+    CHAT_STATUS_EVENT: "emitronix:chat-status",
+    CustomEvent: class { constructor(type, { detail }) { this.type = type; this.detail = detail; } },
+    dispatchEvent: (event) => statuses.push(event.detail),
+    setTimeout: () => 1,
+    getSalesIqRuntimePrivacy,
+    salesIqLocationIsAllowed: () => true,
+    hideSalesIqWidget: () => {},
+    syncSalesIqTheme: () => {},
+    syncSalesIqHomeTheme: () => {},
+    scheduleSalesIqHomeTheme: () => {},
+    syncSalesIqSystemMessages: () => {},
+    syncSalesIqPageContext: () => {},
+    setSalesIqFloatButtonVisibility: () => {},
+    fireSalesIqProactiveActionOnce: () => {},
+    document: {
+      getElementById: (id) => scripts.get(id),
+      querySelector: () => null,
+    },
+    injectScript: (id, src, onLoad, onError) => {
+      inserted.push({ id, src, onLoad, onError });
+      scripts.set(id, { remove: () => scripts.delete(id) });
+    },
+  };
+  context.window = context;
+  runInNewContext(ts.transpileModule(functions, { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText, context);
+  function ready() {
+    Object.assign(context.$zoho.salesiq, {
+      floatwindow: { visible: (value) => opens.push(value) },
+      tracking: { on: () => tracking.push("on"), off: () => tracking.push("off") },
+      privacy: { updateCookieConsent: (value) => cookiePreferences.push([...value]) },
+    });
+    context.$zoho.salesiq.ready();
+    context.$zoho.salesiq.afterReady();
+  }
+  return { context, inserted, statuses, tracking, cookiePreferences, opens, ready };
+}
+
+test("SalesIQ leaves initial page rendering free of chat downloads without Analytics consent", async (t) => {
+  for (const categories of [rejected, { ...rejected, functional: true }, { ...rejected, performance: true }, { ...rejected, marketing: true }]) {
+    await t.test(JSON.stringify(categories), async () => {
+      const { context, inserted } = await salesIqLoadingHarness();
+      context.loadSalesIqWidget(categories);
+      context.loadSalesIqWidget(categories);
+      assert.equal(inserted.length, 0);
+      assert.equal(typeof context.EmitronixJyothika.open, "function", "chat stays available immediately");
+      assert.equal(context.EmitronixJyothika.isReady(), false);
+    });
+  }
+});
+
+test("SalesIQ starts consented Live View once without opening the chat window", async () => {
+  const { context, inserted, tracking, cookiePreferences, opens, ready } = await salesIqLoadingHarness();
+  context.loadSalesIqWidget({ ...rejected, analytics: true });
+  context.loadSalesIqWidget({ ...rejected, analytics: true });
+  assert.equal(inserted.length, 1);
+  ready();
+  assert.deepEqual(tracking, ["on", "on"]);
+  assert.deepEqual(cookiePreferences, [["analytics"]]);
+  assert.deepEqual(opens, []);
+});
+
+test("an explicit chat request loads once, shows loading feedback and opens after readiness with tracking denied", async () => {
+  const { context, inserted, statuses, tracking, cookiePreferences, opens, ready } = await salesIqLoadingHarness();
+  context.loadSalesIqWidget(rejected);
+  assert.equal(context.EmitronixJyothika.open(), false, "launcher must request loading when no SDK exists");
+  context.loadSalesIqWidget(rejected);
+  assert.equal(context.EmitronixJyothika.open(), true, "another click joins the existing load");
+  context.loadSalesIqWidget(rejected);
+  assert.equal(inserted.length, 1);
+  assert.ok(statuses.includes("loading"));
+  assert.deepEqual(opens, []);
+  ready();
+  assert.deepEqual(opens, ["show"]);
+  assert.deepEqual(tracking, ["off", "off"]);
+  assert.deepEqual(cookiePreferences, [[]]);
+  assert.equal(statuses.at(-1), "ready");
+  assert.equal(context.salesIqOpenRequested, false);
+});
+
+test("a failed on-demand chat download reports the failure and the next click retries", async () => {
+  const { context, inserted, statuses, opens, ready } = await salesIqLoadingHarness();
+  context.loadSalesIqWidget(rejected);
+  context.EmitronixJyothika.open();
+  context.loadSalesIqWidget(rejected);
+  inserted[0].onError();
+  assert.equal(statuses.at(-1), "error");
+  assert.equal(context.salesIqOpenRequested, false);
+  assert.equal(context.EmitronixJyothika.open(), false);
+  context.loadSalesIqWidget(rejected);
+  assert.equal(inserted.length, 2);
+  ready();
+  assert.deepEqual(opens, ["show"]);
+  assert.equal(statuses.at(-1), "ready");
+});
+
+test("deferred SalesIQ theme retries start only on opening, share one timer and stop on readiness or timeout", async () => {
+  const manager = await readFile(new URL("../components/CookieConsentManager.tsx", import.meta.url), "utf8");
+  const scheduleSource = manager.match(/function scheduleSalesIqHomeTheme\([\s\S]*?\n\}/)?.[0];
+  assert.ok(scheduleSource);
+  assert.equal(manager.match(/scheduleSalesIqHomeTheme\(\);/g)?.length, 1);
+  assert.match(manager, /if \(opened\) \{\s+scheduleSalesIqHomeTheme\(\);/);
+  let now = 0;
+  let ready = false;
+  let attempts = 0;
+  const timers = [];
+  const context = {
+    salesIqThemeRetryTimer: null,
+    Date: { now: () => now },
+    syncSalesIqHomeTheme: () => { attempts++; return ready; },
+    setTimeout: (callback, delay) => { timers.push({ callback, delay }); return timers.length; },
+  };
+  context.window = context;
+  runInNewContext(ts.transpileModule(scheduleSource, { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText, context);
+  assert.equal(timers.length, 0, "registering the helper must not schedule startup work");
+  context.scheduleSalesIqHomeTheme();
+  context.scheduleSalesIqHomeTheme();
+  assert.equal(attempts, 1);
+  assert.equal(timers.length, 1, "repeated opens share one pending retry");
+  assert.equal(timers[0].delay, 100);
+  ready = true;
+  now = 100;
+  timers.shift().callback();
+  assert.equal(timers.length, 0, "a themed home view ends polling");
+  assert.equal(context.salesIqThemeRetryTimer, null);
+  ready = false;
+  context.scheduleSalesIqHomeTheme();
+  now = 5100;
+  timers.shift().callback();
+  assert.equal(timers.length, 0, "an unavailable provider frame cannot poll beyond the deadline");
+  assert.equal(context.salesIqThemeRetryTimer, null);
+});
+
 test("CSP permits the SalesIQ tracking socket without allowing arbitrary WebSockets", async () => {
   const config = await readFile(new URL("../next.config.ts", import.meta.url), "utf8");
   const connectDirective = config.match(/`connect-src ([^`]+)`/)?.[1];
@@ -604,6 +762,25 @@ test("floating action opens Zoho chat instead of the call button", async () => {
     /const categories = appliedCategoriesRef\.current \|\| getDefaultConsentCategories\(\);[\s\S]*?loadSalesIqWidget\(categories\);[\s\S]*?window\.EmitronixJyothika\?\.open\(\);/,
   );
   assert.doesNotMatch(consentManager, /requestChat[\s\S]*?openSettings\(\);/);
+});
+
+test("chat timeout offers a pending fallback while real script failures remain retryable and late readiness recovers", async () => {
+  const floatingActions = await readFile(new URL("../components/FloatingActions.tsx", import.meta.url), "utf8");
+  const transitionSource = floatingActions.match(/function nextChatStatus\([\s\S]*?\n\}/)?.[0];
+  assert.ok(transitionSource);
+  const context = {};
+  runInNewContext(ts.transpileModule(transitionSource, { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText, context);
+  const next = context.nextChatStatus;
+  assert.equal(next("idle", "loading"), "loading");
+  assert.equal(next("loading", "timeout"), "slow", "a timeout does not claim the SDK download failed");
+  assert.equal(next("slow", "loading"), "slow", "another click does not restart the timeout or advertise a fresh download");
+  assert.equal(next("slow", "ready"), "idle", "a late provider ready event clears the fallback");
+  assert.equal(next("idle", "timeout"), "idle", "a queued timeout must not undo readiness");
+  assert.equal(next("loading", "error"), "error");
+  assert.equal(next("slow", "error"), "error");
+  assert.equal(next("error", "loading"), "loading", "a genuinely failed script can be retried");
+  assert.match(floatingActions, /chatStatus === "slow" && \([\s\S]*?href=\{whatsappUrl\}/);
+  assert.match(floatingActions, /Chat is still loading/);
 });
 
 test("cookie notice discloses essential chat and analytics-gated Live View", async () => {

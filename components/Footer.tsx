@@ -1,6 +1,7 @@
 import { ArrowRight, Mail, MapPin, MessageCircle, Phone, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/BrandLogo";
+import { socialIcons } from "@/components/SocialIcons";
 import { CookieSettingsFooterButton } from "@/components/CookieConsentManager";
 import { approvalServices } from "@/data/approvals";
 import { arabicApprovalTitle, arabicFooterLabels, arabicNavItems, arabicServiceTitle } from "@/data/arabic";
@@ -219,7 +220,7 @@ export function Footer({ locale }: { locale: Locale }) {
                   <h4 className="text-xs font-black uppercase tracking-[0.2em] text-charcoal">Follow Emitronix</h4>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {socialLinks.map((item) => {
-                      const Icon = item.icon;
+                      const Icon = socialIcons[item.label];
                       return (
                         <a
                           key={item.href}
@@ -227,9 +228,10 @@ export function Footer({ locale }: { locale: Locale }) {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Emitronix on ${item.label}`}
+                          title={item.label}
                           className="grid h-10 w-10 place-items-center rounded-xl border border-brand/[0.12] bg-brand-soft text-brand transition hover:border-brand/30 hover:bg-brand hover:text-white"
                         >
-                          <Icon className="h-4 w-4" aria-hidden="true" />
+                          <Icon className="h-5 w-5" aria-hidden="true" />
                         </a>
                       );
                     })}

@@ -112,6 +112,7 @@ const CONSENT_STORAGE_KEY = "emitronix_cookie_consent";
 const LANGUAGE_STORAGE_KEY = "emitronix_language";
 const SETTINGS_EVENT = "emitronix:open-cookie-settings";
 const CHAT_REQUEST_EVENT = "emitronix:request-zoho-chat";
+const CHAT_STATUS_EVENT = "emitronix:chat-status";
 let restoreActiveTrackingGuard: (() => void) | null = null;
 let consentReloadScheduled = false;
 
@@ -141,6 +142,7 @@ const SALESIQ_WIDGET_URL =
 const SALESIQ_SCRIPT_ID = "zsiqscript";
 const SALESIQ_THEME_COLOR = "#194991";
 const salesIqThemedFrames = new WeakSet<HTMLIFrameElement>();
+let salesIqThemeRetryTimer: number | null = null;
 const SALESIQ_ALLOWED_HOSTS = ["emitronix.ae", "www.emitronix.ae"];
 const SALESIQ_DEVELOPMENT_HOSTS = ["localhost", "127.0.0.1", "::1"];
 const SALESIQ_EXCLUDED_PATHS = ["/admin", "/api", "/dashboard", "/preview", "/_next"];
@@ -343,6 +345,10 @@ function getSalesIqApi() {
   return window.$zoho?.salesiq;
 }
 
+function announceSalesIqStatus(status: "loading" | "ready" | "error") {
+  window.dispatchEvent(new CustomEvent(CHAT_STATUS_EVENT, { detail: status }));
+}
+
 function setSalesIqFloatButtonVisibility(state: SalesIqVisibilityState) {
   try {
     getSalesIqApi()?.floatbutton?.visible?.(state);
@@ -406,8 +412,11 @@ function openSalesIqWindow() {
     // Keep using the visible window APIs when click is unavailable.
   }
   setSalesIqFloatButtonVisibility("hide");
-  syncSalesIqHomeTheme();
-  if (opened) salesIqOpenRequested = false;
+  if (opened) {
+    scheduleSalesIqHomeTheme();
+    salesIqOpenRequested = false;
+    announceSalesIqStatus("ready");
+  }
   return opened;
 }
 
@@ -507,14 +516,18 @@ function syncSalesIqSystemMessages() {
 function syncSalesIqHomeTheme() {
   try {
     const frame = document.getElementById("siq_chatwindow");
-    if (!(frame instanceof HTMLIFrameElement)) return;
+    if (!(frame instanceof HTMLIFrameElement)) return false;
     if (!salesIqThemedFrames.has(frame)) {
       frame.addEventListener("load", syncSalesIqHomeTheme);
       salesIqThemedFrames.add(frame);
     }
     const chatDocument = frame.contentDocument;
     const styleId = "emitronix-chat-theme";
-    if (!chatDocument?.head || chatDocument.getElementById(styleId)) return;
+    // On the first deferred open, the provider creates this view after ready.
+    // Wait for its real home document instead of styling an empty iframe that
+    // the provider is about to replace.
+    if (!chatDocument?.head || !chatDocument.querySelector(".callhome-wrap")) return false;
+    if (chatDocument.getElementById(styleId)) return true;
 
     // The new SalesIQ home view has inline brand colours independent of chat.theme.
     // Its same-origin iframe needs scoped overrides; the rest of the widget stays native.
@@ -528,9 +541,24 @@ function syncSalesIqHomeTheme() {
       }
     `;
     chatDocument.head.appendChild(style);
+    return true;
   } catch {
     // Keep chat available if a future provider version uses a cross-origin frame.
+    return false;
   }
+}
+
+function scheduleSalesIqHomeTheme() {
+  if (salesIqThemeRetryTimer !== null) return;
+  const deadline = Date.now() + 5000;
+  const attempt = () => {
+    salesIqThemeRetryTimer = null;
+    if (syncSalesIqHomeTheme() || Date.now() >= deadline) return;
+    salesIqThemeRetryTimer = window.setTimeout(attempt, 100);
+  };
+  // Only an opened chat starts this bounded retry. Normal page visits and
+  // background Live View initialization do not schedule any theme polling.
+  attempt();
 }
 
 function syncSalesIqTheme() {
@@ -551,6 +579,7 @@ function handleSalesIqScriptError() {
   // Keep the public launcher available. A later click can retry the provider
   // script instead of being trapped behind a stale failed script element.
   salesIqOpenRequested = false;
+  announceSalesIqStatus("error");
 }
 
 function loadSalesIqWidget(categories: ConsentCategoryMap) {
@@ -562,7 +591,10 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     open: () => {
       salesIqOpenRequested = true;
       if (openSalesIqWindow()) return true;
-      if (document.getElementById(SALESIQ_SCRIPT_ID)) return true;
+      if (document.getElementById(SALESIQ_SCRIPT_ID)) {
+        announceSalesIqStatus("loading");
+        return true;
+      }
       return false;
     },
     hide: hideSalesIqWidget,
@@ -574,6 +606,13 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     hideSalesIqWidget();
     return;
   }
+
+  const existingScript = document.getElementById(SALESIQ_SCRIPT_ID) ||
+    document.querySelector(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`);
+  // Keep the launcher available immediately without downloading the chat app
+  // during page rendering. An explicit chat request starts essential chat;
+  // Analytics consent also starts the existing, consented Live View service.
+  if (!categories.analytics && !salesIqOpenRequested && !existingScript) return;
 
   if (!salesIqReadyHandlerInstalled) {
     const previousReady = salesiq.ready;
@@ -602,16 +641,14 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     salesIqReadyHandlerInstalled = true;
   }
 
-  if (
-    document.getElementById(SALESIQ_SCRIPT_ID) ||
-    document.querySelector(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
-  ) {
+  if (existingScript) {
     if (salesIqReadyFired || salesIqAfterReadyFired) syncSalesIqTheme();
     syncSalesIqPrivacyState();
     syncSalesIqPageContext();
     return;
   }
 
+  if (salesIqOpenRequested) announceSalesIqStatus("loading");
   injectScript(
     SALESIQ_SCRIPT_ID,
     SALESIQ_WIDGET_URL,
@@ -1031,9 +1068,9 @@ export function CookieConsentManager() {
     const initialLanguage = detectLanguage();
     setLanguage(initialLanguage);
 
-    // Initialize the contact channel immediately with every optional category
-    // denied. A stored, valid choice may upgrade the provider after config is
-    // loaded, but stale consent can never enable tracking during this window.
+    // Register the contact launcher with every optional category denied. The
+    // provider loads on a chat request or after a valid Analytics grant; stale
+    // consent cannot enable tracking while the configuration is loading.
     const initialCategories = getDefaultConsentCategories();
     appliedCategoriesRef.current = initialCategories;
     loadSalesIqWidget(initialCategories);

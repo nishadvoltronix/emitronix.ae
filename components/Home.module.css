@@ -174,7 +174,7 @@
   animation-play-state: paused;
 }
 
-.heroStage[data-motion-playing="true"] .heroSlide img {
+.heroStage[data-motion-playing="true"] .heroSlide[data-motion-visible="true"] img {
   animation-play-state: running;
 }
 

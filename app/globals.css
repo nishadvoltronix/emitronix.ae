@@ -20,6 +20,15 @@
   --hairline: rgba(214, 233, 255, 0.72);
 }
 
+/* SalesIQ's native close button uses a separate theme from its chat window. */
+#zsiq_float {
+  --zsiqf-dynamic-bg-color: var(--brand-blue);
+  --zsiqf-dynamic-cw-bg-color: var(--brand-blue);
+  --zsiqf-dynamic-text-color: #fff;
+  --zsiqf-dynamic-border-color: var(--brand-blue);
+  --zsiqf-custom-bg: var(--brand-blue);
+}
+
 * {
   box-sizing: border-box;
 }

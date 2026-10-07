@@ -66,6 +66,7 @@ type ZohoSalesIqApi = {
     visible?: (state: SalesIqVisibilityState) => void;
   };
   chat?: {
+    theme?: (color: string) => void;
     systemmessages?: (messages: Partial<Record<SalesIqSystemMessage, string>>) => void;
   };
   visitor?: {
@@ -138,6 +139,8 @@ const extraScripts = {
 const SALESIQ_WIDGET_URL =
   "https://salesiq.zohopublic.com/widget?wc=siq1f4b2e5df11f8540e8c42cce8cfbf087ee91508d4eaaccfbcd68dc760569131fdba231f665cae37d10855c73a0668462";
 const SALESIQ_SCRIPT_ID = "zsiqscript";
+const SALESIQ_THEME_COLOR = "#194991";
+const salesIqThemedFrames = new WeakSet<HTMLIFrameElement>();
 const SALESIQ_ALLOWED_HOSTS = ["emitronix.ae", "www.emitronix.ae"];
 const SALESIQ_DEVELOPMENT_HOSTS = ["localhost", "127.0.0.1", "::1"];
 const SALESIQ_EXCLUDED_PATHS = ["/admin", "/api", "/dashboard", "/preview", "/_next"];
@@ -403,6 +406,7 @@ function openSalesIqWindow() {
     // Keep using the visible window APIs when click is unavailable.
   }
   setSalesIqFloatButtonVisibility("hide");
+  syncSalesIqHomeTheme();
   if (opened) salesIqOpenRequested = false;
   return opened;
 }
@@ -500,6 +504,45 @@ function syncSalesIqSystemMessages() {
   }
 }
 
+function syncSalesIqHomeTheme() {
+  try {
+    const frame = document.getElementById("siq_chatwindow");
+    if (!(frame instanceof HTMLIFrameElement)) return;
+    if (!salesIqThemedFrames.has(frame)) {
+      frame.addEventListener("load", syncSalesIqHomeTheme);
+      salesIqThemedFrames.add(frame);
+    }
+    const chatDocument = frame.contentDocument;
+    const styleId = "emitronix-chat-theme";
+    if (!chatDocument?.head || chatDocument.getElementById(styleId)) return;
+
+    // The new SalesIQ home view has inline brand colours independent of chat.theme.
+    // Its same-origin iframe needs scoped overrides; the rest of the widget stays native.
+    const style = chatDocument.createElement("style");
+    style.id = styleId;
+    style.textContent = `
+      .callhome-wrap { --siqcw-header-bg-color: ${SALESIQ_THEME_COLOR} !important; }
+      .callhome-wrap .home-icon-optns .circle-btns {
+        --siqcw-custom-dark-icon-color: ${SALESIQ_THEME_COLOR} !important;
+        --siqcw-filter-bg-color: linear-gradient(0deg, rgba(255,255,255,.84), rgba(255,255,255,.84)), ${SALESIQ_THEME_COLOR} !important;
+      }
+    `;
+    chatDocument.head.appendChild(style);
+  } catch {
+    // Keep chat available if a future provider version uses a cross-origin frame.
+  }
+}
+
+function syncSalesIqTheme() {
+  try {
+    // Use SalesIQ's supported theme API so the hosted chat window is styled too.
+    getSalesIqApi()?.chat?.theme?.(SALESIQ_THEME_COLOR);
+  } catch {
+    // A provider theme error must not prevent chat from opening.
+  }
+  syncSalesIqHomeTheme();
+}
+
 function handleSalesIqScriptError() {
   document.getElementById(SALESIQ_SCRIPT_ID)?.remove();
   salesIqReadyFired = false;
@@ -538,6 +581,7 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     salesiq.ready = () => {
       if (typeof previousReady === "function") previousReady();
       salesIqReadyFired = true;
+      syncSalesIqTheme();
       syncSalesIqSystemMessages();
       syncSalesIqTracking();
       syncSalesIqPageContext();
@@ -547,6 +591,7 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     salesiq.afterReady = (...args: unknown[]) => {
       if (typeof previousAfterReady === "function") previousAfterReady(...args);
       salesIqAfterReadyFired = true;
+      syncSalesIqTheme();
       syncSalesIqCookieConsent();
       // Zoho applies its privacy state during afterReady. Reconcile tracking
       // afterwards so an approved Live View session is not left disabled by
@@ -561,6 +606,7 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     document.getElementById(SALESIQ_SCRIPT_ID) ||
     document.querySelector(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
   ) {
+    if (salesIqReadyFired || salesIqAfterReadyFired) syncSalesIqTheme();
     syncSalesIqPrivacyState();
     syncSalesIqPageContext();
     return;

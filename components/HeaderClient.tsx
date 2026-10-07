@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Search, Sparkles, X } from "lucide-react";
+import { ArrowRight, Building2, ChevronDown, FileCheck2, Landmark, Languages, Menu, Search, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -8,6 +8,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
 import type { NavItem } from "@/data/site";
 import { alternateLocalePath, isArabicPath, localizedPath, toEnglishPath } from "@/lib/i18n";
+import menuStyles from "./HeaderMenu.module.css";
 
 export type HeaderServiceLink = {
   slug: string;
@@ -358,8 +359,8 @@ export function HeaderClient({
                     <div
                       ref={megaPanelRef}
                       id="desktop-services-menu"
-                      className={`absolute left-1/2 top-full z-50 w-[min(100%,980px)] -translate-x-1/2 pt-3 transition duration-300 ${
-                        megaOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-3 opacity-0"
+                      className={`absolute left-1/2 top-full z-50 w-[min(100%,980px)] -translate-x-1/2 pt-3 transition duration-200 ${
+                        megaOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-1 opacity-0"
                       }`}
                       aria-hidden={!megaOpen}
                       inert={!megaOpen}
@@ -367,22 +368,22 @@ export function HeaderClient({
                         if ((event.target as Element).closest("a")) closeMegaMenu();
                       }}
                     >
-                      <div className="premium-menu-panel max-h-[calc(100dvh-104px)] overflow-y-auto overscroll-contain">
-                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-[1fr_1fr_0.82fr]">
-                          <div className="rounded-[1.6rem] border border-brand/10 bg-pearl p-4">
-                            <div className="flex items-center gap-3">
-                              <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white text-brand shadow-sm">
-                                <Building2 className="h-5 w-5" />
+                      <div className={menuStyles.panel}>
+                        <div className={menuStyles.columns}>
+                          <div className={menuStyles.column}>
+                            <div className={menuStyles.heading}>
+                              <span className={menuStyles.icon}>
+                                <Building2 className="h-5 w-5" aria-hidden="true" />
                               </span>
                               <div>
-                              <p className="premium-kicker">{copy.services}</p>
-                                <p className="mt-1 text-xs font-bold text-steel">{copy.servicesDescription}</p>
+                                <p className={menuStyles.label}>{copy.services}</p>
+                                <p className={menuStyles.description}>{copy.servicesDescription}</p>
                               </div>
                             </div>
-                            <div className="mt-5 grid max-h-72 gap-2 overflow-auto pr-1">
+                            <div className={menuStyles.scrollList}>
                               <Link
                                 href={localizedPath("/services", locale)}
-                                className="premium-menu-link"
+                                className={`${menuStyles.link} ${menuStyles.overviewLink}`}
                                 aria-current={isCurrentPage("/services") ? "page" : undefined}
                               >
                                 {copy.allServices} <ArrowRight className="h-4 w-4" />
@@ -391,7 +392,7 @@ export function HeaderClient({
                                 <Link
                                   key={service.slug}
                                   href={localizedPath(service.href, locale)}
-                                  className="premium-menu-link"
+                                  className={menuStyles.link}
                                   aria-current={isCurrentPage(service.href) ? "page" : undefined}
                                 >
                                   {service.title}
@@ -400,20 +401,20 @@ export function HeaderClient({
                               ))}
                             </div>
                           </div>
-                          <div className="rounded-[1.6rem] border border-brand/10 bg-pearl p-4">
-                            <div className="flex items-center gap-3">
-                              <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white text-brand shadow-sm">
-                                <FileCheck2 className="h-5 w-5" />
+                          <div className={menuStyles.column}>
+                            <div className={menuStyles.heading}>
+                              <span className={menuStyles.icon}>
+                                <FileCheck2 className="h-5 w-5" aria-hidden="true" />
                               </span>
                               <div>
-                                <p className="premium-kicker">{copy.approvals}</p>
-                                <p className="mt-1 text-xs font-bold text-steel">{copy.approvalsDescription}</p>
+                                <p className={menuStyles.label}>{copy.approvals}</p>
+                                <p className={menuStyles.description}>{copy.approvalsDescription}</p>
                               </div>
                             </div>
-                            <div className="mt-5 grid max-h-72 gap-2 overflow-auto pr-1">
+                            <div className={menuStyles.scrollList}>
                               <Link
                                 href={localizedPath("/approval", locale)}
-                                className="premium-menu-link"
+                                className={`${menuStyles.link} ${menuStyles.overviewLink}`}
                                 aria-current={isCurrentPage("/approval") ? "page" : undefined}
                               >
                                 {copy.allApprovals} <ArrowRight className="h-4 w-4" />
@@ -422,7 +423,7 @@ export function HeaderClient({
                                 <Link
                                   key={service.slug}
                                   href={localizedPath(service.href, locale)}
-                                  className="premium-menu-link"
+                                  className={menuStyles.link}
                                   aria-current={isCurrentPage(service.href) ? "page" : undefined}
                                 >
                                   {service.menuLabel}
@@ -431,15 +432,15 @@ export function HeaderClient({
                               ))}
                             </div>
                           </div>
-                          <div className="rounded-[1.6rem] border border-brand/10 bg-[linear-gradient(145deg,#f8fbff_0%,#ffffff_100%)] p-5 md:col-span-2 lg:col-span-1">
-                            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-brand text-white shadow-sm">
-                              <Sparkles className="h-5 w-5" />
+                          <div className={`${menuStyles.column} ${menuStyles.sectors}`}>
+                            <span className={menuStyles.icon}>
+                              <Landmark className="h-5 w-5" aria-hidden="true" />
                             </span>
-                            <p className="mt-5 text-xs font-black uppercase tracking-[0.24em] text-steel">{copy.sectorFocus}</p>
-                            <p className="mt-2 text-2xl font-black tracking-tight text-charcoal">{copy.sectorTitle}</p>
-                            <div className="mt-5 grid gap-2">
+                            <p className={menuStyles.label}>{copy.sectorFocus}</p>
+                            <p className={menuStyles.sectorTitle}>{copy.sectorTitle}</p>
+                            <div className={menuStyles.sectorLinks}>
                               {copy.industryLinks.map((link) => (
-                                <Link key={link.label} href={localizedPath(link.href, locale)} className="premium-menu-link">
+                                <Link key={link.label} href={localizedPath(link.href, locale)} className={menuStyles.link}>
                                   {link.label}
                                   <ArrowRight className="h-4 w-4" />
                                 </Link>
@@ -555,11 +556,11 @@ export function HeaderClient({
                       inert={!mobileServicesOpen}
                     >
                       <div className="min-h-0">
-                        <div className="mt-2 grid gap-2 rounded-[1.5rem] border border-brand/[0.15] bg-brand-soft p-3">
+                        <div className={menuStyles.mobileServices}>
                           <Link
                             href={localizedPath("/services", locale)}
                             onClick={closeMobileMenu}
-                            className="rounded-2xl bg-white px-4 py-3 text-sm font-black text-charcoal shadow-sm"
+                            className={`${menuStyles.link} ${menuStyles.overviewLink}`}
                             tabIndex={mobileServicesOpen ? undefined : -1}
                             aria-current={isCurrentPage("/services") ? "page" : undefined}
                           >
@@ -570,20 +571,20 @@ export function HeaderClient({
                               key={service.slug}
                               href={localizedPath(service.href, locale)}
                               onClick={closeMobileMenu}
-                              className="rounded-2xl bg-white px-4 py-3 text-sm font-bold text-charcoal shadow-sm"
+                              className={menuStyles.link}
                               tabIndex={mobileServicesOpen ? undefined : -1}
                               aria-current={isCurrentPage(service.href) ? "page" : undefined}
                             >
                               {service.title}
                             </Link>
                           ))}
-                          <p className="px-4 pb-1 pt-3 text-xs font-black uppercase tracking-[0.2em] text-steel">{copy.sectorFocus}</p>
+                          <p className={menuStyles.mobileLabel}>{copy.sectorFocus}</p>
                           {copy.industryLinks.map((link) => (
                             <Link
                               key={link.href}
                               href={localizedPath(link.href, locale)}
                               onClick={closeMobileMenu}
-                              className="flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-charcoal shadow-sm"
+                              className={menuStyles.link}
                               tabIndex={mobileServicesOpen ? undefined : -1}
                               aria-current={isCurrentPage(link.href) ? "page" : undefined}
                             >

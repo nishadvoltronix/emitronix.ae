@@ -36,7 +36,8 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
   const reviewedDate = blogPost?.modifiedDate ?? trustContentLastReviewedIso;
   const photoSectionCount = page.sections.length + 3 + (page.form ? 1 : 0);
   const existingImages = [internalPhoto?.src ?? page.image, ...page.sections.flatMap(section => section.cards?.flatMap(card => card.image ? [card.image] : []) ?? [])];
-  const sectionPhotos = page.path === "/" ? [] : getSectionPhotographs(`/ar${page.path}`, Math.max(0, 5 - existingImages.length), existingImages);
+  const minimumPhotos = ["/villa-construction", "/warehouse-construction", "/commercial-buildings", "/interior"].includes(page.path) ? 7 : 5;
+  const sectionPhotos = page.path === "/" ? [] : getSectionPhotographs(`/ar${page.path}`, Math.max(0, minimumPhotos - existingImages.length), existingImages);
 
   return (
     <article lang="ar-AE" dir="rtl" className="bg-white text-charcoal">

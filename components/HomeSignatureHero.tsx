@@ -1,21 +1,14 @@
-import { ArrowRight, Building2, FileCheck2, Layers3, MessageCircle, PhoneCall, Warehouse } from "lucide-react";
+import { ArrowRight, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
-import { site, whatsappUrl } from "@/data/site";
+import { heroBadges, site, whatsappUrl } from "@/data/site";
 import { HomeHeroSlideshow } from "./HomeHeroSlideshow";
 import styles from "./Home.module.css";
-
-const capabilities = [
-  { label: "Civil & building construction", href: "/civil", icon: Building2 },
-  { label: "Warehouses & industrial", href: "/warehouse-construction", icon: Warehouse },
-  { label: "Interiors & renovation", href: "/interior", icon: Layers3 },
-  { label: "Dubai authority support", href: "/approval", icon: FileCheck2 },
-];
 
 export function HomeSignatureHero() {
   return (
     <section className={styles.hero} aria-labelledby="home-title">
       <HomeHeroSlideshow>
-        <div className="container-pad">
+        <div className={`container-pad ${styles.heroInner}`}>
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>Emitronix Contracting LLC · Dubai, UAE</p>
             <h1 id="home-title" className={styles.heroTitle}>
@@ -43,15 +36,16 @@ export function HomeSignatureHero() {
               </a>
             </div>
           </div>
+          <nav className={styles.heroServices} aria-label="Construction capabilities">
+            {heroBadges.map(({ title, label, href, icon: Icon }) => (
+              <Link key={href} href={href}>
+                <Icon aria-hidden="true" strokeWidth={1.5} />
+                <span><strong>{title}</strong><span>{label}</span></span>
+              </Link>
+            ))}
+          </nav>
         </div>
       </HomeHeroSlideshow>
-      <div className="container-pad">
-        <nav className={styles.scopeStrip} aria-label="Construction capabilities">
-          {capabilities.map(({ label, href, icon: Icon }) => (
-            <Link key={href} href={href}><Icon aria-hidden="true" />{label}</Link>
-          ))}
-        </nav>
-      </div>
     </section>
   );
 }

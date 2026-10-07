@@ -41,7 +41,8 @@ export function ServiceDetailPage({ service, overviewContent, afterOverview, sho
   const expandedFaqs = buildServiceExpandedFaqs(service);
   const pageUrl = absoluteUrl(service.href);
   const serviceImage = getInternalServiceImage(service.href);
-  const sectionPhotographs = getSectionPhotographs(service.href, 4, [serviceImage.src]);
+  const isSectorService = ["/villa-construction", "/warehouse-construction", "/commercial-buildings", "/interior"].includes(service.href);
+  const sectionPhotographs = getSectionPhotographs(service.href, isSectorService ? 6 : 4, [serviceImage.src]);
   const primaryImageUrl = absoluteUrl(serviceImage.src);
   const serviceVideo = showVideo ? getServiceVideo(service.href) : undefined;
   const isWarehouseService = service.href === "/warehouse-construction";
@@ -269,15 +270,18 @@ export function ServiceDetailPage({ service, overviewContent, afterOverview, sho
       <section id="documents" className="section-pad soft-section">
         <div className="container-pad">
           <PremiumSectionHeading eyebrow="Scope and records" title="Documents and deliverables" description="Confirm the required package against the project scope, appointed parties and authority route." />
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <article className="luxury-card rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-charcoal">Documents to prepare</h3>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{deepContent.documents.map((item) => <li key={item}>{item}</li>)}</ul>
-            </article>
-            <article className="luxury-card rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-charcoal">Delivery records and outputs</h3>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{deepContent.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
-            </article>
+          <div className={isSectorService ? "mt-6 grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr]" : "mt-6"}>
+            {isSectorService ? <SectionPhotograph photo={sectionPhotographs[4]} compact /> : null}
+            <div className="grid gap-6 md:grid-cols-2">
+              <article className="luxury-card rounded-lg p-6">
+                <h3 className="text-xl font-semibold text-charcoal">Documents to prepare</h3>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{deepContent.documents.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+              <article className="luxury-card rounded-lg p-6">
+                <h3 className="text-xl font-semibold text-charcoal">Delivery records and outputs</h3>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{deepContent.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -358,6 +362,7 @@ export function ServiceDetailPage({ service, overviewContent, afterOverview, sho
             <article>
               <h3 className="text-xl font-semibold text-charcoal">What affects pricing</h3>
               <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{service.costFactors.map((item) => <li key={item}>{item}</li>)}</ul>
+              {isSectorService ? <SectionPhotograph photo={sectionPhotographs[5]} className="mt-6" compact /> : null}
             </article>
             <details className="rounded-lg border border-brand/[0.15] p-5">
               <summary className="cursor-pointer font-semibold text-brand">View programme planning variables</summary>

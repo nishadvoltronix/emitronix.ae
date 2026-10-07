@@ -29,10 +29,10 @@ export type HeaderContact = {
 };
 
 const industryLinks = [
-  { label: "Luxury Villas", href: "/industries" },
-  { label: "Warehouses", href: "/industries" },
-  { label: "Commercial Buildings", href: "/industries" },
-  { label: "Retail Fit-Out", href: "/industries" },
+  { label: "Luxury Villas", href: "/villa-construction" },
+  { label: "Warehouses", href: "/warehouse-construction" },
+  { label: "Commercial Buildings", href: "/commercial-buildings" },
+  { label: "Retail Fit-Out", href: "/interior" },
 ];
 
 function focusBeforeHiding(menu: HTMLElement | null, trigger: HTMLElement | null) {
@@ -85,10 +85,10 @@ export function HeaderClient({
         language: "English",
         languageLabel: "تغيير اللغة إلى الإنجليزية",
         industryLinks: [
-          { label: "الفلل الفاخرة", href: "/industries" },
-          { label: "المستودعات", href: "/industries" },
-          { label: "المباني التجارية", href: "/industries" },
-          { label: "التشطيبات التجارية", href: "/industries" },
+          { label: "الفلل الفاخرة", href: "/villa-construction" },
+          { label: "المستودعات", href: "/warehouse-construction" },
+          { label: "المباني التجارية", href: "/commercial-buildings" },
+          { label: "التشطيبات التجارية", href: "/interior" },
         ],
       }
     : {
@@ -575,6 +575,20 @@ export function HeaderClient({
                               aria-current={isCurrentPage(service.href) ? "page" : undefined}
                             >
                               {service.title}
+                            </Link>
+                          ))}
+                          <p className="px-4 pb-1 pt-3 text-xs font-black uppercase tracking-[0.2em] text-steel">{copy.sectorFocus}</p>
+                          {copy.industryLinks.map((link) => (
+                            <Link
+                              key={link.href}
+                              href={localizedPath(link.href, locale)}
+                              onClick={closeMobileMenu}
+                              className="flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-charcoal shadow-sm"
+                              tabIndex={mobileServicesOpen ? undefined : -1}
+                              aria-current={isCurrentPage(link.href) ? "page" : undefined}
+                            >
+                              {link.label}
+                              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
                             </Link>
                           ))}
                         </div>

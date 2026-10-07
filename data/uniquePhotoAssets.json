@@ -868,5 +868,35 @@
     "credit": "alleksana / Pexels",
     "objectPosition": "center",
     "topic": "villa"
+  },
+  {
+    "src": "/images/unique/pexels-8311878.webp",
+    "width": 1067,
+    "height": 1600,
+    "alt": "Clothing boutique with timber display furniture, fitting rooms and ceiling track lighting",
+    "altAr": "متجر ملابس بأثاث عرض خشبي وغرف قياس وإضاءة سقفية موجهة",
+    "caption": "Representative photograph: Ron Lach / Pexels. Not an Emitronix project.",
+    "captionAr": "صورة فوتوغرافية مرخّصة للتوضيح، وليست من مشاريع إيمترونكس.",
+    "sourceId": "Pexels8311878",
+    "sourceUrl": "https://www.pexels.com/photo/interior-of-a-clothing-store-8311878/",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "credit": "Ron Lach / Pexels",
+    "objectPosition": "center",
+    "topic": "retail"
+  },
+  {
+    "src": "/images/unique/pexels-5490931.webp",
+    "width": 1600,
+    "height": 1066,
+    "alt": "Homewares shop with fitted shelving, display tables and ceiling track lighting",
+    "altAr": "متجر أدوات منزلية برفوف مدمجة وطاولات عرض وإضاءة سقفية موجهة",
+    "caption": "Representative photograph: Rachel Claire / Pexels. Not an Emitronix project.",
+    "captionAr": "صورة فوتوغرافية مرخّصة للتوضيح، وليست من مشاريع إيمترونكس.",
+    "sourceId": "Pexels5490931",
+    "sourceUrl": "https://www.pexels.com/photo/interior-of-home-goods-store-with-assorted-items-5490931/",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "credit": "Rachel Claire / Pexels",
+    "objectPosition": "center",
+    "topic": "retail"
   }
 ]

@@ -8,10 +8,10 @@ import { navItems, services, site, socialLinks, whatsappUrl } from "@/data/site"
 import { localizedPath, type Locale } from "@/lib/i18n";
 
 const sectorLinks = [
-  { label: "Luxury Villas", href: "/industries" },
-  { label: "Warehouse & Logistics", href: "/industries" },
-  { label: "Commercial Buildings", href: "/industries" },
-  { label: "Retail & Hospitality", href: "/industries" },
+  { label: "Luxury Villas", href: "/villa-construction" },
+  { label: "Warehouse & Logistics", href: "/warehouse-construction" },
+  { label: "Commercial Buildings", href: "/commercial-buildings" },
+  { label: "Retail & Hospitality", href: "/interior" },
 ];
 
 export function Footer({ locale }: { locale: Locale }) {
@@ -40,10 +40,10 @@ export function Footer({ locale }: { locale: Locale }) {
       };
   const currentSectorLinks = isArabic
     ? [
-        { label: "الفلل الفاخرة", href: "/industries" },
-        { label: "المستودعات واللوجستيات", href: "/industries" },
-        { label: "المباني التجارية", href: "/industries" },
-        { label: "التجزئة والضيافة", href: "/industries" },
+        { label: "الفلل الفاخرة", href: "/villa-construction" },
+        { label: "المستودعات واللوجستيات", href: "/warehouse-construction" },
+        { label: "المباني التجارية", href: "/commercial-buildings" },
+        { label: "التجزئة والضيافة", href: "/interior" },
       ]
     : sectorLinks;
 

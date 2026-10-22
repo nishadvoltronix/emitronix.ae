@@ -10,6 +10,7 @@ import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, navItems, services, stats } from "@/data/site";
 import { warehouseAuthorityPages } from "@/data/warehouseSeo";
+import { formatHeading } from "@/lib/headings";
 
 export const generateMetadata = createMetadataResolver({
   title: "HTML Sitemap",
@@ -30,7 +31,6 @@ const pageGroups = [
       { label: "Leadership", href: "/leadership" },
       { label: "Company Information", href: "/company-information" },
       { label: "Careers", href: "/careers" },
-      { label: "Blog", href: "/blog" },
       { label: "Frequently Asked Questions", href: "/faqs" },
       { label: "Locations", href: "/locations" },
       { label: "Dubai Service Area", href: "/locations/dubai" },
@@ -107,7 +107,7 @@ export default function HtmlSitemapPage() {
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {pageGroups.map((group, index) => (
               <article key={group.title} className="luxury-card rounded-lg p-6 lg:p-8">
-                <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{group.title}</h2>
+                <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(group.title)}</h2>
                 <div className="mt-6"><SectionPhotograph photo={sectionPhotographs[index]} compact /></div>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {group.links.map((link) => (

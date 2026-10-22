@@ -1,5 +1,5 @@
 import { SectionPhotoPlacement } from "@/components/SectionPhotoPlacement";
-import { findInternalServiceImage, getSectionPhotographs, getUniquePhotoAttribution } from "@/data/pagePhotography";
+import { findInternalServiceImage, getSectionPhotographs } from "@/data/pagePhotography";
 import { InternalPageHero } from "@/components/InternalPageFrame";
 import { ArrowLeft, CheckCircle2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
@@ -115,8 +115,7 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
           imageAsset={internalPhoto ? undefined : heroImage}
           image={internalPhoto?.src ?? (heroImage ? undefined : page.image)}
           imageAlt={internalPhoto?.altAr ?? page.imageAlt}
-          imageCaption={internalPhoto?.captionAr}
-          imageAttribution={getUniquePhotoAttribution(internalPhoto, "ar")}
+          photographic={Boolean(internalPhoto)}
           imagePosition={internalPhoto?.objectPosition}
           breadcrumbs={[{ label: arabicUi.breadcrumbHome, href: "/ar" }, { label: page.title }]}
           breadcrumbLabel="مسار التنقل"

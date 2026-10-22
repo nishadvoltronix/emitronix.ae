@@ -1,3 +1,4 @@
+import { formatHeading } from "@/lib/headings";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
@@ -29,7 +30,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
       </div>
       <div className="p-6">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">Emitronix Service</p>
-        <h3 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{service.title}</h3>
+        <h3 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(service.title)}</h3>
         <p className="mt-3 text-sm leading-7 text-steel">{service.description}</p>
         <Link href={service.href} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand transition hover:text-charcoal">
           Explore Scope <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />

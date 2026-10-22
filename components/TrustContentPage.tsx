@@ -22,6 +22,7 @@ import {
   type TrustPageContent,
 } from "@/data/trustCenter";
 import { site } from "@/data/site";
+import { formatHeading } from "@/lib/headings";
 
 export function JsonLd({ data }: { data: unknown }) {
   const json = JSON.stringify(data).replace(/</g, "\\u003c");
@@ -77,7 +78,7 @@ export function TrustPageHero({
           <div className="max-w-5xl">
             <p className="premium-kicker">{eyebrow}</p>
             <h1 className={styles.editorialTitle}>
-              {title}
+              {formatHeading(title)}
             </h1>
             <p className={styles.editorialDescription}>{summary}</p>
           </div>
@@ -108,13 +109,13 @@ export function PrincipleGrid({
     <section aria-labelledby="principles-heading" className="bg-white py-12">
       <div className="container-pad">
         <h2 id="principles-heading" className="sr-only">
-          Policy principles
+          Policy Principles
         </h2>
         <div className="grid gap-5 md:grid-cols-3">
           {principles.map((principle) => (
             <article key={principle.title} className="luxury-card rounded-lg p-6">
               <BadgeCheck className="h-7 w-7 text-brand" aria-hidden="true" />
-              <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{principle.title}</h3>
+              <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{formatHeading(principle.title)}</h3>
               <p className="mt-3 text-sm leading-7 text-steel">{principle.description}</p>
             </article>
           ))}
@@ -137,7 +138,7 @@ export function RelatedTrustLinks({
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="premium-kicker">Continue reading</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">{title}</h2>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">{formatHeading(title)}</h2>
           </div>
           <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
             Contact Emitronix <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -147,7 +148,7 @@ export function RelatedTrustLinks({
           {links.map((link) => (
             <Link key={link.href} href={link.href} className="luxury-card group rounded-lg p-6">
               <BookOpenCheck className="h-7 w-7 text-brand" aria-hidden="true" />
-              <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{link.label}</h3>
+              <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{formatHeading(link.label)}</h3>
               <p className="mt-3 text-sm leading-7 text-steel">{link.description}</p>
               <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand">
                 Read more
@@ -175,7 +176,7 @@ export function VerificationPanel({
           <div className="max-w-3xl">
             <p className="premium-kicker">Publication boundary</p>
             <h2 id="verification-heading" className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-              {title}
+              {formatHeading(title)}
             </h2>
             <p className="mt-4 text-base leading-8 text-steel">
               Missing information is identified openly instead of being inferred from an address, business name or service description.
@@ -265,7 +266,7 @@ export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
                 {content.sections.map((section, index) => (
                   <section key={section.title} aria-labelledby={`policy-section-${index}`} className="rounded-lg border border-brand/[0.10] bg-white p-6 shadow-none sm:p-8">
                     <h2 id={`policy-section-${index}`} className="text-2xl font-semibold tracking-tight text-charcoal sm:text-3xl">
-                      {section.title}
+                      {formatHeading(section.title)}
                     </h2>
                     {section.intro ? <p className="mt-4 text-base leading-8 text-steel">{section.intro}</p> : null}
                     <SectionPhotoPlacement photos={sectionPhotos} index={index} sections={content.sections.length} />

@@ -12,13 +12,14 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, authorities, localSeoBlocks, services, site, stats, whatsappUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
+import { formatHeading } from "@/lib/headings";
 
 export const generateMetadata = createMetadataResolver({
-  title: "Civil Construction Services Dubai",
+  title: "Construction Services in Dubai for Every Project",
   description:
-    "Explore Emitronix civil contracting, interior fit-out, villa, warehouse, commercial building and authority approval services in Dubai, UAE.",
+    "Explore construction services in Dubai and across the UAE, including civil works, warehouse construction, building contracting and interior fit-outs with Emitronix.",
   path: "/services",
-  keywords: ["civil construction services Dubai", "building contractor Dubai", "authority approval Dubai", "interior fit-out Dubai"],
+  keywords: ["construction services Dubai", "civil construction services Dubai", "building contractor Dubai", "authority approval Dubai", "interior fit-out Dubai"],
   image: getGeneratedImage("services.construction-services-dubai-hero").og!.src,
   imageAlt: getGeneratedImage("services.construction-services-dubai-hero").alt,
 });
@@ -32,22 +33,22 @@ const serviceSelectionProcess = [
 
 const servicesFaqs = [
   {
-    question: "Which Emitronix service should I choose first?",
+    question: "Which Emitronix Service Should I Choose First?",
     answer:
       "Choose civil contracting or main contracting for building works, warehouse construction for logistics facilities, villa construction for residential projects, interior fit-out for finished spaces and authority approvals when Dubai submissions or inspections are the main challenge.",
   },
   {
-    question: "Can multiple services be combined?",
+    question: "Can Multiple Services Be Combined?",
     answer:
       "Yes. Start by marking the boundaries between civil works, fit-out, MEP interfaces and approval tasks on the same scope schedule. The enquiry review then identifies design ownership, exclusions and the sequence in which each package can be released.",
   },
   {
-    question: "Does Emitronix support warehouse and villa projects?",
+    question: "Does Emitronix Support Warehouse and Villa Projects?",
     answer:
       "Villa, warehouse, commercial, industrial and fit-out enquiries can be reviewed. Suitability depends on the actual scope, location, authority jurisdiction, site access and the professional appointments required for that project.",
   },
   {
-    question: "What information speeds up a service consultation?",
+    question: "What Information Speeds Up a Service Consultation?",
     answer:
       "Project location, drawings, current approvals, intended use, site condition, authority comments and preferred timeline help the team understand the correct service path.",
   },
@@ -84,8 +85,8 @@ export default function ServicesPage() {
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
         eyebrow="Services"
-        title="A complete construction platform for Dubai projects."
-        description="Emitronix aligns civil contracting, fit-out delivery and authority approval coordination so project owners can move from scope definition to handover with clearer control."
+        title="Construction Services in Dubai for Every Project"
+        description={`${site.legalName} offers civil works, warehouse construction, building contracting and interior fit-out services in Dubai and across the UAE, supported by engineering coordination and authority approval assistance.`}
         imageAsset={getGeneratedImage("services.construction-services-dubai-hero")}
         primaryCta={{ label: "Request Consultation", href: "/contact" }}
         secondaryCta={{ label: "Scope Planning Library", href: "/projects" }}
@@ -93,7 +94,7 @@ export default function ServicesPage() {
       />
 
       <AnswerEngineSummary
-        question="Which construction services does Emitronix provide in Dubai?"
+        question="Which Construction Services Does Emitronix Provide in Dubai?"
         answer="The published service scope covers civil and main contracting, warehouses, villas, commercial and industrial buildings, interior fit-out, renovation, structural works, design and build, project management and authority-approval coordination in Dubai."
         facts={[
           "Recommended starting point for building works: civil contracting, main contracting or the matching asset-specific service page.",
@@ -108,9 +109,9 @@ export default function ServicesPage() {
         <div className="container-pad">
           <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
             <PremiumSectionHeading
-              eyebrow="Core services"
-              title="Civil, main contracting, warehouse, villa and fit-out scopes with visible responsibilities."
-              description="Each service guide identifies the decisions, drawings, authority interfaces, site controls and handover evidence that should be defined before work advances."
+              eyebrow="Core Services"
+              title="Civil Contracting, Building Construction, Warehouse, Villa and Fit-Out Services"
+              description="Each service outlines the key decisions, drawings, authority requirements, site controls and handover documentation needed to keep projects organised and clearly defined."
             />
             <SectionPhotograph photo={sectionPhotographs[0]} compact />
           </div>
@@ -126,9 +127,9 @@ export default function ServicesPage() {
         <div className="container-pad">
           <div className="grid gap-4 rounded-lg border border-brand/[0.15] bg-brand-soft p-5 shadow-none lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
             <div>
-              <p className="premium-kicker">Service enquiry</p>
+              <p className="premium-kicker">Service Enquiry</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-charcoal sm:text-3xl">
-                Compare scopes, then request a quote or site visit.
+                Compare Scopes, Then Request a Quote or Site Visit
               </h2>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -153,8 +154,8 @@ export default function ServicesPage() {
         <div className="container-pad grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
           <div className="space-y-6">
             <PremiumSectionHeading
-              eyebrow="Dubai approval menu"
-              title="Authority approval services built into project planning."
+              eyebrow="Dubai Approval Menu"
+              title="Authority Approval Services Built into Project Planning"
               description="Approval support covers Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA workflows."
               light
             />
@@ -164,7 +165,7 @@ export default function ServicesPage() {
             {approvalServices.map((service) => (
               <Link key={service.slug} href={service.href} className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-brand/25 hover:bg-white hover:text-brand">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-80">Approval</p>
-                <h2 className="mt-4 text-xl font-semibold tracking-tight">{service.menuLabel}</h2>
+                <h3 className="mt-4 text-xl font-semibold tracking-tight">{formatHeading(service.menuLabel)}</h3>
                 <p className="mt-3 text-sm leading-7 opacity-80">{service.metaDescription}</p>
               </Link>
             ))}
@@ -173,8 +174,8 @@ export default function ServicesPage() {
       </section>
 
       <ProcessRail
-        eyebrow="Service selection"
-        title="Choose the right Dubai construction pathway before site decisions begin."
+        eyebrow="Service Selection"
+        title="Choose the Right Dubai Construction Pathway Before Site Decisions Begin"
         description="A clear service path helps owners and consultants avoid treating civil works, fit-out, authority approvals and handover as disconnected tasks."
         steps={serviceSelectionProcess}
       />
@@ -185,8 +186,8 @@ export default function ServicesPage() {
       <section className="section-pad soft-section">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Local project pathways"
-            title="Search by the problem you need solved."
+            eyebrow="Local Project Pathways"
+            title="Search by the Problem You Need Solved"
             description="These Dubai-focused entry points help owners and consultants find the right scope quickly."
             align="center"
           />
@@ -194,7 +195,7 @@ export default function ServicesPage() {
             {localSeoBlocks.map((block) => (
               <Link key={block.title} href={block.href} className="luxury-card rounded-lg p-6">
                 <CheckCircle2 className="h-7 w-7 text-brand" />
-                <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{block.title}</h2>
+                <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(block.title)}</h3>
                 <p className="mt-3 text-sm leading-7 text-steel">{block.description}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
                   {block.linkLabel} <ArrowRight className="h-4 w-4" />
@@ -209,8 +210,8 @@ export default function ServicesPage() {
         <div className="container-pad">
           <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
             <PremiumSectionHeading
-              eyebrow="Authority bodies"
-              title="Dubai agencies and authority interfaces we coordinate with."
+              eyebrow="Authority Bodies"
+              title="Dubai Agencies and Authority Interfaces We Coordinate With"
               description="The applicable route depends on location, use, proposed work and consultant responsibility. Confirm those facts before assigning submission dates or starting authority-dependent work."
             />
             <SectionPhotograph photo={sectionPhotographs[3]} compact />
@@ -221,7 +222,7 @@ export default function ServicesPage() {
               return (
                 <article key={authority.name} className="luxury-card rounded-lg p-6">
                   <Icon className="h-8 w-8 text-brand" />
-                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{authority.name}</h2>
+                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(authority.name)}</h3>
                   <p className="mt-3 text-sm leading-7 text-steel">{authority.description}</p>
                 </article>
               );
@@ -231,7 +232,7 @@ export default function ServicesPage() {
       </section>
 
       <FAQSection accordion
-        title="Construction services Dubai FAQ."
+        title="Construction Services Dubai FAQ"
         description="Answers for users comparing civil contractors, approval coordinators and fit-out partners in Dubai."
         faqs={servicesFaqs}
         schema

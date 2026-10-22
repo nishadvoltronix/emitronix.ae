@@ -5,12 +5,13 @@ import { approvalServices, type ApprovalService } from "@/data/approvals";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { SectionPhotograph } from "@/components/SectionPhotograph";
 import { buildApprovalExpandedFaqs, getApprovalDeepContent } from "@/data/serviceDeepContent";
-import { getInternalServiceImage, getSectionPhotographs, getUniquePhotoAttribution } from "@/data/pagePhotography";
+import { getInternalServiceImage, getSectionPhotographs } from "@/data/pagePhotography";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
 import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
 import { ContactForm } from "./ContactForm";
 import { FAQSection } from "./ContentBlocks";
 import { PremiumSectionHeading } from "./Premium";
+import { formatHeading } from "@/lib/headings";
 
 type ApprovalServicePageProps = {
   service: ApprovalService;
@@ -177,8 +178,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         description={service.heroText}
         image={approvalImage.src}
         imageAlt={approvalImage.alt}
-        imageCaption={approvalImage.caption}
-        imageAttribution={getUniquePhotoAttribution(approvalImage)}
+        photographic
         imagePosition={approvalImage.objectPosition}
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}
         secondaryCta={{ label: "All Approvals", href: "/approval" }}
@@ -195,7 +195,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
           <div className="space-y-6">
             <SectionPhotograph photo={sectionPhotographs[0]} compact />
             <aside className="rounded-lg border border-amber-300 bg-amber-50 p-6" aria-labelledby="authority-boundary-heading">
-              <h2 id="authority-boundary-heading" className="text-xl font-semibold text-charcoal">Coordination support is not authority approval</h2>
+              <h2 id="authority-boundary-heading" className="text-xl font-semibold text-charcoal">{formatHeading("Coordination support is not authority approval")}</h2>
               <p className="mt-3 text-sm leading-7 text-charcoal">Emitronix is not the approving authority and does not guarantee an approval, NOC, review period or inspection outcome. The relevant authority and appointed consultant determine formal requirements and technical submission responsibilities for each project.</p>
               <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-charcoal">
                 <li>Confirm the current authority route and project jurisdiction.</li>
@@ -229,7 +229,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
           <details className="mt-6 rounded-lg border border-brand/[0.15] p-5">
             <summary className="cursor-pointer font-semibold text-brand">Document, comment and site coordination</summary>
             <div className="mt-5 grid gap-5 md:grid-cols-3">
-              {deepContent.processDetails.map((item) => <article key={item.title}><h3 className="font-semibold text-charcoal">{item.title}</h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></article>)}
+              {deepContent.processDetails.map((item) => <article key={item.title}><h3 className="font-semibold text-charcoal">{formatHeading(item.title)}</h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></article>)}
             </div>
           </details>
         </div>
@@ -239,14 +239,14 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         <div className="container-pad">
           <PremiumSectionHeading eyebrow="Submission risks" title={`What can delay ${service.menuLabel}`} />
           <div className="mt-6 grid gap-5 md:grid-cols-3">
-            {deepContent.authorityRisks.map((item) => <article key={item.title} className="luxury-card rounded-lg p-6"><h3 className="text-xl font-semibold text-charcoal">{item.title}</h3><p className="mt-3 text-sm leading-7 text-steel">{item.description}</p></article>)}
+            {deepContent.authorityRisks.map((item) => <article key={item.title} className="luxury-card rounded-lg p-6"><h3 className="text-xl font-semibold text-charcoal">{formatHeading(item.title)}</h3><p className="mt-3 text-sm leading-7 text-steel">{item.description}</p></article>)}
           </div>
           <div className="mt-6 grid items-start gap-6 xl:grid-cols-[0.7fr_1.3fr]">
             <SectionPhotograph photo={sectionPhotographs[2]} />
             <div className="grid gap-5 md:grid-cols-2">
               {deepContent.technicalTopics.map((topic) => (
                 <article key={topic.title} className="rounded-lg border border-brand/[0.15] bg-white p-6">
-                  <h3 className="text-xl font-semibold text-charcoal">{topic.title}</h3>
+                  <h3 className="text-xl font-semibold text-charcoal">{formatHeading(topic.title)}</h3>
                   <p className="mt-3 text-sm leading-7 text-steel">{topic.summary}</p>
                   <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-steel">{topic.points.map((point) => <li key={point}>{point}</li>)}</ul>
                 </article>
@@ -268,7 +268,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         <div className="container-pad">
           <PremiumSectionHeading eyebrow="Related resources" title="Connected authority and construction workflows" />
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {resourceLinks.map((item) => <Link key={item.href} href={item.href} className="luxury-card rounded-lg p-5"><h3 className="flex items-center justify-between gap-3 text-lg font-semibold text-charcoal">{item.title}<ArrowRight className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" /></h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></Link>)}
+            {resourceLinks.map((item) => <Link key={item.href} href={item.href} className="luxury-card rounded-lg p-5"><h3 className="flex items-center justify-between gap-3 text-lg font-semibold text-charcoal">{formatHeading(item.title)}<ArrowRight className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" /></h3><p className="mt-2 text-sm leading-7 text-steel">{item.description}</p></Link>)}
           </div>
         </div>
       </section>

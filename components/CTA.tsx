@@ -15,7 +15,7 @@ export function CTA() {
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand">Start a project</p>
               <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight sm:text-5xl">
-                Get a quote, request a site visit or speak to Emitronix today.
+                Get a Quote, Request a Site Visit or Speak to Emitronix Today.
               </h2>
               <p className="mt-5 max-w-xl text-sm leading-7 text-steel">
                 Share the project location, scope, drawings and authority status. These facts allow the first review to identify the next civil, fit-out, renovation, warehouse, villa or approval action.

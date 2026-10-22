@@ -8,6 +8,7 @@ import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
+import { formatHeading } from "@/lib/headings";
 
 const guestPostImage = getGeneratedImage("company.construction-technical-resources-dubai-hero");
 
@@ -85,7 +86,7 @@ export default function GuestPostPage() {
           </div>
           <div className="mx-auto mt-10 max-w-4xl rounded-lg border border-brand/[0.14] bg-brand-soft p-6 text-center">
             <div className="mb-6"><SectionPhotograph photo={sectionPhotographs[3]} compact /></div>
-            <h2 className="text-2xl font-semibold tracking-tight text-charcoal">Review and publication boundary</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading("Review and publication boundary")}</h2>
             <p className="mt-3 text-sm leading-7 text-steel">
               An enquiry, draft or topic suggestion does not guarantee acceptance or publication. Any accepted contribution must follow the website evidence, technical-review and correction standards.
             </p>

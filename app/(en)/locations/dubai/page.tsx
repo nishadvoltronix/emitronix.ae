@@ -26,6 +26,7 @@ import {
   locationVerificationItems,
 } from "@/data/trustCenter";
 import { site } from "@/data/site";
+import { formatHeading } from "@/lib/headings";
 
 const pageTitle = "Construction Services in Dubai | Emitronix";
 const pageDescription =
@@ -199,7 +200,7 @@ export default function DubaiLocationPage() {
             <div className="max-w-4xl">
               <p className="premium-kicker">Start with the project</p>
               <h2 id="dubai-planning-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-                The correct Dubai route depends on more than a city name.
+                {formatHeading("The correct Dubai route depends on more than a city name.")}
               </h2>
               <p className="mt-5 text-lg leading-8 text-steel">
                 A useful first review connects the location to the asset, intended use, design status, stakeholder responsibilities and required outcome. It does not infer authority requirements or approval status from a neighbourhood.
@@ -211,7 +212,7 @@ export default function DubaiLocationPage() {
                 return (
                   <article key={factor.title} className="luxury-card rounded-lg p-6">
                     <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                    <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{factor.title}</h3>
+                    <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(factor.title)}</h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{factor.description}</p>
                   </article>
                 );
@@ -226,7 +227,7 @@ export default function DubaiLocationPage() {
             <div className="max-w-4xl">
               <p className="premium-kicker">Service pathways</p>
               <h2 id="dubai-services-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-                Choose a service by scope, then confirm the interfaces.
+                {formatHeading("Choose a service by scope, then confirm the interfaces.")}
               </h2>
               <p className="mt-5 text-lg leading-8 text-steel">
                 These pathways come from the website’s verified core service source. A page explains the service category; only project documents can confirm the accepted scope.
@@ -236,7 +237,7 @@ export default function DubaiLocationPage() {
               {dubaiServiceLinks.map((service) => (
                 <Link key={service.href} href={service.href} className="luxury-card group rounded-lg p-6">
                   <CheckCircle2 className="h-7 w-7 text-brand" aria-hidden="true" />
-                  <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{service.label}</h3>
+                  <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{formatHeading(service.label)}</h3>
                   <p className="mt-3 line-clamp-4 text-sm leading-7 text-steel">{service.description}</p>
                   <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand">
                     Review service
@@ -246,7 +247,7 @@ export default function DubaiLocationPage() {
               ))}
               <Link href="/approval" className="luxury-card group rounded-lg p-6">
                 <FileCheck2 className="h-7 w-7 text-brand" aria-hidden="true" />
-                <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">Authority approval support</h3>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{formatHeading("Authority approval support")}</h3>
                 <p className="mt-3 text-sm leading-7 text-steel">
                   Review the verified approval-support service without assuming the applicable authority, submission path or outcome.
                 </p>
@@ -265,7 +266,7 @@ export default function DubaiLocationPage() {
             <div className="lg:sticky lg:top-28">
               <p className="premium-kicker">Enquiry workflow</p>
               <h2 id="dubai-process-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal">
-                From location to a defined next step.
+                {formatHeading("From location to a defined next step.")}
               </h2>
               <p className="mt-5 text-base leading-8 text-steel">
                 This sequence helps an initial conversation become specific without treating a website visit as a project appointment.
@@ -279,7 +280,7 @@ export default function DubaiLocationPage() {
                       {index + 1}
                     </span>
                     <div>
-                      <h3 className="text-xl font-semibold tracking-tight text-charcoal">{step.title}</h3>
+                      <h3 className="text-xl font-semibold tracking-tight text-charcoal">{formatHeading(step.title)}</h3>
                       <p className="mt-3 text-sm leading-7 text-steel">{step.description}</p>
                     </div>
                   </div>
@@ -295,13 +296,13 @@ export default function DubaiLocationPage() {
             <div className="mx-auto max-w-4xl text-center">
               <p className="premium-kicker">Dubai questions</p>
               <h2 id="dubai-faq-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-                Clear location answers without unsupported claims.
+                {formatHeading("Clear location answers without unsupported claims.")}
               </h2>
             </div>
             <div className="mx-auto mt-10 grid max-w-5xl gap-5 md:grid-cols-2">
               {dubaiFaqs.map((faq) => (
                 <article key={faq.question} className="rounded-lg border border-brand/[0.10] bg-white p-6 shadow-none">
-                  <h3 className="text-xl font-semibold tracking-tight text-charcoal">{faq.question}</h3>
+                  <h3 className="text-xl font-semibold tracking-tight text-charcoal">{formatHeading(faq.question)}</h3>
                   <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
                 </article>
               ))}

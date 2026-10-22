@@ -1,3 +1,4 @@
+import { formatHeading } from "@/lib/headings";
 import { ArrowRight, CheckCheck, Clock3, Factory, Plus, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -98,7 +99,7 @@ function SectionHeading({ eyebrow, title, id, description }: {
   return (
     <div>
       <p className={styles.eyebrow}>{eyebrow}</p>
-      <h2 id={id} className={styles.heading}>{title}</h2>
+      <h2 id={id} className={styles.heading}>{formatHeading(title)}</h2>
       {description && <p className={styles.intro}>{description}</p>}
     </div>
   );
@@ -127,7 +128,7 @@ export default function HomePage() {
                   <Image src={servicePhotos[index].src} alt={servicePhotos[index].alt} fill quality={65} sizes="(min-width: 1520px) 465px, (min-width: 1101px) calc((100vw - 126px) / 3), (min-width: 1024px) calc((100vw - 110px) / 3), (min-width: 768px) calc((100vw - 94px) / 3), (min-width: 640px) calc((100vw - 72px) / 2), (min-width: 480px) calc((100vw - 56px) / 2), calc(100vw - 34px)" />
                 </div>
                 <div className={styles.serviceBody}>
-                  <h3>{service.title}</h3>
+                  <h3>{formatHeading(service.title)}</h3>
                   <p>{service.description}</p>
                   <Link href={service.href} className={styles.textLink}>
                     Explore {service.title} <ArrowRight aria-hidden="true" />
@@ -193,7 +194,7 @@ export default function HomePage() {
             <div className={styles.capabilityGrid}>
               {otherServices.map((service) => (
                 <article key={service.href}>
-                  <h3><TextLink href={service.href}>{service.title}</TextLink></h3>
+                  <h3><TextLink href={service.href}>{formatHeading(service.title)}</TextLink></h3>
                   <p>{service.description}</p>
                 </article>
               ))}
@@ -220,7 +221,7 @@ export default function HomePage() {
                 return (
                   <article key={reason.title} className={styles.reason}>
                     <Icon aria-hidden="true" />
-                    <h3>{reason.title}</h3>
+                    <h3>{formatHeading(reason.title)}</h3>
                     <p>{reason.description}</p>
                   </article>
                 );
@@ -247,7 +248,7 @@ export default function HomePage() {
                 <div className={styles.industryImage}>
                   <Image src={industryPhotos[index].src} alt={industryPhotos[index].alt} fill sizes="(min-width: 1520px) 346px, (min-width: 1101px) 25vw, (min-width: 480px) 50vw, 100vw" />
                 </div>
-                <h3><Link href={industry.href}>{industry.title}</Link></h3>
+                <h3><Link href={industry.href}>{formatHeading(industry.title)}</Link></h3>
                 <p>{industry.description}</p>
               </article>
             ))}
@@ -267,7 +268,7 @@ export default function HomePage() {
             {homeProcess.map((step, index) => (
               <li key={step.title}>
                 <span className={styles.stepNumber} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <h3>{step.title}</h3>
+                <h3>{formatHeading(step.title)}</h3>
                 <p>{step.description}</p>
               </li>
             ))}
@@ -310,9 +311,6 @@ export default function HomePage() {
               <figcaption>Interiors & building services <span>Commercial fit-out</span></figcaption>
             </figure>
           </div>
-          <p className={styles.stockNote}>
-            Representative construction photography. These images illustrate service environments and are not presented as completed Emitronix projects.
-          </p>
         </div>
       </section>
 
@@ -329,7 +327,7 @@ export default function HomePage() {
           <div className={styles.notesGrid}>
             {ownerDecisionBriefs.map((brief) => (
               <details key={brief.title} className={styles.accordion}>
-                <summary><h3>{brief.title}</h3><Plus aria-hidden="true" /></summary>
+                <summary><h3>{formatHeading(brief.title)}</h3><Plus aria-hidden="true" /></summary>
                 <div className={styles.faqAnswer}>
                   <p>{brief.observation}</p>
                   <p><strong>Next project action:</strong> {brief.action}</p>
@@ -356,7 +354,7 @@ export default function HomePage() {
             <div>
               {homepageFaqs.map((faq, index) => (
                 <details key={faq.question} className={styles.accordion} open={index === 0}>
-                  <summary><h3>{faq.question}</h3><Plus aria-hidden="true" /></summary>
+                  <summary><h3>{formatHeading(faq.question)}</h3><Plus aria-hidden="true" /></summary>
                   <div className={styles.faqAnswer}><p>{faq.answer}</p></div>
                 </details>
               ))}
@@ -410,7 +408,7 @@ export default function HomePage() {
                   />
                 </Link>
                 <p className={styles.eyebrow}>{post.category}</p>
-                <h3><Link href={`/blog/${post.slug}`}>{post.title}</Link></h3>
+                <h3><Link href={`/blog/${post.slug}`}>{formatHeading(post.title)}</Link></h3>
                 <p>{post.excerpt}</p>
                 <TextLink href={`/blog/${post.slug}`}>Read guide</TextLink>
               </article>
@@ -461,7 +459,7 @@ export default function HomePage() {
             "@id": `${absoluteUrl("/")}#faq`,
             mainEntity: homepageFaqs.map((faq) => ({
               "@type": "Question",
-              name: faq.question,
+              name: formatHeading(faq.question),
               acceptedAnswer: { "@type": "Answer", text: faq.answer },
             })),
           }).replace(/</g, "\\u003c"),

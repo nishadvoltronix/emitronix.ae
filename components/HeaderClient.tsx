@@ -248,6 +248,7 @@ export function HeaderClient({
   function isActive(href: string) {
     if (href === "/services") return servicePaths.includes(activePathname);
     if (href === "/approval") return approvalPaths.includes(activePathname);
+    if (href === "/blog") return activePathname === "/blog" || activePathname.startsWith("/blog/");
     return activePathname === href;
   }
 

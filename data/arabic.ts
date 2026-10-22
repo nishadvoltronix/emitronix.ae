@@ -67,6 +67,7 @@ export const arabicNavLabels: Record<string, string> = {
   "/approval": "الموافقات",
   "/industries": "القطاعات",
   "/resources": "مركز المعرفة",
+  "/blog": "المدونة",
   "/projects": "مكتبة تخطيط النطاق",
   "/contact": "اتصل بنا",
 };

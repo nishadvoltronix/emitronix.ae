@@ -10,6 +10,7 @@ import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site, socialLinks, whatsappUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
+import { formatHeading } from "@/lib/headings";
 
 export const generateMetadata = createMetadataResolver({
   title: "Contact Emitronix Dubai",
@@ -147,7 +148,7 @@ export default function ContactPage() {
               <Link href="/locations/dubai" className="font-semibold text-brand underline underline-offset-4">Dubai location details</Link>
             </div>
             <div className="mt-6 rounded-lg border border-brand/[0.14] bg-brand-soft p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-charcoal">Official profiles</h2>
+              <h2 className="text-sm font-semibold tracking-wide text-charcoal">{formatHeading("Official profiles")}</h2>
               <div className="mt-4 flex flex-wrap gap-3">
                 {socialLinks.map((item) => {
                   const Icon = socialIcons[item.label];

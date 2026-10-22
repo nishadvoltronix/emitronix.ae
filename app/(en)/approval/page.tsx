@@ -10,6 +10,7 @@ import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, authorities, stats } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
+import { formatHeading } from "@/lib/headings";
 
 export const generateMetadata = createMetadataResolver({
   title: "Authority Approval Services in Dubai",
@@ -114,7 +115,7 @@ export default function ApprovalPage() {
               <Link key={service.slug} href={service.href} className="luxury-card rounded-lg p-6">
                 <FileCheck2 className="h-8 w-8 text-brand" />
                 <p className="mt-5 text-xs font-semibold uppercase tracking-[0.22em] text-brand">Approval Service</p>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{service.menuLabel}</h2>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(service.menuLabel)}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">{service.metaDescription}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
                   Learn more <ArrowRight className="h-4 w-4" />
@@ -142,7 +143,7 @@ export default function ApprovalPage() {
               return (
                 <article key={authority.name} className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-6 backdrop-blur-xl">
                   <Icon className="h-8 w-8 text-brand" />
-                  <h2 className="mt-5 text-xl font-semibold tracking-tight">{authority.name}</h2>
+                  <h2 className="mt-5 text-xl font-semibold tracking-tight">{formatHeading(authority.name)}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{authority.description}</p>
                 </article>
               );

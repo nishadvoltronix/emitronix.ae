@@ -1,3 +1,4 @@
+import { formatHeading } from "@/lib/headings";
 import { CalendarClock, FileCheck2, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { site } from "@/data/site";
@@ -16,7 +17,7 @@ type ContentReviewRecordProps = {
 export function ContentReviewRecord({
   title = "Content ownership and review record",
   reviewScope = "General editorial review for scope clarity, factual boundaries and website consistency. This is not a project-specific design, authority approval or formal engineering review.",
-  showVerificationTodo = true,
+  showVerificationTodo = false,
 }: ContentReviewRecordProps) {
   return (
     <section className="bg-white py-10" aria-labelledby="content-review-record-heading">
@@ -26,7 +27,7 @@ export function ContentReviewRecord({
             <div>
               <p className="premium-kicker">Content record</p>
               <h2 id="content-review-record-heading" className="mt-3 text-3xl font-black tracking-tight text-charcoal">
-                {title}
+                {formatHeading(title)}
               </h2>
               <p className="mt-4 text-sm leading-7 text-steel">
                 Clear ownership and review boundaries help readers distinguish public company information from project-specific professional advice.

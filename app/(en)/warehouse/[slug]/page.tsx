@@ -17,6 +17,7 @@ import { absoluteUrl, site } from "@/data/site";
 import { warehouseAuthorityPages, warehouseBlogPosts } from "@/data/warehouseSeo";
 import { warehouseBlogIndexingContent } from "@/data/warehouseBlogIndexingContent";
 import { getWarehouseIndexingContent } from "@/data/warehouseIndexingContent";
+import { formatHeading } from "@/lib/headings";
 
 type WarehousePageProps = {
   params: Promise<{ slug: string }>;
@@ -160,7 +161,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-lg border border-brand/[0.14] bg-brand-soft p-6 shadow-none">
               <p className="premium-kicker">Warehouse topic</p>
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-charcoal">{page.keyword}</h2>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading(page.keyword)}</h2>
               <p className="mt-4 text-sm leading-7 text-steel">Review the scope, field checks and documents before discussing your project.</p>
               <div className="mt-6 grid gap-3">
                 <a href={phoneHref} className="premium-button justify-center">Call Emitronix <ArrowRight className="h-4 w-4" /></a>
@@ -195,7 +196,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
         <section className="section-pad bg-white" aria-labelledby="scope-planning-heading" data-topic-specific-content>
           <div className="container-pad">
             <p className="premium-kicker">Scope planning</p>
-            <h2 id="scope-planning-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal">Decisions specific to this scope.</h2>
+            <h2 id="scope-planning-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal">{formatHeading("Decisions specific to this scope.")}</h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-steel">{indexingContent.purpose}</p>
             <p className="mt-5 text-sm text-steel">
               Content updated <time dateTime="2026-10-01">1 October 2026</time>.
@@ -203,7 +204,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
             <div className="mt-10 grid gap-8 lg:grid-cols-3">
               {indexingContent.sections.map((section) => (
                 <article key={section.title} className="rounded-lg border border-brand/[0.14] bg-brand-pale p-6">
-                  <h3 className="text-2xl font-semibold tracking-tight text-charcoal">{section.title}</h3>
+                  <h3 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(section.title)}</h3>
                   <div className="mt-5 grid gap-4">
                     {section.paragraphs.map((paragraph) => (
                       <p key={paragraph} className="text-sm leading-7 text-steel">{paragraph}</p>
@@ -229,12 +230,12 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
       {topicGuides.length ? (
         <section className="section-pad soft-section" aria-labelledby="topic-guides-heading">
           <div className="container-pad">
-            <h2 id="topic-guides-heading" className="text-3xl font-semibold tracking-tight text-charcoal">Practical guides for this scope.</h2>
+            <h2 id="topic-guides-heading" className="text-3xl font-semibold tracking-tight text-charcoal">{formatHeading("Practical guides for this scope.")}</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               {topicGuides.map((post) => (
                 <article key={post.slug} className="rounded-lg border border-brand/[0.14] bg-white p-6">
                   <h3 className="text-xl font-semibold leading-7 text-charcoal">
-                    <Link href={`/blog/${post.slug}`} className="text-brand underline underline-offset-4">{post.title}</Link>
+                    <Link href={`/blog/${post.slug}`} className="text-brand underline underline-offset-4">{formatHeading(post.title)}</Link>
                   </h3>
                   <p className="mt-4 text-sm leading-7 text-steel">{post.excerpt}</p>
                 </article>
@@ -260,7 +261,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
             {page.fieldChecks.map((check, index) => (
               <article key={check.title} className="luxury-card rounded-lg p-6">
                 <p className="premium-kicker">Field check {String(index + 1).padStart(2, "0")}</p>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{check.title}</h2>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(check.title)}</h2>
                 <p className="mt-4 text-sm leading-7 text-steel">{check.description}</p>
               </article>
             ))}
@@ -300,7 +301,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
           <article className="luxury-card rounded-lg p-7 lg:p-9">
             <p className="premium-kicker">Authority approvals expertise</p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight text-charcoal">
-              Authority pathways for Dubai warehouse projects.
+              {formatHeading("Authority pathways for Dubai warehouse projects.")}
             </h2>
             <p className="mt-5 text-base leading-8 text-steel">
               The likely touchpoints for this topic include {authorityList || "Dubai authorities"} depending on location, consultant scope, landlord rules and intended use.
@@ -316,7 +317,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
           <article className="luxury-card rounded-lg p-7 lg:p-9">
             <p className="premium-kicker">Safety and quality</p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight text-charcoal">
-              Quality controls that protect handover.
+              {formatHeading("Quality controls that protect handover.")}
             </h2>
             <div className="mt-7 grid gap-4">
               {page.qualityControls.map((item) => (
@@ -351,7 +352,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
             {page.related.map((item) => (
               <Link key={item.href} href={item.href} className="luxury-card flex items-center gap-4 rounded-lg p-5">
                 <Warehouse className="h-6 w-6 shrink-0 text-brand" aria-hidden="true" />
-                <h2 className="text-lg font-semibold leading-7 text-charcoal">{item.label}</h2>
+                <h2 className="text-lg font-semibold leading-7 text-charcoal">{formatHeading(item.label)}</h2>
                 <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
               </Link>
             ))}

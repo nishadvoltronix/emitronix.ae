@@ -23,6 +23,7 @@ import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 import { buildCanonicalUrl } from "@/lib/seoRouting";
+import { formatHeading } from "@/lib/headings";
 
 const pageUrl = buildCanonicalUrl(founderProfile.profilePath);
 const pageDescription =
@@ -144,7 +145,7 @@ export default function FounderPage() {
               <div className="max-w-5xl">
                 <p className="premium-kicker">Founder profile</p>
                 <h1 className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
-                  {founderProfile.name}
+                  {formatHeading(founderProfile.name)}
                 </h1>
                 <p className="mt-5 text-xl font-semibold tracking-tight text-brand sm:text-2xl">
                   {founderProfile.jobTitle}
@@ -167,7 +168,7 @@ export default function FounderPage() {
                   MS
                 </div>
                 <p className="mt-7 text-xs font-semibold uppercase tracking-[0.24em] text-brand">Published identity</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{founderProfile.name}</h2>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading(founderProfile.name)}</h2>
                 <div className="mt-6 grid gap-3">
                   {founderProfile.identityDetails.map((detail) => (
                     <div key={detail.label} className="rounded-lg border border-brand/[0.12] bg-white p-4 shadow-sm">
@@ -198,7 +199,7 @@ export default function FounderPage() {
                     <span className="grid h-12 w-12 place-items-center rounded-lg bg-brand-soft text-brand">
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{theme.title}</h2>
+                    <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(theme.title)}</h2>
                     <p className="mt-3 text-sm leading-7 text-steel">{theme.description}</p>
                   </article>
                 );
@@ -221,7 +222,7 @@ export default function FounderPage() {
                 return (
                   <article key={theme.title} className="rounded-lg border border-brand/[0.12] bg-white/[0.88] p-6 shadow-none backdrop-blur-xl">
                     <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                    <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{theme.title}</h2>
+                    <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(theme.title)}</h2>
                     <p className="mt-3 text-sm leading-7 text-steel">{theme.description}</p>
                   </article>
                 );
@@ -240,7 +241,7 @@ export default function FounderPage() {
                 </span>
                 <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-amber-800">Publication boundary</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">
-                  Profile details intentionally withheld.
+                  {formatHeading("Profile details intentionally withheld.")}
                 </h2>
                 <p className="mt-4 text-base font-semibold leading-8 text-amber-900">
                   {founderProfile.publicationGate.statement}
@@ -265,7 +266,7 @@ export default function FounderPage() {
               <div>
                 <p className="premium-kicker">Continue exploring</p>
                 <h2 className="mt-4 text-4xl font-semibold tracking-tight text-charcoal">
-                  Review the company facts and delivery functions.
+                  {formatHeading("Review the company facts and delivery functions.")}
                 </h2>
                 <p className="mt-4 max-w-3xl text-base leading-8 text-steel">
                   Company contact information is maintained in the verified website business record, while unnamed leadership disciplines are presented only as role-based functions.

@@ -21,6 +21,7 @@ import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrative
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
+import { formatHeading } from "@/lib/headings";
 
 export const generateMetadata = createMetadataResolver({
   title: "Construction Career Interest | Emitronix Dubai",
@@ -179,7 +180,7 @@ export default function CareersPage() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/88 via-white/32 to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5 rounded-lg border border-white/70 bg-white/[0.82] p-5 shadow-none backdrop-blur-2xl">
                   <p className="premium-kicker">Dubai, UAE</p>
-                  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-charcoal">Construction roles built around discipline, trust and site clarity.</h2>
+                  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading("Construction roles built around discipline, trust and site clarity.")}</h2>
                 </div>
               </div>
             </div>
@@ -191,7 +192,7 @@ export default function CareersPage() {
             <div className="mx-auto max-w-5xl text-center">
               <p className="premium-kicker">Why Work With Us</p>
               <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
-                A premium construction environment for people who value clarity.
+                {formatHeading("A premium construction environment for people who value clarity.")}
               </h2>
               <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-steel sm:text-lg">
                 Emitronix looks for professionals who care about practical site decisions, documented communication and reliable project coordination.
@@ -207,7 +208,7 @@ export default function CareersPage() {
                     <span className="grid h-12 w-12 place-items-center rounded-lg bg-brand-soft text-brand">
                       <Icon className="h-6 w-6" />
                     </span>
-                    <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{item.title}</h3>
+                    <h3 className="mt-5 text-xl font-semibold tracking-tight text-charcoal">{formatHeading(item.title)}</h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
                   </article>
                 );
@@ -222,7 +223,7 @@ export default function CareersPage() {
               <div>
                 <p className="premium-kicker">Talent Areas</p>
                 <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
-                  Register interest in role areas that match your experience.
+                  {formatHeading("Register interest in role areas that match your experience.")}
                 </h2>
               </div>
               <p className="max-w-3xl text-base leading-8 text-steel">
@@ -243,7 +244,7 @@ export default function CareersPage() {
                       </span>
                       <div>
                         <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="text-2xl font-semibold tracking-tight text-charcoal">{opening.title}</h3>
+                          <h3 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(opening.title)}</h3>
                           <span className="rounded-full border border-brand/[0.15] bg-pearl px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">
                             Dubai, UAE
                           </span>
@@ -270,7 +271,7 @@ export default function CareersPage() {
             <div className="lg:sticky lg:top-28">
               <p className="premium-kicker">Application Form</p>
               <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
-                Submit your profile for Dubai construction opportunities.
+                {formatHeading("Submit your profile for Dubai construction opportunities.")}
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-steel">
                 Complete the form with your experience, location, salary expectation and notice period so Emitronix can review your suitability if a relevant requirement becomes available. Submission does not guarantee contact, interview or employment.
@@ -289,7 +290,7 @@ export default function CareersPage() {
                 <div className="flex gap-3">
                   <MapPin className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <div>
-                    <h3 className="text-sm font-semibold uppercase tracking-wide text-charcoal">Company Location</h3>
+                    <h3 className="text-sm font-semibold tracking-wide text-charcoal">Company Location</h3>
                     <p className="mt-1 text-sm leading-6 text-steel">{site.location}</p>
                   </div>
                 </div>

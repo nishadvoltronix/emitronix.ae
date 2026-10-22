@@ -17,6 +17,7 @@ import {
   getLanguageAlternates,
   getOpenGraphLocales,
 } from "@/lib/seoRouting";
+import { formatHeading } from "@/lib/headings";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -165,7 +166,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     "@type": "FAQPage",
     mainEntity: post.faqs.map((faq) => ({
       "@type": "Question",
-      name: faq.question,
+      name: formatHeading(faq.question),
       acceptedAnswer: {
         "@type": "Answer",
         text: faq.answer,
@@ -190,7 +191,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
               <div>
                 <p className="premium-kicker">{post.category}</p>
                 <h1 className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.98] tracking-tight text-charcoal sm:text-7xl">
-                  {post.title}
+                  {formatHeading(post.title)}
                 </h1>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-steel">{post.excerpt}</p>
                 <div className="mt-7 flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-wide text-steel">
@@ -264,7 +265,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
             <section className="mt-10 rounded-lg border border-brand/[0.15] bg-brand-soft p-6" aria-labelledby="article-review-heading">
               <p className="premium-kicker">Authorship and review</p>
               <h2 id="article-review-heading" className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">
-                Transparent editorial ownership
+                {formatHeading("Transparent editorial ownership")}
               </h2>
               <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
                 <div>
@@ -300,7 +301,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                 const photograph = photographAfterSection.get(sectionIndex);
                 return (
                   <section key={section.id} id={section.id} className="scroll-mt-28">
-                    <h2 className="text-4xl font-semibold tracking-tight text-charcoal">{section.title}</h2>
+                    <h2 className="text-4xl font-semibold tracking-tight text-charcoal">{formatHeading(section.title)}</h2>
                     <div className="mt-5 grid gap-5">
                       {section.paragraphs.map((paragraph) => (
                         <p key={paragraph} className="text-base leading-8 text-steel">
@@ -328,7 +329,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
               <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h2 id="article-references-heading" className="text-2xl font-semibold tracking-tight text-charcoal">
-                    Current official starting points
+                    {formatHeading("Current official starting points")}
                   </h2>
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-steel">
                     Checked {formatDate(post.referenceCheckedDate ?? post.modifiedDate)}. This article is general planning guidance, not a clause-by-clause code review. Confirm the current requirements, service route and project-specific responsibilities with the relevant authority and appointed professionals before acting.
@@ -367,11 +368,11 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 
             <section id="faq" className="mt-14 scroll-mt-28">
               <p className="premium-kicker">FAQ</p>
-              <h2 className="mt-3 text-4xl font-semibold tracking-tight text-charcoal">Common questions</h2>
+              <h2 className="mt-3 text-4xl font-semibold tracking-tight text-charcoal">{formatHeading("Common questions")}</h2>
               <div className="mt-6 grid gap-4">
                 {post.faqs.map((faq) => (
                   <div key={faq.question} className="rounded-[1.4rem] border border-brand/[0.12] bg-white p-5 shadow-sm">
-                    <h3 className="text-xl font-semibold tracking-tight text-charcoal">{faq.question}</h3>
+                    <h3 className="text-xl font-semibold tracking-tight text-charcoal">{formatHeading(faq.question)}</h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{faq.answer}</p>
                   </div>
                 ))}
@@ -381,7 +382,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
             <section className="mt-14 rounded-lg border border-brand/[0.15] bg-[linear-gradient(135deg,#ffffff_0%,#eaf5ff_100%)] p-6 shadow-none lg:p-8">
               <p className="premium-kicker">Project consultation</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-charcoal">
-                Turn this guidance into a clear Dubai project route.
+                {formatHeading("Turn this guidance into a clear Dubai project route.")}
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-8 text-steel">
                 Share your location, drawings, authority status and intended scope. Emitronix can help identify the next practical step for civil, fit-out or approval coordination.

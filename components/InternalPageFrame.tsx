@@ -1,3 +1,4 @@
+import { formatHeading } from "@/lib/headings";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +8,6 @@ import type { Metric } from "@/components/Premium";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { InternalPageInteractions } from "@/components/InternalPageInteractions";
 import styles from "./InternalPage.module.css";
-import { PhotoAttribution, type PhotoAttributionDetails } from "@/components/PhotoAttribution";
 
 // Next streams resolved route HTML outside its loading boundary. Without script
 // replay that content would remain hidden. Only expose this internal-page segment.
@@ -48,8 +48,7 @@ export function InternalPageHero({
   image,
   imageAlt,
   imageAsset,
-  imageCaption,
-  imageAttribution,
+  photographic = false,
   imagePosition,
   primaryCta,
   secondaryCta,
@@ -65,8 +64,7 @@ export function InternalPageHero({
   image?: string;
   imageAlt?: string;
   imageAsset?: GeneratedImageAsset;
-  imageCaption?: string;
-  imageAttribution?: PhotoAttributionDetails;
+  photographic?: boolean;
   imagePosition?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
@@ -78,7 +76,7 @@ export function InternalPageHero({
 }) {
   return (
     <header className={styles.hero}>
-      <div className={`${styles.heroStage}${imageCaption ? ` ${styles.photographicStage}` : ""}`}>
+      <div className={`${styles.heroStage}${photographic ? ` ${styles.photographicStage}` : ""}`}>
         {imageAsset ? (
           <ResponsiveIllustrativeImage
             asset={imageAsset}
@@ -89,7 +87,7 @@ export function InternalPageHero({
             imageStyle={{ height: "100%", objectFit: "cover" }}
           />
         ) : image ? (
-          <Image src={image} alt={imageAlt ?? ""} fill priority fetchPriority="high" quality={imageCaption ? 65 : undefined} sizes="100vw" className={styles.heroImage} style={imagePosition ? { objectPosition: imagePosition } : undefined} />
+          <Image src={image} alt={imageAlt ?? ""} fill priority fetchPriority="high" quality={photographic ? 65 : undefined} sizes="100vw" className={styles.heroImage} style={imagePosition ? { objectPosition: imagePosition } : undefined} />
         ) : null}
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={`container-pad ${styles.heroContent}`}>
@@ -108,7 +106,7 @@ export function InternalPageHero({
           <div className={showPlanningSummary ? styles.heroLayout : styles.heroSolo}>
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow}>{eyebrow}</p>
-              <h1 className={styles.heroTitle}>{title}</h1>
+              <h1 className={styles.heroTitle}>{formatHeading(title)}</h1>
               <p className={styles.heroDescription}>{description}</p>
               {primaryCta || secondaryCta ? (
                 <div className={styles.actions}>
@@ -130,7 +128,6 @@ export function InternalPageHero({
           </div>
         </div>
       </div>
-      {imageCaption ? <p className={`container-pad ${styles.imageCaption}`}>{imageCaption}{imageAttribution ? <PhotoAttribution {...imageAttribution} /> : null}</p> : null}
       {metrics.length > 0 ? (
         <div className={styles.metrics}>
           <div className={`container-pad ${styles.metricGrid}`}>

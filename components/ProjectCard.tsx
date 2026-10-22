@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/data/site";
+import { formatHeading } from "@/lib/headings";
 
 type ProjectCardProps = {
   project: Project;
@@ -28,7 +29,7 @@ export function ProjectCard({ project, compact = false }: ProjectCardProps) {
       </div>
       <div className={compact ? "p-5 text-center" : "p-6"}>
         <p className="text-xs font-black uppercase tracking-[0.22em] text-brand">{project.category}</p>
-        <h3 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{project.title}</h3>
+        <h3 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{formatHeading(project.title)}</h3>
         {!compact ? (
           <>
             <p className="mt-3 text-sm leading-7 text-steel">{project.summary}</p>

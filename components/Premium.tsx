@@ -1,3 +1,4 @@
+import { formatHeading } from "@/lib/headings";
 import { ArrowRight, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -62,7 +63,7 @@ export function PremiumSectionHeading({
     <div className={`${align === "center" ? "mx-auto text-center" : ""} max-w-5xl`}>
       <p className="premium-kicker">{eyebrow}</p>
       <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
-        {title}
+        {formatHeading(title)}
       </h2>
       {description ? (
         <p className={`mt-5 max-w-3xl text-base leading-8 text-steel sm:text-lg ${align === "center" ? "mx-auto" : ""}`}>
@@ -147,7 +148,7 @@ export function PageHero({
           ) : null}
           <p className="text-xs font-black uppercase tracking-[0.32em] text-brand-sky">{eyebrow}</p>
           <h1 className="mt-6 text-balance text-5xl font-black leading-[0.96] tracking-tight text-white sm:text-7xl lg:text-8xl">
-            {title}
+            {formatHeading(title)}
           </h1>
           <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/[0.86] sm:text-xl sm:leading-9">
             {description}
@@ -223,7 +224,7 @@ export function CommandCenter({
                 </span>
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.22em] text-brand">{item.label}</p>
-                  <h3 className="mt-1 text-2xl font-black tracking-tight text-charcoal">{item.value}</h3>
+                  <h3 className="mt-1 text-2xl font-black tracking-tight text-charcoal">{formatHeading(item.value)}</h3>
                 </div>
                 <p className="text-sm font-medium leading-7 text-steel">{item.description}</p>
               </article>
@@ -268,7 +269,7 @@ export function FeatureGrid({ features }: { features: Feature[] }) {
             <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-soft text-brand">
               <Icon className="h-6 w-6" />
             </span>
-            <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">{feature.title}</h3>
+            <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">{formatHeading(feature.title)}</h3>
             <p className="mt-3 text-sm leading-7 text-steel">{feature.description}</p>
           </article>
         );
@@ -312,7 +313,7 @@ export function ImagePanel({
       <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/30 to-transparent" />
       <div className="absolute bottom-6 left-6 right-6 rounded-[1.5rem] border border-white/70 bg-white/[0.82] p-5 text-charcoal shadow-panel backdrop-blur-2xl">
         <p className="text-xs font-black uppercase tracking-[0.26em] text-brand">{label}</p>
-        <h3 className="mt-3 text-3xl font-black tracking-tight">{title}</h3>
+        <h3 className="mt-3 text-3xl font-black tracking-tight">{formatHeading(title)}</h3>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import { PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, stats } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
+import { formatHeading } from "@/lib/headings";
 
 export const generateMetadata = createMetadataResolver({
   title: "Dubai Construction Industries Served",
@@ -147,7 +148,7 @@ export default function IndustriesPage() {
               return (
                 <Link key={industry.title} href={industry.href} className="luxury-card rounded-lg p-7">
                   <Icon className="h-9 w-9 text-brand" />
-                  <h2 className="mt-6 text-3xl font-semibold tracking-tight text-charcoal">{industry.title}</h2>
+                  <h2 className="mt-6 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading(industry.title)}</h2>
                   <p className="mt-4 text-sm leading-7 text-steel">{industry.description}</p>
                 </Link>
               );
@@ -169,7 +170,7 @@ export default function IndustriesPage() {
           </div>
           <div className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-8 backdrop-blur-xl">
             <Building2 className="h-12 w-12 text-brand" />
-            <h2 className="mt-6 text-4xl font-semibold tracking-tight">Dubai-first construction support.</h2>
+            <h2 className="mt-6 text-4xl font-semibold tracking-tight">{formatHeading("Dubai-first construction support.")}</h2>
             <p className="mt-4 text-base leading-8 text-steel">
               Project owners and consultants can use the sector routes to connect civil, fit-out and approval work to the asset&apos;s operating and authority constraints.
             </p>

@@ -34,19 +34,18 @@ import {
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { ContactForm } from "@/components/ContactForm";
 import { SectionPhotograph } from "@/components/SectionPhotograph";
-import { PhotoAttribution } from "@/components/PhotoAttribution";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { dewaSupportingImages, type InternalServiceImage } from "@/data/internalServiceImages";
-import { getInternalServiceImage, getSectionPhotographs, getUniquePhotoAttribution } from "@/data/pagePhotography";
+import { getInternalServiceImage, getSectionPhotographs } from "@/data/pagePhotography";
 import { applySeoOverrides, createPageMetadata } from "@/data/seo";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
 import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
+import { formatHeading } from "@/lib/headings";
 
 const pagePath = "/dewa-approvals";
 const pageUrl = absoluteUrl(pagePath);
 const socialImageAsset = getGeneratedImage("approvals.dewa-approval-electrical-coordination-dubai");
 const heroImageAsset = getInternalServiceImage(pagePath);
-const heroImageAttribution = getUniquePhotoAttribution(heroImageAsset);
 const inspectionImageAsset = dewaSupportingImages.inspection;
 const cableImageAsset = dewaSupportingImages.cables;
 const heroImage = heroImageAsset.src;
@@ -1515,7 +1514,7 @@ function SectionIntro({
     <div id={id} className={`${align === "center" ? "mx-auto text-center" : ""} max-w-5xl scroll-mt-28`}>
       <p className="premium-kicker">{eyebrow}</p>
       <h2 className="mt-4 text-3xl font-semibold leading-tight text-charcoal sm:text-4xl lg:text-5xl">
-        {title}
+        {formatHeading(title)}
       </h2>
       {description ? (
         <p className={`mt-5 max-w-3xl text-base leading-8 text-steel sm:text-lg ${align === "center" ? "mx-auto" : ""}`}>
@@ -1543,7 +1542,7 @@ function MiniCardGrid({ items, columns = "three" }: { items: MiniCard[]; columns
             <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg border border-brand/[0.15] bg-brand-soft text-brand">
               <Icon className="h-6 w-6" aria-hidden="true" />
             </span>
-            <h3 className="mt-5 text-xl font-semibold leading-snug text-charcoal">{item.title}</h3>
+            <h3 className="mt-5 text-xl font-semibold leading-snug text-charcoal">{formatHeading(item.title)}</h3>
             <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
             {item.items ? (
               <ul className="mt-5 grid gap-2">
@@ -1602,7 +1601,6 @@ function ImageFeature({
       </div>
       <figcaption className="border-t border-brand/[0.12] bg-white p-4 text-sm font-bold leading-6 text-charcoal">
         {caption}
-        <span className="mt-2 block text-xs font-normal">{asset.caption}</span>
       </figcaption>
     </figure>
   );
@@ -1712,7 +1710,7 @@ function JsonLd() {
         contentUrl: absoluteUrl(heroImage),
         name: heroImageAsset.alt,
         caption: heroImageAsset.alt,
-        description: heroImageAsset.caption,
+        description: heroImageAsset.alt,
         width: heroImageAsset.width,
         height: heroImageAsset.height,
       },
@@ -1723,7 +1721,7 @@ function JsonLd() {
         contentUrl: absoluteUrl(inspectionImage),
         name: inspectionImageAsset.alt,
         caption: inspectionImageAsset.alt,
-        description: inspectionImageAsset.caption,
+        description: inspectionImageAsset.alt,
         width: inspectionImageAsset.width,
         height: inspectionImageAsset.height,
       },
@@ -1734,7 +1732,7 @@ function JsonLd() {
         contentUrl: absoluteUrl(cableImage),
         name: cableImageAsset.alt,
         caption: cableImageAsset.alt,
-        description: cableImageAsset.caption,
+        description: cableImageAsset.alt,
         width: cableImageAsset.width,
         height: cableImageAsset.height,
       },
@@ -1810,11 +1808,6 @@ export default function DewaApprovalsPage() {
         </div>
       </section>
 
-      <p className="container-pad py-3 text-xs leading-5 text-steel">
-        {heroImageAsset.caption}
-        {heroImageAttribution ? <PhotoAttribution {...heroImageAttribution} /> : null}
-      </p>
-
       <section className="sticky top-0 z-30 border-b border-brand/[0.12] bg-white/[0.92] py-3 shadow-sm backdrop-blur-2xl" data-internal-nav-shell>
         <div className="container-pad">
           <nav className="flex gap-2 overflow-x-auto text-sm font-semibold text-charcoal" aria-label="DEWA approval page navigation" data-internal-section-nav>
@@ -1884,7 +1877,7 @@ export default function DewaApprovalsPage() {
             <div>
               <p className="premium-kicker">Project enquiry</p>
               <h2 className="mt-2 text-2xl font-semibold leading-tight text-charcoal sm:text-3xl">
-                Need DEWA approval, additional load or inspection support now?
+                {formatHeading("Need DEWA approval, additional load or inspection support now?")}
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-charcoal/85">
                 Send your project location, available drawings, existing DEWA reference, required load, site photos and target date. The team can review the enquiry and confirm whether Emitronix can support the requested scope.
@@ -1940,7 +1933,7 @@ export default function DewaApprovalsPage() {
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {processSteps.map((step) => (
               <article key={step.title} className="luxury-card rounded-lg p-6">
-                <h3 className="text-xl font-semibold leading-snug text-charcoal">{step.title}</h3>
+                <h3 className="text-xl font-semibold leading-snug text-charcoal">{formatHeading(step.title)}</h3>
                 <p className="mt-4 text-sm leading-7 text-steel">{step.description}</p>
                 <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold leading-6 text-emerald-900">
                   Owner focus: {step.ownerFocus}
@@ -2161,7 +2154,7 @@ export default function DewaApprovalsPage() {
                 className="luxury-card rounded-lg p-5"
               >
                 <span className="premium-kicker">Official DEWA resource</span>
-                <h3 className="mt-3 text-xl font-semibold leading-snug text-charcoal">{resource.title}</h3>
+                <h3 className="mt-3 text-xl font-semibold leading-snug text-charcoal">{formatHeading(resource.title)}</h3>
                 <p className="mt-2 text-sm leading-7 text-steel">{resource.description}</p>
               </a>
             ))}
@@ -2206,7 +2199,7 @@ export default function DewaApprovalsPage() {
             {relatedServices.map((item) => (
               <Link key={item.href} href={item.href} className="luxury-card rounded-lg p-6">
                 <span className="premium-kicker">Related</span>
-                <h3 className="mt-4 text-xl font-semibold leading-snug text-charcoal">{item.title}</h3>
+                <h3 className="mt-4 text-xl font-semibold leading-snug text-charcoal">{formatHeading(item.title)}</h3>
                 <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
               </Link>
             ))}
@@ -2231,7 +2224,7 @@ export default function DewaApprovalsPage() {
             {faqCategories.map((category) => (
               <section key={category} aria-labelledby={`faq-${category.replace(/\s+/g, "-").toLowerCase()}`}>
                 <h3 id={`faq-${category.replace(/\s+/g, "-").toLowerCase()}`} className="text-2xl font-semibold text-charcoal">
-                  {category}
+                  {formatHeading(category)}
                 </h3>
                 <div className="mt-5 grid gap-4 md:grid-cols-2">
                   {publishedDewaFaqs

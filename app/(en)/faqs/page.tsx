@@ -27,6 +27,7 @@ import {
   faqContentLastReviewedLabel,
   publicFaqs,
 } from "@/data/trustCenter";
+import { formatHeading } from "@/lib/headings";
 
 const pageTitle = "Dubai Construction FAQs | Emitronix Contracting LLC";
 const pageDescription =
@@ -185,7 +186,7 @@ export default function FaqPage() {
                 id="service-guide-heading"
                 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl"
               >
-                Find the service route that fits your project.
+                {formatHeading("Find the service route that fits your project.")}
               </h2>
               <p className="mt-5 text-base leading-8 text-steel sm:text-lg">
                 These pathways organize the published services without replacing a review of your
@@ -203,7 +204,7 @@ export default function FaqPage() {
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">
-                      {entry.title}
+                      {formatHeading(entry.title)}
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{entry.description}</p>
                     <nav
@@ -234,7 +235,7 @@ export default function FaqPage() {
             <div>
               <p className="premium-kicker">Before requesting a quote</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-                Prepare a useful construction enquiry.
+                {formatHeading("Prepare a useful construction enquiry.")}
               </h2>
               <p className="mt-4 text-base leading-8 text-steel">
                 Complete starting information helps the first review focus on the practical project
@@ -267,7 +268,7 @@ export default function FaqPage() {
                 id="faq-list-heading"
                 className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl"
               >
-                Construction questions organized by decision.
+                {formatHeading("Construction questions organized by decision.")}
               </h2>
               <p className="mt-5 text-base leading-8 text-steel">
                 Start with the category closest to your current decision. Detailed service and
@@ -308,7 +309,7 @@ export default function FaqPage() {
                       id={`faq-${group.id}-heading`}
                       className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl"
                     >
-                      {group.title}
+                      {formatHeading(group.title)}
                     </h2>
                     <p className="mt-4 max-w-3xl text-base leading-8 text-steel">
                       {group.description}

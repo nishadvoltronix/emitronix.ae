@@ -4,6 +4,7 @@ import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrative
 import type { GeneratedImageAsset } from "@/data/generatedImages";
 import type { WarehouseAuthorityPage } from "@/data/warehouseSeo";
 import { whatsappUrl } from "@/data/site";
+import { formatHeading } from "@/lib/headings";
 import styles from "./WarehouseGuideHero.module.css";
 
 const metrics = [
@@ -29,7 +30,7 @@ export function WarehouseGuideHero({ page, image }: { page: WarehouseAuthorityPa
         <div className={styles.introduction}>
           <div>
             <p className="premium-kicker">{page.category}</p>
-            <h1 className={styles.title}>{page.h1}</h1>
+            <h1 className={styles.title}>{formatHeading(page.h1)}</h1>
             <p className={styles.description}>{page.excerpt}</p>
             <div className={styles.actions}>
               <Link href="/contact" className="premium-button">Request Warehouse Support <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
@@ -44,11 +45,7 @@ export function WarehouseGuideHero({ page, image }: { page: WarehouseAuthorityPa
               sizes="(min-width: 1024px) 300px, (min-width: 640px) 320px, calc(100vw - 32px)"
               className={styles.image}
               imageStyle={{ height: "100%", objectFit: "cover" }}
-              ariaDescribedBy="warehouse-guide-illustration-caption"
             />
-            <figcaption id="warehouse-guide-illustration-caption" className={styles.caption}>
-              Illustrative image for general context, not a project photograph or a technical drawing.
-            </figcaption>
           </figure>
         </div>
 

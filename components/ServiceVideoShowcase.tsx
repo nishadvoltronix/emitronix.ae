@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Layers3, ShieldCheck, Wrench } from "lucide-react";
 import type { ServiceVideoAsset } from "@/data/serviceVideos";
+import { formatHeading } from "@/lib/headings";
 
 type ServiceVideoShowcaseProps = {
   asset: ServiceVideoAsset;
@@ -57,7 +58,7 @@ export function ServiceVideoShowcase({ asset }: ServiceVideoShowcaseProps) {
             id="warehouse-video-title"
             className="mt-4 max-w-3xl text-4xl font-black tracking-tight text-charcoal sm:text-5xl"
           >
-            {asset.title}
+            {formatHeading(asset.title)}
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-8 text-steel">
             {asset.description}
@@ -78,7 +79,7 @@ export function ServiceVideoShowcase({ asset }: ServiceVideoShowcaseProps) {
                     </span>
                     <div>
                       <h3 className="text-lg font-black tracking-tight text-charcoal">
-                        {highlight.title}
+                        {formatHeading(highlight.title)}
                       </h3>
                       <p className="mt-2 text-sm leading-7 text-steel">
                         {highlight.description}

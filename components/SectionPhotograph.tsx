@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { InternalServiceImage } from "@/data/internalServiceImages";
 import styles from "./SectionPhotograph.module.css";
-import { PhotoAttribution } from "@/components/PhotoAttribution";
 
 /** A static, progressively loaded photograph beside existing internal-page content. */
 export function SectionPhotograph({
@@ -36,10 +35,6 @@ export function SectionPhotograph({
           style={{ objectPosition: photo.objectPosition ?? "center" }}
         />
       </div>
-      <figcaption className={styles.caption}>
-        {locale === "ar" ? photo.captionAr : photo.caption}
-        {photo.src.startsWith("/images/unique/") ? <PhotoAttribution credit={photo.credit} sourceUrl={photo.sourceUrl} licenseUrl={photo.licenseUrl} locale={locale} /> : null}
-      </figcaption>
     </figure>
   );
 }

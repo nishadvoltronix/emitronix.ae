@@ -1,0 +1,385 @@
+.footer {
+  background: #10243b;
+  color: #bdc9d7;
+  font-size: 14px;
+  line-height: 1.65;
+  text-align: start;
+}
+
+.footer[dir="rtl"] {
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.footer[dir="rtl"] .projectRow h2 {
+  letter-spacing: 0;
+}
+
+.footer a,
+.footer button {
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.footer a:hover,
+.footer button:hover {
+  color: #fff;
+}
+
+.footer a:focus-visible,
+.footer button:focus-visible {
+  outline: 2px solid #85c7ff;
+  outline-offset: 5px;
+}
+
+.projectRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 36px;
+  border-bottom: 1px solid #ffffff26;
+}
+
+.projectRow h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(24px, 2.3vw, 32px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.projectRow p {
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+.footer .quoteButton {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 12px 20px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background: #fff;
+  color: #10243b;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.footer .quoteButton:hover {
+  border-color: #dceafb;
+  background: #dceafb;
+  color: #10243b;
+}
+
+.arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.footer[dir="rtl"] .arrow {
+  transform: scaleX(-1);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 24px;
+  padding-block: 40px;
+}
+
+.main > * {
+  min-width: 0;
+}
+
+.brand,
+.approvals,
+.contact {
+  grid-column: 1 / -1;
+}
+
+.logoLink {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.logo {
+  display: block;
+  width: 224px;
+  max-width: 100%;
+  height: auto;
+}
+
+.introduction {
+  max-width: 38ch;
+  margin-top: 20px;
+  line-height: 1.8;
+}
+
+.socialLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 20px;
+  margin-inline-start: -4px;
+}
+
+.socialLinks a {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 3px;
+}
+
+.socialLinks a:hover {
+  background: #ffffff12;
+}
+
+.socialBadge {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+}
+
+.socialBadge[data-social-platform="Facebook"] {
+  color: #0866ff;
+}
+
+.socialBadge[data-social-platform="LinkedIn"] {
+  color: #0a66c2;
+}
+
+.socialBadge[data-social-platform="Instagram"] {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  color: #fff;
+}
+
+.socialBadge[data-social-platform="Pinterest"] {
+  color: #e60023;
+}
+
+.socialBadge svg {
+  width: 20px;
+  height: 20px;
+}
+
+.socialBadge[data-social-platform="Instagram"] svg {
+  width: 16px;
+  height: 16px;
+}
+
+.main h3 {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.linkGroup ul {
+  display: grid;
+  gap: 4px;
+}
+
+.linkGroup a {
+  display: inline-block;
+  padding-block: 3px;
+  line-height: 1.6;
+}
+
+.linkGroup a:hover,
+.legalLinks a:hover,
+.legalLinks button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.approvals ul {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+.hubLink {
+  margin-top: 8px;
+}
+
+.hubLink a,
+.whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #eef4fa;
+}
+
+.contactDetails {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: start;
+  gap: 16px 24px;
+  font-style: normal;
+}
+
+.contactLabel {
+  display: block;
+  margin-bottom: 3px;
+  color: #a5b6ca;
+  font-size: 12px;
+}
+
+.contactDetails a[dir="ltr"] {
+  display: inline-block;
+}
+
+.contactDetails a[href^="tel:"] {
+  color: #eef4fa;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.email,
+.location,
+.whatsapp {
+  grid-column: 1 / -1;
+}
+
+.location {
+  max-width: 28ch;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 32px;
+  padding-block: 24px;
+  padding-bottom: 88px;
+  border-top: 1px solid #ffffff26;
+  color: #a5b6ca;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+}
+
+.legalLinks a,
+.legalLinks button {
+  display: inline-block;
+  padding-block: 4px;
+}
+
+@media (min-width: 768px) {
+  .main {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    padding-block: 48px;
+  }
+
+  .brand {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    align-items: start;
+  }
+
+  .introduction {
+    grid-column: 1;
+  }
+
+  .socialLinks {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-top: 0;
+  }
+
+  .approvals {
+    grid-column: auto;
+  }
+
+  .approvals ul {
+    grid-template-columns: 1fr;
+  }
+
+  .contactDetails {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 40px;
+  }
+
+  .email,
+  .location,
+  .whatsapp {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main {
+    grid-template-columns: 1.35fr 0.75fr 1.1fr 1.15fr 1.05fr;
+    gap: 32px;
+    padding-block: 52px;
+  }
+
+  .brand {
+    display: block;
+    grid-column: auto;
+    padding-inline-end: 16px;
+  }
+
+  .socialLinks {
+    margin-top: 20px;
+    justify-self: start;
+  }
+
+  .contact {
+    grid-column: auto;
+  }
+
+  .contactDetails {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .projectRow {
+    padding-block: 32px;
+  }
+
+  .linkGroup a,
+  .legalLinks a,
+  .legalLinks button {
+    padding-block: 5px;
+  }
+
+  .socialLinks a {
+    width: 44px;
+    height: 44px;
+  }
+
+  .socialLinks {
+    margin-inline-start: -8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer a,
+  .footer button {
+    transition: none;
+  }
+}

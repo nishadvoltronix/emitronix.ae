@@ -7,6 +7,7 @@ import styles from "./InternalPage.module.css";
 import { type CookieLanguage, type CookiePolicyPageKey, type LocalizedPolicyPage } from "@/data/cookieConsentDefaults";
 import { absoluteUrl, site } from "@/data/site";
 import { policyPageRoutes } from "@/lib/policyPages";
+import { formatHeading } from "@/lib/headings";
 
 const pageLabels: Record<CookiePolicyPageKey, Record<CookieLanguage, string>> = {
   cookiePolicy: {
@@ -121,7 +122,7 @@ export function PolicyContentPage({
               </Link>
             </div>
             <h1 className={styles.editorialTitle}>
-              {page.title}
+              {formatHeading(page.title)}
             </h1>
             <p className={styles.editorialDescription}>{page.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -144,7 +145,7 @@ export function PolicyContentPage({
             <aside className="lg:sticky lg:top-28 lg:self-start">
               <div className="luxury-card rounded-lg p-6">
                 <Cookie className="h-8 w-8 text-brand" />
-                <h2 className="mt-4 text-2xl font-semibold tracking-tight">{site.name}</h2>
+                <h2 className="mt-4 text-2xl font-semibold tracking-tight">{formatHeading(site.name)}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">{complianceLabels[language].legalNote}</p>
                 <div className="mt-6 grid gap-2">
                   {(Object.keys(policyPageRoutes) as CookiePolicyPageKey[]).map((key) => (
@@ -173,7 +174,7 @@ export function PolicyContentPage({
                       <FileText className="h-5 w-5" />
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{section.heading}</h2>
+                      <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(section.heading)}</h2>
                       <p className="mt-4 whitespace-pre-line text-base leading-8 text-steel">{section.body}</p>
                       <SectionPhotoPlacement photos={sectionPhotos} index={index} sections={page.sections.length} locale={language} />
                     </div>
@@ -182,7 +183,7 @@ export function PolicyContentPage({
               ))}
 
               <section className="rounded-lg border border-brand/[0.15] bg-brand-soft p-6 lg:p-8">
-                <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{site.legalName}</h2>
+                <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(site.legalName)}</h2>
                 <p className="mt-4 text-base leading-8 text-steel">{complianceLabels[language].contact}</p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <a href={`mailto:${site.email}`} className="premium-button-light">{site.email}</a>

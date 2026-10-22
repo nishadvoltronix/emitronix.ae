@@ -23,6 +23,7 @@ import {
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
+import { formatHeading } from "@/lib/headings";
 
 const portfolioHeroImage = getGeneratedImage("projects.portfolio-planning-dubai-hero");
 
@@ -114,7 +115,7 @@ export default function ProjectsPage() {
           <div className="mt-12 max-w-5xl">
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-brand-sky">Illustrative planning resources</p>
             <h1 className="internal-page-title mt-6 text-balance text-5xl font-semibold leading-[0.96] tracking-tight sm:text-7xl lg:text-8xl">
-              Construction scope planning scenarios
+              {formatHeading("Construction scope planning scenarios")}
             </h1>
             <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/85 sm:text-xl sm:leading-9">
               A practical library for understanding the documents, interfaces and delivery questions that commonly shape Dubai construction enquiries.
@@ -136,7 +137,7 @@ export default function ProjectsPage() {
           <div className="grid gap-5 rounded-lg border border-amber-300 bg-amber-50 p-6 shadow-none md:grid-cols-[auto_1fr] md:items-start">
             <ShieldCheck className="h-9 w-9 text-amber-700" aria-hidden="true" />
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-charcoal">Evidence and image notice</h2>
+              <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading("Evidence and image notice")}</h2>
               <p className="mt-3 max-w-5xl text-sm leading-7 text-charcoal/80">
                 Every scenario and image on this page is illustrative. It does not identify a completed Emitronix project, client, site, result, testimonial or before-and-after record. Verified case studies will be published only after evidence review and publication consent.
               </p>
@@ -170,7 +171,7 @@ export default function ProjectsPage() {
               return (
                 <article key={item.title} className="luxury-card rounded-lg p-6">
                   <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{item.title}</h2>
+                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(item.title)}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
                 </article>
               );
@@ -198,7 +199,7 @@ export default function ProjectsPage() {
                   {item.phase}
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{item.title}</h2>
+                  <h2 className="text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(item.title)}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
                 </div>
               </article>
@@ -226,7 +227,7 @@ export default function ProjectsPage() {
           <div className="rounded-lg border border-brand/[0.15] bg-brand-soft p-7 shadow-none lg:p-12">
             <CheckCircle2 className="h-10 w-10 text-brand" aria-hidden="true" />
             <h2 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-              Have a real project to assess?
+              {formatHeading("Have a real project to assess?")}
             </h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
               Share the location, drawings, intended use, site condition, current authority comments and preferred timeline. The review can then identify the first unresolved dependency instead of assuming the project is ready to price or start.

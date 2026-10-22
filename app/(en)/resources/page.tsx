@@ -10,6 +10,7 @@ import { blogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, services, stats } from "@/data/site";
+import { formatHeading } from "@/lib/headings";
 
 export const generateMetadata = createMetadataResolver({
   title: "Dubai Construction Knowledge Center",
@@ -210,7 +211,7 @@ export default function ResourcesPage() {
               return (
                 <Link key={topic.title} href={topic.href} className="luxury-card rounded-lg p-6">
                   <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
-                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{topic.title}</h2>
+                  <h2 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(topic.title)}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{topic.description}</p>
                   <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
                     Open resource <ArrowRight className="h-4 w-4" />
@@ -245,7 +246,7 @@ export default function ResourcesPage() {
             <div className="mt-8 grid gap-3">
               {blogPosts.slice(0, 6).map((post) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`} className="rounded-lg border border-brand/[0.12] bg-white/[0.82] p-4 transition hover:bg-white">
-                  <h3 className="font-semibold text-charcoal">{post.title}</h3>
+                  <h3 className="font-semibold text-charcoal">{formatHeading(post.title)}</h3>
                   <p className="mt-2 text-sm leading-6 text-steel">{post.excerpt}</p>
                 </Link>
               ))}
@@ -269,7 +270,7 @@ export default function ResourcesPage() {
           <div className="grid gap-5 rounded-lg border border-brand/[0.15] bg-brand-soft p-6 shadow-none lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="premium-kicker">Publication standards</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">See how content is written, reviewed and corrected.</h2>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading("See how content is written, reviewed and corrected.")}</h2>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link href="/editorial-policy" className="premium-button-light">Editorial policy</Link>

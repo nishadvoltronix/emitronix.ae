@@ -9,6 +9,7 @@ import { blogPosts } from "@/data/blog";
 import { createPageMetadata } from "@/data/seo";
 import { navItems, services } from "@/data/site";
 import { warehouseAuthorityPages } from "@/data/warehouseSeo";
+import { formatHeading } from "@/lib/headings";
 
 type SearchPageProps = {
   searchParams: Promise<{ q?: string | string[] }>;
@@ -179,7 +180,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         <div className="mx-auto max-w-4xl text-center">
           <p className="premium-kicker">Site search</p>
           <h1 className="internal-page-title mt-4 text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
-            Search Emitronix services and approval resources.
+            {formatHeading("Search Emitronix services and approval resources.")}
           </h1>
           <p className="mt-5 text-base leading-8 text-steel sm:text-lg">
             Find Dubai construction services, DEWA approval pages, authority coordination resources and project guidance.
@@ -203,14 +204,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
         <div className="mt-12">
           <h2 className="text-2xl font-semibold text-charcoal">
-            {query ? `Results for "${query}"` : "Recommended approval resources"}
+            {query ? `Results for "${query}"` : formatHeading("Recommended approval resources")}
           </h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {results.map((result, index) => (
               <Link key={`${result.category}-${result.href}`} href={result.href} className="luxury-card rounded-lg p-6">
                 {resultPhotos[index] ? <SectionPhotograph photo={resultPhotos[index]} compact className="mb-5" /> : null}
                 <span className="premium-kicker">{result.category}</span>
-                <h3 className="mt-4 text-xl font-semibold leading-snug text-charcoal">{result.title}</h3>
+                <h3 className="mt-4 text-xl font-semibold leading-snug text-charcoal">{formatHeading(result.title)}</h3>
                 <p className="mt-3 text-sm leading-7 text-steel">{result.description}</p>
               </Link>
             ))}
@@ -228,7 +229,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       {browsePhotos.length > 0 ? (
         <section className="section-pad soft-section" aria-labelledby="search-browse-heading">
           <div className="container-pad">
-            <h2 id="search-browse-heading" className="text-2xl font-semibold text-charcoal">Explore the website</h2>
+            <h2 id="search-browse-heading" className="text-2xl font-semibold text-charcoal">{formatHeading("Explore the website")}</h2>
             <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {browsePhotos.map((photo, index) => (
                 <article key={photo.sourceId}>

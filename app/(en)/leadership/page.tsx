@@ -33,6 +33,7 @@ import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 import { buildCanonicalUrl } from "@/lib/seoRouting";
+import { formatHeading } from "@/lib/headings";
 
 const pageUrl = buildCanonicalUrl("/leadership");
 const pageDescription =
@@ -147,7 +148,7 @@ export default function LeadershipPage() {
               <div className="max-w-5xl">
                 <p className="premium-kicker">Leadership & delivery</p>
                 <h1 className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
-                  Leadership identity with clear publication boundaries.
+                  {formatHeading("Leadership identity with clear publication boundaries.")}
                 </h1>
                 <p className="mt-7 max-w-4xl text-lg leading-9 text-steel">
                   {founderProfile.name} is the named Founder & Managing Director. The other sections on this page explain role-based delivery functions and do not identify current appointees, reporting lines or team size.
@@ -170,7 +171,7 @@ export default function LeadershipPage() {
                   <Users className="h-7 w-7" aria-hidden="true" />
                 </span>
                 <p className="mt-6 premium-kicker">Named profile</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{founderProfile.name}</h2>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading(founderProfile.name)}</h2>
                 <p className="mt-2 text-base font-semibold text-brand">{founderProfile.jobTitle}</p>
                 <p className="mt-4 text-sm leading-7 text-steel">
                   The founder profile contains only the professional themes supplied for publication.
@@ -208,7 +209,7 @@ export default function LeadershipPage() {
                       </span>
                     </div>
 
-                    <h2 className="mt-6 text-3xl font-semibold tracking-tight text-charcoal">{deliveryFunction.title}</h2>
+                    <h2 className="mt-6 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading(deliveryFunction.title)}</h2>
                     <p className="mt-4 text-base leading-8 text-steel">{deliveryFunction.summary}</p>
 
                     <div className="mt-6">
@@ -240,7 +241,7 @@ export default function LeadershipPage() {
                         </ul>
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold tracking-tight text-charcoal">Technical capabilities</h3>
+                        <h3 className="text-lg font-semibold tracking-tight text-charcoal">{formatHeading("Technical capabilities")}</h3>
                         <ul className="mt-3 grid gap-3">
                           {deliveryFunction.technicalCapabilities.map((item) => (
                             <li key={item} className="flex gap-3 text-sm leading-7 text-steel">
@@ -268,7 +269,7 @@ export default function LeadershipPage() {
                 </span>
                 <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-amber-800">Named profile gate</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">
-                  Function titles are not staff biographies.
+                  {formatHeading("Function titles are not staff biographies.")}
                 </h2>
                 <p className="mt-4 text-base font-semibold leading-8 text-amber-900">
                   {leadershipPublicationGate.statement}
@@ -292,7 +293,7 @@ export default function LeadershipPage() {
             <div>
               <p className="premium-kicker">Authority pathways</p>
               <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-                Move from people and functions to verified company facts.
+                {formatHeading("Move from people and functions to verified company facts.")}
               </h2>
               <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
                 Review the published legal name, contact information, location, hours and service areas, or contact Emitronix using the verified website business record.

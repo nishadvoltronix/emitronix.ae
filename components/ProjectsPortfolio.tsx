@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { getGeneratedImage } from "@/data/generatedImages";
+import { formatHeading } from "@/lib/headings";
 import {
   portfolioProjects,
   projectFilters,
@@ -82,7 +83,7 @@ export function ProjectsPortfolio() {
           <div>
             <p className="premium-kicker">Scope planning library</p>
             <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
-              Illustrative Dubai project-planning scenarios.
+              {formatHeading("Illustrative Dubai project-planning scenarios.")}
             </h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
               Explore common civil, MEP, fit-out, renovation, maintenance and approval-coordination situations. These cards are educational examples, not completed-project claims, client work or case studies.
@@ -154,7 +155,7 @@ export function ProjectsPortfolio() {
 
                 <div className="flex flex-1 flex-col p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">{project.category}</p>
-                  <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-tight text-charcoal">{project.title}</h3>
+                  <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-tight text-charcoal">{formatHeading(project.title)}</h3>
                   <p className="mt-4 text-sm leading-7 text-steel">{project.description}</p>
 
                   <div className="mt-6 grid gap-3">
@@ -210,7 +211,7 @@ export function ProjectTestimonials() {
           <div>
             <p className="premium-kicker">Client testimonial slider</p>
             <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
-              Publication-safe client priorities.
+              {formatHeading("Publication-safe client priorities.")}
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-8 text-steel">
               Public reviews and client quotes require approval before publishing. This slider shows representative client priorities that shape construction, renovation, approval and maintenance conversations in Dubai.
@@ -225,7 +226,7 @@ export function ProjectTestimonials() {
               </span>
               <div key={activeTheme.title} className="premium-reveal">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">{activeTheme.role}</p>
-                <h3 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{activeTheme.title}</h3>
+                <h3 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading(activeTheme.title)}</h3>
                 <p className="mt-5 text-lg font-medium leading-9 text-steel">{activeTheme.text}</p>
               </div>
             </div>

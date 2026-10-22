@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "test": "npm run test:consent && npm run test:warehouse-links && npm run test:contact && npm run test:lead-safety && npm run test:framework-patch && npm run test:build-assets && npm run test:admin-auth && npm run test:careers && npm run test:request-security && npm run test:navigation && npm run test:photography && npm run test:home-images",
+    "test": "npm run test:consent && npm run test:warehouse-links && npm run test:contact && npm run test:lead-safety && npm run test:framework-patch && npm run test:build-assets && npm run test:admin-auth && npm run test:careers && npm run test:request-security && npm run test:navigation && npm run test:photography && npm run test:home-images && npm run test:headings",
     "test:build-assets": "node --test tests/build-static-history.test.cjs",
     "test:home-images": "node --test tests/home-image-variants.test.cjs",
     "generate:home-images": "node scripts/build-home-image-variants.mjs",
@@ -40,7 +40,8 @@
     "report:gsc-inventory": "node scripts/create-gsc-url-inventory.mjs",
     "generate:images": "node scripts/build-generated-image-variants.mjs",
     "validate:images": "node scripts/validate-image-assets.mjs",
-    "validate:images:partial": "node scripts/validate-image-assets.mjs --allow-incomplete"
+    "validate:images:partial": "node scripts/validate-image-assets.mjs --allow-incomplete",
+    "test:headings": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types --test tests/headings.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

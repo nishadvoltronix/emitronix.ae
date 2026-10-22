@@ -6,6 +6,21 @@
   color: var(--foreground);
 }
 
+.home :is(.serviceBody, .reason, .industry, .timeline, .article) h3 {
+  font-size: var(--type-subheading);
+  line-height: 1.35;
+}
+
+.home :is(.serviceBody, .solutionText, .capabilityGrid, .reason, .industry, .timeline, .faqAnswer, .article) p:not(.eyebrow) {
+  font-size: var(--type-body);
+  line-height: var(--type-body-leading);
+}
+
+.home .accordion h3 {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
 .home :is(a, button, summary):focus-visible {
   outline: 3px solid var(--brand-blue);
   outline-offset: 5px;
@@ -43,7 +58,7 @@
 .heading {
   max-width: 800px;
   margin-top: 14px;
-  font-size: clamp(30px, 3.25vw, 48px);
+  font-size: var(--type-section);
   font-weight: 650;
   letter-spacing: -.045em;
   line-height: 1.14;
@@ -54,8 +69,8 @@
   max-width: 650px;
   margin-top: 20px;
   color: var(--muted);
-  font-size: 16px;
-  line-height: 1.85;
+  font-size: var(--type-body);
+  line-height: var(--type-body-leading);
 }
 
 .sectionHead {
@@ -222,7 +237,7 @@
 .heroTitle {
   margin-top: 22px;
   max-width: 920px;
-  font-size: clamp(44px, 5.2vw, 82px);
+  font-size: var(--type-display);
   font-weight: 650;
   letter-spacing: -.05em;
   line-height: 1.06;
@@ -623,13 +638,6 @@
   font-weight: 400;
 }
 
-.stockNote {
-  margin-top: 22px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
 .notesGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -831,15 +839,15 @@
 }
 
 @media (min-width: 768px) and (max-width: 959px) {
-  .heroTitle { font-size: 64px; }
+  .heroTitle { font-size: var(--type-display); }
 }
 
 @media (max-width: 767px) {
   .sectionHead { align-items: flex-start; flex-direction: column; gap: 20px; margin-bottom: 28px; }
   .heroStage { min-height: 0; }
   .heroCopy { padding-block: 56px 34px; }
-  .heroTitle { font-size: clamp(42px, 8vw, 60px); max-width: 570px; }
-  .heroText { margin-top: 20px; font-size: 15px; }
+  .heroTitle { font-size: var(--type-display); max-width: 570px; }
+  .heroText { margin-top: 20px; font-size: var(--type-body); }
   .heroBackdrop { background: linear-gradient(90deg, rgba(11, 31, 58, .68), rgba(11, 31, 58, .64)), linear-gradient(180deg, rgba(11, 31, 58, .55), transparent 200px); }
   .heroInner { padding-bottom: 24px; }
   .heroServices { grid-template-columns: repeat(2, minmax(0, 1fr)); }

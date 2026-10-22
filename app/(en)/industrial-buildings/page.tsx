@@ -1,4 +1,5 @@
 import { ServiceDetailPage } from "@/components/ServiceDetailPage";
+import { industrialContent, industrialMetadata } from "@/data/industrialContent";
 import { createMetadataResolver } from "@/data/seo";
 import { getServiceDeepContent } from "@/data/serviceDeepContent";
 import { services } from "@/data/site";
@@ -7,8 +8,8 @@ const service = services.find((item) => item.href === "/industrial-buildings")!;
 const deepContent = getServiceDeepContent(service);
 
 export const generateMetadata = createMetadataResolver({
-  title: deepContent.seoTitle,
-  description: deepContent.metaDescription,
+  title: industrialMetadata.title,
+  description: industrialMetadata.description,
   path: service.href,
   keywords: deepContent.semanticKeywords,
   image: service.image,
@@ -16,5 +17,5 @@ export const generateMetadata = createMetadataResolver({
 });
 
 export default function IndustrialBuildingsPage() {
-  return <ServiceDetailPage service={service} />;
+  return <ServiceDetailPage service={service} content={industrialContent} />;
 }

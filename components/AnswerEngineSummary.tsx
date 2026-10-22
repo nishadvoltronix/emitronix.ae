@@ -1,3 +1,4 @@
+import { formatHeading } from "@/lib/headings";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
@@ -27,7 +28,7 @@ export function AnswerEngineSummary({
             <div>
               <p className="premium-kicker">{eyebrow}</p>
               <h2 className="mt-4 text-balance text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
-                {question}
+                {formatHeading(question)}
               </h2>
               <p className="mt-5 text-base font-bold leading-8 text-steel sm:text-lg">{answer}</p>
               {cta ? (

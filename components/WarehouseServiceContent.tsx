@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CalendarCheck, CheckCircle2, MessageCircle } from "lucide-react";
 import { whatsappUrl } from "@/data/site";
+import { formatHeading } from "@/lib/headings";
 
 export const warehouseServiceKeywords = [
   "Warehouse Construction Dubai",
@@ -40,7 +41,7 @@ export function WarehouseServiceOverview() {
     <article className="luxury-card rounded-lg p-6 lg:p-8" aria-labelledby="warehouse-company">
       <p className="premium-kicker">Warehouse construction</p>
       <h2 id="warehouse-company" className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-        Warehouse Construction Company in Dubai
+        {formatHeading("Warehouse Construction Company in Dubai")}
       </h2>
       <div className="mt-6 grid gap-5 text-base leading-8 text-steel">
         <p>
@@ -75,7 +76,7 @@ export function WarehouseServiceSections() {
           <div>
             <p className="premium-kicker">Dubai industrial areas</p>
             <h2 id="warehouse-industrial-areas-title" className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-              Warehouse Construction Across Dubai&apos;s Industrial Areas
+              {formatHeading("Warehouse Construction Across Dubai's Industrial Areas")}
             </h2>
             <p className="mt-6 text-base leading-8 text-steel">
               We support warehouse projects across these industrial areas. Site conditions,
@@ -102,7 +103,7 @@ export function WarehouseServiceSections() {
           <div className="max-w-4xl">
             <p className="premium-kicker">Our approach</p>
             <h2 id="warehouse-contractor-title" className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-              Warehouse Contractor in Dubai: Scope and Coordination
+              {formatHeading("Warehouse Contractor in Dubai: Scope and Coordination")}
             </h2>
             <p className="mt-6 text-base leading-8 text-steel">
               When comparing warehouse construction companies in Dubai, confirm the scope,
@@ -128,7 +129,7 @@ export function WarehouseServiceSections() {
           <div className="rounded-lg border border-brand/[0.15] bg-brand-soft p-6 lg:p-8">
             <p className="premium-kicker">Start your warehouse project</p>
             <h2 id="warehouse-enquiry-title" className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-              Ready to Build Your Warehouse in Dubai?
+              {formatHeading("Ready to Build Your Warehouse in Dubai?")}
             </h2>
             <p className="mt-5 max-w-4xl text-base leading-8 text-steel">
               Share the plot location, intended use and available drawings for a new warehouse,

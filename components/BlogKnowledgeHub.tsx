@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { BlogPostSummary } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
+import { formatHeading } from "@/lib/headings";
 
 type BlogKnowledgeHubProps = {
   posts: BlogPostSummary[];
@@ -88,7 +89,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-brand-sky">Emitronix Knowledge Center</p>
               <h1 className="internal-page-title mt-5 max-w-5xl text-balance text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-7xl">
-                Dubai construction insights for better project decisions.
+                {formatHeading("Dubai construction insights for better project decisions.")}
               </h1>
               <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/[0.86]">
                 Decision guides on civil construction, building contracting, warehouse delivery, interior fit-out and Dubai authority approvals for owners, consultants and commercial teams.
@@ -168,7 +169,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
                 <p className="premium-kicker">Featured guide</p>
                 <h2 className="mt-4 text-balance text-4xl font-semibold leading-tight tracking-tight text-charcoal">
-                  {featured.title}
+                  {formatHeading(featured.title)}
                 </h2>
                 <p className="mt-5 text-base leading-8 text-steel">{featured.excerpt}</p>
                 <div className="mt-6 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wide text-steel">
@@ -198,7 +199,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                   </div>
                   <div className="p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">{post.category}</p>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{post.title}</h3>
+                    <h3 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(post.title)}</h3>
                     <p className="mt-3 text-sm leading-7 text-steel">{post.excerpt}</p>
                     <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-brand">
                       Read article <ArrowRight className="h-4 w-4" />
@@ -214,7 +215,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                   <div>
                     <p className="premium-kicker">Article library</p>
                     <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-                      {filteredPosts.length} construction articles
+                      {formatHeading(`${filteredPosts.length} construction articles`)}
                     </h2>
                     <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
                       {filteredPosts.length} {filteredPosts.length === 1 ? "article matches" : "articles match"} the current search and category filters.
@@ -245,7 +246,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
                           <span>{post.readTime}</span>
                           <span>{formatDate(post.publishedDate)}</span>
                         </div>
-                        <h3 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{post.title}</h3>
+                        <h3 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading(post.title)}</h3>
                         <p className="mt-3 text-sm leading-7 text-steel">{post.excerpt}</p>
                       </div>
                     </Link>
@@ -309,7 +310,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
 
                 <div className="rounded-lg border border-brand/[0.15] bg-[linear-gradient(135deg,#ffffff_0%,#f8fbff_100%)] p-5 shadow-none">
                   <Mail className="h-7 w-7 text-brand" />
-                  <h2 className="mt-4 text-2xl font-semibold tracking-tight text-charcoal">Request Dubai project guidance.</h2>
+                  <h2 className="mt-4 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading("Request Dubai project guidance.")}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">
                     Use the project enquiry form to share your location, scope and authority status with the team.
                   </p>
@@ -329,7 +330,7 @@ export function BlogKnowledgeHub({ posts, categories, categoryPhotograph, enquir
             <div>
               <p className="premium-kicker">Project support</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-charcoal">
-                Need a construction, fit-out or authority approval route for Dubai?
+                {formatHeading("Need a construction, fit-out or authority approval route for Dubai?")}
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-8 text-steel">
                 Share the location, drawings, approval status and timeline so the next coordination action can be identified.

@@ -23,6 +23,7 @@ import { companyFacts } from "@/data/authority";
 import { absoluteUrl, brandAssets, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 import { buildCanonicalUrl } from "@/lib/seoRouting";
+import { formatHeading } from "@/lib/headings";
 
 const pageUrl = buildCanonicalUrl("/company-information");
 const pageDescription =
@@ -125,7 +126,7 @@ export default function CompanyInformationPage() {
               <div className="max-w-5xl">
                 <p className="premium-kicker">Company information</p>
                 <h1 className="internal-page-title mt-5 text-balance text-5xl font-semibold leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
-                  Published business facts in one clear place.
+                  {formatHeading("Published business facts in one clear place.")}
                 </h1>
                 <p className="mt-7 max-w-4xl text-lg leading-9 text-steel">
                   This page presents the legal name, brand name, website, contact details, published Dubai location, business hours and service areas maintained in the verified website business record.
@@ -151,7 +152,7 @@ export default function CompanyInformationPage() {
                   />
                 </div>
                 <p className="mt-7 premium-kicker">Legal business name</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{site.legalName}</h2>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">{formatHeading(site.legalName)}</h2>
                 <div className="mt-6 flex items-start gap-3 rounded-lg border border-brand/[0.12] bg-brand-soft p-4">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
                   <p className="text-sm font-bold leading-7 text-charcoal">{site.location}</p>
@@ -270,7 +271,7 @@ export default function CompanyInformationPage() {
                 </span>
                 <p className="mt-5 text-xs font-semibold uppercase tracking-[0.24em] text-amber-800">Company disclosure gate</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-charcoal">
-                  Unpublished company details are not inferred.
+                  {formatHeading("Unpublished company details are not inferred.")}
                 </h2>
                 <p className="mt-4 text-base font-semibold leading-8 text-amber-900">
                   {companyFacts.publicationGate.statement}
@@ -294,7 +295,7 @@ export default function CompanyInformationPage() {
             <div>
               <p className="premium-kicker">Company pathways</p>
               <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-                Continue to the founder, leadership functions or contact page.
+                {formatHeading("Continue to the founder, leadership functions or contact page.")}
               </h2>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">

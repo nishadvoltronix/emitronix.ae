@@ -16,6 +16,7 @@ import {
   locationVerificationItems,
 } from "@/data/trustCenter";
 import { site } from "@/data/site";
+import { formatHeading } from "@/lib/headings";
 
 const pageTitle = "Service Areas in the UAE | Emitronix";
 const pageDescription =
@@ -83,7 +84,7 @@ export default function LocationsPage() {
               <div>
                 <p className="premium-kicker">Clear location language</p>
                 <h2 id="location-facts-heading" className="mt-4 text-4xl font-semibold tracking-tight text-charcoal sm:text-5xl">
-                  A business location is not the same as a project service area.
+                  {formatHeading("A business location is not the same as a project service area.")}
                 </h2>
                 <p className="mt-5 text-base leading-8 text-steel">
                   This page keeps those facts separate. It does not imply branch offices, local registrations, guaranteed mobilisation or authority status in every listed service area.
@@ -92,12 +93,12 @@ export default function LocationsPage() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <article className="luxury-card rounded-lg p-6">
                   <Building2 className="h-8 w-8 text-brand" aria-hidden="true" />
-                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">Published business location</h3>
+                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading("Published business location")}</h3>
                   <p className="mt-3 text-base leading-7 text-steel">{site.location}</p>
                 </article>
                 <article className="luxury-card rounded-lg p-6">
                   <Compass className="h-8 w-8 text-brand" aria-hidden="true" />
-                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">Published service areas</h3>
+                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-charcoal">{formatHeading("Published service areas")}</h3>
                   <ul className="mt-4 space-y-3">
                     {site.serviceArea.map((area) => (
                       <li key={area} className="flex items-center gap-3 text-sm font-bold text-steel">
@@ -130,7 +131,7 @@ export default function LocationsPage() {
                 <div>
                   <p className="premium-kicker">Project context</p>
                   <h3 className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-                    Scope, jurisdiction and site information decide the practical route.
+                    {formatHeading("Scope, jurisdiction and site information decide the practical route.")}
                   </h3>
                   <p className="mt-5 text-base leading-8 text-steel">
                     The Dubai guide connects verified services with the information an owner or consultant can prepare: location, asset type, intended use, drawings, authority or landlord status, site constraints and required outcome.
@@ -151,7 +152,7 @@ export default function LocationsPage() {
             <div className="mx-auto max-w-4xl">
               <p className="premium-kicker">Before an enquiry</p>
               <h2 id="coverage-check-heading" className="mt-4 text-3xl font-semibold tracking-tight text-charcoal sm:text-4xl">
-                What confirms whether a project can be considered?
+                {formatHeading("What confirms whether a project can be considered?")}
               </h2>
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
                 {[

@@ -76,13 +76,6 @@
   background: #f8fbff;
 }
 
-.caption {
-  margin-top: 10px;
-  color: #5f6f86;
-  font-size: 12px;
-  line-height: 1.7;
-}
-
 .metrics {
   display: grid;
   gap: 20px;

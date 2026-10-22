@@ -41,9 +41,41 @@
   line-height: 1.25;
 }
 
-.page h2:global(.text-4xl) {
-  font-size: clamp(30px, 3.25vw, 46px);
-  line-height: 1.14;
+.page h2 {
+  font-size: var(--type-section);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+/* Subsections and card titles retain a smaller, consistent hierarchy. */
+.page h2:is(:global(.text-xl), :global(.text-2xl)),
+.page h3 {
+  font-size: var(--type-subheading);
+  line-height: 1.35;
+}
+
+.page h4 {
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+.page h2:is(:global(.text-xs), :global(.text-sm), :global(.text-base), :global(.text-lg)) {
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+.page [data-internal-faq] h3 {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.page :is(p, ul, ol, li, dd):is(:global(.text-sm), :global(.text-base), :global(.text-lg)) {
+  font-size: var(--type-body);
+  line-height: var(--type-body-leading);
+}
+
+.page :global(.premium-kicker) {
+  font-size: 0.75rem;
 }
 
 .page :global(.internal-page-intro) {
@@ -51,7 +83,7 @@
 }
 
 .page :global(.internal-page-title) {
-  font-size: clamp(36px, 4.4vw, 64px);
+  font-size: var(--type-display);
   font-weight: 650;
   letter-spacing: -.045em;
   line-height: 1.1;
@@ -151,11 +183,15 @@
 }
 
 .page [data-internal-section-nav] {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
   scrollbar-color: #b8cbe2 transparent;
   scrollbar-width: thin;
 }
 
 .page [data-internal-section-nav] a {
+  flex-shrink: 0;
   position: relative;
   border-radius: 5px;
   color: #52657b;
@@ -183,14 +219,6 @@
   overflow: hidden;
   background: var(--brand-blue-dark);
   color: white;
-}
-
-.imageCaption {
-  margin-block: 0;
-  padding-block: 12px;
-  color: #52657b;
-  font-size: 12px;
-  line-height: 1.65;
 }
 
 .heroImage {
@@ -279,7 +307,7 @@
 
 .heroTitle {
   margin-top: 20px;
-  font-size: clamp(36px, 4.65vw, 68px);
+  font-size: var(--type-display);
   font-weight: 650;
   letter-spacing: -.045em;
   line-height: 1.08;
@@ -290,8 +318,8 @@
   max-width: 680px;
   margin-top: 24px;
   color: #edf3fa;
-  font-size: 16px;
-  line-height: 1.85;
+  font-size: var(--type-body);
+  line-height: var(--type-body-leading);
 }
 
 .actions {
@@ -445,7 +473,7 @@
 .editorialTitle {
   max-width: 950px;
   margin-top: 18px;
-  font-size: clamp(36px, 4.4vw, 64px);
+  font-size: var(--type-display);
   font-weight: 650;
   line-height: 1.1;
   letter-spacing: -.045em;
@@ -537,8 +565,8 @@
 
   .heroDescription,
   .editorialDescription {
-    font-size: 15px;
-    line-height: 1.8;
+    font-size: var(--type-body);
+    line-height: var(--type-body-leading);
   }
 
   .actions {

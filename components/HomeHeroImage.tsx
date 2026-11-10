@@ -10,7 +10,7 @@ export function HomeHeroImage() {
   const sources = (format: "avif" | "webp") =>
     image.wide.map((variant) => `${variant[format]} ${variant.width}w`).join(", ");
   // Cover must account for height as well as width, including tall tablets.
-  const sizes = `max(100vw, ${Math.ceil(92 * image.width / image.height)}svh)`;
+  const sizes = `max(100vw, ${Math.ceil(100 * image.width / image.height)}dvh)`;
 
   return (
     <>

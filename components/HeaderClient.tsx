@@ -286,7 +286,7 @@ export function HeaderClient({
       data-header-transparent={transparent}
       className={`sticky top-0 z-50 border-b transition-all duration-500 ${
         transparent
-          ? "border-white/20 bg-transparent shadow-none"
+          ? "border-transparent bg-transparent shadow-none"
           : scrolled || (pathname === "/" && (open || megaOpen))
           ? "border-brand/[0.15] bg-white/[0.92] shadow-[0_18px_70px_rgba(25,73,145,0.10)] backdrop-blur-2xl"
           : "border-brand/[0.08] bg-white/[0.82] shadow-none backdrop-blur-xl"

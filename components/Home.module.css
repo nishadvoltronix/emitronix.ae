@@ -854,6 +854,15 @@
   .ctaActions .actions { flex-direction: column; }
 }
 
+@media (max-width: 359px) {
+  .heroCopy :is(.button, .buttonSecondary) { padding-inline: 12px; }
+  .heroCopy .button svg { display: none; }
+}
+
+@media (max-width: 767px) and (max-height: 700px) {
+  .heroStage { padding-top: 112px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home *, .home *::before, .home *::after { transition: none; }
 }

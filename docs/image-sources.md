@@ -208,7 +208,7 @@ generation, generative editing or color changes were used. Focal positions keep
 the cranes and crew visible within the existing hero layout. The superseded
 tower/hotel files and their source records remain available for other uses.
 
-## Current Home hero — real construction photographs
+## Previous Home hero — real construction photographs
 
 On 2026-10-02, the generated warehouse concept and completed villa were removed
 from the active homepage slideshow at the user's request. The first two slides
@@ -230,3 +230,29 @@ visible caption identifies the slideshow as representative
 construction photography, not evidence of Emitronix project or staff ownership.
 Superseded image files are retained for any other references. Homepage headings,
 body copy, links, slideshow behavior and image-loading priorities are unchanged.
+
+## Current Home hero — real Dubai construction photograph
+
+On 2026-11-10, the homepage hero was refreshed with a single real photograph
+to accompany the layout inspired by rtacontractor.ae. The photograph comes from
+its original licensed source, not from the reference website. It is representative
+construction imagery, not a claim that the depicted project or workers belong
+to Emitronix.
+
+- Local source: `public/images/home/dubai-construction-site.webp` (2400 x 1600).
+- Photographer: Ben Koorengevel.
+- Source page: [A high-rise building is under construction](https://unsplash.com/photos/a-high-rise-building-is-under-construction-qIymVWdmkW0).
+- Source location: Jumeirah Village Circle, Dubai, United Arab Emirates.
+- Published: 2025-04-05; camera listed by the source: Sony ILCE-7M4.
+- Original image: `https://images.unsplash.com/photo-1743819336189-71deffe7835b`.
+- License: [Unsplash License](https://unsplash.com/license), checked 2026-11-10;
+  permits commercial website use, resizing and cropping.
+- Focal position: `60% 55%`.
+
+The source photograph was downloaded at 2400 pixels wide, visually inspected,
+and encoded as WebP at quality 82 with Sharp. Only resizing and compression
+were applied; no AI generation, generative editing or color changes were used.
+`scripts/build-home-image-variants.mjs` generates the content-hashed responsive
+AVIF/WebP files and the portrait crop recorded in `data/homeImageVariants.json`.
+The static hero uses this single photograph; superseded images remain available
+for any other references.

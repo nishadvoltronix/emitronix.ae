@@ -231,7 +231,7 @@ construction photography, not evidence of Emitronix project or staff ownership.
 Superseded image files are retained for any other references. Homepage headings,
 body copy, links, slideshow behavior and image-loading priorities are unchanged.
 
-## Current Home hero — real Dubai construction photograph
+## Previous Home hero — real Dubai construction photograph
 
 On 2026-11-10, the homepage hero was refreshed with a single real photograph
 to accompany the layout inspired by rtacontractor.ae. The photograph comes from
@@ -254,5 +254,30 @@ and encoded as WebP at quality 82 with Sharp. Only resizing and compression
 were applied; no AI generation, generative editing or color changes were used.
 `scripts/build-home-image-variants.mjs` generates the content-hashed responsive
 AVIF/WebP files and the portrait crop recorded in `data/homeImageVariants.json`.
-The static hero uses this single photograph; superseded images remain available
-for any other references.
+The static hero used this single photograph before the user supplied the
+replacement image documented below. Superseded images remain available for
+any other references.
+
+## Current Home hero — user-supplied Dubai construction image
+
+On 2026-11-10, the user supplied the exact image to use for the homepage hero.
+The image shows tower cranes above a building under construction with Burj
+Khalifa and the Dubai skyline in the background.
+
+- Supplied file: `C:/Users/Nishad/Downloads/Dubai Construction Vista with Burj Khalifa.png`.
+- Original dimensions: 1672 x 941 pixels.
+- Original SHA-256: `81e2311e7767b76ee643240eedc232a4e7211e34c513c8d8df5c6ac88a8357cd`.
+- Optimized source: `public/images/home/dubai-construction-burj-khalifa.webp`
+  (1672 x 941, WebP quality 85).
+- Focal position: `65% top`, keeping the landmark's upper edge visible.
+
+The supplied image was visually inspected and encoded with Sharp at its
+original dimensions. No upscaling, generation, artistic editing or color changes
+were applied. The original file remains in the user's Downloads directory.
+The photographer, original production method and license have not been
+independently verified; this record identifies the user-supplied source without
+asserting that it is a documentary photograph or an Emitronix project.
+
+`scripts/build-home-image-variants.mjs` generates the content-hashed responsive
+AVIF/WebP files and portrait crop recorded in `data/homeImageVariants.json`.
+All prior source records and image assets are retained.

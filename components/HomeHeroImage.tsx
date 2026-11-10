@@ -2,7 +2,7 @@ import { homeHeroSlides } from "@/data/homeHeroSlides";
 import homeImageVariants from "@/data/homeImageVariants.json";
 import styles from "./Home.module.css";
 
-// A single, real photograph keeps the reference's composition steady and avoids
+// A single hero image keeps the reference's composition steady and avoids
 // downloading additional backgrounds. Derivatives are generated at build time.
 export function HomeHeroImage() {
   const photograph = homeHeroSlides[0];

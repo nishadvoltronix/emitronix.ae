@@ -1,45 +1,40 @@
 {
-  "/images/home/dubai-construction-site.webp": {
-    "sourceHash": "f53a3eed3925fbf3a1cbcbdeae18b720bc0636b3c480b5df2c78565b48579430",
-    "width": 2400,
-    "height": 1600,
-    "position": "60% 55%",
+  "/images/home/dubai-construction-burj-khalifa.webp": {
+    "sourceHash": "c8077634d9c26c11c6c7f815d67bc5e9af9f1bc01bf8854c0a297c9466fed173",
+    "width": 1672,
+    "height": 941,
+    "position": "65% top",
     "crop": {
-      "left": 672,
+      "left": 597,
       "top": 0,
-      "width": 1280,
-      "height": 1600
+      "width": 753,
+      "height": 941
     },
     "portrait": {
-      "width": 1280,
-      "avif": "/images/home-optimized/dubai-construction-site-portrait-1280-0c8946a3ac7fa232.avif",
-      "webp": "/images/home-optimized/dubai-construction-site-portrait-1280-30b5878113e8b827.webp"
+      "width": 753,
+      "avif": "/images/home-optimized/dubai-construction-burj-khalifa-portrait-753-93ad835521290c68.avif",
+      "webp": "/images/home-optimized/dubai-construction-burj-khalifa-portrait-753-5c39ba9fea0dfdc1.webp"
     },
     "wide": [
       {
         "width": 768,
-        "avif": "/images/home-optimized/dubai-construction-site-768-603225700ac3110b.avif",
-        "webp": "/images/home-optimized/dubai-construction-site-768-ab48434a67b4b18a.webp"
+        "avif": "/images/home-optimized/dubai-construction-burj-khalifa-768-418b28980e2a89a1.avif",
+        "webp": "/images/home-optimized/dubai-construction-burj-khalifa-768-c100ae0b2ee3bd83.webp"
       },
       {
         "width": 1280,
-        "avif": "/images/home-optimized/dubai-construction-site-1280-397679da261fd159.avif",
-        "webp": "/images/home-optimized/dubai-construction-site-1280-9be1340dc35dc04b.webp"
+        "avif": "/images/home-optimized/dubai-construction-burj-khalifa-1280-00948a9a71cd4361.avif",
+        "webp": "/images/home-optimized/dubai-construction-burj-khalifa-1280-ef32ca069a5493fd.webp"
       },
       {
         "width": 1600,
-        "avif": "/images/home-optimized/dubai-construction-site-1600-b4c87cf8b1daadf6.avif",
-        "webp": "/images/home-optimized/dubai-construction-site-1600-db9b7128c5096dfa.webp"
+        "avif": "/images/home-optimized/dubai-construction-burj-khalifa-1600-68c23b74662c4078.avif",
+        "webp": "/images/home-optimized/dubai-construction-burj-khalifa-1600-61429fda196fdfc6.webp"
       },
       {
-        "width": 1920,
-        "avif": "/images/home-optimized/dubai-construction-site-1920-f3f16a745398793b.avif",
-        "webp": "/images/home-optimized/dubai-construction-site-1920-db89da65ee5c6963.webp"
-      },
-      {
-        "width": 2400,
-        "avif": "/images/home-optimized/dubai-construction-site-2400-8dbc76c850eb340b.avif",
-        "webp": "/images/home-optimized/dubai-construction-site-2400-136a6cd8cdbd91e1.webp"
+        "width": 1672,
+        "avif": "/images/home-optimized/dubai-construction-burj-khalifa-1672-0a12f16620630913.avif",
+        "webp": "/images/home-optimized/dubai-construction-burj-khalifa-1672-89c4ba323adcdafb.webp"
       }
     ]
   }
